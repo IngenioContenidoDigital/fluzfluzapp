@@ -1,0 +1,72 @@
+<!--
+  Generated template for the Confirmated page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar hideBackButton="true" hide-tabs>
+    <ion-buttons left>
+      <button ion-button icon-only>
+        <ion-icon name='square'></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>CONFIRMADO</ion-title>
+    <ion-buttons right>
+    <button ion-button icon-only (click)="goTo()">
+      <ion-icon name='close' ></ion-icon>
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+
+
+<ion-content no-padding>
+  <div class="circular-image">
+    <div class="item-avatar">
+      <!--<img ng-src"{{userData.Image}}">-->
+    </div>
+    <ion-label>Hola, {{userData.userName}}!</ion-label>
+  </div>
+  <div class="ctn-float">
+    <ion-label>
+      ¡Su cuenta ha sido confirmada!
+    </ion-label>
+    
+    <div class="row">
+      <div class="row">
+        <div class="col col-50">
+          {{userData.fluzLasted}}
+          <ion-label>
+            Fluz últimos 30 días
+          </ion-label>          
+        </div>
+        <div class="col col-50">
+          {{userData.fluzTotal}}
+          <ion-label>
+            Fluz totales
+          </ion-label>          
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-50">
+          {{userData.winnerMembers}}
+          <ion-label>
+            Miembros ganadores
+          </ion-label>
+        </div>
+        <div class="col col-50">
+          ${{userData.totalSavings}}<span>COP</span>
+          <ion-label>
+            Ahorros totales
+          </ion-label>          
+        </div>
+      </div>
+    </div>
+    <div padding-vertical>
+      <button ion-button color="primary" block>COMPRAR</button>
+    </div>
+  </div>
+</ion-content>

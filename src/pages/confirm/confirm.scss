@@ -1,0 +1,34 @@
+page-confirm {
+  .text-dark {
+    @include word-wrap;
+  }
+  
+  .left {
+    text-align: left !important;
+  }
+  
+  .ctn-float{
+    padding-top: 0;
+  }
+  
+  .width-100 {
+    width: 100%;
+  }
+  
+  .confimNumber {
+    @extend .text-dark;    
+  }
+  
+  .text-input { 
+    font-size: 2.6rem;
+    text-align: center !important;
+  }
+  
+  .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
+  .item-md.item-input.input-has-focus .item-inner {
+    border-bottom-color: color($colors, gray-soft);
+    box-shadow: inset 0 -1px 0 0 color($colors, gray-soft);
+    border-bottom: 0px solid color($colors, gray-soft);
+  }
+  
+}

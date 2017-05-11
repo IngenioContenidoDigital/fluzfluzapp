@@ -1,0 +1,59 @@
+<!--
+  Generated template for the Login page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  
+  <ion-navbar hideBackButton="true" hide-tabs>
+    <ion-buttons left>
+      <button ion-button icon-only>
+        <ion-icon name='square'></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>LOGIN</ion-title>
+    <ion-buttons right>
+    <button ion-button icon-only (click)="goTo()">
+      <ion-icon name='close' ></ion-icon>
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+
+  <form [formGroup]="loginForm" class="ctn-float">
+    
+    <ion-item no-padding>
+      <ion-input type="email" (keyup)="validateInputLogin($event)" [formControl]="loginForm.controls['email']"  placeholder="Correo electrónico"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-input type="password" (keyup)="validateInputLogin($event)" [formControl]="loginForm.controls['pwd']" placeholder="Contraseña"></ion-input>
+    </ion-item>
+    
+    <div padding-vertical>
+      <button ion-button color="primary" block [disabled]="!enabledLoginButton" (click)="login(loginForm.value)">LOGIN</button>
+    </div>
+    
+    <ion-label text-center margin-bottom class="text-gray-normal">
+      ¿Olvidaste tu contraseña?
+    </ion-label>
+    
+  </form>
+  
+  <ion-label text-center>
+    <span class="text-gray-normal">¿No tienes cuenta? </span><span class="text-primary">Solicitar una invitación</span>
+  </ion-label>
+  
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-title>¿No es un miembro? Solicitar una invitación!</ion-title>
+  </ion-toolbar>
+</ion-footer>

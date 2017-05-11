@@ -1,0 +1,51 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+
+
+/* Colores */
+.dark          {color: color($colors, dark);}
+.gray-soft     {color: color($colors, gray-soft);}
+.gray-normal   {color: color($colors, gray-normal);}
+.gray-dark     {color: color($colors, gray-dark);}
+.primary       {color: color($colors, primary);}
+.secondary     {color: color($colors, secondary);}
+
+/* Textos del tema*/
+  
+  /* Colores*/
+    .text-dark        {@extend .dark;}
+    .text-gray-soft   {@extend .gray-soft;}
+    .text-gray-normal {@extend .gray-normal;}
+    .text-gray-dark   {@extend .gray-dark;}
+    .text-primary     {@extend .primary;}
+    .text-secondary   {@extend .secondary;}
+    
+  /* Mixin word-wrap */
+    @mixin word-wrap() {
+      white-space: -moz-pre-wrap; /* Firefox */
+      white-space: -o-pre-wrap;   /* Opera   */
+      white-space: pre-wrap;      /* Chrome  */
+        word-wrap: break-word;    /* IE      */
+    }
+
+/* Contenedor del tema */
+  .ctn-float {
+    margin: 20px 10px;
+    padding: 15px;
+    border: 1px solid color($colors, gray-soft);
+  }
