@@ -42,10 +42,75 @@
       white-space: pre-wrap;      /* Chrome  */
         word-wrap: break-word;    /* IE      */
     }
+    
+    @function calculateRem($size) {
+    $remSize: $size / 10px;
+    @return $remSize * 1rem;
+    }
 
+    @mixin font-size($size) {
+      font-size: $size;
+      font-size: calculateRem($size);
+    }
+    
+  /*Fuentes del tema*/
+  .font-family {
+    font-family: $font-family;
+  }
+  
+  .font-extra-small {
+    @extend .font-family;
+    @include font-size(8px);
+  }
+  
+  .font-small {
+    @extend .font-family;
+    @include font-size(14px);
+  }
+  
+  .font-normal {
+    @extend .font-family;
+    @include font-size(25px);
+  }
+  
+  .font-big {
+    @extend .font-family;
+    @include font-size(35px);
+  }
+  
+  .font-extra-big {
+    @extend .font-family;
+    @include font-size(45px);
+  }
+  
+  .font-semi-bold {
+    font-weight: 600 !important
+  }
 /* Contenedor del tema */
   .ctn-float {
     margin: 20px 10px;
     padding: 15px;
     border: 1px solid color($colors, gray-soft);
   }
+  
+
+.fluz-fluz-fluz {
+  @extend .font-extra-big;
+  color: color($colors, dorado);
+  margin-left: 5px;
+}
+
+//Titulo de las vistas
+.toolbar-title-md,
+//texto de los botones
+.button-inner {
+  @extend .font-semi-bold;
+}
+
+
+.footer {
+  .toolbar-title-md {
+    @extend .font-small;
+    text-align: center;
+  }
+}

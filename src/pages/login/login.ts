@@ -50,9 +50,12 @@ export class LoginPage {
       this.storage.set('userConfirm', false);
       this.navCtrl.push( ConfirmPage );
     }
-    else if ( valor == 'welcomePage'){
-    }
     else {
+      this.storage.get('userData').then((val) => {
+        if (val === null || val === undefined ){
+          this.storage.set('userData', false);          
+        }
+      });         
       this.navCtrl.pop();
     }
   }

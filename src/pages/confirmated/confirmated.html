@@ -8,7 +8,7 @@
   <ion-navbar hideBackButton="true" hide-tabs>
     <ion-buttons left>
       <button ion-button icon-only>
-        <ion-icon name='square'></ion-icon>
+        <i class='fluz-fluz-fluz'></i>
       </button>
     </ion-buttons>
     <ion-title text-center>CONFIRMADO</ion-title>
@@ -21,45 +21,54 @@
 </ion-header>
 
 
-
-
 <ion-content no-padding>
-  <div class="circular-image">
-    <div class="item-avatar">
-      <!--<img ng-src"{{userData.Image}}">-->
-    </div>
-    <ion-label>Hola, {{userData.userName}}!</ion-label>
+  <div class="ctn-float-img">
+    <img src="{{userData.image}}">
   </div>
-  <div class="ctn-float">
-    <ion-label>
+  <div text-center class="ctn-float">
+    <div class="spacer"></div>
+    <ion-label class="text-dark">
+      Hola, {{userData.userName}}!
+    </ion-label>
+    <br>
+    <ion-label class="text-dark">
       ¡Su cuenta ha sido confirmada!
     </ion-label>
     
-    <div class="row">
+    <div class="ctn-user-data">
       <div class="row">
         <div class="col col-50">
-          {{userData.fluzLasted}}
-          <ion-label>
+          <ion-label class="text-primary">
+            {{userData.fluzLasted}}
+          </ion-label>          
+          <ion-label class="text-gray-normal">
             Fluz últimos 30 días
           </ion-label>          
         </div>
         <div class="col col-50">
-          {{userData.fluzTotal}}
-          <ion-label>
+          <ion-label class="text-dark">
+            {{userData.fluzTotal}}
+          </ion-label>
+          <ion-label class="text-gray-normal">
             Fluz totales
           </ion-label>          
         </div>
       </div>
       <div class="row">
         <div class="col col-50">
-          {{userData.winnerMembers}}
-          <ion-label>
+          <ion-label class="text-dark">
+            {{userData.winnerMembers}}
+          </ion-label>
+          <ion-label class="text-gray-normal">
             Miembros ganadores
           </ion-label>
         </div>
         <div class="col col-50">
-          ${{userData.totalSavings}}<span>COP</span>
-          <ion-label>
+          <ion-label class="text-dark">
+            ${{userData.totalSavings}}
+            <span>COP</span>
+          </ion-label>
+          <ion-label class="text-gray-normal">
             Ahorros totales
           </ion-label>          
         </div>

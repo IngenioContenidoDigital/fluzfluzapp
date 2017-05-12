@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { Storage } from '@ionic/storage';
 import { MyAccountService } from '../../providers/myAccount.service';
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the Confirmated page.
@@ -33,7 +34,7 @@ export class ConfirmatedPage {
   }
   
   public goTo(){
-    this.navCtrl.pop();
+    this.navCtrl.setRoot(TabsPage);
   }
   
   getUserData() {
@@ -41,10 +42,8 @@ export class ConfirmatedPage {
       this.userData.userName = val.firstname;
       this.myAccount.getDataAccount(val.id).then(
         (data:any) => {
-          console.log("dentro de confirmated: "+data);
           this.userData = Object.assign(this.userData, JSON.parse(data));
           this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
-          console.log("userData: "+this.userData);      
         }
       );
     });

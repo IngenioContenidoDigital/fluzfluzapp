@@ -1,3 +1,30 @@
 page-confirmated {
-
+  .spacer {
+    height: 36px;
+  }
+  .ctn-float {
+    margin-top: 60px;
+  }
+  .ctn-float-img{
+    text-align: center;
+    height: 80px;
+    position: fixed;
+    margin-top: 30px;
+    width: 100%;
+    img {
+      height: 100%;
+      border: 5px solid #fff;
+      border-radius: 50%;
+    }
+  }
+  
+  .col {
+    text-align: center;
+  }
+  
+  .ctn-user-data {
+    margin: 20px 10px;
+    border-top: 1px solid color($colors, gray-soft);
+    border-bottom: 1px solid color($colors, gray-normal);
+  }
 }

@@ -13,11 +13,6 @@ export class MyAccountService {
   constructor(public http: Http) {}
 
   public getDataAccount(value) {
-//    console.log("\n\nEntro a getDataAccount:\nEste es el value:");
-//    console.log(value);
-//    let idCustomer = value;
-//    return this.http.get(this._url, idCustomer)
-//    .map(this.extractData);
     let params = new URLSearchParams();
       params.set('userId', value);
 
@@ -41,12 +36,4 @@ export class MyAccountService {
           );
       });
   }
-//
-//  private extractData(res: Response) {
-//    return res || { };
-//  }
-  
-  
-  
-
 }

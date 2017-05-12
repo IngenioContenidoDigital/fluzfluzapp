@@ -1,0 +1,19 @@
+<ion-navbar hideBackButton="true" hide-tabs>
+
+  <ion-buttons left>
+    <button ion-button icon-only>
+      <i class='fluz-fluz-fluz'></i>
+    </button>
+  </ion-buttons>
+
+	<ion-toolbar>
+    <ion-searchbar (input)="search($event)"></ion-searchbar>
+  </ion-toolbar>
+
+  <ion-buttons right>
+    <button ion-button icon-only (click)="goTo('CartPage')">
+      <ion-icon name='close' ></ion-icon>
+    </button>
+  </ion-buttons>
+	
+</ion-navbar>

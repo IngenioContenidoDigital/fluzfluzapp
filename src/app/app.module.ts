@@ -13,10 +13,17 @@ import { HttpModule } from '@angular/http';
   import { TabsService } from '../providers/tabs.service';
   
   /* Principales */
+  import { HeaderPage } from '../pages/header/header';
   import { AboutPage } from '../pages/about/about';
   import { ContactPage } from '../pages/contact/contact';
-  import { HomePage } from '../pages/home/home';
   import { TabsPage } from '../pages/tabs/tabs';
+  
+  /* TabsPages */
+  import { HomePage } from '../pages/home/home';
+  import { VaultPage } from '../pages/vault/vault';
+  import { RedemptionPage } from '../pages/redemption/redemption';
+  import { NetworkPage } from '../pages/network/network';
+  import { MorePage } from '../pages/more/more';
   
   /* Login */
     import { LoginPage } from '../pages/login/login';
@@ -27,10 +34,15 @@ import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     MyApp,
+    HeaderPage,
     AboutPage,
     ContactPage,
-    HomePage,
     TabsPage,
+    HomePage,
+    VaultPage,
+    RedemptionPage,
+    NetworkPage,
+    MorePage,
     LoginPage,
     ConfirmPage,
     ConfirmatedPage
@@ -46,10 +58,15 @@ import { HttpModule } from '@angular/http';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    HeaderPage,
     AboutPage,
     ContactPage,
-    HomePage,
     TabsPage,
+    HomePage,
+    VaultPage,
+    RedemptionPage,
+    NetworkPage,
+    MorePage,
     LoginPage,
     ConfirmPage,
     ConfirmatedPage

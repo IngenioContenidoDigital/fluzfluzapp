@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmService } from '../../providers/confirm.service';
 import { ConfirmatedPage } from '../confirmated/confirmated';
 import { Storage } from '@ionic/storage';
-
+import { TabsPage } from '../tabs/tabs';
  
 @Component({
   selector: 'page-confirm',
@@ -40,7 +40,7 @@ export class ConfirmPage {
   
   //Según lo que recibe, manda a alguna página.
   public goTo(){
-    this.navCtrl.pop();
+    this.navCtrl.setRoot(TabsPage);
   }
   
   //Activa la siguiente vista
