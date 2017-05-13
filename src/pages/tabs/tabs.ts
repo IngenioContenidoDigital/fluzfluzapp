@@ -7,6 +7,7 @@ import { NetworkPage } from '../network/network';
 import { MorePage } from '../more/more';
 
 @Component({
+  selector: 'page-tabs',
   templateUrl: 'tabs.html'
 })
 export class TabsPage {

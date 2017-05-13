@@ -46266,7 +46266,8 @@ ion-navbar.toolbar {
   color: #333333;
 }
 
-.gray-soft, .text-gray-soft {
+.gray-soft, .text-gray-soft, page-tabs .tabs-md .tab-button,
+page-tabs .tabs-md .tab-button-icon {
   color: #D7D7D7;
 }
 
@@ -46286,11 +46287,16 @@ ion-navbar.toolbar {
   color: #FCB018;
 }
 
+.white, page-tabs .tabs-md .tab-button[aria-selected=true],
+page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
+  color: #fff;
+}
+
 /* Textos del tema*/
 /* Colores*/
 /* Mixin word-wrap */
 /*Fuentes del tema*/
-.font-family, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, .font-small, .footer .toolbar-title-md, .font-normal, page-home .ctn-user-data .row .col, .font-big, .font-extra-big, .fluz-fluz-fluz, page-login {
+.font-family, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, .font-small, .footer .toolbar-title-md, .font-normal, page-home .ctn-user-data .row .col, .font-big, .font-extra-big, .fluz-fluz-fluz, page-login, page-tabs .tabs-md .tab-button-text {
   font-family: "Open Sans", sans-serif;
 }
 
@@ -46336,8 +46342,49 @@ ion-navbar.toolbar {
   margin-left: 5px;
 }
 
+.fluz-tienda {
+  font-size: 3rem;
+}
+
 .footer .toolbar-title-md {
   text-align: center;
+}
+
+ion-icon[class*="fluz-"] {
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: 50% 50%;
+  mask-position: 50% 50%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  background: currentColor;
+  width: 1em;
+  height: 1em;
+}
+
+ion-icon[class*="fluz-home"] {
+  -webkit-mask-image: url(../assets/icon/tabs/home.svg);
+  mask-image: url(../assets/icon/tabs/home.svg);
+}
+
+ion-icon[class*="fluz-vault"] {
+  -webkit-mask-image: url(../assets/icon/tabs/vault.svg);
+  mask-image: url(../assets/icon/tabs/vault.svg);
+}
+
+ion-icon[class*="fluz-redemption"] {
+  -webkit-mask-image: url(../assets/icon/tabs/redemption.svg);
+  mask-image: url(../assets/icon/tabs/redemption.svg);
+}
+
+ion-icon[class*="fluz-network"] {
+  -webkit-mask-image: url(../assets/icon/tabs/network.svg);
+  mask-image: url(../assets/icon/tabs/network.svg);
+}
+
+ion-icon[class*="fluz-more-3"] {
+  -webkit-mask-image: url(../assets/icon/tabs/more.svg);
+  mask-image: url(../assets/icon/tabs/more.svg);
 }
 
 page-confirm .text-dark, page-confirm .confimNumber {
@@ -46413,6 +46460,11 @@ page-header .searchbar-md .searchbar-input {
   box-shadow: none;
 }
 
+page-header .searchbar-md .searchbar-input {
+  font-size: 10px;
+  font-size: 1rem;
+}
+
 page-home .ctn-user-data {
   background-color: #f2f2f2;
 }
@@ -46443,4 +46495,18 @@ page-login .item-md.item-input.input-has-focus .item-inner {
   border-bottom-color: #D7D7D7;
   box-shadow: inset 0 -1px 0 0 #D7D7D7;
   border-bottom: 0px solid #D7D7D7;
+}
+
+page-tabs .tabs-md .tabbar {
+  background-color: #E1493A;
+}
+
+page-tabs .tabs-md .tab-button[aria-selected=true],
+page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
+  opacity: 1;
+}
+
+page-tabs .tabs-md .tab-button-text {
+  font-size: 9px;
+  font-size: 0.9rem;
 }

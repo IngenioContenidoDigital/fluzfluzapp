@@ -4,4 +4,7 @@ page-header {
     text-align: center;
     box-shadow: none;
   }
+  .searchbar-md .searchbar-input {
+    @include font-size(10px);
+  }
 }

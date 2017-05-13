@@ -4,6 +4,8 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
+import { SearchModalPage } from '../pages/search-modal/search-modal';
+
 
 /* Pages */
   
@@ -45,7 +47,8 @@ import { HttpModule } from '@angular/http';
     MorePage,
     LoginPage,
     ConfirmPage,
-    ConfirmatedPage
+    ConfirmatedPage,
+    SearchModalPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,8 @@ import { HttpModule } from '@angular/http';
     MorePage,
     LoginPage,
     ConfirmPage,
-    ConfirmatedPage
+    ConfirmatedPage,
+    SearchModalPage
   ],
   providers: [
     StatusBar,

@@ -7,12 +7,12 @@
   </ion-buttons>
 
 	<ion-toolbar>
-    <ion-searchbar (input)="search($event)"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchTerm" (input)="search($event)" (click)="openModalSearch()" placeholder="Buscar por tienda"></ion-searchbar>
   </ion-toolbar>
 
   <ion-buttons right>
     <button ion-button icon-only (click)="goTo('CartPage')">
-      <ion-icon name='close' ></ion-icon>
+      <i class='fluz-tienda'></i>
     </button>
   </ion-buttons>
 	

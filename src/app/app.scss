@@ -24,6 +24,7 @@
 .gray-dark     {color: color($colors, gray-dark);}
 .primary       {color: color($colors, primary);}
 .secondary     {color: color($colors, secondary);}
+.white         {color: color($colors, white);}
 
 /* Textos del tema*/
   
@@ -93,11 +94,15 @@
     border: 1px solid color($colors, gray-soft);
   }
   
-
+//Logo fluzfluz Header
 .fluz-fluz-fluz {
   @extend .font-extra-big;
   color: color($colors, dorado);
   margin-left: 5px;
+}
+//Logo tienda
+.fluz-tienda {
+  font-size: 3rem;
 }
 
 //Titulo de las vistas
@@ -113,4 +118,39 @@
     @extend .font-small;
     text-align: center;
   }
+}
+
+
+
+// Custom icons
+// Overriding the ion-icon behavior
+// All custom icons will start with "appname-" prefix
+ion-icon {
+    &[class*="fluz-"] {
+        // Instead of using the font-based icons
+        // We're applying SVG masks
+        mask-size: contain;
+        mask-position: 50% 50%;
+        mask-repeat: no-repeat;
+        background: currentColor;
+        width: 1em;
+        height: 1em;
+    }
+    // custom icons
+      //Tabs
+        &[class*="fluz-home"] {
+         mask-image: url(../assets/icon/tabs/home.svg);
+        }
+        &[class*="fluz-vault"] {
+         mask-image: url(../assets/icon/tabs/vault.svg);
+        }
+        &[class*="fluz-redemption"] {
+         mask-image: url(../assets/icon/tabs/redemption.svg);
+        }
+        &[class*="fluz-network"] {
+         mask-image: url(../assets/icon/tabs/network.svg);
+        }
+        &[class*="fluz-more-3"] {
+         mask-image: url(../assets/icon/tabs/more.svg);
+        }
 }
