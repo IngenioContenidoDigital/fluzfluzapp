@@ -7,4 +7,8 @@ page-header {
   .searchbar-md .searchbar-input {
     @include font-size(10px);
   }
+  
+  .fluz-left-arrow {
+    @extend .font-normal;
+  }
 }

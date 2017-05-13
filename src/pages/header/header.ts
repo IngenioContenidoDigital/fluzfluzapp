@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ModalController } from 'ionic-angular';
+import { ModalController, ViewController } from 'ionic-angular';
 import { SearchModalPage } from '../search-modal/search-modal';
 import { SearchService } from '../../providers/search.service';
+import { TabsPage } from '../tabs/tabs';
 
 
 /**
@@ -27,7 +28,7 @@ export class HeaderPage {
   @Output()
   public updateSearchData: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService, public viewCtrl: ViewController) {
     this.modalShow = navParams.get('modalShow') ? navParams.get('modalShow') : this.modalShow;
   }
   
@@ -39,7 +40,16 @@ export class HeaderPage {
   }
   
   goTo(value:any){
-    console.log("Voy a: "+value);
+    if( value === "CartPage" ){
+      console.log("Voy a carrito");
+//      this.navCtrl.push( CartPage );
+    }
+    else {
+      console.log("Su merced esta saliendo");
+      this.navCtrl.setRoot(TabsPage);
+//      this.viewCtrl.dismiss();
+//      this.navCtrl.pop();
+    }
   }
   
   openModalSearch(){

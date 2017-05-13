@@ -46296,7 +46296,7 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
 /* Colores*/
 /* Mixin word-wrap */
 /*Fuentes del tema*/
-.font-family, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, .font-small, .footer .toolbar-title-md, .font-normal, page-home .ctn-user-data .row .col, .font-big, .font-extra-big, .fluz-fluz-fluz, page-login, page-tabs .tabs-md .tab-button-text {
+.font-family, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, .font-small, .footer .toolbar-title-md, .font-normal, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, .font-big, .font-extra-big, .fluz-fluz-fluz, page-login, page-tabs .tabs-md .tab-button-text {
   font-family: "Open Sans", sans-serif;
 }
 
@@ -46310,7 +46310,7 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
   font-size: 1.4rem;
 }
 
-.font-normal, page-home .ctn-user-data .row .col {
+.font-normal, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col {
   font-size: 25px;
   font-size: 2.5rem;
 }

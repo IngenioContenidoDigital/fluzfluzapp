@@ -1,13 +1,17 @@
+
 <ion-navbar hideBackButton="true" hide-tabs>
 
   <ion-buttons left>
-    <button ion-button icon-only>
-      <i class='fluz-fluz-fluz'></i>
+    <button ion-button icon-only *ngIf="modalShow!==true">
+      <i  class='fluz-fluz-fluz'></i>
+    </button>
+    <button ion-button icon-only (click)="goTo()" *ngIf="modalShow===true">
+      <i class='fluz-left-arrow'></i>
     </button>
   </ion-buttons>
 
 	<ion-toolbar>
-    <ion-searchbar [(ngModel)]="searchTerm" (input)="search($event)" (click)="openModalSearch()" placeholder="Buscar por tienda"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchTerm" (input)="search($event)" (click)="openModalSearch()" #input placeholder="Buscar por tienda"></ion-searchbar>
   </ion-toolbar>
 
   <ion-buttons right>
