@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ViewController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
+import { ProductFatherPage } from '../product-father/product-father';
 
 @Component({
   selector: 'page-search-modal',
@@ -9,8 +10,12 @@ import { TabsService } from '../../providers/tabs.service';
 })
 export class SearchModalPage {
   
+  public backButtom:any = true;
   
-  public searchData:any = {};
+  @Output()
+  public showBackButton: EventEmitter<string> = new EventEmitter<string>();
+  
+  public searchResult:any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController, public tabsService: TabsService) {
   }
@@ -23,8 +28,15 @@ export class SearchModalPage {
     this.viewCtrl.dismiss();
   }
   
-  updateSearchData(searchData:string) {
-    this.searchData = searchData; 
+  updateSearchData(searchData:any) {
+    this.searchResult = searchData;
+  }
+  
+  openItem(item:any) {
+    this.showBackButton.emit(this.backButtom);
+    this.navCtrl.push(ProductFatherPage,{
+      manufacturer: item
+    });
   }
   
   

@@ -1,0 +1,35 @@
+page-product-child {
+  .ctn-title-gray{
+    padding-top: 20px;
+    .name{
+      margin-top: 0px;
+    }
+    background-color: color($colors, background-soft);
+  }
+  .image-manufacturer {
+    width: 30%;
+  }
+  .negative-margin{
+    margin-top: -35px;
+    background-color: color($colors, white);
+  }
+  .col {
+    padding: 5px 0px;
+  }
+  .button-md{
+    height: 2.4rem;
+    margin: 0px;
+  }
+  .online {
+    margin: 0px;
+  }
+  .description {
+    margin: 10px 0;
+  }
+  .spacer-bottom{
+    margin-bottom: 10px;
+  }
+  .details-product {
+    margin: 5px 0;
+  }
+}

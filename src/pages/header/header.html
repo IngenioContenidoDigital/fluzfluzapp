@@ -2,10 +2,14 @@
 <ion-navbar hideBackButton="true" hide-tabs>
 
   <ion-buttons left>
-    <button ion-button icon-only *ngIf="modalShow!==true">
+    
+    <button ion-button icon-only *ngIf="modalShow!==true && backButtonShow!==true">
       <i  class='fluz-fluz-fluz'></i>
     </button>
-    <button ion-button icon-only (click)="goTo()" *ngIf="modalShow===true">
+    <button ion-button icon-only (click)="goTo()" *ngIf="modalShow===true && backButtonShow!==true">
+      <i class='fluz-left-arrow'></i>
+    </button>
+    <button ion-button icon-only (click)="goTo('Back')" *ngIf="backButtonShow===true">
       <i class='fluz-left-arrow'></i>
     </button>
   </ion-buttons>

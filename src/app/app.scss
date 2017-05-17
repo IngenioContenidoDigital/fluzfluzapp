@@ -29,12 +29,12 @@
 /* Textos del tema*/
   
   /* Colores*/
-    .text-dark        {@extend .dark;}
-    .text-gray-soft   {@extend .gray-soft;}
-    .text-gray-normal {@extend .gray-normal;}
-    .text-gray-dark   {@extend .gray-dark;}
-    .text-primary     {@extend .primary;}
-    .text-secondary   {@extend .secondary;}
+    .text-dark        {@extend .font-family; @extend .dark;}
+    .text-gray-soft   {@extend .font-family; @extend .gray-soft;}
+    .text-gray-normal {@extend .font-family; @extend .gray-normal;}
+    .text-gray-dark   {@extend .font-family; @extend .gray-dark;}
+    .text-primary     {@extend .font-family; @extend .primary;}
+    .text-secondary   {@extend .font-family; @extend .secondary;}
     
   /* Mixin word-wrap */
     @mixin word-wrap() {

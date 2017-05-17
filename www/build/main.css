@@ -46296,7 +46296,7 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
 /* Colores*/
 /* Mixin word-wrap */
 /*Fuentes del tema*/
-.font-family, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, .font-small, .footer .toolbar-title-md, .font-normal, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, .font-big, .font-extra-big, .fluz-fluz-fluz, page-login, page-tabs .tabs-md .tab-button-text {
+.font-family, .text-dark, page-confirm .confimNumber, .text-gray-soft, .text-gray-normal, .text-gray-dark, .text-primary, .text-secondary, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, .font-small, .footer .toolbar-title-md, .font-normal, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, .font-big, .font-extra-big, .fluz-fluz-fluz, page-login, page-tabs .tabs-md .tab-button-text {
   font-family: "Open Sans", sans-serif;
 }
 
@@ -46495,6 +46495,77 @@ page-login .item-md.item-input.input-has-focus .item-inner {
   border-bottom-color: #D7D7D7;
   box-shadow: inset 0 -1px 0 0 #D7D7D7;
   border-bottom: 0px solid #D7D7D7;
+}
+
+page-product-child .ctn-title-gray {
+  padding-top: 20px;
+  background-color: #f2f2f2;
+}
+
+page-product-child .ctn-title-gray .name {
+  margin-top: 0px;
+}
+
+page-product-child .image-manufacturer {
+  width: 30%;
+}
+
+page-product-child .negative-margin {
+  margin-top: -35px;
+  background-color: #fff;
+}
+
+page-product-child .col {
+  padding: 5px 0px;
+}
+
+page-product-child .button-md {
+  height: 2.4rem;
+  margin: 0px;
+}
+
+page-product-child .online {
+  margin: 0px;
+}
+
+page-product-child .description {
+  margin: 10px 0;
+}
+
+page-product-father .image-manufacturer {
+  width: 35%;
+}
+
+page-product-father .col {
+  padding: 5px;
+}
+
+page-product-father .col .label {
+  margin: 5px 0px;
+}
+
+page-product-father .text-primary {
+  margin-right: 0px;
+}
+
+page-product-father .font-extra-small, page-product-father page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-product-father .text-gray-normal {
+  margin: 0;
+}
+
+page-search-modal .col {
+  padding: 5px;
+}
+
+page-search-modal .col .label {
+  margin: 5px 0px;
+}
+
+page-search-modal .text-primary {
+  margin-right: 0px;
+}
+
+page-search-modal .font-extra-small, page-search-modal page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-search-modal .text-gray-normal {
+  margin: 0;
 }
 
 page-tabs .tabs-md .tabbar {

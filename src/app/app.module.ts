@@ -32,7 +32,13 @@ import { SearchModalPage } from '../pages/search-modal/search-modal';
     import { ConfirmPage } from '../pages/confirm/confirm';
     import { ConfirmatedPage } from '../pages/confirmated/confirmated';
 
-
+  /* Product */
+    import { ProductFatherPage } from '../pages/product-father/product-father';
+    import { ProductChildPage } from '../pages/product-child/product-child';
+  
+  /* Carrito */
+    import { CartPage } from '../pages/cart/cart';
+    
 @NgModule({
   declarations: [
     MyApp,
@@ -48,7 +54,10 @@ import { SearchModalPage } from '../pages/search-modal/search-modal';
     LoginPage,
     ConfirmPage,
     ConfirmatedPage,
-    SearchModalPage
+    SearchModalPage,
+    ProductFatherPage,
+    ProductChildPage,
+    CartPage
   ],
   imports: [
     BrowserModule,
@@ -73,7 +82,10 @@ import { SearchModalPage } from '../pages/search-modal/search-modal';
     LoginPage,
     ConfirmPage,
     ConfirmatedPage,
-    SearchModalPage
+    SearchModalPage,
+    ProductFatherPage,
+    ProductChildPage,
+    CartPage
   ],
   providers: [
     StatusBar,

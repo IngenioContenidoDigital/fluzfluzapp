@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ModalController, ViewController } from 'ionic-angular';
 import { SearchModalPage } from '../search-modal/search-modal';
+import { CartPage } from '../cart/cart';
 import { SearchService } from '../../providers/search.service';
 import { TabsPage } from '../tabs/tabs';
 
@@ -24,31 +25,36 @@ export class HeaderPage {
   public items: any;
   
   public searchData:any;
+  public backButtonShow:any = false;
     
   @Output()
   public updateSearchData: EventEmitter<string> = new EventEmitter<string>();
-
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService, public viewCtrl: ViewController) {
     this.modalShow = navParams.get('modalShow') ? navParams.get('modalShow') : this.modalShow;
+    this.backButtonShow = this.backButtonShow ? this.backButtonShow : false;
   }
   
   search(){
-    this.searchService.search( this.searchTerm ).then((data) => {
+    this.searchService.search( this.searchTerm, '1' ).then((data) => {
       this.searchData = data;
       this.updateSearchData.emit(this.searchData);
     });
   }
   
+  showBackButton(value:any){
+    this.backButtonShow = value;
+  }
+  
   goTo(value:any){
     if( value === "CartPage" ){
-      console.log("Voy a carrito");
-//      this.navCtrl.push( CartPage );
+      this.navCtrl.push( CartPage );
+    }
+    else if ( value === "Back"){
+      this.navCtrl.pop();
     }
     else {
-      console.log("Su merced esta saliendo");
       this.navCtrl.setRoot(TabsPage);
-//      this.viewCtrl.dismiss();
-//      this.navCtrl.pop();
     }
   }
   
