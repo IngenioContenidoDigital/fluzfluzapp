@@ -17,7 +17,7 @@
     </div>
   </div>
   <ion-grid class="negative-margin">
-    <ion-row>
+    <ion-row class="padding-h-5">
       <ion-col>
         <ion-label text-left class="font-small text-dark font-semi-bold description">Descripción +</ion-label>
       </ion-col>
@@ -27,36 +27,36 @@
     </ion-row>
   </ion-grid>
   <ion-grid class="font-extra-small text-dark font-semi-bold">
-    <ion-row >
+    <ion-row class="padding-h-5 table-titles">
       <ion-col col-3 text-left>VALOR EN TIENDA</ion-col>
       <ion-col col-2 text-center>%AHORRO</ion-col>
       <ion-col text-center>FLUZ A RECIBIR</ion-col>
       <ion-col text-center>PRECIO EN FLUZ</ion-col>
       <ion-col col-2 text-right>PRECIO</ion-col>
     </ion-row>
-    <div  *ngFor="let item of productChild.result">
-      <ion-row class="spacer-bottom">
+    <div  *ngFor="let item of productChild.result" class="border-b">
+      <ion-row class="padding-h-5 margin-t-5 font-more-small">
         <ion-col col-3 text-left>COP ${{item.c_price}}</ion-col>
         <ion-col col-2 text-center>{{item.c_percent_save}}%</ion-col>
         <ion-col text-center>+{{item.c_win_fluz}}</ion-col>
         <ion-col text-center>-{{item.c_price_fluz}}</ion-col>
         <ion-col col-2 text-right>${{item.c_price}}</ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row class="spacer-bottom padding-h-5">
         <ion-label class="text-gray-normal details-product">Detalles +</ion-label>
-        <button ion-button item-right color="primary" class="font-extra-small">COMPRAR</button>
+        <button ion-button item-right color="primary" class="font-extra-small" (click)="addToCart(item.c_id_product)">COMPRAR</button>
       </ion-row>
     </div>
   </ion-grid>
   <br>
-  <ion-label></ion-label>
+  <ion-label class="font-small font-semi-bold text-dark title-instruc">Instrucciones Bonos</ion-label>
   
-  <div padding>
+  <div no-padding>
     <ion-segment [(ngModel)]="inform">
-      <ion-segment-button value="instructions">
+      <ion-segment-button value="instructions" no-padding>
         Instrucciones Bonos
       </ion-segment-button>
-      <ion-segment-button value="terms">
+      <ion-segment-button value="terms" no-padding>
         Terminos y Condiciones
       </ion-segment-button>
     </ion-segment>
@@ -65,13 +65,14 @@
   <div [ngSwitch]="inform">
     <ion-list *ngSwitchCase="'instructions'">
       <ion-item>
-        {{intructions}}       
+        <div class="inner-html"[innerHTML] = "'<p>' + intructions + '</p>'"></div>
+        <!--{{intructions}}-->       
       </ion-item>
     </ion-list>
 
     <ion-list *ngSwitchCase="'terms'">
       <ion-item>
-        {{terms}}
+        <div class="inner-html" [innerHTML] = "'<p>' + terms + '</p>'"></div>
       </ion-item>
     </ion-list>
   </div>

@@ -39,13 +39,15 @@ export class ConfirmatedPage {
   
   getUserData() {
     this.storage.get('userData').then((val) => {
-      this.userData.userName = val.firstname;
-      this.myAccount.getDataAccount(val.id).then(
-        (data:any) => {
-          this.userData = Object.assign(this.userData, JSON.parse(data));
-          this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
-        }
-      );
+      if( val != null && val != '' && val != undefined ){
+        this.userData.userName = val.firstname;
+        this.myAccount.getDataAccount(val.id).then(
+          (data:any) => {
+            this.userData = Object.assign(this.userData, JSON.parse(data));
+            this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
+          }
+        );
+      }
     });
   }
 }

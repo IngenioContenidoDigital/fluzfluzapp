@@ -32,4 +32,45 @@ page-product-child {
   .details-product {
     margin: 5px 0;
   }
+  .title-instruc {
+    margin: 5px;
+  }
+  .grid {
+    padding: 0px;
+  }
+  .table-titles {
+    @extend .background-soft;
+    padding: 10px 5px;
+  }
+  .item-inner{
+    .label-md {
+      margin: 0px;
+    }
+  }
+  .inner-html{
+    white-space: normal !important;
+    span, li {
+      @extend .font-more-small;
+      @extend .text-dark;
+      list-style-type: none;
+    }
+    li {
+      padding-bottom: 10px;
+    }
+    ul{
+      padding: 0px;
+    }
+    
+  }
+  
+  .segment-md .segment-button {
+    @extend .text-dark;
+    background-color: color($colors, background-soft);
+    &.segment-activated{
+      border-color: #E1493A;
+      opacity: 1;
+      color: #E1493A;
+      border-bottom-width: 2px;
+    }
+  }
 }

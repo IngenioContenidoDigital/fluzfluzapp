@@ -15,6 +15,7 @@ import { MyAccountService } from '../../providers/myAccount.service';
 export class HomePage {
   
   public userData:any = {};
+  public showHomeUserData:any = false;
   
   constructor(
     public navCtrl: NavController, public storage: Storage, public splashScreen: SplashScreen, public myAccount: MyAccountService
@@ -59,6 +60,7 @@ export class HomePage {
     this.storage.get('userData').then((val) => {
       if ( val !== false ){
         if (val === null || val === undefined ){
+          this.showHomeUserData = false;
           this.goTo("LoginPage");
         }
       }
@@ -69,13 +71,20 @@ export class HomePage {
   
   getUserData() {
     this.storage.get('userData').then((val) => {
-      this.userData.userName = val.firstname;
-      this.myAccount.getDataAccount(val.id).then(
-        (data:any) => {
-          this.userData = Object.assign(this.userData, JSON.parse(data));
-          this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
-        }
-      );
+      if( val != null && val != '' && val != undefined ){
+        this.userData.userName = val.firstname;
+        this.myAccount.getDataAccount(val.id).then(
+          (data:any) => {
+            this.userData = Object.assign(this.userData, JSON.parse(data));
+            this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
+          }
+        );
+      }
     });
   }
+  
+  updateShowDataUser(value:any){
+    this.showHomeUserData = value;
+  }
+  
 }

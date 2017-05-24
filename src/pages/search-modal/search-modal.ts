@@ -30,6 +30,7 @@ export class SearchModalPage {
   
   updateSearchData(searchData:any) {
     this.searchResult = searchData;
+    console.log(this.searchResult);
   }
   
   openItem(item:any) {

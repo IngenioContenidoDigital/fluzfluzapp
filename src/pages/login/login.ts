@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
@@ -27,6 +27,10 @@ export class LoginPage {
 
   tabBarElement: any;
   loginForm: FormGroup;
+  
+  @Output()
+  public updateShowDataUser: EventEmitter<boolean> = new EventEmitter<boolean>();
+  public showDataUser = true;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, private loginService:LoginService, public storage: Storage, public alertCtrl: AlertController, public tabsService: TabsService) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
@@ -94,13 +98,14 @@ export class LoginPage {
                   }
                   else {
                     //manda a home.
-                    this.goTo("");                    
+                    this.goTo("");
                   }
                 });
               }
               //Si no son iguales, manda a confirmar la cuenta.
               else {
                 this.storage.set('userData', JSON.parse(success._body));
+                this.storage.set('cart', '');
                 this.goTo("confirmPage");
                 this.setUserId(success._body);
               }
@@ -112,6 +117,7 @@ export class LoginPage {
               this.setUserId(success._body);
             }
           });
+          this.updateShowDataUser.emit(this.showDataUser);
         }
         //Si no están bien los datos le muestra una alerta
         else {
