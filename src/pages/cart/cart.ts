@@ -76,9 +76,13 @@ export class CartPage {
           this.storage.set('cart', JSON.parse(success._body));
           setTimeout(()=>{ this.updateDataView() }, 100);
         }
+        if(success.status === 204) {
+          this.storage.set('cart', 'null');
+          setTimeout(()=>{ this.updateDataView() }, 100);
+        }
       },
       error =>{
-        console.log(error)
+        console.log(error);
       }
     );
   }
@@ -87,7 +91,7 @@ export class CartPage {
   updateDataView () {
     this.storage.get('cart').then((val) => {
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
-      this.products = ( val != undefined && val != null && val != '' ) ? val.products : {};
+      this.products = ( val != undefined && val != null && val != '' ) ? val.products : [];
     });
   }
 }

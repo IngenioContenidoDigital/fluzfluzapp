@@ -1,57 +1,48 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, Slides } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { ConfirmPage } from '../confirm/confirm';
-import { ConfirmatedPage } from '../confirmated/confirmated';
 import { Storage } from '@ionic/storage';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { MyAccountService } from '../../providers/myAccount.service';
+import { HomeService } from '../../providers/home.service';
+import { CategoryService } from '../../providers/category.service';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [MyAccountService]
+  providers: [MyAccountService, HomeService, CategoryService]
 })
 export class HomePage {
   
   public userData:any = {};
   public showHomeUserData:any = false;
+  public bannerData:any = {};
+  public categoryFatherData:any = [];
+  public categoryWithOutFatherData:any = [];
+  public backgroundDefault:any = "https://s3.amazonaws.com/imagenes-fluzfluz/c/3-category_default.jpg";
+  
+    
+  @ViewChild(Slides) slides: Slides;
   
   constructor(
-    public navCtrl: NavController, public storage: Storage, public splashScreen: SplashScreen, public myAccount: MyAccountService
+    public navCtrl: NavController, public storage: Storage, public splashScreen: SplashScreen, public myAccount: MyAccountService, public home: HomeService, public categoryService: CategoryService
   ) {}
   
-  public goToLogin() {
-    this.navCtrl.push( LoginPage );
-  }
-  
-  public goToConfirm() {
-    this.navCtrl.push( ConfirmPage );
-  }
-    
-  public goToConfirmated() {
-    this.navCtrl.push( ConfirmatedPage );
-  }
-  
   goTo(value:any) {
-    
     switch (value){
-      
       case "ConfirmPage": {
         this.navCtrl.push( ConfirmPage );
         break;
       }
-      
       case "LoginPage": {
         this.navCtrl.push( LoginPage );
         break;
       }
-      
       default: {
         this.navCtrl.pop();        
         break;
       }
-      
     }
   }
    
@@ -60,14 +51,20 @@ export class HomePage {
     this.storage.get('userData').then((val) => {
       if ( val !== false ){
         if (val === null || val === undefined ){
-          this.showHomeUserData = false;
+          this.updateShowDataUser(false);
           this.goTo("LoginPage");
         }
       }
     });
-    this.getUserData();
+    setTimeout(()=>{  
+      this.getUserData();
+      this.getBannerData();
+      this.updateShowDataUser(true);
+      this.getCategoryWithFatherData();
+      this.getCategoryWithOutFatherData();
+    }, 100);
+//    this.setSlide();
   }
-  
   
   getUserData() {
     this.storage.get('userData').then((val) => {
@@ -83,8 +80,38 @@ export class HomePage {
     });
   }
   
+  getBannerData() {
+    this.home.getBanner().then(
+      (data:any) => {
+        this.bannerData = data.result;
+        console.log( this.bannerData );
+      }
+    );
+  }
+  
   updateShowDataUser(value:any){
     this.showHomeUserData = value;
   }
+  
+  getCategoryWithFatherData() {
+    this.categoryService.getCategory( 1 ).then(
+      (data:any) => {
+        this.categoryFatherData = data.result;
+        console.log("categoryFatherData:");
+        console.log( this.categoryFatherData );
+      }
+    );
+  }
+  
+  getCategoryWithOutFatherData(){
+    this.categoryService.getCategory( 2 ).then(
+      (data:any) => {
+        this.categoryWithOutFatherData = data.result;
+        console.log("categoryWithOutFatherData:");
+        console.log( this.categoryWithOutFatherData );
+      }
+    );
+  }
+  
   
 }

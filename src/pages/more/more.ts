@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { LoginPage } from '../login/login';
+import { ConfirmPage } from '../confirm/confirm';
+import { ConfirmatedPage } from '../confirmated/confirmated';
+
 
 /**
  * Generated class for the More page.
@@ -19,5 +23,32 @@ export class MorePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad More');
   }
-
+  
+  goTo(value:any) {
+    
+    switch (value){
+      
+      case "ConfirmPage": {
+        this.navCtrl.push( ConfirmPage );
+        break;
+      }
+      
+      case "LoginPage": {
+        this.navCtrl.push( LoginPage );
+        break;
+      }
+      
+      case "ConfirmatedPage": {
+        this.navCtrl.push( ConfirmatedPage );
+        break;
+      }
+      
+      default: {
+        this.navCtrl.pop();        
+        break;
+      }
+      
+    }
+  }
+  
 }

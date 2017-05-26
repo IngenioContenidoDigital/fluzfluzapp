@@ -42,10 +42,56 @@
     </ion-grid>
       
   </div> 
-  <!--Botones de prueba-->
   
-  <button full ion-button color="secondary" (click)="goToLogin()">Login</button> 
-  <button full ion-button color="secondary" (click)="goToConfirm()">Confirm</button> 
-  <button full ion-button color="secondary" (click)="goToConfirmated()">Confirm</button>
+  
+  <div class="card-background-page">
+    <ion-slides [autoplay]="4000" [loop]="true"  [speed]="300" [pager]="true" *ngIf="bannerData.length > 1">
+      <ion-slide *ngFor="let slide of bannerData" >
+        <ion-card>
+          <img src="{{slide.b_img}}"/>            
+          <div class="card-title"[innerHTML] = "slide.b_name"></div>
+        </ion-card>        
+      </ion-slide>
+    </ion-slides>
+  </div>
+  
+  <ion-card class="ctn-category" *ngFor="let category of categoryFatherData">
+    <ion-card-header>
+      <ion-row>
+        <ion-col text-left class="title">{{category.name}}</ion-col>
+        <ion-col text-right class="title-view-all font-semi-bold">Ver Todo</ion-col>
+      </ion-row>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-slides [loop]="true" [slidesPerView]="3" [spaceBetween]="10" [speed]="300">
+        <ion-slide *ngFor="let products of category.products">
+          <div class="ctn-product-category-img">
+            <img src="{{products.image}}">
+          </div>
+          <ion-label class="title-product">{{products.name}}</ion-label>
+          <p class="text-product">Gana hasta {{products.pf_points}} Fluz</p>
+        </ion-slide>
+      </ion-slides>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-grid class="ctn-ctgry-final">
+    <ion-row>
+      <ion-col text-left class="title-ctgry">CATEGORIAS</ion-col>
+      <ion-col text-right class="title-view-all font-semi-bold">Ver Todo</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6 *ngFor="let categories of categoryWithOutFatherData">
+        <ion-card>
+          <div class="ctn-category-img" [ngStyle]="{'background-image':'url(' + categories.img_category + ')'}">
+          <!--<div class="ctn-category-img" [ngStyle]="{'background-image':'url(' + backgroundDefault + ')'}">-->
+          </div>
+          <ion-card-title class="title-ctgry">
+            {{categories.name}}
+          </ion-card-title>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   
 </ion-content>
