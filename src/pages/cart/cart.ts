@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { CartService } from '../../providers/cart.service';
+import { CheckoutPage } from '../checkout/checkout';
 
 /**
  * Generated class for the Cart page.
@@ -77,8 +78,8 @@ export class CartPage {
           setTimeout(()=>{ this.updateDataView() }, 100);
         }
         if(success.status === 204) {
-          this.storage.set('cart', 'null');
-          setTimeout(()=>{ this.updateDataView() }, 100);
+          this.storage.set('cart', 'null'); 
+         setTimeout(()=>{ this.updateDataView() }, 100);
         }
       },
       error =>{
@@ -87,11 +88,25 @@ export class CartPage {
     );
   }
   
-  
   updateDataView () {
     this.storage.get('cart').then((val) => {
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
       this.products = ( val != undefined && val != null && val != '' ) ? val.products : [];
     });
+  }
+  
+  goTo(value) {
+    switch (value){
+      case "checkoutPage": {
+        this.navCtrl.push( CheckoutPage,{
+          cart: this.cart
+        });
+        break;
+      }
+      default: {
+        this.navCtrl.pop();        
+        break;
+      }
+    }
   }
 }

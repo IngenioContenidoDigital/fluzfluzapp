@@ -9,6 +9,8 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class LoginService {
+  
+  public response:any;
 
   constructor(private http: Http) { }
 
@@ -36,6 +38,25 @@ export class LoginService {
     }
     return Observable.throw(errMsg);
   }
-
+  
+  public logout() {
+    // No tiene los datos todavía
+    return new Promise(resolve => {
+      // Estamos utilizando el proveedor Angular HTTP para solicitar los datos,
+      // Luego en la respuesta, mapeará los datos JSON a un objeto JS analizado.
+      // A continuación, procesamos los datos y resolvemos la promesa con los nuevos datos.
+      this.http.get(WS_BASE+'logout')
+        .map(res => res.json())
+        .subscribe(
+          data => {
+            resolve( data );
+          },
+          (err:Response) => {
+            this.response  = err.json();
+            resolve(this.response );
+          }
+        );
+    });
+  }
 }
 

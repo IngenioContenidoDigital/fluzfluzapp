@@ -51,15 +51,19 @@ export class HomePage {
     this.storage.get('userData').then((val) => {
       if ( val !== false ){
         if (val === null || val === undefined ){
-          this.updateShowDataUser(false);
           this.goTo("LoginPage");
+        }
+        if (val === null || val === undefined || val == false){
+          this.updateShowDataUser(false);
+        }
+        else {
+          this.updateShowDataUser(true);          
         }
       }
     });
     setTimeout(()=>{  
       this.getUserData();
       this.getBannerData();
-      this.updateShowDataUser(true);
       this.getCategoryWithFatherData();
       this.getCategoryWithOutFatherData();
     }, 100);
@@ -84,7 +88,6 @@ export class HomePage {
     this.home.getBanner().then(
       (data:any) => {
         this.bannerData = data.result;
-        console.log( this.bannerData );
       }
     );
   }
@@ -97,8 +100,6 @@ export class HomePage {
     this.categoryService.getCategory( 1 ).then(
       (data:any) => {
         this.categoryFatherData = data.result;
-        console.log("categoryFatherData:");
-        console.log( this.categoryFatherData );
       }
     );
   }
@@ -107,8 +108,6 @@ export class HomePage {
     this.categoryService.getCategory( 2 ).then(
       (data:any) => {
         this.categoryWithOutFatherData = data.result;
-        console.log("categoryWithOutFatherData:");
-        console.log( this.categoryWithOutFatherData );
       }
     );
   }

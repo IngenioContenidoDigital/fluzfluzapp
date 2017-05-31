@@ -38,6 +38,8 @@ import { SearchModalPage } from '../pages/search-modal/search-modal';
   
   /* Carrito */
     import { CartPage } from '../pages/cart/cart';
+    import { CheckoutPage } from '../pages/checkout/checkout';
+    import { PaymentFluzPage } from '../pages/paymentfluz/paymentfluz';
     
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { SearchModalPage } from '../pages/search-modal/search-modal';
     SearchModalPage,
     ProductFatherPage,
     ProductChildPage,
-    CartPage
+    CartPage,
+    CheckoutPage,
+    PaymentFluzPage
   ],
   imports: [
     BrowserModule,
@@ -85,7 +89,9 @@ import { SearchModalPage } from '../pages/search-modal/search-modal';
     SearchModalPage,
     ProductFatherPage,
     ProductChildPage,
-    CartPage
+    CartPage,
+    CheckoutPage,
+    PaymentFluzPage
   ],
   providers: [
     StatusBar,

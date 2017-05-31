@@ -101,29 +101,30 @@
     </ion-list>
     <ion-list>
       <ion-item>
-        <ion-label class="font-small">PRECIO EN FLUZ:</ion-label>
+        <ion-label class="font-more-small">PRECIO EN FLUZ:</ion-label>
         <ion-label class="font-small" text-right>-{{cart.total_price_in_points}}</ion-label>
       </ion-item>
     </ion-list>
     <ion-list>
       <ion-item>
-        <ion-label class="font-small text-primary">TUS AHORROS:</ion-label>
+        <ion-label class="font-more-small text-primary">TUS AHORROS:</ion-label>
         <ion-label class="font-small text-primary" text-right>${{cart.total_savings_in_value}} ({{cart.total_savings_in_percent}}%)</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label class="font-small text-primary">FLUZ GANADOS:</ion-label>
+        <ion-label class="font-more-small text-primary">FLUZ GANADOS:</ion-label>
         <ion-label class="font-small text-primary" text-right>+ {{cart.total_fluz}}</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label class="font-small text-primary">PRECIO EN FLUZ:</ion-label>
+        <ion-label class="font-more-small text-primary">PRECIO EN FLUZ:</ion-label>
         <ion-label class="font-small text-primary" text-right>+ {{cart.total_price_in_points}}</ion-label>
       </ion-item>
     </ion-list>
   </div>
+  <div class="spacer-25"></div>
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="primary"  *ngIf="cart.quantity > 0" (click)="goTo('checkoutPage')">
     <ion-title>PAGAR</ion-title>
   </ion-toolbar>
 </ion-footer>

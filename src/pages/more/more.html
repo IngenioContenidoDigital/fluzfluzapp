@@ -5,18 +5,82 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>more</ion-title>
-  </ion-navbar>
-
+  <page-header></page-header>
 </ion-header>
 
-
-<ion-content padding>
-  <h1>Más</h1>
-  <button full ion-button color="secondary" (click)="goTo('LoginPage')">Login</button> 
-  <button full ion-button color="secondary" (click)="goTo('ConfirmPage')">Confirm</button> 
-  <button full ion-button color="secondary" (click)="goTo('ConfirmatedPage')">Confirm</button>
+<ion-content no-padding>
+  <div class="ctn-float-img">
+    <img src="{{userData.image}}">
+  </div>
+  <div text-center class="ctn-float">
+    <div class="spacer"></div>
+    <ion-label class="font-small text-dark">
+      Hola, {{userData.userName}}!
+    </ion-label>
+    <ion-label class="font-small text-gray-normal">
+      Has sido Fluzzer desde {{userData.dateAdd}}
+    </ion-label>
+    
+    <div class="ctn-user-data">
+      <div class="row">
+        <div class="col col-6 col-b-r">
+          <ion-label class="text-primary">
+            {{userData.fluzLasted}}
+          </ion-label>          
+          <ion-label class="text-gray-normal">
+            Fluz últimos 30 días
+          </ion-label>          
+        </div>
+        <div class="col col-6">
+          <ion-label class="text-dark">
+            {{userData.fluzTotal}}
+          </ion-label>
+          <ion-label class="text-gray-normal">
+            Fluz totales
+          </ion-label>          
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-6 col-b-r">
+          <ion-label class="text-dark">
+            {{userData.winnerMembers}}
+          </ion-label>
+          <ion-label class="text-gray-normal">
+            Miembros ganadores
+          </ion-label>
+        </div>
+        <div class="col col-6">
+          <ion-label class="text-dark">
+            ${{userData.totalSavings}}
+            <span>COP</span>
+          </ion-label>
+          <ion-label class="text-gray-normal">
+            Ahorros totales
+          </ion-label>          
+        </div>
+      </div>
+      <div class="ctn-options">
+        <div class="row">
+          <i class='fluz-estadistica'></i>
+          <ion-label class="text-dark">Estadística</ion-label>
+        </div>
+        <div class="row">
+          <i class='fluz-personal-information'></i>
+          <ion-label class="text-dark">Mi Información Personal</ion-label>
+        </div>
+        <div class="row">
+          <i class='fluz-mesages'></i>
+          <ion-label class="text-dark">Mis Mensajes</ion-label>
+        </div>
+        <div class="row">
+          <i class='fluz-cellphone'></i>
+          <ion-label class="text-dark">Fecha Agregada</ion-label>
+        </div>
+      </div>
+    </div>
+    <div class="spacer-25"></div>
+    <div>
+      <ion-label color="primary" text-right (click)="logout()">Cerrar sesion</ion-label>
+    </div>
+  </div>
 </ion-content>
-

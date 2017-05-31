@@ -3,7 +3,9 @@ import { NavController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { ConfirmPage } from '../confirm/confirm';
 import { ConfirmatedPage } from '../confirmated/confirmated';
-
+import { MyAccountService } from '../../providers/myAccount.service';
+import { Storage } from '@ionic/storage';
+import { LoginService } from '../../providers/login-service';
 
 /**
  * Generated class for the More page.
@@ -14,14 +16,42 @@ import { ConfirmatedPage } from '../confirmated/confirmated';
 @Component({
   selector: 'page-more',
   templateUrl: 'more.html',
+  providers: [MyAccountService,LoginService]
 })
 export class MorePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public userData:any = {};
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public myAccount: MyAccountService, private loginService:LoginService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad More');
+  ionViewWillEnter(){
+    this.getUserData();
+  }
+  
+  getUserData() {
+    this.storage.get('userData').then((val) => {
+      if( val != null && val != '' && val != undefined ){
+        this.userData.userName = val.firstname;
+        this.myAccount.getDataAccount(val.id).then(
+          (data:any) => {
+            this.userData = Object.assign(this.userData, JSON.parse(data));
+            this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
+          }
+        );
+      }
+    });
+  }
+  
+  logout(){
+    this.loginService.logout().then(
+      (data:boolean) => {
+        if ( data ){
+          this.storage.set('userData', false);          
+        }
+      }
+    );
+    setTimeout(()=>{ this.goTo('LoginPage') }, 100);
   }
   
   goTo(value:any) {

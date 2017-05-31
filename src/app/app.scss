@@ -167,6 +167,9 @@ ion-icon {
 .background-soft {
   background-color: color($colors, background-soft);
 }
+.background-white {
+  background-color: color($colors, white);
+}
 
 .padding-5 {
   padding: 5px;
@@ -174,7 +177,26 @@ ion-icon {
 .padding-h-5{
   padding: 0 5px;
 }
+.padding-h-8{
+  padding: 0 8px;
+}
 
 .margin-t-5{
   margin-top: 5px;
+}
+
+.spacer-25{
+  height: 25px;
+}
+
+.invisibleButton {
+    height:10px;
+    width:40px;
+}
+
+
+ion-title {
+  .toolbar-title-md{
+    @extend .font-small;
+  }
 }

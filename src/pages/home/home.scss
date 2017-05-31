@@ -2,6 +2,9 @@ page-home {
   @extend .font-family;
   .ctn-user-data{
     background-color: color($colors, background-soft);
+    .grid {
+      padding: 0px;
+    }
     .row {
       .col{
         padding: 1px;
@@ -77,6 +80,9 @@ page-home {
       @extend .text-gray-normal;
       @extend .font-more-small;
       text-align: left;
+    }
+    .col{
+      padding: 0;
     }
   }
   

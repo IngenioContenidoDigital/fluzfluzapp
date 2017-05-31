@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { LoginService } from '../../providers/login-service';
 import { ConfirmPage } from '../confirm/confirm';
 import { TabsService } from '../../providers/tabs.service';
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the Login page.
@@ -60,7 +61,7 @@ export class LoginPage {
           this.storage.set('userData', false);          
         }
       });         
-      this.navCtrl.pop();
+      setTimeout(()=>{ this.navCtrl.setRoot(TabsPage); }, 100);
     }
   }
     

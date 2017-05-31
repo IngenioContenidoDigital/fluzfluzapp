@@ -18,6 +18,10 @@ page-confirmated {
     }
   }
   
+  .text-gray-normal {
+    @extend .font-more-small;
+  }
+  
   .col {
     text-align: center;
   }

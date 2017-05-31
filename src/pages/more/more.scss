@@ -1,3 +1,49 @@
 page-more {
-
+  .spacer {
+    height: 36px;
+  }
+  .ctn-float {
+    margin-top: 60px;
+    padding: 0px;
+  }
+  .ctn-float-img{
+    text-align: center;
+    height: 80px;
+    position: fixed;
+    margin-top: 30px;
+    width: 100%;
+    img {
+      height: 100%;
+      border: 5px solid #fff;
+      border-radius: 50%;
+    }
+  }
+  
+  .text-gray-normal {
+    @extend .font-more-small;
+  }
+  
+  .row {
+    border-bottom: 1px solid color($colors, gray-soft);
+    .col-b-r {
+      border-right: 1px solid color($colors, gray-soft);
+    }
+  }
+  .col {
+    text-align: center;
+  }
+  
+  .ctn-user-data {
+    border-top: 1px solid color($colors, gray-soft);
+  }
+  
+  .ctn-options {
+    i {
+      @extend .font-normal;
+      padding: 8px;
+    }
+    ion-label {
+      text-align: left;
+    }
+  }
 }

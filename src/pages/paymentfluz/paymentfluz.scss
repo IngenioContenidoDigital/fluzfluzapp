@@ -1,0 +1,47 @@
+page-paymentfluz {
+  @extend .font-family;
+  .ctn-payfluz{
+    border: 1px solid color($colors, gray-soft);
+    margin: 10px;
+    border-radius: 2px;
+    padding-bottom: 15px;
+    .ctn-title {
+      @extend .font-small;
+      @extend .background-white;
+      @extend .font-semi-bold;
+      padding: 0 10px;
+      border-bottom: 1px solid color($colors, gray-soft);
+    }
+    .range-md.range-has-pin{
+      padding: 0 8px;
+    }
+    .range-md {
+      padding: 0 8px;
+    }
+    ion-input{
+      border: 1px solid color($colors, gray-soft);
+      border-radius: 2px;
+      background-color: color($colors, background-soft);
+    }
+    .padding-number-fluz {
+      padding: 0 8px 10px 8px;
+    }
+    .cart-values {
+      margin-top: 1px;
+      .list-md {
+        margin: 0px;
+      }
+      .list-md .item-block .item-inner {
+        border-bottom: none;
+      }
+      ion-list {
+        width: 100%;
+        .item-md {
+          padding-left: 13px;
+        }
+      }
+    }
+  }
+  
+  
+}

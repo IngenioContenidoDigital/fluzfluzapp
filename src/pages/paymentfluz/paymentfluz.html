@@ -1,0 +1,76 @@
+<!--
+  Generated template for the Paymentfluz page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title class="text-dark" text-center>PAGAR CON FLUZ<button ion-button clear class="invisibleButton"></button></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <div class="ctn-payfluz background-white">
+    <ion-row class="ctn-title">
+      <ion-label class="text-dark">Pagar Con Fluz</ion-label>
+    </ion-row>
+    <ion-row class="padding-h-8">
+      <ion-col>
+        <ion-range min="0" [max]="userData.fluzTotal" [(ngModel)]="singleValue" color="danger" pin="true" debounce="500" (ionChange)="inputChange($event)"></ion-range>
+      </ion-col>
+    </ion-row>
+    <ion-row class="padding-number-fluz border-b">
+      <ion-col col-6>
+        <ion-input type="number" disabled="true" [value]="singleValue" [(ngModel)]="singleValue"></ion-input>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label class="font-semi-bold"> de {{userData.fluzTotal}} Fluz</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="cart-values border-b">
+      <ion-list>
+        <ion-item>
+          <ion-label class="font-small">Fluz total:</ion-label>
+          <ion-label class="font-small" text-right>{{userData.fluzTotal}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="font-small">Total precio:</ion-label>
+          <ion-label class="font-small" text-right>{{cart.format_order_total}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="font-small">Precio en Fluz:</ion-label>
+          <ion-label class="font-small"text-right> -{{cart.total_price_in_points}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+    <ion-row class="cart-values border-b">
+      <ion-list>
+        <ion-item>
+          <ion-label class="font-more-small">FLUZ APLICADO:</ion-label>
+          <ion-label class="font-small"text-right> -{{singleValue}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+    <ion-row class="cart-values border-b">
+      <ion-list>
+        <ion-item>
+          <ion-label class="font-more-small">DINERO AÚN DEBE:</ion-label>
+          <ion-label class="font-small"text-right> -{{calcules.you_may}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+    <ion-row class="cart-values">
+      <ion-list>
+        <ion-item>
+          <ion-label class="font-more-small text-primary">TUS FLUZ RESTANTES:</ion-label>
+          <ion-label class="font-small text-primary"text-right>{{calcules.fluz_result}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+  </div>
+
+</ion-content>
