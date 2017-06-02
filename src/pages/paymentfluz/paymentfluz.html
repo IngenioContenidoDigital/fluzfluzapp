@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content no-padding>
+<ion-content no-padding class="background-soft">
   <div class="ctn-payfluz background-white">
     <ion-row class="ctn-title">
       <ion-label class="text-dark">Pagar Con Fluz</ion-label>
@@ -72,5 +72,33 @@
       </ion-list>
     </ion-row>
   </div>
+  
+  <div class="ctn-pagos background-white" >
+    <div class="row border-b">
+      <ion-label class="text-dark padding-h-8">Pagar el saldo restante con:</ion-label>
+    </div>
+    <div class="row border-b" (click)="selectedPayment(1)">
+      <i class='fluz-tarjeta' item-start></i>
+      <ion-label class="text-dark">Terminacion de la tarjeta 4556</ion-label>
+      <ion-icon [name]="payment == 1 ? 'md-checkmark' : 'ios-arrow-forward'"></ion-icon>
+    </div>
+    <div class="row border-b" (click)="selectedPayment(3)">
+      <i class='fluz-tarjeta' item-start></i>
+      <ion-label class="text-dark">Pagar con tarjeta de crédito nueva</ion-label>
+      <ion-icon [name]="payment == 3 ? 'md-checkmark' : 'ios-arrow-forward'"></ion-icon>
+    </div>
+    <div class="row border-b" (click)="selectedPayment(4)">
+      <i class='fluz-tarjeta' item-start></i>
+      <ion-label class="text-dark">Pagar con tranferencia bancaria</ion-label>
+      <ion-icon [name]="payment == 4 ? 'md-checkmark' : 'ios-arrow-forward'"></ion-icon>
+    </div>
+  </div>
 
 </ion-content>
+
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-title>REVISADO</ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -36,10 +36,16 @@ import { SearchModalPage } from '../pages/search-modal/search-modal';
     import { ProductFatherPage } from '../pages/product-father/product-father';
     import { ProductChildPage } from '../pages/product-child/product-child';
   
-  /* Carrito */
+  /* Pagos */
     import { CartPage } from '../pages/cart/cart';
     import { CheckoutPage } from '../pages/checkout/checkout';
     import { PaymentFluzPage } from '../pages/paymentfluz/paymentfluz';
+    import { AddCreditCartPage } from '../pages/addcreditcart/addcreditcart';
+    import { PaymentPsePage } from '../pages/paymentpse/paymentpse';
+    
+  /* Billetera */
+    import { PasscodePage } from '../pages/passcode/passcode';
+  
     
 @NgModule({
   declarations: [
@@ -61,7 +67,10 @@ import { SearchModalPage } from '../pages/search-modal/search-modal';
     ProductChildPage,
     CartPage,
     CheckoutPage,
-    PaymentFluzPage
+    PaymentFluzPage,
+    AddCreditCartPage,
+    PaymentPsePage,
+    PasscodePage
   ],
   imports: [
     BrowserModule,
@@ -91,7 +100,10 @@ import { SearchModalPage } from '../pages/search-modal/search-modal';
     ProductChildPage,
     CartPage,
     CheckoutPage,
-    PaymentFluzPage
+    PaymentFluzPage,
+    AddCreditCartPage,
+    PaymentPsePage,
+    PasscodePage
   ],
   providers: [
     StatusBar,

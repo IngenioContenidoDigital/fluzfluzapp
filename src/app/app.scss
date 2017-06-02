@@ -103,6 +103,10 @@
     border-bottom: 1px solid color($colors, gray-soft);
   }
   
+  .border-r {
+    border-right: 1px solid color($colors, gray-soft);
+  }
+  
 //Logo fluzfluz Header
 .fluz-fluz-fluz {
   @extend .font-extra-big;

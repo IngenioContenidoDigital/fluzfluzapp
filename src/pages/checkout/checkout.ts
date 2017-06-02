@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { PaymentFluzPage } from '../paymentfluz/paymentfluz';
+import { AddCreditCartPage } from '../addcreditcart/addcreditcart';
+import { PaymentPsePage } from '../paymentpse/paymentpse';
+
 
 /**
  * Generated class for the Checkout page.
@@ -40,7 +43,6 @@ export class CheckoutPage {
   }
   
   goTo(value) {
-    
     switch (value){
       case "payment": {
         switch (this.payment){
@@ -53,6 +55,16 @@ export class CheckoutPage {
             this.navCtrl.push( PaymentFluzPage,{
               cart: this.cart
             });
+            break            
+          }
+          case 3:{
+            console.log("Tarjeta 3");
+            this.navCtrl.push( AddCreditCartPage );
+            break            
+          }
+          case 4:{
+            console.log("Tarjeta 4");
+            this.navCtrl.push( PaymentPsePage );
             break            
           }
         }

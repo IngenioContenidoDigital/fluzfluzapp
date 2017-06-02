@@ -46271,7 +46271,7 @@ page-tabs .tabs-md .tab-button-icon {
   color: #D7D7D7;
 }
 
-.gray-normal, .text-gray-normal, page-checkout .ctn-pagos div i, page-home .ctn-category .text-product, page-checkout .ctn-pagos div ion-icon {
+.gray-normal, .text-gray-normal, page-addcreditcart .ctn-credit-card i, page-checkout .ctn-pagos div i, page-home .ctn-category .text-product, page-paymentfluz .ctn-pagos div i, page-paymentpse .ctn-pse i, page-checkout .ctn-pagos div ion-icon, page-paymentfluz .ctn-pagos div ion-icon {
   color: #b2b2b2;
 }
 
@@ -46279,7 +46279,7 @@ page-tabs .tabs-md .tab-button-icon {
   color: #696969;
 }
 
-.primary, .text-primary, page-home .ctn-category .title-view-all, page-home .title-view-all, page-checkout .ctn-pagos div ion-icon.icon.icon-md.ion-md-checkmark {
+.primary, .text-primary, page-home .ctn-category .title-view-all, page-home .title-view-all, page-checkout .ctn-pagos div ion-icon.icon.icon-md.ion-md-checkmark, page-paymentfluz .ctn-pagos div ion-icon.icon.icon-md.ion-md-checkmark {
   color: #E1493A;
 }
 
@@ -46296,26 +46296,26 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
 /* Colores*/
 /* Mixin word-wrap */
 /*Fuentes del tema*/
-.font-family, .text-dark, page-confirm .confimNumber, page-home .ctn-category .title, page-home .ctn-category .title-product, page-home .title-ctgry, page-product-child .inner-html span, page-product-child .inner-html li, page-product-child .segment-md .segment-button, .text-gray-soft, .text-gray-normal, page-checkout .ctn-pagos div i, page-home .ctn-category .text-product, .text-gray-dark, .text-primary, page-home .ctn-category .title-view-all, page-home .title-view-all, .text-secondary, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-category .ctn-user-data .row .col .text-product, .font-more-small, page-confirmated .text-gray-normal, page-more .text-gray-normal, .font-small, .footer .toolbar-title-md, ion-title .toolbar-title-md, page-checkout .ctn-resume .ctn-title, page-paymentfluz .ctn-payfluz .ctn-title, .font-normal, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, page-home .card-background-page .card-title, page-home .card-background-page .card-md h2, page-more .ctn-options i, .font-big, .font-extra-big, .fluz-fluz-fluz, page-cart, page-checkout, page-home, page-login, page-paymentfluz, page-tabs .tabs-md .tab-button-text {
+.font-family, .text-dark, page-confirm .confimNumber, page-home .ctn-category .title, page-home .ctn-category .title-product, page-home .title-ctgry, page-product-child .inner-html span, page-product-child .inner-html li, page-product-child .segment-md .segment-button, .text-gray-soft, .text-gray-normal, page-addcreditcart .ctn-credit-card i, page-checkout .ctn-pagos div i, page-home .ctn-category .text-product, page-paymentfluz .ctn-pagos div i, page-paymentpse .ctn-pse i, .text-gray-dark, .text-primary, page-home .ctn-category .title-view-all, page-home .title-view-all, .text-secondary, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-category .ctn-user-data .row .col .text-product, page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-home .ctn-user-data .row .col i, .font-more-small, page-confirmated .text-gray-normal, page-more .text-gray-normal, .font-small, .footer .toolbar-title-md, ion-title .toolbar-title-md, page-checkout .ctn-resume .ctn-title, page-paymentfluz .ctn-payfluz .ctn-title, page-paymentpse .ctn-pse .item-radio-button, .font-normal, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, page-home .card-background-page .card-title, page-home .card-background-page .card-md h2, page-more .ctn-options i, .font-big, .font-extra-big, .fluz-fluz-fluz, page-cart, page-checkout, page-home, page-login, page-paymentfluz, page-tabs .tabs-md .tab-button-text {
   font-family: "Open Sans", sans-serif;
 }
 
-.font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-category .ctn-user-data .row .col .text-product {
+.font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-category .ctn-user-data .row .col .text-product, page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-home .ctn-user-data .row .col i {
   font-size: 8px;
   font-size: 0.8rem;
 }
 
-.font-more-small, page-confirmated .text-gray-normal, page-confirmated page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-confirmated i, page-home .ctn-category .text-product, page-more .text-gray-normal, page-more page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-more i, page-product-child .inner-html span, page-product-child .inner-html li {
+.font-more-small, page-confirmated .text-gray-normal, page-confirmated page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-confirmated i, page-confirmated page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-confirmated i, page-confirmated page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-confirmated i, page-confirmated page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-confirmated i, page-home .ctn-category .text-product, page-more .text-gray-normal, page-more page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-more i, page-more page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-more i, page-more page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-more i, page-more page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-more i, page-product-child .inner-html span, page-product-child .inner-html li {
   font-size: 11px;
   font-size: 1.1rem;
 }
 
-.font-small, .footer .toolbar-title-md, ion-title .toolbar-title-md, page-checkout .ctn-resume .ctn-title, page-home .ctn-category .title, page-home .ctn-category .title-view-all, page-home .ctn-category .title-product, page-home .title-ctgry, page-home .title-view-all, page-paymentfluz .ctn-payfluz .ctn-title {
+.font-small, .footer .toolbar-title-md, ion-title .toolbar-title-md, page-checkout .ctn-resume .ctn-title, page-home .ctn-category .title, page-home .ctn-category .title-view-all, page-home .ctn-category .title-product, page-home .title-ctgry, page-home .title-view-all, page-paymentfluz .ctn-payfluz .ctn-title, page-paymentpse .ctn-pse .item-radio-button {
   font-size: 14px;
   font-size: 1.4rem;
 }
 
-.font-normal, page-checkout .ctn-pagos div i, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, page-home .card-background-page .card-title, page-home .card-background-page .card-md h2, page-more .ctn-options i {
+.font-normal, page-addcreditcart .ctn-credit-card i, page-checkout .ctn-pagos div i, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, page-home .card-background-page .card-title, page-home .card-background-page .card-md h2, page-more .ctn-options i, page-paymentfluz .ctn-pagos div i, page-paymentpse .ctn-pse i {
   font-size: 25px;
   font-size: 2.5rem;
 }
@@ -46344,6 +46344,10 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
 
 .border-b, page-cart .cart-values .list-md, page-cart .back-options .ctn-edit-options, page-checkout .ctn-resume .cart-values .list-md {
   border-bottom: 1px solid #D7D7D7;
+}
+
+.border-r {
+  border-right: 1px solid #D7D7D7;
 }
 
 .fluz-fluz-fluz {
@@ -46427,6 +46431,20 @@ ion-icon[class*="fluz-more-3"] {
 .invisibleButton {
   height: 10px;
   width: 40px;
+}
+
+page-addcreditcart .ctn-credit-card {
+  border: 1px solid #D7D7D7;
+  margin: 10px;
+  border-radius: 2px;
+}
+
+page-addcreditcart .ctn-credit-card .item-md.item-block .item-inner {
+  border-bottom: none;
+}
+
+page-addcreditcart .ctn-credit-card i {
+  padding: 8px;
 }
 
 page-cart .edit {
@@ -46862,11 +46880,36 @@ page-more .ctn-options ion-label {
   text-align: left;
 }
 
+page-passcode .ctn-passcode {
+  text-align: center;
+}
+
+page-passcode .label-md {
+  margin: 13px 0;
+}
+
+page-passcode .ctn-numbers {
+  max-width: 80%;
+}
+
+page-passcode .ctn-numbers .row {
+  margin-bottom: 10px;
+}
+
+page-passcode .ctn-numbers .circle {
+  border: 2px solid #E1493A;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  display: inline-block;
+}
+
 page-paymentfluz .ctn-payfluz {
   border: 1px solid #D7D7D7;
   margin: 10px;
   border-radius: 2px;
-  padding-bottom: 15px;
 }
 
 page-paymentfluz .ctn-payfluz .ctn-title {
@@ -46910,6 +46953,62 @@ page-paymentfluz .ctn-payfluz .cart-values ion-list {
 
 page-paymentfluz .ctn-payfluz .cart-values ion-list .item-md {
   padding-left: 13px;
+}
+
+page-paymentfluz .ctn-pagos {
+  border: 1px solid #D7D7D7;
+  margin: 10px;
+  border-radius: 2px;
+}
+
+page-paymentfluz .ctn-pagos row {
+  border: 1px solid #D7D7D7;
+}
+
+page-paymentfluz .ctn-pagos div i {
+  padding: 8px;
+}
+
+page-paymentfluz .ctn-pagos div ion-icon {
+  font-size: 25px;
+  font-size: 2.5rem;
+  padding: 8px;
+}
+
+page-paymentpse .ctn-pse {
+  border: 1px solid #D7D7D7;
+  margin: 10px;
+  border-radius: 2px;
+}
+
+page-paymentpse .ctn-pse .item-md.item-block .item-inner {
+  border-bottom: none;
+}
+
+page-paymentpse .ctn-pse i {
+  padding: 8px;
+}
+
+page-paymentpse .ctn-pse .item-md.item-input.input-has-focus .item-inner {
+  box-shadow: none;
+}
+
+page-paymentpse .ctn-pse ion-select {
+  max-width: 100%;
+}
+
+page-paymentpse .ctn-pse .item-radio-button {
+  float: left;
+  padding-left: 0px;
+  width: 50%;
+}
+
+page-paymentpse .ctn-pse .item-md .radio-md {
+  margin: 0px;
+}
+
+page-paymentpse .ctn-pse .input-document .text-input-md {
+  margin: 19px 8px 20px 8px;
 }
 
 page-product-child .ctn-title-gray {
@@ -47014,7 +47113,7 @@ page-product-father .text-primary, page-product-father page-home .ctn-category .
   margin-right: 0px;
 }
 
-page-product-father .font-extra-small, page-product-father page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-product-father .text-gray-normal, page-product-father page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div page-product-father i, page-product-father page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col page-product-father i, page-product-father page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-user-data .row .col .ctn-category page-product-father .text-product, page-product-father page-home .ctn-category .ctn-user-data .row .col .text-product, page-home .ctn-category .ctn-user-data .row .col page-product-father .text-product {
+page-product-father .font-extra-small, page-product-father page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-product-father .text-gray-normal, page-product-father page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card i, page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card page-product-father i, page-product-father page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col i, page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col page-product-father i, page-product-father page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div page-product-father i, page-product-father page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col page-product-father i, page-product-father page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-user-data .row .col .ctn-category page-product-father .text-product, page-product-father page-home .ctn-category .ctn-user-data .row .col .text-product, page-home .ctn-category .ctn-user-data .row .col page-product-father .text-product, page-product-father page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div i, page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div page-product-father i, page-product-father page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col i, page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col page-product-father i, page-product-father page-home .ctn-user-data .row .col page-paymentpse .ctn-pse i, page-home .ctn-user-data .row .col page-paymentpse .ctn-pse page-product-father i, page-product-father page-paymentpse .ctn-pse page-home .ctn-user-data .row .col i, page-paymentpse .ctn-pse page-home .ctn-user-data .row .col page-product-father i {
   margin: 0;
 }
 
@@ -47030,7 +47129,7 @@ page-search-modal .text-primary, page-search-modal page-home .ctn-category .titl
   margin-right: 0px;
 }
 
-page-search-modal .font-extra-small, page-search-modal page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-search-modal .text-gray-normal, page-search-modal page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div page-search-modal i, page-search-modal page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col page-search-modal i, page-search-modal page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-user-data .row .col .ctn-category page-search-modal .text-product, page-search-modal page-home .ctn-category .ctn-user-data .row .col .text-product, page-home .ctn-category .ctn-user-data .row .col page-search-modal .text-product {
+page-search-modal .font-extra-small, page-search-modal page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-search-modal .text-gray-normal, page-search-modal page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card i, page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card page-search-modal i, page-search-modal page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col i, page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col page-search-modal i, page-search-modal page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div page-search-modal i, page-search-modal page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col page-search-modal i, page-search-modal page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-user-data .row .col .ctn-category page-search-modal .text-product, page-search-modal page-home .ctn-category .ctn-user-data .row .col .text-product, page-home .ctn-category .ctn-user-data .row .col page-search-modal .text-product, page-search-modal page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div i, page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div page-search-modal i, page-search-modal page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col i, page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col page-search-modal i, page-search-modal page-home .ctn-user-data .row .col page-paymentpse .ctn-pse i, page-home .ctn-user-data .row .col page-paymentpse .ctn-pse page-search-modal i, page-search-modal page-paymentpse .ctn-pse page-home .ctn-user-data .row .col i, page-paymentpse .ctn-pse page-home .ctn-user-data .row .col page-search-modal i {
   margin: 0;
 }
 

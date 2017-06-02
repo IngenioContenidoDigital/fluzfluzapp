@@ -20,13 +20,15 @@ export class PaymentFluzPage {
   public cart:any = {};
   public singleValue:any = 0;
   public calcules:any = {};
+  public payment:any = 0;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public myAccount: MyAccountService, public storage: Storage) {
   }
 
   ionViewWillEnter(){
     this.updateFluzTotals();
     this.updateDataView();
-    this.calcules.you_may = 0;
+    setTimeout(()=>{ this.calcules.you_may = this.cart.order_total }, 200);
     this.calcules.fluz_result = 0;
   }
   
@@ -56,4 +58,33 @@ export class PaymentFluzPage {
     this.calcules.fluz_result = ( this.userData.fluzTotal - this.singleValue);
   }
   
+  selectedPayment(value){
+    this.payment = value;
+  }
+  
+  goTo(value) {
+    switch (value){
+      case "payment": {
+        switch (this.payment){
+          case 1:{
+            console.log("Tarjeta 1");
+            break            
+          }
+          case 2:{
+            console.log("Tarjeta 2");
+            this.navCtrl.push( PaymentFluzPage,{
+              cart: this.cart
+            });
+            break            
+          }
+        }
+        
+        break;
+      }
+      default: {
+        this.navCtrl.pop();        
+        break;
+      }
+    }
+  }
 }

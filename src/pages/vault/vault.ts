@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { PasscodePage } from '../passcode/passcode';
 
 /**
  * Generated class for the Vault page.
@@ -14,6 +15,7 @@ import { NavController, NavParams } from 'ionic-angular';
 export class VaultPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.navCtrl.push( PasscodePage );
   }
 
   ionViewDidLoad() {

@@ -4,7 +4,6 @@ page-paymentfluz {
     border: 1px solid color($colors, gray-soft);
     margin: 10px;
     border-radius: 2px;
-    padding-bottom: 15px;
     .ctn-title {
       @extend .font-small;
       @extend .background-white;
@@ -42,6 +41,27 @@ page-paymentfluz {
       }
     }
   }
-  
-  
+  .ctn-pagos{
+    border: 1px solid color($colors, gray-soft);
+    margin: 10px;
+    border-radius: 2px;
+    row {
+      border: 1px solid color($colors, gray-soft);
+    }
+    div {
+      i {
+        @extend .font-normal;
+        @extend .text-gray-normal;
+        padding: 8px;
+      }
+      ion-icon{
+        @extend .gray-normal;
+        @include font-size(25px);
+        padding: 8px;
+      }
+      ion-icon.icon.icon-md.ion-md-checkmark {
+        @extend .primary;
+      }
+    }
+  }
 }
