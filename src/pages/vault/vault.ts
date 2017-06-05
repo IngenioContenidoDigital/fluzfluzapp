@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { PasscodePage } from '../passcode/passcode';
+import { Storage } from '@ionic/storage';
+import { VaultService } from '../../providers/vault.service';
+import { BonusPage } from '../bonus/bonus';
+
+//import { PasscodePage } from '../passcode/passcode';
 
 /**
  * Generated class for the Vault page.
@@ -11,15 +15,50 @@ import { PasscodePage } from '../passcode/passcode';
 @Component({
   selector: 'page-vault',
   templateUrl: 'vault.html',
+  providers: [VaultService]
 })
 export class VaultPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.navCtrl.push( PasscodePage );
+  
+  public vaultData:any = [];
+  public vaultOption = '';
+  public item:any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public vault: VaultService) {
+    this.vaultOption = 'bonus';
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Vault');
+  ionViewWillEnter(){
+    setTimeout(()=>{
+      this.updateVault();
+    }, 100);  
   }
 
+  updateVault(){
+    this.storage.get('userData').then((val) => {
+      if( val != null && val != '' && val != undefined ){
+        this.vault.getVaultData(val.id).then(
+          (data:any) => {
+            console.log( data.result );
+            this.vaultData = data.result;
+          }
+        );
+      }
+    });
+  }
+  
+  openItem(item){
+    this.item = item;
+    console.log("Entra en id: " + this.item.id_manufacturer );
+    this.storage.get('userData').then((val) => {
+      if( val != null && val != '' && val != undefined ){
+        this.vault.getVaultData(val.id, this.item.id_manufacturer).then(
+          (data:any) => {
+            console.log( data.result );
+            this.navCtrl.push( BonusPage,{
+              manufacturer: this.item
+            });
+          }
+        );
+      }
+    });
+  }
 }

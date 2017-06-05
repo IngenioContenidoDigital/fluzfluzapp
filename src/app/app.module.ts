@@ -45,6 +45,7 @@ import { SearchModalPage } from '../pages/search-modal/search-modal';
     
   /* Billetera */
     import { PasscodePage } from '../pages/passcode/passcode';
+    import { BonusPage } from '../pages/bonus/bonus';
   
     
 @NgModule({
@@ -70,7 +71,8 @@ import { SearchModalPage } from '../pages/search-modal/search-modal';
     PaymentFluzPage,
     AddCreditCartPage,
     PaymentPsePage,
-    PasscodePage
+    PasscodePage,
+    BonusPage
   ],
   imports: [
     BrowserModule,
@@ -103,7 +105,8 @@ import { SearchModalPage } from '../pages/search-modal/search-modal';
     PaymentFluzPage,
     AddCreditCartPage,
     PaymentPsePage,
-    PasscodePage
+    PasscodePage,
+    BonusPage
   ],
   providers: [
     StatusBar,

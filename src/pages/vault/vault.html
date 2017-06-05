@@ -7,12 +7,66 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>vault</ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only>
+        <i class='fluz-fluz-fluz'></i>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>BOVEDA</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="goTo()">
+        <ion-icon name='ios-arrow-round-back'></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <h1>Boveda</h1>
+<ion-content no-padding>
+  <div no-padding>
+    <ion-segment [(ngModel)]="vaultOption">
+      <ion-segment-button value="bonus" no-padding>
+        BONOS
+      </ion-segment-button>
+      <ion-segment-button value="earnings" no-padding>
+        INGRESOS
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <div [ngSwitch]="vaultOption" no-padding class="ctn-purchases">
+    <ion-list *ngSwitchCase="'bonus'">
+      <ion-label text-right class="font-small text-primary font-semi-bold">Refinar</ion-label>
+      <div class="purchases">       
+        <ion-grid>
+          <ion-row class="border-b" *ngFor="let item of vaultData" (click)="openItem(item)">
+            <ion-col col-3>
+              <div class="ctn-img">
+                <img src="{{item.m_img}}">          
+              </div>
+            </ion-col>
+            <ion-col col-4>
+              <ion-label class="font-semi-bold">{{item.manufacturer_name}}</ion-label>
+              <ion-label class="font-more-small text-gray-normal">{{item.products}} bonos</ion-label>
+            </ion-col>
+            <ion-col col-4>
+              <ion-label class="font-more-small font-semi-bold" text-right>Valor en Tienda</ion-label>
+              <ion-label class="font-small font-semi-bold text-primary" text-right>${{item.total}}</ion-label>
+            </ion-col>
+            <ion-col col-1 class="background-soft">
+              <div text-center>
+                <ion-icon name="ios-arrow-forward"></ion-icon>                
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'earnings'">
+      <ion-item>
+        <div>ingresos</div>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

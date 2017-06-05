@@ -1,3 +1,51 @@
 page-vault {
-
+  .ctn-purchases {
+    .label-md{
+      margin: 13px;
+    }
+    .item-md.item-block .item-inner {
+      padding-right: 0px;
+      .label-md {
+        margin: 0px;
+      }
+    }
+    .purchases{
+      border: 1px solid color($colors, gray-soft);
+      border-radius: 2px;
+      margin: 8px;
+      .grid{
+        padding: 0px;
+        .col {
+          padding: 5px;
+          .ctn-img{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            img{
+              max-height: 100%;
+              max-width: 100%;
+              width: auto;
+              height: auto;
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin: auto;              
+            }
+          }
+          .label-md{
+            margin: 5px 0;
+            text-transform: capitalize;
+          }
+          div{
+            ion-icon{
+              @include font-size(14px);
+              line-height: 43px;
+            }
+          }
+        }
+      }
+    }
+  }
 }

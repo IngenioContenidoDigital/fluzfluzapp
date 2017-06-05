@@ -61,7 +61,7 @@ export class HomePage {
         }
       }
     });
-    setTimeout(()=>{  
+    setTimeout(()=>{
       this.getUserData();
       this.getBannerData();
       this.getCategoryWithFatherData();

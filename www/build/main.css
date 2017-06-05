@@ -47146,3 +47146,59 @@ page-tabs .tabs-md .tab-button-text {
   font-size: 9px;
   font-size: 0.9rem;
 }
+
+page-vault .ctn-purchases .label-md {
+  margin: 13px;
+}
+
+page-vault .ctn-purchases .item-md.item-block .item-inner {
+  padding-right: 0px;
+}
+
+page-vault .ctn-purchases .item-md.item-block .item-inner .label-md {
+  margin: 0px;
+}
+
+page-vault .ctn-purchases .purchases {
+  border: 1px solid #D7D7D7;
+  border-radius: 2px;
+  margin: 8px;
+}
+
+page-vault .ctn-purchases .purchases .grid {
+  padding: 0px;
+}
+
+page-vault .ctn-purchases .purchases .grid .col {
+  padding: 5px;
+}
+
+page-vault .ctn-purchases .purchases .grid .col .ctn-img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+page-vault .ctn-purchases .purchases .grid .col .ctn-img img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+page-vault .ctn-purchases .purchases .grid .col .label-md {
+  margin: 5px 0;
+  text-transform: capitalize;
+}
+
+page-vault .ctn-purchases .purchases .grid .col div ion-icon {
+  font-size: 14px;
+  font-size: 1.4rem;
+  line-height: 43px;
+}
