@@ -14,10 +14,13 @@ import { NavController, NavParams } from 'ionic-angular';
 export class BonusPage {
 
   public manufacturer:any;
+  public bonus:any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.manufacturer = navParams.get("manufacturer");
+    this.bonus = navParams.get("bonus");
     console.log('Este es el que llega:');
     console.log(this.manufacturer);
+    console.log(this.bonus);
   }
 
   ionViewDidLoad() {

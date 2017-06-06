@@ -1,3 +1,25 @@
 page-bonus {
-
+  .ctn-refine{
+    padding: 5px;
+    margin: 10px;
+  }
+  
+  .ctn-bonus {
+    .static-height{
+      height: 70px;
+    }
+    .ctn-info-bonus{
+      .label-md{
+        margin: 5px 0px;
+      }
+      .text-spacer{
+        margin: 13px 0px;
+      }
+      @extend .border;
+      @extend .background-white;
+      margin: -35px 5px 5px 5px;
+      padding: 5px;
+    }
+  }
+  
 }

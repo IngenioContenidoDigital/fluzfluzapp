@@ -54,7 +54,8 @@ export class VaultPage {
           (data:any) => {
             console.log( data.result );
             this.navCtrl.push( BonusPage,{
-              manufacturer: this.item
+              manufacturer: this.item,
+              bonus: data.result
             });
           }
         );
