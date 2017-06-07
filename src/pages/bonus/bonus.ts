@@ -15,9 +15,11 @@ export class BonusPage {
 
   public manufacturer:any;
   public bonus:any;
+  public bonusT:any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.manufacturer = navParams.get("manufacturer");
     this.bonus = navParams.get("bonus");
+    this.bonusT = navParams.get("bonusT");
     console.log('Este es el que llega:');
     console.log(this.manufacturer);
     console.log(this.bonus);

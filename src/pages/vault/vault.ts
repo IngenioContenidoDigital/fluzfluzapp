@@ -55,7 +55,8 @@ export class VaultPage {
             console.log( data.result );
             this.navCtrl.push( BonusPage,{
               manufacturer: this.item,
-              bonus: data.result
+              bonus: data.result,
+              bonusT: data.total
             });
           }
         );
