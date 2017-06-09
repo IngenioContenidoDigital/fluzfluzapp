@@ -37,7 +37,7 @@
           <ion-label class="text-spacer">{{manufacturer.manufacturer_name}}</ion-label>
         </ion-col>
         <ion-col col-6>
-          <ion-label text-right class="text-spacer text-primary">Ver mas</ion-label>
+          <ion-label text-right class="text-spacer text-primary" (click)="toggleDetails(item)">Ver mas</ion-label>
         </ion-col>
       </ion-row>
       <ion-row class="border-b">
@@ -67,7 +67,56 @@
             <ion-label class="font-normal">{{item.card_code}}</ion-label>            
           </div>
         </ion-col>
-      </ion-row>      
+      </ion-row>
+    </div>
+    <div class="ctn-details" *ngIf="showDetails == item.id_product_code" [@slideIn]>
+      <ion-row radio-group>
+        <ion-col col-6 text-center>
+          <ion-label class="display-inline">Usada</ion-label>
+          <ion-radio value="usada" checked="true"></ion-radio>
+        </ion-col>
+        <ion-col col-6 text-center>
+          <ion-label class="display-inline">Terminada</ion-label>
+          <ion-radio value="terminada"></ion-radio>
+        </ion-col>
+      </ion-row>
+      <div class="ctn-accordeon-title">
+        <ion-row>
+          <ion-label (click)="toggleDescription(item,'1')">Intrucciones</ion-label>
+        </ion-row>
+      </div>
+      <div class="ctn-accordeon-details">
+        <ion-list *ngIf="item.showDescription" [@slideIn]>
+          <ion-item>
+            <div class="inner-html" [innerHTML]="item.description_short"></div>
+            <!--<span class="large" [inner-html]="item.description_short"></span>-->
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="ctn-accordeon-title">
+        <ion-row>
+          <ion-label (click)="toggleDescription(item,'2')">Ubicación</ion-label>
+        </ion-row>
+      </div>
+      <div class="ctn-accordeon-details">
+        <ion-list *ngIf="item.showDirections" [@slideIn]>
+          <ion-item>
+            <div class="inner-html">direcciones</div>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="ctn-accordeon-title">
+        <ion-row>
+          <ion-label (click)="toggleDescription(item,'3')">Terminos</ion-label>
+        </ion-row>
+      </div>
+      <div class="ctn-accordeon-details">
+        <ion-list *ngIf="item.showTerms" [@slideIn]>
+          <ion-item>
+            <div class="inner-html" [innerHTML]="item.description"></div>
+          </ion-item>
+        </ion-list>
+      </div>
     </div>
   </ion-grid>
   

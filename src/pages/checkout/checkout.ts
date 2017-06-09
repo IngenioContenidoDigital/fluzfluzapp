@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, trigger, style, animate, state, transition } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { PaymentFluzPage } from '../paymentfluz/paymentfluz';
@@ -15,12 +15,28 @@ import { PaymentPsePage } from '../paymentpse/paymentpse';
 @Component({
   selector: 'page-checkout',
   templateUrl: 'checkout.html',
+  animations: [
+    trigger('slideIn', [
+      state('*', style({ 'overflow-y': 'hidden' })),
+      state('void', style({ 'overflow-y': 'hidden' })),
+      transition('* => void', [
+          style({ height: '*' }),
+          animate(250, style({ height: 0 }))
+      ]),
+      transition('void => *', [
+          style({ height: '0' }),
+          animate(250, style({ height: '*' }))
+      ])
+    ])
+  ]
 })
 export class CheckoutPage {
 
   public cart:any = {}; 
   public payment:any = 0;
   public products:any = 0;
+  public showTerms:any = false;
+  
  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
     this.cart = navParams.get("cart");
     console.log("este es el carro que llega");
@@ -47,28 +63,23 @@ export class CheckoutPage {
       case "payment": {
         switch (this.payment){
           case 1:{
-            console.log("Tarjeta 1");
             break            
           }
           case 2:{
-            console.log("Tarjeta 2");
             this.navCtrl.push( PaymentFluzPage,{
               cart: this.cart
             });
             break            
           }
           case 3:{
-            console.log("Tarjeta 3");
             this.navCtrl.push( AddCreditCartPage );
             break            
           }
           case 4:{
-            console.log("Tarjeta 4");
             this.navCtrl.push( PaymentPsePage );
             break            
           }
         }
-        
         break;
       }
       default: {
@@ -76,5 +87,9 @@ export class CheckoutPage {
         break;
       }
     }
+  }
+  
+  updateShowTerms(item){
+    this.showTerms = this.showTerms != item.id_product ? item.id_product : false;
   }
 }

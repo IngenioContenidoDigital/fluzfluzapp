@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, trigger, style, animate, state, transition } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { CartService } from '../../providers/cart.service';
@@ -13,7 +13,21 @@ import { CheckoutPage } from '../checkout/checkout';
 @Component({
   selector: 'page-cart',
   templateUrl: 'cart.html',
-  providers: [CartService]
+  providers: [CartService],
+  animations: [
+    trigger('slideIn', [
+      state('*', style({ 'overflow-y': 'hidden' })),
+      state('void', style({ 'overflow-y': 'hidden' })),
+      transition('* => void', [
+          style({ height: '*' }),
+          animate(250, style({ height: 0 }))
+      ]),
+      transition('void => *', [
+          style({ height: '0' }),
+          animate(250, style({ height: '*' }))
+      ])
+    ])
+  ]
 })
 export class CartPage {
 
@@ -22,6 +36,7 @@ export class CartPage {
   public displayOptions:any = 0;
   public index:any = -1;
   public textEditButton:string = "Editar";
+  public showTerms = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public cartService: CartService) {
   }
 
@@ -92,6 +107,8 @@ export class CartPage {
     this.storage.get('cart').then((val) => {
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
       this.products = ( val != undefined && val != null && val != '' ) ? val.products : [];
+      console.log( "Estos son los productos: " );
+      console.log( this.products );
     });
   }
   
@@ -108,5 +125,9 @@ export class CartPage {
         break;
       }
     }
+  }
+  
+  updateShowTerms(item){
+    this.showTerms = this.showTerms != item.id_product ? item.id_product : false;
   }
 }

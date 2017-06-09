@@ -5,6 +5,7 @@ page-bonus {
   }
   
   .ctn-bonus {
+    padding: 0px;
     .static-height{
       height: 70px;
     }
@@ -17,9 +18,36 @@ page-bonus {
       }
       @extend .border;
       @extend .background-white;
-      margin: -35px 5px 5px 5px;
-      padding: 5px;
+      margin: -35px 8px 8px 5px;
+      padding: 8px;
     }
   }
   
+  .ctn-details{
+    .display-inline{
+      display:inline-block;
+    }
+    .row {
+      .col {
+        .radio {
+          margin: 13px 8px 13px 0;
+        }
+      }
+    }
+    .ctn-accordeon-title{
+      @extend .background-white;
+      @extend .border-b;
+      margin-bottom: 1px;
+      .row {
+        padding: 0 10px;        
+      }
+    }
+    .ctn-accordeon-details{
+      @extend .background-white;
+      padding: 0 10px;
+      .item-md {
+        padding-left: 0px;
+      }
+    }
+  }
 }

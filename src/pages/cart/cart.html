@@ -72,9 +72,12 @@
             <ion-label item-left class="text-dark" *ngIf="item.is_virtual==1">Solo Online</ion-label>
           </ion-col>
           <ion-col text-right>
-            <ion-label item-right class="text-primary font-more-small terms">Términos y condiciones</ion-label>
+            <ion-label item-right class="text-primary font-more-small terms" (click)="updateShowTerms(item)">Términos y condiciones</ion-label>
           </ion-col>
-        </ion-row>        
+        </ion-row>
+        <ion-row *ngIf="showTerms == item.id_product">
+          <div class="inner-html padding-5" [innerHTML]="item.description_short" [@slideIn]></div>
+        </ion-row>
       </div>
     </div>
   </ion-grid>

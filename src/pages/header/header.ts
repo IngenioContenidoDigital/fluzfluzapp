@@ -5,7 +5,7 @@ import { SearchModalPage } from '../search-modal/search-modal';
 import { CartPage } from '../cart/cart';
 import { SearchService } from '../../providers/search.service';
 import { TabsPage } from '../tabs/tabs';
-
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the Header page.
@@ -26,15 +26,23 @@ export class HeaderPage {
   
   public searchData:any;
   public backButtonShow:any = false;
+  public countCart:any = 0;
     
   @Output()
   public updateSearchData: EventEmitter<string> = new EventEmitter<string>();
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService, public viewCtrl: ViewController, public storage: Storage) {
     this.modalShow = navParams.get('modalShow') ? navParams.get('modalShow') : this.modalShow;
     this.backButtonShow = this.backButtonShow ? this.backButtonShow : false;
+    this.storage.get('cart').then((val) => {
+      console.log( val );
+      if (val != null || val != undefined ){
+        this.countCart = val.quantity;
+        console.log( this.countCart );
+      }
+    });
   }
-  
+    
   search(){
     this.searchService.search( this.searchTerm, '1' ).then((data) => {
       this.searchData = data;
@@ -65,8 +73,10 @@ export class HeaderPage {
       searchModal.present();
     }
   }
+  
+  updateCountCart( countCart:any ) {
+    this.countCart = countCart;
+    console.log( this.countCart );
+  }
 
-  
-  
-  
 }

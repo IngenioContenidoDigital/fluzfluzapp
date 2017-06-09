@@ -208,3 +208,19 @@ ion-title {
     @extend .font-small;
   }
 }
+
+
+.inner-html{
+  white-space: normal !important;
+  span, li {
+    @extend .font-small;
+    @extend .text-dark;
+    list-style-type: none;
+  }
+  li {
+    padding-bottom: 10px;
+  }
+  ul{
+    padding: 0px;
+  }
+}

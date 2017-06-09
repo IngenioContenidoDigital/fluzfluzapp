@@ -47,21 +47,6 @@ page-product-child {
       margin: 0px;
     }
   }
-  .inner-html{
-    white-space: normal !important;
-    span, li {
-      @extend .font-more-small;
-      @extend .text-dark;
-      list-style-type: none;
-    }
-    li {
-      padding-bottom: 10px;
-    }
-    ul{
-      padding: 0px;
-    }
-    
-  }
   
   .segment-md .segment-button {
     @extend .text-dark;

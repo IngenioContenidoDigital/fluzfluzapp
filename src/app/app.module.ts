@@ -5,7 +5,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { SearchModalPage } from '../pages/search-modal/search-modal';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /* Pages */
   
@@ -76,6 +76,7 @@ import { SearchModalPage } from '../pages/search-modal/search-modal';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     IonicModule.forRoot(MyApp, {
       tabsHideOnSubPages: true,

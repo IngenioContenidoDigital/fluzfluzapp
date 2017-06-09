@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { VaultService } from '../../providers/vault.service';
 import { BonusPage } from '../bonus/bonus';
+import { HomePage } from '../home/home';
 
 //import { PasscodePage } from '../passcode/passcode';
 
@@ -62,5 +63,18 @@ export class VaultPage {
         );
       }
     });
+  }
+  
+  goTo(value){
+    switch (value){
+      case "home": {
+        this.navCtrl.pop( HomePage );
+        break;
+      }
+      default: {
+        this.navCtrl.pop();        
+        break;
+      }
+    }
   }
 }

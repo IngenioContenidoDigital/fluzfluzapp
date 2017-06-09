@@ -11,12 +11,12 @@
         <i class='fluz-fluz-fluz'></i>
       </button>
     </ion-buttons>
-    <ion-title text-center>BOVEDA</ion-title>
-    <ion-buttons right>
-      <button ion-button icon-only navPop>
+    <ion-title text-center>BOVEDA<button ion-button clear class="invisibleButton"></button></ion-title>
+<!--    <ion-buttons right>
+      <button ion-button icon-only>
         <ion-icon name='ios-arrow-round-back'></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons>-->
   </ion-navbar>
 </ion-header>
 
@@ -61,9 +61,25 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'earnings'">
-      <ion-item>
-        <div>ingresos</div>
-      </ion-item>
+        <div class="ctn-earnings">
+          <ion-grid>
+            <ion-row>
+              <ion-label text-center class="font-small text-primary font-semi-bold">April 12, 2017</ion-label>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div>
+                  <img>                  
+                </div>
+              </ion-col>
+              <ion-col>
+                <ion-label></ion-label>
+                <ion-label></ion-label>
+                <ion-label></ion-label>
+              </ion-col>
+            </ion-row>              
+          </ion-grid>
+        </div>
     </ion-list>
   </div>
 </ion-content>

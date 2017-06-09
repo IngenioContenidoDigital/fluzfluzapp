@@ -3,7 +3,7 @@
 
   <ion-buttons left>
     
-    <button ion-button icon-only *ngIf="modalShow!==true && backButtonShow!==true">
+    <button ion-button icon-only *ngIf="modalShow!==true && backButtonShow!==true" navPop>
       <i  class='fluz-fluz-fluz'></i>
     </button>
     <button ion-button icon-only (click)="goTo()" *ngIf="modalShow===true && backButtonShow!==true">
@@ -19,6 +19,7 @@
   </ion-toolbar>
 
   <ion-buttons right>
+    <div>{{countCart}}</div>
     <button ion-button icon-only (click)="goTo('CartPage')">
       <i class='fluz-tienda'></i>
     </button>

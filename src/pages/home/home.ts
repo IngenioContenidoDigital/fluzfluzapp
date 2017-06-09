@@ -7,6 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { HomeService } from '../../providers/home.service';
 import { CategoryService } from '../../providers/category.service';
+import { TabsService } from '../../providers/tabs.service';
 
 @Component({
   selector: 'page-home',
@@ -26,8 +27,10 @@ export class HomePage {
   @ViewChild(Slides) slides: Slides;
   
   constructor(
-    public navCtrl: NavController, public storage: Storage, public splashScreen: SplashScreen, public myAccount: MyAccountService, public home: HomeService, public categoryService: CategoryService
-  ) {}
+    public navCtrl: NavController, public storage: Storage, public splashScreen: SplashScreen, public myAccount: MyAccountService, public home: HomeService, public categoryService: CategoryService, public tabsService: TabsService 
+    ) {
+      this.tabsService.show();
+    }
   
   goTo(value:any) {
     switch (value){

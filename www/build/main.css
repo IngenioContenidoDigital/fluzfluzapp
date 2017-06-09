@@ -46262,7 +46262,7 @@ ion-navbar.toolbar {
 }
 
 /* Colores */
-.dark, .text-dark, page-confirm .confimNumber, page-home .ctn-category .title, page-home .ctn-category .title-product, page-home .title-ctgry, page-product-child .inner-html span, page-product-child .inner-html li, page-product-child .segment-md .segment-button {
+.dark, .text-dark, .inner-html span, .inner-html li, page-confirm .confimNumber, page-home .ctn-category .title, page-home .ctn-category .title-product, page-home .title-ctgry, page-product-child .segment-md .segment-button {
   color: #333333;
 }
 
@@ -46296,7 +46296,7 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
 /* Colores*/
 /* Mixin word-wrap */
 /*Fuentes del tema*/
-.font-family, .text-dark, page-confirm .confimNumber, page-home .ctn-category .title, page-home .ctn-category .title-product, page-home .title-ctgry, page-product-child .inner-html span, page-product-child .inner-html li, page-product-child .segment-md .segment-button, .text-gray-soft, .text-gray-normal, page-addcreditcart .ctn-credit-card i, page-checkout .ctn-pagos div i, page-home .ctn-category .text-product, page-paymentfluz .ctn-pagos div i, page-paymentpse .ctn-pse i, .text-gray-dark, .text-primary, page-home .ctn-category .title-view-all, page-home .title-view-all, .text-secondary, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-category .ctn-user-data .row .col .text-product, page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-home .ctn-user-data .row .col i, .font-more-small, page-confirmated .text-gray-normal, page-more .text-gray-normal, .font-small, .footer .toolbar-title-md, ion-title .toolbar-title-md, page-checkout .ctn-resume .ctn-title, page-paymentfluz .ctn-payfluz .ctn-title, page-paymentpse .ctn-pse .item-radio-button, .font-normal, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, page-home .card-background-page .card-title, page-home .card-background-page .card-md h2, page-more .ctn-options i, .font-big, .font-extra-big, .fluz-fluz-fluz, page-cart, page-checkout, page-home, page-login, page-paymentfluz, page-tabs .tabs-md .tab-button-text {
+.font-family, .text-dark, .inner-html span, .inner-html li, page-confirm .confimNumber, page-home .ctn-category .title, page-home .ctn-category .title-product, page-home .title-ctgry, page-product-child .segment-md .segment-button, .text-gray-soft, .text-gray-normal, page-addcreditcart .ctn-credit-card i, page-checkout .ctn-pagos div i, page-home .ctn-category .text-product, page-paymentfluz .ctn-pagos div i, page-paymentpse .ctn-pse i, .text-gray-dark, .text-primary, page-home .ctn-category .title-view-all, page-home .title-view-all, .text-secondary, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-category .ctn-user-data .row .col .text-product, page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-home .ctn-user-data .row .col i, .font-more-small, page-confirmated .text-gray-normal, page-more .text-gray-normal, .font-small, .footer .toolbar-title-md, ion-title .toolbar-title-md, page-checkout .ctn-resume .ctn-title, page-paymentfluz .ctn-payfluz .ctn-title, page-paymentpse .ctn-pse .item-radio-button, .font-normal, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, page-home .card-background-page .card-title, page-home .card-background-page .card-md h2, page-more .ctn-options i, .font-big, .font-extra-big, .fluz-fluz-fluz, page-cart, page-checkout, page-home, page-login, page-paymentfluz, page-tabs .tabs-md .tab-button-text {
   font-family: "Open Sans", sans-serif;
 }
 
@@ -46305,12 +46305,12 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
   font-size: 0.8rem;
 }
 
-.font-more-small, page-confirmated .text-gray-normal, page-confirmated page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-confirmated i, page-confirmated page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-confirmated i, page-confirmated page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-confirmated i, page-confirmated page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-confirmated i, page-home .ctn-category .text-product, page-more .text-gray-normal, page-more page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-more i, page-more page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-more i, page-more page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-more i, page-more page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-more i, page-product-child .inner-html span, page-product-child .inner-html li {
+.font-more-small, page-confirmated .text-gray-normal, page-confirmated page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-confirmated i, page-confirmated page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-confirmated i, page-confirmated page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-confirmated i, page-confirmated page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-confirmated i, page-home .ctn-category .text-product, page-more .text-gray-normal, page-more page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-more i, page-more page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-more i, page-more page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-more i, page-more page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-more i {
   font-size: 11px;
   font-size: 1.1rem;
 }
 
-.font-small, .footer .toolbar-title-md, ion-title .toolbar-title-md, page-checkout .ctn-resume .ctn-title, page-home .ctn-category .title, page-home .ctn-category .title-view-all, page-home .ctn-category .title-product, page-home .title-ctgry, page-home .title-view-all, page-paymentfluz .ctn-payfluz .ctn-title, page-paymentpse .ctn-pse .item-radio-button {
+.font-small, .footer .toolbar-title-md, ion-title .toolbar-title-md, .inner-html span, .inner-html li, page-checkout .ctn-resume .ctn-title, page-home .ctn-category .title, page-home .ctn-category .title-view-all, page-home .ctn-category .title-product, page-home .title-ctgry, page-home .title-view-all, page-paymentfluz .ctn-payfluz .ctn-title, page-paymentpse .ctn-pse .item-radio-button {
   font-size: 14px;
   font-size: 1.4rem;
 }
@@ -46346,7 +46346,7 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
   border: 1px solid #D7D7D7;
 }
 
-.border-b, page-cart .cart-values .list-md, page-cart .back-options .ctn-edit-options, page-checkout .ctn-resume .cart-values .list-md {
+.border-b, page-bonus .ctn-details .ctn-accordeon-title, page-cart .cart-values .list-md, page-cart .back-options .ctn-edit-options, page-checkout .ctn-resume .cart-values .list-md {
   border-bottom: 1px solid #D7D7D7;
 }
 
@@ -46408,7 +46408,7 @@ ion-icon[class*="fluz-more-3"] {
   background-color: #f2f2f2;
 }
 
-.background-white, page-bonus .ctn-bonus .ctn-info-bonus, page-checkout .ctn-resume .ctn-title, page-checkout .ctn-resume .ctn-costos, page-paymentfluz .ctn-payfluz .ctn-title {
+.background-white, page-bonus .ctn-bonus .ctn-info-bonus, page-bonus .ctn-details .ctn-accordeon-title, page-bonus .ctn-details .ctn-accordeon-details, page-checkout .ctn-resume .ctn-title, page-checkout .ctn-resume .ctn-costos, page-paymentfluz .ctn-payfluz .ctn-title {
   background-color: #fff;
 }
 
@@ -46437,6 +46437,22 @@ ion-icon[class*="fluz-more-3"] {
   width: 40px;
 }
 
+.inner-html {
+  white-space: normal !important;
+}
+
+.inner-html span, .inner-html li {
+  list-style-type: none;
+}
+
+.inner-html li {
+  padding-bottom: 10px;
+}
+
+.inner-html ul {
+  padding: 0px;
+}
+
 page-addcreditcart .ctn-credit-card {
   border: 1px solid #D7D7D7;
   margin: 10px;
@@ -46456,13 +46472,17 @@ page-bonus .ctn-refine {
   margin: 10px;
 }
 
+page-bonus .ctn-bonus {
+  padding: 0px;
+}
+
 page-bonus .ctn-bonus .static-height {
   height: 70px;
 }
 
 page-bonus .ctn-bonus .ctn-info-bonus {
-  margin: -35px 5px 5px 5px;
-  padding: 5px;
+  margin: -35px 8px 8px 5px;
+  padding: 8px;
 }
 
 page-bonus .ctn-bonus .ctn-info-bonus .label-md {
@@ -46473,11 +46493,35 @@ page-bonus .ctn-bonus .ctn-info-bonus .text-spacer {
   margin: 13px 0px;
 }
 
+page-bonus .ctn-details .display-inline {
+  display: inline-block;
+}
+
+page-bonus .ctn-details .row .col .radio {
+  margin: 13px 8px 13px 0;
+}
+
+page-bonus .ctn-details .ctn-accordeon-title {
+  margin-bottom: 1px;
+}
+
+page-bonus .ctn-details .ctn-accordeon-title .row {
+  padding: 0 10px;
+}
+
+page-bonus .ctn-details .ctn-accordeon-details {
+  padding: 0 10px;
+}
+
+page-bonus .ctn-details .ctn-accordeon-details .item-md {
+  padding-left: 0px;
+}
+
 page-cart .edit {
   text-transform: capitalize;
 }
 
-page-cart .border-b, page-cart .cart-values .list-md, page-cart .back-options .ctn-edit-options, page-cart page-checkout .ctn-resume .cart-values .list-md, page-checkout .ctn-resume .cart-values page-cart .list-md {
+page-cart .border-b, page-cart page-bonus .ctn-details .ctn-accordeon-title, page-bonus .ctn-details page-cart .ctn-accordeon-title, page-cart .cart-values .list-md, page-cart .back-options .ctn-edit-options, page-cart page-checkout .ctn-resume .cart-values .list-md, page-checkout .ctn-resume .cart-values page-cart .list-md {
   margin-bottom: 15px;
 }
 
@@ -46587,7 +46631,7 @@ page-cart .product-name {
   min-width: 50%;
 }
 
-page-cart .background-white, page-cart page-bonus .ctn-bonus .ctn-info-bonus, page-bonus .ctn-bonus page-cart .ctn-info-bonus, page-cart page-checkout .ctn-resume .ctn-title, page-checkout .ctn-resume page-cart .ctn-title, page-cart page-checkout .ctn-resume .ctn-costos, page-checkout .ctn-resume page-cart .ctn-costos, page-cart page-paymentfluz .ctn-payfluz .ctn-title, page-paymentfluz .ctn-payfluz page-cart .ctn-title {
+page-cart .background-white, page-cart page-bonus .ctn-bonus .ctn-info-bonus, page-bonus .ctn-bonus page-cart .ctn-info-bonus, page-cart page-bonus .ctn-details .ctn-accordeon-title, page-bonus .ctn-details page-cart .ctn-accordeon-title, page-cart page-bonus .ctn-details .ctn-accordeon-details, page-bonus .ctn-details page-cart .ctn-accordeon-details, page-cart page-checkout .ctn-resume .ctn-title, page-checkout .ctn-resume page-cart .ctn-title, page-cart page-checkout .ctn-resume .ctn-costos, page-checkout .ctn-resume page-cart .ctn-costos, page-cart page-paymentfluz .ctn-payfluz .ctn-title, page-paymentfluz .ctn-payfluz page-cart .ctn-title {
   background-color: #fff;
 }
 
@@ -46615,7 +46659,7 @@ page-checkout .ctn-resume .ctn-title {
   padding: 0 10px;
 }
 
-page-checkout .ctn-resume .swipeable .border-b, page-cart .cart-values page-checkout .ctn-resume .swipeable .list-md, page-checkout .ctn-resume .swipeable page-cart .back-options .ctn-edit-options, page-cart .back-options page-checkout .ctn-resume .swipeable .ctn-edit-options, page-checkout .ctn-resume .swipeable .cart-values .list-md, page-checkout .ctn-resume .cart-values .swipeable .list-md {
+page-checkout .ctn-resume .swipeable .border-b, page-checkout .ctn-resume .swipeable page-bonus .ctn-details .ctn-accordeon-title, page-bonus .ctn-details page-checkout .ctn-resume .swipeable .ctn-accordeon-title, page-cart .cart-values page-checkout .ctn-resume .swipeable .list-md, page-checkout .ctn-resume .swipeable page-cart .back-options .ctn-edit-options, page-cart .back-options page-checkout .ctn-resume .swipeable .ctn-edit-options, page-checkout .ctn-resume .swipeable .cart-values .list-md, page-checkout .ctn-resume .cart-values .swipeable .list-md {
   margin-top: 1px;
 }
 
@@ -46664,7 +46708,7 @@ page-checkout .ctn-resume .cart-values .list-md .item-md {
   padding-left: 5px;
 }
 
-page-confirm .text-dark, page-confirm .confimNumber, page-confirm page-home .ctn-category .title, page-home .ctn-category page-confirm .title, page-confirm page-home .ctn-category .title-product, page-home .ctn-category page-confirm .title-product, page-confirm page-home .title-ctgry, page-home page-confirm .title-ctgry, page-confirm page-product-child .inner-html span, page-product-child .inner-html page-confirm span, page-confirm page-product-child .inner-html li, page-product-child .inner-html page-confirm li, page-confirm page-product-child .segment-md .segment-button, page-product-child .segment-md page-confirm .segment-button {
+page-confirm .text-dark, page-confirm .inner-html span, .inner-html page-confirm span, page-confirm .inner-html li, .inner-html page-confirm li, page-confirm .confimNumber, page-confirm page-home .ctn-category .title, page-home .ctn-category page-confirm .title, page-confirm page-home .ctn-category .title-product, page-home .ctn-category page-confirm .title-product, page-confirm page-home .title-ctgry, page-home page-confirm .title-ctgry, page-confirm page-product-child .segment-md .segment-button, page-product-child .segment-md page-confirm .segment-button {
   white-space: -moz-pre-wrap;
   /* Firefox */
   white-space: -o-pre-wrap;
@@ -46704,13 +46748,12 @@ page-confirmated .spacer {
 }
 
 page-confirmated .ctn-float {
-  margin-top: 60px;
+  margin-top: -40px;
 }
 
 page-confirmated .ctn-float-img {
   text-align: center;
   height: 80px;
-  position: fixed;
   margin-top: 30px;
   width: 100%;
 }
@@ -46864,14 +46907,13 @@ page-more .spacer {
 }
 
 page-more .ctn-float {
-  margin-top: 60px;
+  margin-top: -40px;
   padding: 0px;
 }
 
 page-more .ctn-float-img {
   text-align: center;
   height: 80px;
-  position: fixed;
   margin-top: 30px;
   width: 100%;
 }
@@ -47096,22 +47138,6 @@ page-product-child .item-inner .label-md {
   margin: 0px;
 }
 
-page-product-child .inner-html {
-  white-space: normal !important;
-}
-
-page-product-child .inner-html span, page-product-child .inner-html li {
-  list-style-type: none;
-}
-
-page-product-child .inner-html li {
-  padding-bottom: 10px;
-}
-
-page-product-child .inner-html ul {
-  padding: 0px;
-}
-
 page-product-child .segment-md .segment-button {
   background-color: #f2f2f2;
 }
@@ -47171,6 +47197,10 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
 page-tabs .tabs-md .tab-button-text {
   font-size: 9px;
   font-size: 0.9rem;
+}
+
+page-vault .segment-md .segment-button {
+  color: #333333;
 }
 
 page-vault .ctn-purchases .label-md {
