@@ -25,7 +25,6 @@ export class MyAccountService {
           .map(res => res.json())
           .subscribe(
             data => {
-              console.log(JSON.stringify(data));
               this.userData = JSON.stringify(data);
               resolve( this.userData );
             },

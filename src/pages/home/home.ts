@@ -2,12 +2,15 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, Slides } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { ConfirmPage } from '../confirm/confirm';
+import { CategoryPage } from '../category/category';
+import { CategoriesPage } from '../categories/categories';
 import { Storage } from '@ionic/storage';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { HomeService } from '../../providers/home.service';
 import { CategoryService } from '../../providers/category.service';
 import { TabsService } from '../../providers/tabs.service';
+import { ProductChildPage } from '../product-child/product-child';
 
 @Component({
   selector: 'page-home',
@@ -22,7 +25,8 @@ export class HomePage {
   public categoryFatherData:any = [];
   public categoryWithOutFatherData:any = [];
   public backgroundDefault:any = "https://s3.amazonaws.com/imagenes-fluzfluz/c/3-category_default.jpg";
-  
+  public category:any = false;
+  public productChild:any = [];
     
   @ViewChild(Slides) slides: Slides;
   
@@ -108,12 +112,43 @@ export class HomePage {
   }
   
   getCategoryWithOutFatherData(){
-    this.categoryService.getCategory( 2 ).then(
+    this.categoryService.getCategory( 2, 0, 6 ).then(
       (data:any) => {
         this.categoryWithOutFatherData = data.result;
       }
     );
   }
   
+  openCategoryById( item:any ){
+    this.categoryService.getCategory( 3, item.id_category ).then(
+      (data:any) => {
+        this.navCtrl.push( CategoryPage, {
+          category: item,
+          products: data.products
+        });
+      }  
+    );
+  }
+  
+  openViewAllCategories(){
+   this.categoryService.getCategory( 2 ).then(
+      (data:any) => {
+        this.navCtrl.push( CategoriesPage, {
+          categories: data.result
+        });
+      }
+    );
+  }
+  
+  openProductChild( item:any ) {
+    
+    this.productChild.image_manufacturer = item.image;
+    this.productChild.id_parent = item.pf_id;
+    
+    this.navCtrl.push(ProductChildPage,{
+      manufacturer: this.productChild,
+      productFather: this.productChild
+    });
+  }
   
 }

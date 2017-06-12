@@ -74,6 +74,11 @@
     @include font-size(14px);
   }
   
+  .font-small-normal {
+    @extend .font-family;
+    @include font-size(20px);    
+  }
+  
   .font-normal {
     @extend .font-family;
     @include font-size(25px);

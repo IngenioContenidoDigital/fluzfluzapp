@@ -35,6 +35,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   /* Product */
     import { ProductFatherPage } from '../pages/product-father/product-father';
     import { ProductChildPage } from '../pages/product-child/product-child';
+    import { CategoryPage } from '../pages/category/category';
+    import { CategoriesPage } from '../pages/categories/categories';
   
   /* Pagos */
     import { CartPage } from '../pages/cart/cart';
@@ -72,7 +74,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AddCreditCartPage,
     PaymentPsePage,
     PasscodePage,
-    BonusPage
+    BonusPage,
+    CategoryPage,
+    CategoriesPage
   ],
   imports: [
     BrowserModule,
@@ -107,7 +111,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AddCreditCartPage,
     PaymentPsePage,
     PasscodePage,
-    BonusPage
+    BonusPage,
+    CategoryPage,
+    CategoriesPage
   ],
   providers: [
     StatusBar,

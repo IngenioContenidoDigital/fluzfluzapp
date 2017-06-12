@@ -38,7 +38,6 @@ export class VaultPage {
       if( val != null && val != '' && val != undefined ){
         this.vault.getVaultData(val.id).then(
           (data:any) => {
-            console.log( data.result );
             this.vaultData = data.result;
           }
         );
@@ -48,12 +47,10 @@ export class VaultPage {
   
   openItem(item){
     this.item = item;
-    console.log("Entra en id: " + this.item.id_manufacturer );
     this.storage.get('userData').then((val) => {
       if( val != null && val != '' && val != undefined ){
         this.vault.getVaultData(val.id, this.item.id_manufacturer).then(
           (data:any) => {
-            console.log( data.result );
             this.navCtrl.push( BonusPage,{
               manufacturer: this.item,
               bonus: data.result,

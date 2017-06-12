@@ -71,7 +71,6 @@ export class PaymentFluzPage {
             break            
           }
           case 2:{
-            console.log("Tarjeta 2");
             this.navCtrl.push( PaymentFluzPage,{
               cart: this.cart
             });

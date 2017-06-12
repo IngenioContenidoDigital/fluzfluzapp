@@ -22,7 +22,6 @@ export class ProductFatherPage {
     this.manufacturer = navParams.get("manufacturer");
     this.searchService.search( this.manufacturer.m_id, '2' ).then((data) => {
       this.productFather = data;
-      console.log( this.productFather );
       if( this.productFather.total == 1 ){
         this.openItem( this.productFather.result['0'] );
       }

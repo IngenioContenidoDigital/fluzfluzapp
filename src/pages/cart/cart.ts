@@ -107,8 +107,8 @@ export class CartPage {
     this.storage.get('cart').then((val) => {
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
       this.products = ( val != undefined && val != null && val != '' ) ? val.products : [];
-      console.log( "Estos son los productos: " );
-      console.log( this.products );
+//      console.log( "Estos son los productos: " );
+//      console.log( this.products );
     });
   }
   

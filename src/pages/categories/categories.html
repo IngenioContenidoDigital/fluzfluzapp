@@ -1,0 +1,23 @@
+<!--
+  Generated template for the CategoriesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title text-center>CATEGORIAS<button ion-button clear class="invisibleButton"></button></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <div class="card-background-page" *ngFor="let category of categories">
+    <ion-card (click)="openCategoryById(category)">
+      <img src="{{category.img_category}}" onerror="this.style.display='none'"/>            
+      <div class="card-title">{{category.name}}</div>
+    </ion-card>
+  </div>
+</ion-content>

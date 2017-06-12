@@ -46296,7 +46296,7 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
 /* Colores*/
 /* Mixin word-wrap */
 /*Fuentes del tema*/
-.font-family, .text-dark, .inner-html span, .inner-html li, page-confirm .confimNumber, page-home .ctn-category .title, page-home .ctn-category .title-product, page-home .title-ctgry, page-product-child .segment-md .segment-button, .text-gray-soft, .text-gray-normal, page-addcreditcart .ctn-credit-card i, page-checkout .ctn-pagos div i, page-home .ctn-category .text-product, page-paymentfluz .ctn-pagos div i, page-paymentpse .ctn-pse i, .text-gray-dark, .text-primary, page-home .ctn-category .title-view-all, page-home .title-view-all, .text-secondary, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-category .ctn-user-data .row .col .text-product, page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-home .ctn-user-data .row .col i, .font-more-small, page-confirmated .text-gray-normal, page-more .text-gray-normal, .font-small, .footer .toolbar-title-md, ion-title .toolbar-title-md, page-checkout .ctn-resume .ctn-title, page-paymentfluz .ctn-payfluz .ctn-title, page-paymentpse .ctn-pse .item-radio-button, .font-normal, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, page-home .card-background-page .card-title, page-home .card-background-page .card-md h2, page-more .ctn-options i, .font-big, .font-extra-big, .fluz-fluz-fluz, page-cart, page-checkout, page-home, page-login, page-paymentfluz, page-tabs .tabs-md .tab-button-text {
+.font-family, .text-dark, .inner-html span, .inner-html li, page-confirm .confimNumber, page-home .ctn-category .title, page-home .ctn-category .title-product, page-home .title-ctgry, page-product-child .segment-md .segment-button, .text-gray-soft, .text-gray-normal, page-addcreditcart .ctn-credit-card i, page-checkout .ctn-pagos div i, page-home .ctn-category .text-product, page-paymentfluz .ctn-pagos div i, page-paymentpse .ctn-pse i, .text-gray-dark, .text-primary, page-home .ctn-category .title-view-all, page-home .title-view-all, .text-secondary, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-category .ctn-user-data .row .col .text-product, page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-home .ctn-user-data .row .col i, .font-more-small, page-confirmated .text-gray-normal, page-more .text-gray-normal, .font-small, .footer .toolbar-title-md, ion-title .toolbar-title-md, page-checkout .ctn-resume .ctn-title, page-paymentfluz .ctn-payfluz .ctn-title, page-paymentpse .ctn-pse .item-radio-button, .font-small-normal, page-categories .card-background-page .card-title, page-categories .card-background-page .card-md h2, page-category .card-background-page .card-title, page-category .card-background-page .card-md h2, .font-normal, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, page-home .card-background-page .card-title, page-home .card-background-page .card-md h2, page-more .ctn-options i, .font-big, .font-extra-big, .fluz-fluz-fluz, page-cart, page-checkout, page-home, page-login, page-paymentfluz, page-tabs .tabs-md .tab-button-text {
   font-family: "Open Sans", sans-serif;
 }
 
@@ -46313,6 +46313,11 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
 .font-small, .footer .toolbar-title-md, ion-title .toolbar-title-md, .inner-html span, .inner-html li, page-checkout .ctn-resume .ctn-title, page-home .ctn-category .title, page-home .ctn-category .title-view-all, page-home .ctn-category .title-product, page-home .title-ctgry, page-home .title-view-all, page-paymentfluz .ctn-payfluz .ctn-title, page-paymentpse .ctn-pse .item-radio-button {
   font-size: 14px;
   font-size: 1.4rem;
+}
+
+.font-small-normal, page-categories .card-background-page .card-title, page-categories .card-background-page .card-md h2, page-category .card-background-page .card-title, page-category .card-background-page .card-md h2 {
+  font-size: 20px;
+  font-size: 2rem;
 }
 
 .font-normal, page-addcreditcart .ctn-credit-card i, page-checkout .ctn-pagos div i, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, page-home .card-background-page .card-title, page-home .card-background-page .card-md h2, page-more .ctn-options i, page-paymentfluz .ctn-pagos div i, page-paymentpse .ctn-pse i {
@@ -46633,6 +46638,86 @@ page-cart .product-name {
 
 page-cart .background-white, page-cart page-bonus .ctn-bonus .ctn-info-bonus, page-bonus .ctn-bonus page-cart .ctn-info-bonus, page-cart page-bonus .ctn-details .ctn-accordeon-title, page-bonus .ctn-details page-cart .ctn-accordeon-title, page-cart page-bonus .ctn-details .ctn-accordeon-details, page-bonus .ctn-details page-cart .ctn-accordeon-details, page-cart page-checkout .ctn-resume .ctn-title, page-checkout .ctn-resume page-cart .ctn-title, page-cart page-checkout .ctn-resume .ctn-costos, page-checkout .ctn-resume page-cart .ctn-costos, page-cart page-paymentfluz .ctn-payfluz .ctn-title, page-paymentfluz .ctn-payfluz page-cart .ctn-title {
   background-color: #fff;
+}
+
+page-categories .card-background-page ion-card {
+  position: relative;
+  text-align: center;
+}
+
+page-categories .card-background-page ion-card img {
+  min-height: 85px;
+}
+
+page-categories .card-background-page .card-title, page-categories .card-background-page .card-md h2 {
+  position: absolute;
+  top: 36%;
+  width: 100%;
+  color: #fff;
+}
+
+page-categories .card-background-page .card-subtitle {
+  font-size: 1.0em;
+  position: absolute;
+  top: 52%;
+  width: 100%;
+  color: #fff;
+}
+
+page-categories .card-background-page .card-md {
+  background-color: #E1493A;
+  width: 100%;
+  margin: 0px;
+  min-height: 85px;
+  border-radius: 0px;
+}
+
+page-category .card-background-page ion-card {
+  position: relative;
+  text-align: center;
+}
+
+page-category .card-background-page ion-card img {
+  min-height: 85px;
+}
+
+page-category .card-background-page .card-title, page-category .card-background-page .card-md h2 {
+  position: absolute;
+  top: 36%;
+  width: 100%;
+  color: #fff;
+}
+
+page-category .card-background-page .card-subtitle {
+  font-size: 1.0em;
+  position: absolute;
+  top: 52%;
+  width: 100%;
+  color: #fff;
+}
+
+page-category .card-background-page .card-md {
+  background-color: #E1493A;
+  width: 100%;
+  margin: 0px;
+  min-height: 85px;
+  border-radius: 0px;
+}
+
+page-category .ctn-products .col {
+  padding: 5px;
+}
+
+page-category .ctn-products .col .label {
+  margin: 5px 0px;
+}
+
+page-category .ctn-products .text-primary, page-category .ctn-products page-home .title-view-all, page-home page-category .ctn-products .title-view-all {
+  margin-right: 0px;
+}
+
+page-category .ctn-products .font-extra-small, page-category .ctn-products page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-category .ctn-products .text-gray-normal, page-category .ctn-products page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card i, page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card page-category .ctn-products i, page-category .ctn-products page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col i, page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col page-category .ctn-products i, page-category .ctn-products page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div page-category .ctn-products i, page-category .ctn-products page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col page-category .ctn-products i, page-category .ctn-products page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-user-data .row .col .ctn-category page-category .ctn-products .text-product, page-category .ctn-products page-home .ctn-category .ctn-user-data .row .col .text-product, page-home .ctn-category .ctn-user-data .row .col page-category .ctn-products .text-product, page-category .ctn-products page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div i, page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div page-category .ctn-products i, page-category .ctn-products page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col i, page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col page-category .ctn-products i, page-category .ctn-products page-home .ctn-user-data .row .col page-paymentpse .ctn-pse i, page-home .ctn-user-data .row .col page-paymentpse .ctn-pse page-category .ctn-products i, page-category .ctn-products page-paymentpse .ctn-pse page-home .ctn-user-data .row .col i, page-paymentpse .ctn-pse page-home .ctn-user-data .row .col page-category .ctn-products i {
+  margin: 0;
 }
 
 page-checkout .ctn-pagos {

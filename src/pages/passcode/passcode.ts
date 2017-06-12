@@ -16,8 +16,5 @@ export class PasscodePage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Passcode');
-  }
 
 }

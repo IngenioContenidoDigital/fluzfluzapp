@@ -35,10 +35,10 @@ export class HeaderPage {
     this.modalShow = navParams.get('modalShow') ? navParams.get('modalShow') : this.modalShow;
     this.backButtonShow = this.backButtonShow ? this.backButtonShow : false;
     this.storage.get('cart').then((val) => {
-      console.log( val );
+//      console.log( val );
       if (val != null || val != undefined ){
         this.countCart = val.quantity;
-        console.log( this.countCart );
+//        console.log( this.countCart );
       }
     });
   }
@@ -76,7 +76,7 @@ export class HeaderPage {
   
   updateCountCart( countCart:any ) {
     this.countCart = countCart;
-    console.log( this.countCart );
+//    console.log( this.countCart );
   }
 
 }

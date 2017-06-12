@@ -23,7 +23,6 @@ export class CartService {
       idProduct: idProduct,
       option: 1
     });
-    console.log(params);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     return this.http.post(this._url, params, headers)
       .map(this.extractData)

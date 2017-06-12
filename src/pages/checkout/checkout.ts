@@ -39,8 +39,8 @@ export class CheckoutPage {
   
  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
     this.cart = navParams.get("cart");
-    console.log("este es el carro que llega");
-    console.log(this.cart);
+//    console.log("este es el carro que llega");
+//    console.log(this.cart);
   }
 
   ionViewDidLoad() {

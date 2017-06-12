@@ -60,7 +60,6 @@ export class ProductChildPage {
     setTimeout(() => {
       this.storage.get('cart').then((val) => {
         this.updateCountCart.emit( val.quantity );
-        console.log( "Este es el que emite: ", val.quantity );
       });
     },150);
   }

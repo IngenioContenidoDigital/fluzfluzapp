@@ -1,0 +1,32 @@
+page-categories {
+  .card-background-page {
+    ion-card {
+      position: relative;
+      text-align: center;
+      img {
+        min-height: 85px;
+      }
+    }
+    .card-title, .card-md h2 {
+      @extend .font-small-normal;
+      position: absolute;
+      top: 36%;
+      width: 100%;
+      color: #fff;
+    }
+    .card-subtitle {
+      font-size: 1.0em;
+      position: absolute;
+      top: 52%;
+      width: 100%;
+      color: #fff;
+    }
+    .card-md {
+      background-color: color($colors, primary);
+      width: 100%;
+      margin: 0px;
+      min-height: 85px;
+      border-radius: 0px;
+    }
+  }
+}
