@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import { PaymentFluzPage } from '../paymentfluz/paymentfluz';
 import { AddCreditCartPage } from '../addcreditcart/addcreditcart';
 import { PaymentPsePage } from '../paymentpse/paymentpse';
-
+import { TabsService } from '../../providers/tabs.service';
 
 /**
  * Generated class for the Checkout page.
@@ -37,7 +37,7 @@ export class CheckoutPage {
   public products:any = 0;
   public showTerms:any = false;
   
- constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
+ constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public tabsService: TabsService) {
     this.cart = navParams.get("cart");
 //    console.log("este es el carro que llega");
 //    console.log(this.cart);
@@ -91,5 +91,13 @@ export class CheckoutPage {
   
   updateShowTerms(item){
     this.showTerms = this.showTerms != item.id_product ? item.id_product : false;
+  }
+  
+  ionViewWillEnter(){
+    this.tabsService.hide();
+  }
+
+  ionViewWillLeave(){
+    this.tabsService.show();
   }
 }

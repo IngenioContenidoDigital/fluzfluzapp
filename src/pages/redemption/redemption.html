@@ -7,12 +7,80 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>redemption</ion-title>
+    <ion-navbar hideBackButton="true">
+      <ion-buttons left>
+        <button ion-button icon-only>
+          <i class='fluz-fluz-fluz'></i>
+        </button>
+      </ion-buttons>
+      <ion-title text-center>REDENCIONES</ion-title>
+      <ion-buttons right>
+        <button ion-button icon-only (click)="goTo('HomePage')">
+          <ion-icon name='ios-arrow-round-back'></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
   </ion-navbar>
 
 </ion-header>
 
-
-<ion-content padding>
-<h1>Redenciones</h1>
+<ion-content no-padding class="background-soft">
+  <div class="ctn-background-white border-b-primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col>Fluz total:</ion-col>
+        <ion-col col-4 text-right class="text-gray-normal">{{userData.fluzTotal}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Redencion Total en Efectivo:</ion-col>
+        <ion-col col-4 text-right class="text-gray-normal">COP ${{userData.totalSavings}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-label class="mount">MONTO</ion-label>
+  <div class="ctn-background-white">
+    <ion-grid>
+      <ion-row class="border-b" (click)="selectedPayment(1)">
+        <ion-col>Selección Monto: <span class="text-primary">{{userData.fluzTotal}} Fluz / COP ${{userData.totalSavings}}</span></ion-col>
+        <ion-col col-2 text-right><ion-icon [name]="payment == 1 ? 'md-checkmark' : 'ios-arrow-forward'"></ion-icon></ion-col>
+      </ion-row>
+      <ion-row (click)="selectedPayment(2)">
+        <ion-col>Selección Monto Parcial:</ion-col>
+        <ion-col col-4 text-right><ion-icon [name]="payment == 2 ? 'md-checkmark' : 'ios-arrow-forward'"></ion-icon></ion-col>
+      </ion-row>
+      <div *ngIf="showFluzRange == true" [@slideIn]>
+        <ion-row class="padding-h-8">
+          <ion-col>
+            <ion-range min="0" [max]="userData.fluzTotal" [(ngModel)]="valueRedemption.fluzTotal" color="danger" pin="true" debounce="500" (ionChange)="updateValuesRedemption('1')"></ion-range>
+          </ion-col>
+        </ion-row>
+        <ion-row class="padding-number-fluz border-b">
+          <ion-col col-6>
+            <ion-input type="number" disabled="true" [value]="valueRedemption.fluzTotal" [(ngModel)]="valueRedemption.fluzTotal"></ion-input>
+          </ion-col>
+          <ion-col col-6>
+            <ion-label class="font-semi-bold"> de {{userData.fluzTotal}} Fluz</ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-grid>
+  </div>
+  <div class="ctn-background-white">
+    <ion-grid>
+      <ion-row>
+        <ion-col>Fluz Disponibles después de Rendención</ion-col>
+        <ion-col col-4 text-right class="text-gray-normal">{{disponibleFluz.fluzTotal}} Fluz</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Rendención en efectivo Disponible:</ion-col>
+        <ion-col col-4 text-right class="text-gray-normal">COP ${{disponibleFluz.totalSavings}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
+
+<ion-footer *ngIf="valueRedemption.fluzTotal != 0" [@slideIn]>
+  <ion-toolbar color="primary">
+    <ion-title>SIGUIENTE</ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -54,7 +54,6 @@ export class HomePage {
   }
    
   ionViewWillEnter(){
-    this.splashScreen.hide();
     this.storage.get('userData').then((val) => {
       if ( val !== false ){
         if (val === null || val === undefined ){
@@ -73,8 +72,8 @@ export class HomePage {
       this.getBannerData();
       this.getCategoryWithFatherData();
       this.getCategoryWithOutFatherData();
-    }, 100);
-//    this.setSlide();
+    }, 100 );
+    this.splashScreen.hide();
   }
   
   getUserData() {

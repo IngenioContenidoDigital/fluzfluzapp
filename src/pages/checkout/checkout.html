@@ -138,8 +138,8 @@
   <div class="spacer-25"></div>
 </ion-content>
 
-<ion-footer>
-  <ion-toolbar color="primary"  *ngIf="payment > 0" (click)="goTo('payment')">
+<ion-footer [@slideIn] *ngIf="payment > 0" (click)="goTo('payment')">
+  <ion-toolbar color="primary">
     <ion-title>CONFIRMAR PAGO</ion-title>
   </ion-toolbar>
 </ion-footer>

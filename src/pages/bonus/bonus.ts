@@ -1,5 +1,6 @@
 import { Component, trigger, style, animate, state, transition } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { TabsService } from '../../providers/tabs.service';
 
 /**
  * Generated class for the Bonus page.
@@ -31,7 +32,7 @@ export class BonusPage {
   public bonus:any = [];
   public bonusT:any;
   public showDetails:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService) {
     this.manufacturer = navParams.get("manufacturer");
     this.bonus = navParams.get("bonus");
     this.bonus.showDetails = true;
@@ -61,6 +62,14 @@ export class BonusPage {
       }
     }
     
+  }
+  
+  ionViewWillEnter(){
+    this.tabsService.hide();
+  }
+
+  ionViewWillLeave(){
+    this.tabsService.show();
   }
 
 }

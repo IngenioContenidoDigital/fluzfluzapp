@@ -83,7 +83,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     HttpModule,
     IonicModule.forRoot(MyApp, {
-      tabsHideOnSubPages: true,
+      tabsHideOnSubPages: false,
+      tabsPlacement: 'bottom',
+      modalEnter: 'modal-slide-in',
+      modalLeave: 'modal-slide-out',
+      pageTransition: 'ios-transition'
     }),
     IonicStorageModule.forRoot()
   ],

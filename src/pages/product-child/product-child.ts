@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { SearchService } from '../../providers/search.service';
 import { CartService } from '../../providers/cart.service';
 import { Storage } from '@ionic/storage';
+import { TabsService } from '../../providers/tabs.service';
 
 /**
  * Generated class for the ProductChild page.
@@ -27,7 +28,7 @@ export class ProductChildPage {
   @Output()
   public updateCountCart: EventEmitter<string> = new EventEmitter<string>();
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public searchService: SearchService, public cartService: CartService, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public searchService: SearchService, public cartService: CartService, public storage: Storage, public tabsService: TabsService) {
     this.inform = "instructions";
     this.manufacturer = navParams.get("manufacturer");
     this.productFather = navParams.get("productFather");
@@ -62,5 +63,13 @@ export class ProductChildPage {
         this.updateCountCart.emit( val.quantity );
       });
     },150);
+  }
+  
+  ionViewWillEnter(){
+    this.tabsService.hide();
+  }
+
+  ionViewWillLeave(){
+    this.tabsService.show();
   }
 }

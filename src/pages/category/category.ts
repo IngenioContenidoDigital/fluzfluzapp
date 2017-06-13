@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ProductChildPage } from '../product-child/product-child';
+import { TabsService } from '../../providers/tabs.service';
 
 /**
  * Generated class for the CategoryPage page.
@@ -19,7 +20,7 @@ export class CategoryPage {
   
   public productChild:any = [];
   
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService) {
     this.category = navParams.get("category");
     this.products = navParams.get("products");
   }
@@ -33,6 +34,14 @@ export class CategoryPage {
       manufacturer: this.productChild,
       productFather: this.productChild
     });
+  }
+  
+  ionViewWillEnter(){
+    this.tabsService.hide();
+  }
+
+  ionViewWillLeave(){
+    this.tabsService.show();
   }
 
 }

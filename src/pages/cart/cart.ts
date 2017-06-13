@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { CartService } from '../../providers/cart.service';
 import { CheckoutPage } from '../checkout/checkout';
+import { TabsService } from '../../providers/tabs.service';
 
 /**
  * Generated class for the Cart page.
@@ -37,7 +38,7 @@ export class CartPage {
   public index:any = -1;
   public textEditButton:string = "Editar";
   public showTerms = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public cartService: CartService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public cartService: CartService, public tabsService: TabsService) {
   }
 
   ionViewDidLoad() {
@@ -129,5 +130,13 @@ export class CartPage {
   
   updateShowTerms(item){
     this.showTerms = this.showTerms != item.id_product ? item.id_product : false;
+  }
+  
+  ionViewWillEnter(){
+    this.tabsService.hide();
+  }
+
+  ionViewWillLeave(){
+    this.tabsService.show();
   }
 }

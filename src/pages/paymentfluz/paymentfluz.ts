@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { Storage } from '@ionic/storage';
+import { TabsService } from '../../providers/tabs.service';
 
 /**
  * Generated class for the Paymentfluz page.
@@ -22,14 +23,19 @@ export class PaymentFluzPage {
   public calcules:any = {};
   public payment:any = 0;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public myAccount: MyAccountService, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public myAccount: MyAccountService, public storage: Storage, public tabsService: TabsService) {
   }
 
   ionViewWillEnter(){
+    this.tabsService.hide();
     this.updateFluzTotals();
     this.updateDataView();
     setTimeout(()=>{ this.calcules.you_may = this.cart.order_total }, 200);
     this.calcules.fluz_result = 0;
+  }
+  
+  ionViewWillLeave(){
+    this.tabsService.show();
   }
   
   updateFluzTotals() {
@@ -86,4 +92,6 @@ export class PaymentFluzPage {
       }
     }
   }
+  
+
 }

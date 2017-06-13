@@ -1,3 +1,33 @@
 page-redemption {
-
+  @extend .font-family;
+  .ctn-background-white {
+    @extend .background-white;
+    border: 1px solid color($colors, gray-soft);
+    margin: 10px;
+  }
+  .border-b-primary {
+    border-bottom: 3px solid color($colors, primary);
+  }
+  .mount {
+    @extend .text-gray-normal;
+    @extend .font-more-small;
+    padding: 0 23px;
+    margin: 25px 0 0 0;
+  }
+  .grid {
+    padding: 0px;
+    .row {
+      padding: 10px 8px;
+    }
+    .padding-number-fluz {
+      padding: 0 8px 10px 8px;
+    }
+  }
+  ion-icon.icon.icon-md.ion-md-checkmark {
+    @extend .primary;
+  }
+  .range-md.range-has-pin {
+    padding-top: 10px;
+  }
 }
+
