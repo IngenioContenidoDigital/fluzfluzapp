@@ -45,6 +45,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     import { AddCreditCartPage } from '../pages/addcreditcart/addcreditcart';
     import { PaymentPsePage } from '../pages/paymentpse/paymentpse';
     
+    import { FormOfRedemptionPage } from '../pages/formofredemption/formofredemption';
+    import { RedemptionConfirmPage } from '../pages/redemption-confirm/redemption-confirm';
+    
   /* Billetera */
     import { PasscodePage } from '../pages/passcode/passcode';
     import { BonusPage } from '../pages/bonus/bonus';
@@ -76,7 +79,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PasscodePage,
     BonusPage,
     CategoryPage,
-    CategoriesPage
+    CategoriesPage,
+    FormOfRedemptionPage,
+    RedemptionConfirmPage
   ],
   imports: [
     BrowserModule,
@@ -117,7 +122,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PasscodePage,
     BonusPage,
     CategoryPage,
-    CategoriesPage
+    CategoriesPage,
+    FormOfRedemptionPage,
+    RedemptionConfirmPage
   ],
   providers: [
     StatusBar,

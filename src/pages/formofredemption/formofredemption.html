@@ -1,0 +1,94 @@
+<!--
+  Generated template for the FormofredemptionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only>
+        <i class='fluz-fluz-fluz'></i>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>FORMULARIO DE REDENCIÓN</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only navPop>
+        <ion-icon name='ios-arrow-round-back'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding class="background-soft">
+  <div class="ctn-background-white border-b-primary">
+    <ion-grid class="ctn-padding">
+      <ion-row>
+        <ion-col>Fluz Disponibles después de Rendención</ion-col>
+        <ion-col col-4 text-right class="text-gray-normal">{{disponibleFluz.fluzTotal}} Fluz</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Rendención en efectivo Disponible:</ion-col>
+        <ion-col col-4 text-right class="text-gray-normal">COP ${{disponibleFluz.totalSavings}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-label class="label-tranfer">TRANSFERENCIA ELECTRONICA</ion-label>
+  <div class="ctn-background-white">
+    <ion-grid>
+      <ion-row class="border-b">
+        <ion-item>
+          <ion-select [(ngModel)]="identification" okText="Ok" placeholder="Cédula o Nit" (ionChange)="setIdentification($event)">
+            <ion-option value="1">Cédula</ion-option>
+            <ion-option value="2">Nit</ion-option>
+          </ion-select>          
+        </ion-item>
+      </ion-row>
+      <form [formGroup]="dataRedemption">
+        <ion-row  class="border-b">
+          <ion-item>
+            <ion-label color="gray-soft" stacked>Nombre</ion-label>
+            <ion-input type="text" placeholder="Ej: Sam" [formControl]="dataRedemption.controls['firts_name']" (keyup)="validateString($event)"></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row  class="border-b">
+          <ion-item>
+            <ion-label color="gray-soft" stacked>Apellido</ion-label>
+            <ion-input type="text" placeholder="Ej: Fisher" [formControl]="dataRedemption.controls['last_name']"  (keyup)="validateString($event)"></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row  class="border-b">
+          <ion-item>
+            <ion-label color="gray-soft" stacked>Número de Cuenta Bancaria</ion-label>
+            <ion-input type="number" placeholder="xxxx xxxx xxxx xxx" formControlName="card"></ion-input>
+          </ion-item>
+        </ion-row>
+      </form>
+      <ion-row  class="border-b">
+        <ion-item>
+          <ion-select [(ngModel)]="banco" okText="Ok" placeholder="Banco" (ionChange)="setBanco($event)">
+            <ion-option *ngFor="let banco of bancos" [value] = "banco.value">{{banco.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-select [(ngModel)]="typeAccount" okText="Ok" placeholder="Seleccione tipo de cuenta" (ionChange)="setTypeAccount($event)">
+            <ion-option value="1">Ahorros</ion-option>
+            <ion-option value="2">Corriente</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="spacer-25"></div>
+  <div class="spacer-25"></div>
+</ion-content>
+
+<!--<ion-footer [@slideIn] (click)="goTo('Continue')">-->
+<ion-footer *ngIf="enableContinue != false" [@slideIn] (click)="goTo('Continue')">
+  <ion-toolbar color="primary">
+    <ion-title>SIGUIENTE</ion-title>
+  </ion-toolbar>
+</ion-footer>

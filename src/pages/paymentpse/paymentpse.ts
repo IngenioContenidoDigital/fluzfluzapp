@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { TabsService } from '../../providers/tabs.service';
+import { Banco } from '../../models/banco';
+import { BancoService } from '../../providers/banco.service';
 
 /**
  * Generated class for the Paymentpse page.
@@ -10,10 +13,25 @@ import { NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-paymentpse',
   templateUrl: 'paymentpse.html',
+  providers: [BancoService]
 })
 export class PaymentPsePage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  
+  public bancos:Banco[];
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, private backService: BancoService) {
+  }
+  
+  ionViewWillEnter(){
+    this.tabsService.hide();
+    this.getDataBank();
   }
 
+  ionViewWillLeave(){
+    this.tabsService.show();
+  }
+  
+  getDataBank(){
+    this.backService.getBanks().then(bancos => this.bancos = bancos);
+  }
 }

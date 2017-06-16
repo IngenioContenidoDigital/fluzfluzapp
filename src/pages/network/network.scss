@@ -1,3 +1,57 @@
 page-network {
-
+  @extend .font-family;
+  .ctn-user-data{
+    background-color: color($colors, background-soft);
+    .grid {
+      padding: 0px;
+    }
+    .row {
+      .col{
+        padding: 1px;
+        label {margin-top: 7px;}
+        .ctn-float-img {
+          text-align: center;          
+        }
+        img {
+          height: 2rem;
+        }
+        @extend .font-normal;
+        
+        .text-gray-normal{
+          @extend .font-extra-small;
+        }
+        border-left: 1px solid color($colors, gray-soft);
+        .label-md {
+          margin: 0px 3px;
+        }
+      }
+    }
+  }
+  .float-label-gray {
+    @extend .text-gray-normal;
+    @extend .font-more-small;
+    padding: 0 23px;
+    margin: 25px 0 0 0;
+  }
+  
+  .ctn-background-white {
+    @extend .background-white;
+    border: 1px solid color($colors, gray-soft);
+    margin: 10px;
+    .col {
+      padding: 5px;
+      .label{
+        margin: 5px 0px;
+      }
+    }
+    .text-primary {
+      margin-right: 0px;
+    }
+    .font-extra-small {
+      margin: 0;
+    }
+    .description {
+      white-space: normal;
+    }
+  }
 }

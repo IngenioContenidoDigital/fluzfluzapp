@@ -2,6 +2,7 @@ import { Component, trigger, style, animate, state, transition  } from '@angular
 import { NavController, NavParams } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { TabsPage } from '../tabs/tabs';
+import { FormOfRedemptionPage } from '../formofredemption/formofredemption';
 //import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
 import { MyAccountService } from '../../providers/myAccount.service';
@@ -47,9 +48,7 @@ export class RedemptionPage {
   ionViewWillEnter(){
     this.tabsService.hide();
     this.getUserData();
-    setTimeout(()=>{ this.resetValueRedemption(); }, 100);
-    console.log("valueRedemption");
-    console.log(this.valueRedemption);
+    setTimeout(()=>{ this.resetValueRedemption(); }, 500);
   }
 
   ionViewWillLeave(){
@@ -59,8 +58,13 @@ export class RedemptionPage {
   goTo(value:any) {
     switch (value){
       case "HomePage": {
-//        this.navCtrl.push(HomePage);
         this.navCtrl.setRoot(TabsPage);
+        break;
+      }
+      case "FromOfRedemptionPage": {
+        this.navCtrl.push(FormOfRedemptionPage,{
+          disponibleFluz: this.disponibleFluz
+        });
         break;
       }
       default: {

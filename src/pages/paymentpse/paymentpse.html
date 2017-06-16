@@ -19,8 +19,7 @@
       </ion-col>
       <ion-col col-8>
           <ion-select [(ngModel)]="banco" okText="Okay" placeholder="Banco">
-            <ion-option value="1" [selected]="true">Bancolombia</ion-option>
-            <ion-option value="2">Banco de occidente</ion-option>
+            <ion-option *ngFor="let banco of bancos" [value] = "banco.value">{{banco.name}}</ion-option>
           </ion-select>
       </ion-col>
     </ion-row>

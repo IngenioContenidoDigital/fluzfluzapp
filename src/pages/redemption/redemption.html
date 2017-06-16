@@ -77,9 +77,11 @@
       </ion-row>
     </ion-grid>
   </div>
+  <div class="spacer-25"></div>
+  <div class="spacer-25"></div>
 </ion-content>
 
-<ion-footer *ngIf="valueRedemption.fluzTotal != 0" [@slideIn]>
+<ion-footer *ngIf="valueRedemption.fluzTotal != 0" [@slideIn] (click)="goTo('FromOfRedemptionPage')">
   <ion-toolbar color="primary">
     <ion-title>SIGUIENTE</ion-title>
   </ion-toolbar>

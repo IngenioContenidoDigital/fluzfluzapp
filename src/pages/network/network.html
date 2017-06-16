@@ -7,12 +7,68 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>network</ion-title>
+    <page-header></page-header>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-<h1>Network</h1>
+<ion-content no-padding class="background-soft">
+  <div class="ctn-user-data" *ngIf="showHomeUserData===true">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-2 text-center>
+          <!--<div class="ctn-float-img">-->
+            <img src="{{userData.image}}">
+          <!--</div>-->
+          <ion-label class="text-gray-normal">
+            Hola, {{userData.userName}}!
+          </ion-label>
+        </ion-col>
+        <ion-col col-4>
+          <ion-label class="text-primary">
+            {{userData.fluzLasted}}
+          </ion-label>          
+          <ion-label class="text-gray-normal">
+            Fluz últimos 30 días
+          </ion-label>
+        </ion-col>
+        <ion-col col-3>
+          <ion-label class="text-dark">
+            +{{userData.fluzTotal}}
+          </ion-label>
+          <ion-label class="text-gray-normal">
+            Fluz totales
+          </ion-label>              
+        </ion-col>
+        <ion-col col-3>
+          <ion-label class="text-dark">
+            +{{userData.winnerMembers}}
+          </ion-label>
+          <ion-label class="text-gray-normal">
+            Miembros ganadores
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div> 
+  <ion-label class="float-label-gray">ACTIVIDAD</ion-label>
+  <div class="ctn-background-white">  
+    <ion-grid>
+      <ion-row  *ngFor="let item of activityNetwork.result" [@slideIn] class="border-b">
+        <ion-col>
+          <div class="image-product">
+            <img src="{{item.img}}">          
+          </div>
+        </ion-col>
+        <ion-col col-8>
+          <ion-label class="font-small text-gray-dark font-semi-bold">{{item.name_customer}}</ion-label>
+          <ion-label class="font-more-small text-gray-normal font-semi-bold description">Ha comprado {{item.name_product}} y generado {{item.credits}} </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="padding-10">
+    <button ion-button color="primary" block (click)="seeMore()">VER MÁS</button>
+  </div>
 </ion-content>
