@@ -15,7 +15,8 @@ export class SearchModalPage {
   
   public backButtom:any = true;
   
-  @Output() updateSearchResults = new EventEmitter();
+  @Output()
+  public updateSearchResults: EventEmitter<string> = new EventEmitter<string>();
   
   @Output()
   public showBackButton: EventEmitter<string> = new EventEmitter<string>();
@@ -58,9 +59,12 @@ export class SearchModalPage {
     });
   }
   
-  seeMoreResults() {
+  seeMoreResults(event) {
+    console.log('Entro luego del click..');
     this.countSearchResult = Object.keys(this.searchResult).length;
     this.updateSearchResults.emit(this.countSearchResult);
+    console.log('this.countSearchResult');
+    console.log(this.countSearchResult);
   }
   
   updateSeeMoreSearchData( searchData:any ){

@@ -88,7 +88,7 @@ export class HeaderPage {
 //    console.log( this.countCart );
   }
   
-  updateSearchResultsFunction(lastTotal:any = 10) {
+  updateSearchResults(lastTotal) {
     console.log("Llego hasta updateSearchResults");
     console.log("lastTotal " + lastTotal);
     this.search( ( 10 + lastTotal ), lastTotal, true );

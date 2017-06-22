@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <page-header (updateSearchData)='updateSearchData($event)'></page-header>
+  <page-header (updateSearchData)='updateSearchData($event)' ></page-header>
 </ion-header>
 
 
@@ -40,8 +40,8 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div class="padding-h-10">
-    <button ion-button color="primary" block (click)="seeMoreResults()" (updateSearchResults)='updateSearchResultsFunction($event)'>VER MÁS</button>
+  <div class="padding-h-10" (click)="seeMoreResults($event)">
+    <button ion-button color="primary" block  (updateSearchResults)="updateSearchResults($event)">VER MÁS</button>
   </div>
 </ion-content>
 
