@@ -19,7 +19,7 @@
       <ion-row>
         <ion-col col-2 text-center>
           <!--<div class="ctn-float-img">-->
-            <img src="{{userData.image}}">
+            <img src="{{userData.image}}" onerror="this.src='assets/img/user-red.png';">
           <!--</div>-->
           <ion-label class="text-gray-normal">
             Hola, {{userData.userName}}!
@@ -55,20 +55,62 @@
   <ion-label class="float-label-gray">ACTIVIDAD</ion-label>
   <div class="ctn-background-white">  
     <ion-grid>
-      <ion-row  *ngFor="let item of activityNetwork.result" [@slideIn] class="border-b">
+      <ion-row  [@slideIn] *ngFor="let item of activityNetwork"  class="border-b">
         <ion-col>
           <div class="image-product">
             <img src="{{item.img}}">          
           </div>
         </ion-col>
         <ion-col col-8>
-          <ion-label class="font-small text-gray-dark font-semi-bold">{{item.name_customer}}</ion-label>
-          <ion-label class="font-more-small text-gray-normal font-semi-bold description">Ha comprado {{item.name_product}} y generado {{item.credits}} </ion-label>
+          <ion-label class="font-small text-dark font-semi-bold">{{item.name_customer}}</ion-label>
+          <ion-label class="font-more-small text-gray-normal font-semi-bold description">Ha comprado <span class="text-primary">{{item.name_product}}</span> y generado {{item.credits}} Fluz</ion-label>
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
-  <div class="padding-10">
-    <button ion-button color="primary" block (click)="seeMore()">VER MÁS</button>
+  <div class="padding-h-10">
+    <button ion-button color="primary" block (click)="seeMoreActivity()">VER MÁS</button>
   </div>
+<!--  <ion-label class="float-label-gray">MI INVITACIÓN</ion-label>-->
+  <!--<ion-label class="float-label-gray">FAVORITOS</ion-label>-->
+  <ion-row>
+    <ion-col>
+      <ion-label class="float-label-gray">MI NETWORK</ion-label>
+    </ion-col>
+    <ion-col text-right>
+      <ion-label text-right class="float-label text-primary">Refinar</ion-label>
+    </ion-col>
+  </ion-row>
+  <div class="ctn-background-white">  
+    <ion-grid>
+      <div  class="border-b" [@slideIn] *ngFor="let item of myNetwork"  >
+        <ion-row>
+          <ion-col col-2>
+            <div class="image-person">
+              <img src="{{item.img}}"  onerror="this.src='assets/img/user-red.png';">          
+            </div>
+          </ion-col>
+          <ion-col col-4 class="border-b">
+            <ion-label class="font-small text-dark font-semi-bold">{{item.username}}</ion-label>
+          </ion-col>
+          <ion-col col-6 item-right>
+            <div class="ctn-btn-user">MENSAJE</div>
+            <div class="ctn-btn-user">PUSH</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="font-more-small text-gray-normal">Puntos otorgados: {{item.points}}</ion-col>
+          <ion-col col-3 class="font-more-small text-gray-normal">Nivel Fluz: {{item.level}}</ion-col>
+          <ion-col class="font-more-small text-gray-normal">Fecha creación: {{item.dateadd}}</ion-col>
+        </ion-row>    
+      </div>
+    </ion-grid>
+  </div>
+  <div class="padding-h-10">
+    <button ion-button color="primary" block (click)="seeMoreMy()">VER MÁS</button>
+  </div>
+  
+  <div class="spacer-25"></div>
+  <div class="spacer-25"></div>
+  
 </ion-content>

@@ -31,11 +31,14 @@ import { MyAccountService } from '../../providers/myAccount.service';
 })
 export class NetworkPage {
   
-  public activityNetwork:any = {};
+  public activityNetwork:any = [];
+  public myNetwork:any = [];
   public showHomeUserData:any = false;
   public userData:any = {};
-  public seeMoreValue:any = 5;
-  
+  public seeMoreActivityValue:any;
+  public seeMoreMyValue:any;
+  public countActivity:any;
+  public countMy:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public network: NetworkService, public storage: Storage, public myAccount: MyAccountService) {
   }
   
@@ -49,11 +52,20 @@ export class NetworkPage {
       }
     });
     this.getUserData();
-    this.getNetworData( this.seeMoreValue );
-  }
-  
-  ionViewWillLeave(){
-    this.seeMoreValue = this.seeMoreValue != 5 ? 5 : this.seeMoreValue ;
+    this.seeMoreActivityValue = 5;
+    this.seeMoreMyValue = 5;
+    this.countMy = 0;
+    if( ( Object.keys(this.activityNetwork).length ) > 5 ){
+      this.activityNetwork = [];
+    }
+    if( ( Object.keys(this.myNetwork).length ) > 5 ){
+      this.myNetwork = [];
+    }
+    setTimeout(()=>{ 
+      this.getActivityNetworkData( this.seeMoreActivityValue );
+      this.getMyNetworkData( this.seeMoreMyValue );
+    }, 100);
+    
   }
   
   updateShowDataUser(value:any){
@@ -74,22 +86,47 @@ export class NetworkPage {
     });
   }
   
-  getNetworData( limit:any ) {
+  getActivityNetworkData( limit:any ) {
     this.storage.get('userData').then((val) => {
       if( val != null && val != '' && val != undefined ){
-        this.network.getDataAccount(val.id, limit).then(
+        this.countActivity = Object.keys(this.activityNetwork).length;
+        this.network.getDataAccount(val.id, 1, limit, this.countActivity).then(
           (data:any) => {
-            this.activityNetwork = JSON.parse(data);
-            console.log(this.activityNetwork.result);
+            var data = JSON.parse(data);
+            for (let i in data) {
+              this.activityNetwork.push(data[i]);
+            }
           }
         );
       }
     });
   }
   
-  seeMore(){
-    this.seeMoreValue += 5;
-    this.getNetworData( this.seeMoreValue );
+  getMyNetworkData( limit:any ){
+    this.storage.get('userData').then((val) => {
+      if( val != null && val != '' && val != undefined ){
+        this.countMy = Object.keys(this.myNetwork).length;
+        this.network.getDataAccount(val.id, 2, limit, this.countMy).then(
+          (data:any) => {
+            var data = JSON.parse(data);
+            for (let i in data) {
+              this.myNetwork.push(data[i]);
+            }
+          }
+        );
+      }
+    });
+    console.log(this.myNetwork);
+  }
+  
+  seeMoreActivity(){
+    this.seeMoreActivityValue = ( this.seeMoreActivityValue + 5 );
+    setTimeout(()=>{ this.getActivityNetworkData( this.seeMoreActivityValue );  }, 100);
+  }
+  
+  seeMoreMy() {
+    this.seeMoreMyValue = ( this.seeMoreMyValue + 5 );
+    setTimeout(()=>{ this.getMyNetworkData( this.seeMoreMyValue );  }, 100);
   }
 
 }

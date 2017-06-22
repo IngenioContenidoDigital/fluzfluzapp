@@ -12,10 +12,12 @@ export class SearchService {
 
   constructor(public http: Http) {}
   
-  public search( q:string, option:any ) {
+  public search( q:string, option:any, limit:any = 0, total_search:any = 0 ) {
     let params = new URLSearchParams();
     params.set('param', q);
     params.set('option', option);
+    params.set('limit', limit);
+    params.set('total_search', total_search);
     
     return new Promise(resolve => {
       // Estamos utilizando el proveedor Angular HTTP para solicitar los datos,

@@ -3,13 +3,13 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ViewController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { ProductFatherPage } from '../product-father/product-father';
-import { Keyboard } from '@ionic-native/keyboard';
+//import { Keyboard } from '@ionic-native/keyboard';
 
 
 @Component({
   selector: 'page-search-modal',
   templateUrl: 'search-modal.html',
-  providers: [ Keyboard ]
+  //providers: [ Keyboard ]
 })
 export class SearchModalPage {
   
@@ -21,7 +21,7 @@ export class SearchModalPage {
   public searchResult:any = {};
 
   @ViewChild('input') myInput ;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController, public tabsService: TabsService, private keyboard: Keyboard, private renderer: Renderer, private elementRef: ElementRef) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController, public tabsService: TabsService, /*public keyboard: Keyboard,*/ private renderer: Renderer, private elementRef: ElementRef) {
   }
   
   ionViewWillEnter(){
@@ -30,7 +30,7 @@ export class SearchModalPage {
   
   ionViewDidLoad() {
     setTimeout(() => {
-      this.keyboard.show();
+      /*this.keyboard.show();*/
       let element = this.elementRef.nativeElement.querySelector('input');
       this.renderer.invokeElementMethod(element, 'focus', []);
     },150);

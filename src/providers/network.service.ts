@@ -7,15 +7,17 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class NetworkService {
 
-  private _url: string = WS_BASE+'getActivityNetwork';
-  public userData: any;
+  private _url: string = WS_BASE+'getNetwork';
+  public userData: any = {};
     
   constructor(public http: Http) {}
 
-  public getDataAccount(id_customer, limit) {
+  public getDataAccount(id_customer, option, limit, last_total) {
     let params = new URLSearchParams();
       params.set('id_customer', id_customer);
+      params.set('option', option);
       params.set('limit', limit);
+      params.set('last_total', last_total);
       // No tiene los datos todavía
       return new Promise(resolve => {
         // Estamos utilizando el proveedor Angular HTTP para solicitar los datos,
@@ -25,7 +27,7 @@ export class NetworkService {
           .map(res => res.json())
           .subscribe(
             data => {
-              this.userData = JSON.stringify(data);
+              this.userData = JSON.stringify(data.result);
               resolve( this.userData );
             },
             (err:Response) => {

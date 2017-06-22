@@ -46279,7 +46279,7 @@ page-tabs .tabs-md .tab-button-icon {
   color: #696969;
 }
 
-.primary, .text-primary, page-home .ctn-category .title-view-all, page-home .title-view-all, page-checkout .ctn-pagos div ion-icon.icon.icon-md.ion-md-checkmark, page-paymentfluz .ctn-pagos div ion-icon.icon.icon-md.ion-md-checkmark, page-redemption ion-icon.icon.icon-md.ion-md-checkmark {
+.primary, .text-primary, page-home .ctn-category .title-view-all, page-home .title-view-all, page-network .ctn-btn-user, page-checkout .ctn-pagos div ion-icon.icon.icon-md.ion-md-checkmark, page-paymentfluz .ctn-pagos div ion-icon.icon.icon-md.ion-md-checkmark, page-redemption ion-icon.icon.icon-md.ion-md-checkmark {
   color: #E1493A;
 }
 
@@ -46296,7 +46296,7 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
 /* Colores*/
 /* Mixin word-wrap */
 /*Fuentes del tema*/
-.font-family, .text-dark, .inner-html span, .inner-html li, page-confirm .confimNumber, page-home .ctn-category .title, page-home .ctn-category .title-product, page-home .title-ctgry, page-product-child .segment-md .segment-button, .text-gray-soft, .text-gray-normal, page-addcreditcart .ctn-credit-card i, page-checkout .ctn-pagos div i, page-formofredemption .label-tranfer, page-formofredemption i, page-home .ctn-category .text-product, page-network .float-label-gray, page-paymentfluz .ctn-pagos div i, page-paymentpse .ctn-pse i, page-redemption .mount, .text-gray-dark, .text-primary, page-home .ctn-category .title-view-all, page-home .title-view-all, .text-secondary, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-formofredemption .label-tranfer, page-formofredemption page-home .ctn-user-data .row .col .label-tranfer, page-home .ctn-user-data .row .col page-formofredemption i, page-formofredemption page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-category .ctn-user-data .row .col .text-product, page-home .ctn-user-data .row .col page-network .float-label-gray, page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-redemption .mount, page-redemption page-home .ctn-user-data .row .col .mount, page-network .ctn-user-data .row .col .text-gray-normal, page-network .ctn-user-data .row .col page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-network .ctn-user-data .row .col i, page-network .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-network .ctn-user-data .row .col i, page-network .ctn-user-data .row .col page-formofredemption .label-tranfer, page-formofredemption page-network .ctn-user-data .row .col .label-tranfer, page-network .ctn-user-data .row .col page-formofredemption i, page-formofredemption page-network .ctn-user-data .row .col i, page-network .ctn-user-data .row .col page-home .ctn-category .text-product, page-network .ctn-user-data .row .col .float-label-gray, page-network .ctn-user-data .row .col page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-network .ctn-user-data .row .col i, page-network .ctn-user-data .row .col page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-network .ctn-user-data .row .col i, page-network .ctn-user-data .row .col page-redemption .mount, page-redemption page-network .ctn-user-data .row .col .mount, .font-more-small, page-confirmated .text-gray-normal, page-confirmated page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-confirmated i, page-confirmated page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-confirmated i, page-confirmated page-formofredemption i, page-formofredemption page-confirmated i, page-confirmated page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-confirmated i, page-confirmated page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-confirmated i, page-more .text-gray-normal, page-more page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-more i, page-more page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-more i, page-more page-formofredemption i, page-formofredemption page-more i, page-more page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-more i, page-more page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-more i, .font-small, .footer .toolbar-title-md, ion-title .toolbar-title-md, page-checkout .ctn-resume .ctn-title, page-paymentfluz .ctn-payfluz .ctn-title, page-paymentpse .ctn-pse .item-radio-button, .font-small-normal, page-categories .card-background-page .card-title, page-categories .card-background-page .card-md h2, page-category .card-background-page .card-title, page-category .card-background-page .card-md h2, .font-normal, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, page-home .card-background-page .card-title, page-home .card-background-page .card-md h2, page-more .ctn-options i, page-network .ctn-user-data .row .col, .font-big, .font-extra-big, .fluz-fluz-fluz, page-cart, page-checkout, page-formofredemption, page-home, page-login, page-network, page-paymentfluz, page-redemption, page-redemption-confirm, page-tabs .tabs-md .tab-button-text {
+.font-family, .text-dark, .inner-html span, .inner-html li, page-confirm .confimNumber, page-home .ctn-category .title, page-home .ctn-category .title-product, page-home .title-ctgry, page-product-child .segment-md .segment-button, .text-gray-soft, .text-gray-normal, page-addcreditcart .ctn-credit-card i, page-checkout .ctn-pagos div i, page-formofredemption .label-tranfer, page-formofredemption i, page-home .ctn-category .text-product, page-network .float-label-gray, page-paymentfluz .ctn-pagos div i, page-paymentpse .ctn-pse i, page-redemption .mount, .text-gray-dark, .text-primary, page-home .ctn-category .title-view-all, page-home .title-view-all, page-network .ctn-btn-user, .text-secondary, .font-extra-small, page-home .ctn-user-data .row .col .text-gray-normal, page-home .ctn-user-data .row .col page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-formofredemption .label-tranfer, page-formofredemption page-home .ctn-user-data .row .col .label-tranfer, page-home .ctn-user-data .row .col page-formofredemption i, page-formofredemption page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col .ctn-category .text-product, page-home .ctn-category .ctn-user-data .row .col .text-product, page-home .ctn-user-data .row .col page-network .float-label-gray, page-home .ctn-user-data .row .col page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-home .ctn-user-data .row .col i, page-home .ctn-user-data .row .col page-redemption .mount, page-redemption page-home .ctn-user-data .row .col .mount, page-network .ctn-user-data .row .col .text-gray-normal, page-network .ctn-user-data .row .col page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-network .ctn-user-data .row .col i, page-network .ctn-user-data .row .col page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-network .ctn-user-data .row .col i, page-network .ctn-user-data .row .col page-formofredemption .label-tranfer, page-formofredemption page-network .ctn-user-data .row .col .label-tranfer, page-network .ctn-user-data .row .col page-formofredemption i, page-formofredemption page-network .ctn-user-data .row .col i, page-network .ctn-user-data .row .col page-home .ctn-category .text-product, page-network .ctn-user-data .row .col .float-label-gray, page-network .ctn-user-data .row .col page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-network .ctn-user-data .row .col i, page-network .ctn-user-data .row .col page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-network .ctn-user-data .row .col i, page-network .ctn-user-data .row .col page-redemption .mount, page-redemption page-network .ctn-user-data .row .col .mount, .font-more-small, page-confirmated .text-gray-normal, page-confirmated page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-confirmated i, page-confirmated page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-confirmated i, page-confirmated page-formofredemption i, page-formofredemption page-confirmated i, page-confirmated page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-confirmated i, page-confirmated page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-confirmated i, page-more .text-gray-normal, page-more page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-more i, page-more page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-more i, page-more page-formofredemption i, page-formofredemption page-more i, page-more page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-more i, page-more page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-more i, .font-small, .footer .toolbar-title-md, ion-title .toolbar-title-md, page-checkout .ctn-resume .ctn-title, page-paymentfluz .ctn-payfluz .ctn-title, page-paymentpse .ctn-pse .item-radio-button, .font-small-normal, page-categories .card-background-page .card-title, page-categories .card-background-page .card-md h2, page-category .card-background-page .card-title, page-category .card-background-page .card-md h2, .font-normal, page-header .fluz-left-arrow, page-home .ctn-user-data .row .col, page-home .card-background-page .card-title, page-home .card-background-page .card-md h2, page-more .ctn-options i, page-network .ctn-user-data .row .col, .font-big, .font-extra-big, .fluz-fluz-fluz, page-cart, page-checkout, page-formofredemption, page-home, page-login, page-network, page-paymentfluz, page-redemption, page-redemption-confirm, page-tabs .tabs-md .tab-button-text {
   font-family: "Open Sans", sans-serif;
 }
 
@@ -46305,7 +46305,7 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
   font-size: 0.8rem;
 }
 
-.font-more-small, page-confirmated .text-gray-normal, page-confirmated page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-confirmated i, page-confirmated page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-confirmated i, page-confirmated page-formofredemption i, page-formofredemption page-confirmated i, page-confirmated page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-confirmated i, page-confirmated page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-confirmated i, page-formofredemption .label-tranfer, page-home .ctn-category .text-product, page-more .text-gray-normal, page-more page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-more i, page-more page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-more i, page-more page-formofredemption i, page-formofredemption page-more i, page-more page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-more i, page-more page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-more i, page-network .float-label-gray, page-redemption .mount {
+.font-more-small, page-confirmated .text-gray-normal, page-confirmated page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-confirmated i, page-confirmated page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-confirmated i, page-confirmated page-formofredemption i, page-formofredemption page-confirmated i, page-confirmated page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-confirmated i, page-confirmated page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-confirmated i, page-formofredemption .label-tranfer, page-home .ctn-category .text-product, page-more .text-gray-normal, page-more page-addcreditcart .ctn-credit-card i, page-addcreditcart .ctn-credit-card page-more i, page-more page-checkout .ctn-pagos div i, page-checkout .ctn-pagos div page-more i, page-more page-formofredemption i, page-formofredemption page-more i, page-more page-paymentfluz .ctn-pagos div i, page-paymentfluz .ctn-pagos div page-more i, page-more page-paymentpse .ctn-pse i, page-paymentpse .ctn-pse page-more i, page-network .float-label-gray, page-network .ctn-btn-user, page-redemption .mount {
   font-size: 11px;
   font-size: 1.1rem;
 }
@@ -46413,7 +46413,7 @@ ion-icon[class*="fluz-more-3"] {
   background-color: #f2f2f2;
 }
 
-.background-white, page-bonus .ctn-bonus .ctn-info-bonus, page-bonus .ctn-details .ctn-accordeon-title, page-bonus .ctn-details .ctn-accordeon-details, page-checkout .ctn-resume .ctn-title, page-checkout .ctn-resume .ctn-costos, page-formofredemption .ctn-background-white, page-network .ctn-background-white, page-paymentfluz .ctn-payfluz .ctn-title, page-redemption .ctn-background-white {
+.background-white, page-bonus .ctn-bonus .ctn-info-bonus, page-bonus .ctn-details .ctn-accordeon-title, page-bonus .ctn-details .ctn-accordeon-details, page-checkout .ctn-resume .ctn-title, page-checkout .ctn-resume .ctn-costos, page-formofredemption .ctn-background-white, page-network .ctn-user-data, page-network .ctn-background-white, page-paymentfluz .ctn-payfluz .ctn-title, page-redemption .ctn-background-white {
   background-color: #fff;
 }
 
@@ -46431,6 +46431,10 @@ ion-icon[class*="fluz-more-3"] {
 
 .padding-10 {
   padding: 10px;
+}
+
+.padding-h-10 {
+  padding: 0 10px;
 }
 
 .margin-t-5 {
@@ -46640,7 +46644,7 @@ page-cart .product-name {
   min-width: 50%;
 }
 
-page-cart .background-white, page-cart page-bonus .ctn-bonus .ctn-info-bonus, page-bonus .ctn-bonus page-cart .ctn-info-bonus, page-cart page-bonus .ctn-details .ctn-accordeon-title, page-bonus .ctn-details page-cart .ctn-accordeon-title, page-cart page-bonus .ctn-details .ctn-accordeon-details, page-bonus .ctn-details page-cart .ctn-accordeon-details, page-cart page-checkout .ctn-resume .ctn-title, page-checkout .ctn-resume page-cart .ctn-title, page-cart page-checkout .ctn-resume .ctn-costos, page-checkout .ctn-resume page-cart .ctn-costos, page-cart page-formofredemption .ctn-background-white, page-formofredemption page-cart .ctn-background-white, page-cart page-network .ctn-background-white, page-network page-cart .ctn-background-white, page-cart page-paymentfluz .ctn-payfluz .ctn-title, page-paymentfluz .ctn-payfluz page-cart .ctn-title, page-cart page-redemption .ctn-background-white, page-redemption page-cart .ctn-background-white {
+page-cart .background-white, page-cart page-bonus .ctn-bonus .ctn-info-bonus, page-bonus .ctn-bonus page-cart .ctn-info-bonus, page-cart page-bonus .ctn-details .ctn-accordeon-title, page-bonus .ctn-details page-cart .ctn-accordeon-title, page-cart page-bonus .ctn-details .ctn-accordeon-details, page-bonus .ctn-details page-cart .ctn-accordeon-details, page-cart page-checkout .ctn-resume .ctn-title, page-checkout .ctn-resume page-cart .ctn-title, page-cart page-checkout .ctn-resume .ctn-costos, page-checkout .ctn-resume page-cart .ctn-costos, page-cart page-formofredemption .ctn-background-white, page-formofredemption page-cart .ctn-background-white, page-cart page-network .ctn-user-data, page-network page-cart .ctn-user-data, page-cart page-network .ctn-background-white, page-network page-cart .ctn-background-white, page-cart page-paymentfluz .ctn-payfluz .ctn-title, page-paymentfluz .ctn-payfluz page-cart .ctn-title, page-cart page-redemption .ctn-background-white, page-redemption page-cart .ctn-background-white {
   background-color: #fff;
 }
 
@@ -46716,7 +46720,7 @@ page-category .ctn-products .col .label {
   margin: 5px 0px;
 }
 
-page-category .ctn-products .text-primary, page-category .ctn-products page-home .title-view-all, page-home page-category .ctn-products .title-view-all {
+page-category .ctn-products .text-primary, page-category .ctn-products page-home .title-view-all, page-home page-category .ctn-products .title-view-all, page-category .ctn-products page-network .ctn-btn-user, page-network page-category .ctn-products .ctn-btn-user {
   margin-right: 0px;
 }
 
@@ -47085,10 +47089,6 @@ page-more .ctn-options ion-label {
   text-align: left;
 }
 
-page-network .ctn-user-data {
-  background-color: #f2f2f2;
-}
-
 page-network .ctn-user-data .grid {
   padding: 0px;
 }
@@ -47119,6 +47119,11 @@ page-network .float-label-gray {
   margin: 25px 0 0 0;
 }
 
+page-network .float-label {
+  padding: 0 23px;
+  margin: 25px 0 0 0;
+}
+
 page-network .ctn-background-white {
   border: 1px solid #D7D7D7;
   margin: 10px;
@@ -47132,7 +47137,7 @@ page-network .ctn-background-white .col .label {
   margin: 5px 0px;
 }
 
-page-network .ctn-background-white .text-primary, page-network .ctn-background-white page-home .title-view-all, page-home page-network .ctn-background-white .title-view-all {
+page-network .ctn-background-white .text-primary, page-network .ctn-background-white page-home .title-view-all, page-home page-network .ctn-background-white .title-view-all, page-network .ctn-background-white .ctn-btn-user {
   margin-right: 0px;
 }
 
@@ -47142,6 +47147,18 @@ page-network .ctn-background-white .font-extra-small, page-home .ctn-user-data .
 
 page-network .ctn-background-white .description {
   white-space: normal;
+}
+
+page-network .image-person {
+  max-width: 80%;
+}
+
+page-network .ctn-btn-user {
+  text-align: center;
+  display: inline-block;
+  width: 45%;
+  border: 1px solid;
+  padding: 3px;
 }
 
 page-passcode .ctn-passcode {
@@ -47357,7 +47374,7 @@ page-product-father .col .label {
   margin: 5px 0px;
 }
 
-page-product-father .text-primary, page-product-father page-home .ctn-category .title-view-all, page-home .ctn-category page-product-father .title-view-all, page-product-father page-home .title-view-all, page-home page-product-father .title-view-all {
+page-product-father .text-primary, page-product-father page-home .ctn-category .title-view-all, page-home .ctn-category page-product-father .title-view-all, page-product-father page-home .title-view-all, page-home page-product-father .title-view-all, page-product-father page-network .ctn-btn-user, page-network page-product-father .ctn-btn-user {
   margin-right: 0px;
 }
 
@@ -47433,7 +47450,7 @@ page-search-modal .col .label {
   margin: 5px 0px;
 }
 
-page-search-modal .text-primary, page-search-modal page-home .ctn-category .title-view-all, page-home .ctn-category page-search-modal .title-view-all, page-search-modal page-home .title-view-all, page-home page-search-modal .title-view-all {
+page-search-modal .text-primary, page-search-modal page-home .ctn-category .title-view-all, page-home .ctn-category page-search-modal .title-view-all, page-search-modal page-home .title-view-all, page-home page-search-modal .title-view-all, page-search-modal page-network .ctn-btn-user, page-network page-search-modal .ctn-btn-user {
   margin-right: 0px;
 }
 

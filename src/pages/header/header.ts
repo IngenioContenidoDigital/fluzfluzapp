@@ -27,6 +27,9 @@ export class HeaderPage {
   public searchData:any;
   public backButtonShow:any = false;
   public countCart:any = 0;
+  
+  public limit:any;
+  public total_search:any;
     
   @Output()
   public updateSearchData: EventEmitter<string> = new EventEmitter<string>();
@@ -35,19 +38,21 @@ export class HeaderPage {
     this.modalShow = navParams.get('modalShow') ? navParams.get('modalShow') : this.modalShow;
     this.backButtonShow = this.backButtonShow ? this.backButtonShow : false;
     this.storage.get('cart').then((val) => {
-//      console.log( val );
       if (val != null || val != undefined ){
         this.countCart = val.quantity;
-//        console.log( this.countCart );
       }
     });
   }
     
   search(){
-    this.searchService.search( this.searchTerm, '1' ).then((data) => {
-      this.searchData = data;
-      this.updateSearchData.emit(this.searchData);
-    });
+    this.limit = 10; 
+    this.total_search = 0; 
+    setTimeout(() => {
+      this.searchService.search( this.searchTerm, '1', this.limit, this.total_search ).then((data) => {
+        this.searchData = data;
+        this.updateSearchData.emit(this.searchData);
+      });
+    },500);
   }
   
   showBackButton(value:any){
