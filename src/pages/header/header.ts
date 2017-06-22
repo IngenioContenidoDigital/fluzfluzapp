@@ -28,11 +28,12 @@ export class HeaderPage {
   public backButtonShow:any = false;
   public countCart:any = 0;
   
-  public limit:any;
-  public total_search:any;
     
   @Output()
   public updateSearchData: EventEmitter<string> = new EventEmitter<string>();
+  
+  @Output()
+  public updateSeeMoreSearchData: EventEmitter<string> = new EventEmitter<string>();
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService, public viewCtrl: ViewController, public storage: Storage) {
     this.modalShow = navParams.get('modalShow') ? navParams.get('modalShow') : this.modalShow;
@@ -44,15 +45,18 @@ export class HeaderPage {
     });
   }
     
-  search(){
-    this.limit = 10; 
-    this.total_search = 0; 
+  search( limit:any = 10, lastTotal:any = 0, seeMore:any = false ){
     setTimeout(() => {
-      this.searchService.search( this.searchTerm, '1', this.limit, this.total_search ).then((data) => {
+      this.searchService.search( this.searchTerm, '1', limit, lastTotal ).then((data) => {
         this.searchData = data;
-        this.updateSearchData.emit(this.searchData);
+        if ( seeMore === true ){
+          this.updateSeeMoreSearchData.emit(this.searchData);
+        }
+        else {
+          this.updateSearchData.emit(this.searchData);
+        }
       });
-    },500);
+    },100);
   }
   
   showBackButton(value:any){
@@ -83,5 +87,10 @@ export class HeaderPage {
     this.countCart = countCart;
 //    console.log( this.countCart );
   }
-
+  
+  updateSearchResultsFunction(lastTotal:any = 10) {
+    console.log("Llego hasta updateSearchResults");
+    console.log("lastTotal " + lastTotal);
+    this.search( ( 10 + lastTotal ), lastTotal, true );
+  }
 }
