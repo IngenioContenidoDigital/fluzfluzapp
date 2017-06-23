@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { CartService } from '../../providers/cart.service';
 import { CheckoutPage } from '../checkout/checkout';
 import { TabsService } from '../../providers/tabs.service';
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the Cart page.
@@ -108,8 +109,6 @@ export class CartPage {
     this.storage.get('cart').then((val) => {
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
       this.products = ( val != undefined && val != null && val != '' ) ? val.products : [];
-//      console.log( "Estos son los productos: " );
-//      console.log( this.products );
     });
   }
   
@@ -122,7 +121,7 @@ export class CartPage {
         break;
       }
       default: {
-        this.navCtrl.pop();        
+        this.navCtrl.setRoot(TabsPage);
         break;
       }
     }

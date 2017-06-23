@@ -46,6 +46,7 @@ export class HeaderPage {
   }
     
   search( limit:any = 10, lastTotal:any = 0, seeMore:any = false ){
+    console.log('Ejecuto search');
     setTimeout(() => {
       this.searchService.search( this.searchTerm, '1', limit, lastTotal ).then((data) => {
         this.searchData = data;
@@ -85,12 +86,10 @@ export class HeaderPage {
   
   updateCountCart( countCart:any ) {
     this.countCart = countCart;
-//    console.log( this.countCart );
   }
   
   updateSearchResults(lastTotal) {
-    console.log("Llego hasta updateSearchResults");
-    console.log("lastTotal " + lastTotal);
+    console.log("entro");
     this.search( ( 10 + lastTotal ), lastTotal, true );
   }
 }

@@ -30,5 +30,10 @@ page-confirm {
     box-shadow: inset 0 -1px 0 0 color($colors, gray-soft);
     border-bottom: 0px solid color($colors, gray-soft);
   }
-  
+ 
+  .toast {
+    text-align: center;
+    width: 80%;
+    border-radius: 2px;
+  }
 }

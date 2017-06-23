@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Platform, ToastController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmService } from '../../providers/confirm.service';
@@ -23,10 +23,26 @@ export class ConfirmPage {
   public textFooter:string = "¿De dónde viene este número?";
   public textContact:string = "¿No es tu número? ";
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService,  formBuilder: FormBuilder, private confirmService: ConfirmService, public storage: Storage, public alertCtrl: AlertController) {
+  constructor( public platform: Platform, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService,  formBuilder: FormBuilder, private confirmService: ConfirmService, public storage: Storage, public alertCtrl: AlertController) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
     this.confirmForm = formBuilder.group({
       'confirmNumber': [null, Validators.compose([Validators.required, Validators.minLength(6),Validators.pattern('^[0-9]{1,6}$')])]
+    });
+
+    platform.registerBackButtonAction(() => {
+      let view = this.navCtrl.getActive();
+      if (view.component.name == "ConfirmPage") {
+        let toast = this.toastCtrl.create({
+          message:  'Debes confirmar tu cuenta.',
+          duration: 2000,
+          position: 'middle',
+          cssClass: "toast"
+        });
+        toast.present();
+      }
+      else {
+        this.navCtrl.pop({});
+      }
     });
   }
   

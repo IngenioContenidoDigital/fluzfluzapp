@@ -14,8 +14,8 @@
     </button>
   </ion-buttons>
 
-	<ion-toolbar (updateSearchResults)='updateSearchResults($event)'>
-    <ion-searchbar [(ngModel)]="searchTerm" (input)="search()" (click)="openModalSearch()" #input placeholder="Buscar por tienda"></ion-searchbar>
+	<ion-toolbar>
+    <ion-searchbar [(ngModel)]="searchTerm" (input)="search()" (click)="openModalSearch()" placeholder="Buscar por tienda"></ion-searchbar>
   </ion-toolbar>
 
   <ion-buttons right>

@@ -55,17 +55,22 @@ export class HomePage {
    
   ionViewWillEnter(){
     this.storage.get('userData').then((val) => {
-      if ( val !== false ){
-        if (val === null || val === undefined ){
-          this.goTo("LoginPage");
+        this.storage.get('userConfirm').then((userConfirm)=> {
+        if ( val !== false ){
+          if (val === null || val === undefined ){
+            this.goTo("LoginPage");
+          }
+          else if( userConfirm != true ){
+            this.goTo("ConfirmPage");            
+          }
+          if (val === null || val === undefined || val == false){
+            this.updateShowDataUser(false);
+          }
+          else {
+            this.updateShowDataUser(true);          
+          }
         }
-        if (val === null || val === undefined || val == false){
-          this.updateShowDataUser(false);
-        }
-        else {
-          this.updateShowDataUser(true);          
-        }
-      }
+      });
     });
     setTimeout(()=>{
       this.getUserData();

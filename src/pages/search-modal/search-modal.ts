@@ -1,22 +1,20 @@
-import { Component, EventEmitter, Output, ViewChild, Renderer, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Output, Renderer, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ViewController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { ProductFatherPage } from '../product-father/product-father';
-//import { Keyboard } from '@ionic-native/keyboard';
 
 
 @Component({
   selector: 'page-search-modal',
   templateUrl: 'search-modal.html',
-  //providers: [ Keyboard ]
 })
 export class SearchModalPage {
   
   public backButtom:any = true;
   
   @Output()
-  public updateSearchResults: EventEmitter<string> = new EventEmitter<string>();
+  public updateSearchResults = new EventEmitter();
   
   @Output()
   public showBackButton: EventEmitter<string> = new EventEmitter<string>();
@@ -25,8 +23,6 @@ export class SearchModalPage {
   public searchTotal:any;
   public countSearchResult:any;
   
-
-  @ViewChild('input') myInput ;
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController, public tabsService: TabsService, /*public keyboard: Keyboard,*/ private renderer: Renderer, private elementRef: ElementRef) {
   }
   
@@ -35,6 +31,7 @@ export class SearchModalPage {
   }
   
   ionViewDidLoad() {
+    this.searchResult = [];
     setTimeout(() => {
       /*this.keyboard.show();*/
       let element = this.elementRef.nativeElement.querySelector('input');
@@ -60,11 +57,8 @@ export class SearchModalPage {
   }
   
   seeMoreResults(event) {
-    console.log('Entro luego del click..');
-    this.countSearchResult = Object.keys(this.searchResult).length;
-    this.updateSearchResults.emit(this.countSearchResult);
-    console.log('this.countSearchResult');
-    console.log(this.countSearchResult);
+    this.countSearchResult = Object.keys( this.searchResult ).length;
+    this.updateSearchResults.emit( this.countSearchResult );
   }
   
   updateSeeMoreSearchData( searchData:any ){
