@@ -33,7 +33,6 @@ export class SearchModalPage {
   ionViewDidLoad() {
     this.searchResult = [];
     setTimeout(() => {
-      /*this.keyboard.show();*/
       let element = this.elementRef.nativeElement.querySelector('input');
       this.renderer.invokeElementMethod(element, 'focus', []);
     },150);

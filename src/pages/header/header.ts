@@ -46,7 +46,7 @@ export class HeaderPage {
   }
     
   search( limit:any = 10, lastTotal:any = 0, seeMore:any = false ){
-    console.log('Ejecuto search');
+//    console.log('Ejecuto search');
     setTimeout(() => {
       this.searchService.search( this.searchTerm, '1', limit, lastTotal ).then((data) => {
         this.searchData = data;
@@ -77,7 +77,7 @@ export class HeaderPage {
   }
   
   openModalSearch(){
-      if ( this.modalShow === false ){
+    if ( this.modalShow === false ){
       this.modalShow = true;
       let searchModal = this.modalCtrl.create( SearchModalPage, { modalShow: true } );
       searchModal.present();
@@ -89,7 +89,6 @@ export class HeaderPage {
   }
   
   updateSearchResults(lastTotal) {
-    console.log("entro");
     this.search( ( 10 + lastTotal ), lastTotal, true );
   }
 }

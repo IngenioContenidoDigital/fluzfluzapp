@@ -46372,6 +46372,10 @@ page-tabs .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
   text-align: center;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 ion-icon[class*="fluz-"] {
   -webkit-mask-size: contain;
   mask-size: contain;
@@ -46413,7 +46417,7 @@ ion-icon[class*="fluz-more-3"] {
   background-color: #f2f2f2;
 }
 
-.background-white, page-bonus .ctn-bonus .ctn-info-bonus, page-bonus .ctn-details .ctn-accordeon-title, page-bonus .ctn-details .ctn-accordeon-details, page-checkout .ctn-resume .ctn-title, page-checkout .ctn-resume .ctn-costos, page-formofredemption .ctn-background-white, page-network .ctn-user-data, page-network .ctn-background-white, page-paymentfluz .ctn-payfluz .ctn-title, page-redemption .ctn-background-white {
+.background-white, page-bonus .ctn-bonus .ctn-info-bonus, page-bonus .ctn-details .ctn-accordeon-title, page-bonus .ctn-details .ctn-accordeon-details, page-checkout .ctn-resume .ctn-title, page-checkout .ctn-resume .ctn-costos, page-formofredemption .ctn-background-white, page-message-modal .ctn-background-white, page-network .ctn-user-data, page-network .ctn-background-white, page-paymentfluz .ctn-payfluz .ctn-title, page-redemption .ctn-background-white {
   background-color: #fff;
 }
 
@@ -46441,6 +46445,10 @@ ion-icon[class*="fluz-more-3"] {
   margin-top: 5px;
 }
 
+.margin-5 {
+  margin: 5px;
+}
+
 .spacer-25 {
   height: 25px;
 }
@@ -46448,6 +46456,10 @@ ion-icon[class*="fluz-more-3"] {
 .invisibleButton {
   height: 10px;
   width: 40px;
+}
+
+.wrap {
+  white-space: normal;
 }
 
 .inner-html {
@@ -46644,7 +46656,7 @@ page-cart .product-name {
   min-width: 50%;
 }
 
-page-cart .background-white, page-cart page-bonus .ctn-bonus .ctn-info-bonus, page-bonus .ctn-bonus page-cart .ctn-info-bonus, page-cart page-bonus .ctn-details .ctn-accordeon-title, page-bonus .ctn-details page-cart .ctn-accordeon-title, page-cart page-bonus .ctn-details .ctn-accordeon-details, page-bonus .ctn-details page-cart .ctn-accordeon-details, page-cart page-checkout .ctn-resume .ctn-title, page-checkout .ctn-resume page-cart .ctn-title, page-cart page-checkout .ctn-resume .ctn-costos, page-checkout .ctn-resume page-cart .ctn-costos, page-cart page-formofredemption .ctn-background-white, page-formofredemption page-cart .ctn-background-white, page-cart page-network .ctn-user-data, page-network page-cart .ctn-user-data, page-cart page-network .ctn-background-white, page-network page-cart .ctn-background-white, page-cart page-paymentfluz .ctn-payfluz .ctn-title, page-paymentfluz .ctn-payfluz page-cart .ctn-title, page-cart page-redemption .ctn-background-white, page-redemption page-cart .ctn-background-white {
+page-cart .background-white, page-cart page-bonus .ctn-bonus .ctn-info-bonus, page-bonus .ctn-bonus page-cart .ctn-info-bonus, page-cart page-bonus .ctn-details .ctn-accordeon-title, page-bonus .ctn-details page-cart .ctn-accordeon-title, page-cart page-bonus .ctn-details .ctn-accordeon-details, page-bonus .ctn-details page-cart .ctn-accordeon-details, page-cart page-checkout .ctn-resume .ctn-title, page-checkout .ctn-resume page-cart .ctn-title, page-cart page-checkout .ctn-resume .ctn-costos, page-checkout .ctn-resume page-cart .ctn-costos, page-cart page-formofredemption .ctn-background-white, page-formofredemption page-cart .ctn-background-white, page-cart page-message-modal .ctn-background-white, page-message-modal page-cart .ctn-background-white, page-cart page-network .ctn-user-data, page-network page-cart .ctn-user-data, page-cart page-network .ctn-background-white, page-network page-cart .ctn-background-white, page-cart page-paymentfluz .ctn-payfluz .ctn-title, page-paymentfluz .ctn-payfluz page-cart .ctn-title, page-cart page-redemption .ctn-background-white, page-redemption page-cart .ctn-background-white {
   background-color: #fff;
 }
 
@@ -47055,6 +47067,29 @@ page-login .toast {
   border-radius: 2px;
 }
 
+page-message-modal grid {
+  padding: 0px;
+}
+
+page-message-modal .btn-close {
+  margin: 8px;
+  text-align: center;
+}
+
+page-message-modal .btn-close ion-icon {
+  font-size: 2.4rem;
+}
+
+page-message-modal .ctn-background-white {
+  border: 1px solid #D7D7D7;
+  margin: 10px;
+}
+
+page-message-modal .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
 page-more .spacer {
   height: 36px;
 }
@@ -47168,7 +47203,7 @@ page-network .image-person {
 page-network .ctn-btn-user {
   text-align: center;
   display: inline-block;
-  width: 45%;
+  width: 90%;
   border: 1px solid;
   padding: 3px;
 }

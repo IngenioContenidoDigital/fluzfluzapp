@@ -60,7 +60,7 @@ export class HomePage {
           if (val === null || val === undefined ){
             this.goTo("LoginPage");
           }
-          else if( userConfirm != true ){
+          else if( userConfirm !== true ){
             this.goTo("ConfirmPage");            
           }
           if (val === null || val === undefined || val == false){

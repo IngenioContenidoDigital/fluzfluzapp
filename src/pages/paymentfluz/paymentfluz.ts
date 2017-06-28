@@ -73,7 +73,6 @@ export class PaymentFluzPage {
       case "payment": {
         switch (this.payment){
           case 1:{
-            console.log("Tarjeta 1");
             break            
           }
           case 2:{

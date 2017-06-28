@@ -53,8 +53,13 @@
     </ion-grid>
   </div> 
   <ion-label class="float-label-gray">ACTIVIDAD</ion-label>
-  <div class="ctn-background-white">  
+  <div class="ctn-background-white">
     <ion-grid>
+      <ion-row  *ngIf="activityNetwork.length < 1">
+        <ion-col>
+          <ion-label class="font-small text-dark font-semi-bold">Aún no tienes actividad en tu Network</ion-label>
+        </ion-col>
+      </ion-row>
       <ion-row  [@slideIn] *ngFor="let item of activityNetwork"  class="border-b">
         <ion-col>
           <div class="image-product">
@@ -83,6 +88,11 @@
   </ion-row>
   <div class="ctn-background-white">  
     <ion-grid>
+      <ion-row  *ngIf="myNetwork.length < 1">
+        <ion-col>
+          <ion-label class="font-small text-dark font-semi-bold">Aún no tienes actividad en tu Network</ion-label>
+        </ion-col>
+      </ion-row>
       <div  class="border-b" [@slideIn] *ngFor="let item of myNetwork"  >
         <ion-row>
           <ion-col col-2>
@@ -91,11 +101,10 @@
             </div>
           </ion-col>
           <ion-col col-4 class="border-b">
-            <ion-label class="font-small text-dark font-semi-bold">{{item.username}}</ion-label>
+            <ion-label class="font-small text-dark font-semi-bold capitalize">{{item.username}}</ion-label>
           </ion-col>
-          <ion-col col-6 item-right>
-            <div class="ctn-btn-user">MENSAJE</div>
-            <div class="ctn-btn-user">PUSH</div>
+          <ion-col col-6 item-right class="border-b">
+            <div class="ctn-btn-user" (click)="sendMessage(item)">MENSAJE</div>
           </ion-col>
         </ion-row>
         <ion-row>

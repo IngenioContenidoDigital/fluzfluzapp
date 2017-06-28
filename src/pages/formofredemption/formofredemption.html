@@ -48,6 +48,12 @@
       <form [formGroup]="dataRedemption">
         <ion-row  class="border-b">
           <ion-item>
+            <ion-label color="gray-soft" stacked>Número de Identificación</ion-label>
+            <ion-input type="number" placeholder="xxxxxxxxx" formControlName="n_identification"></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row  class="border-b">
+          <ion-item>
             <ion-label color="gray-soft" stacked>Nombre</ion-label>
             <ion-input type="text" placeholder="Ej: Sam" [formControl]="dataRedemption.controls['firts_name']" (keyup)="validateString($event)"></ion-input>
           </ion-item>
@@ -87,7 +93,7 @@
 </ion-content>
 
 <!--<ion-footer [@slideIn] (click)="goTo('Continue')">-->
-<ion-footer *ngIf="enableContinue != false" [@slideIn] (click)="goTo('Continue')">
+<ion-footer *ngIf="enableContinue != false" [@slideIn] (click)="sendToRedemption(dataRedemption)">
   <ion-toolbar color="primary">
     <ion-title>SIGUIENTE</ion-title>
   </ion-toolbar>
