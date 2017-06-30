@@ -142,6 +142,10 @@
   }
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 
 
 // Custom icons
@@ -203,6 +207,9 @@ ion-icon {
 .margin-t-5{
   margin-top: 5px;
 }
+.margin-5 {
+  margin: 5px;
+}
 
 .spacer-25{
   height: 25px;
@@ -213,6 +220,9 @@ ion-icon {
     width:40px;
 }
 
+.wrap {
+  white-space: normal;
+}
 
 ion-title {
   .toolbar-title-md{

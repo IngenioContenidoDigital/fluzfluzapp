@@ -1,9 +1,11 @@
 import { Component, trigger, style, animate, state, transition  } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { ModalController, NavController, NavParams } from 'ionic-angular';
 import { NetworkService } from '../../providers/network.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { MyAccountService } from '../../providers/myAccount.service';
+import { MessageModalPage } from '../message-modal/message-modal';
+import { ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the Network page.
@@ -46,7 +48,7 @@ export class NetworkPage {
   
   invitationForm: FormGroup;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public network: NetworkService, public storage: Storage, public myAccount: MyAccountService) {
+  constructor(public modalCtrl: ModalController,public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public network: NetworkService, public storage: Storage, public myAccount: MyAccountService) {
         this.invitationForm = formBuilder.group({
             'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
             'name': [null, Validators.required],
@@ -129,7 +131,6 @@ export class NetworkPage {
         );
       }
     });
-    console.log(this.myNetwork);
   }
   
   getMyInvitationData(limit:any){
@@ -141,8 +142,15 @@ export class NetworkPage {
               //this.myInvitation = JSON.parse(data);
               //console.log( this.myInvitation );
             var data = JSON.parse(data);
-            for (let i in data) {
-              this.myInvitation.push(data[i]);
+            console.log(data);
+            if(data == ''){
+                console.log(this.countMy);
+            }
+            else{
+                console.log(this.countMy);
+                for (let i in data) {
+                        this.myInvitation.push(data[i]);
+                    }
             }
           }
         );
@@ -168,13 +176,25 @@ export class NetworkPage {
               console.log(obj);
               this.network.getDataAccount(val, 5, 0, 0, obj).then(
                 (data:any) => {
-                    //this.myInvitation = JSON.parse(data);
-                    //console.log( this.myInvitation );
-                  var data = JSON.parse(data);
-                  console.log( data );
-                  /*for (let i in data) {
-                    this.myInvitation.push(data[i]);
-                  }*/
+                  if(data == "Invitacion Erronea: Este Mail ya Existe"){
+                    let toast = this.toastCtrl.create({
+                      message: data,
+                      duration: 2500,
+                      position: 'middle'
+                    });
+                    toast.present();
+                  }
+                  else{
+                    let toast = this.toastCtrl.create({
+                      message: data,
+                      duration: 2500,
+                      position: 'middle'
+                    });
+                    toast.present();  
+                    this.navCtrl.push(NetworkPage);   
+                  }
+                  //this.navCtrl.push(NetworkPage);   
+                  //location.reload();
                 }
               );
             }
@@ -190,6 +210,13 @@ export class NetworkPage {
   seeMoreMy() {
     this.seeMoreMyValue = ( this.seeMoreMyValue + 5 );
     setTimeout(()=>{ this.getMyNetworkData( this.seeMoreMyValue );  }, 100);
+  }
+  
+  sendMessage(item:any){
+    let messageModal = this.modalCtrl.create( MessageModalPage, { destiny: item } );
+    messageModal.onDidDismiss(data => {
+    });
+    messageModal.present();
   }
 
 }

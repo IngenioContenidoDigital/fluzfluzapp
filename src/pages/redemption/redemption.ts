@@ -1,9 +1,9 @@
 import { Component, trigger, style, animate, state, transition  } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
-import { TabsPage } from '../tabs/tabs';
+//import { TabsPage } from '../tabs/tabs';
 import { FormOfRedemptionPage } from '../formofredemption/formofredemption';
-//import { HomePage } from '../home/home';
+import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
 import { MyAccountService } from '../../providers/myAccount.service';
 
@@ -37,6 +37,7 @@ export class RedemptionPage {
   public userData:any = {};
   public valueRedemption:any = {};
   public showFluzRange:any = false;
+  public displayRedemption:any = false;
   public disponibleFluz:any = {};
   public payment:any = 1;
   public singleValue:any = 0;
@@ -49,6 +50,7 @@ export class RedemptionPage {
     this.tabsService.hide();
     this.getUserData();
     setTimeout(()=>{ this.resetValueRedemption(); }, 500);
+    setTimeout(()=>{ this.validateMinValue(); }, 700);
   }
 
   ionViewWillLeave(){
@@ -58,17 +60,21 @@ export class RedemptionPage {
   goTo(value:any) {
     switch (value){
       case "HomePage": {
-        this.navCtrl.setRoot(TabsPage);
+        this.navCtrl.setRoot(HomePage);
         break;
       }
       case "FromOfRedemptionPage": {
+        var redemptionValue = (this.payment == 1) ? this.userData : this.valueRedemption;
+
         this.navCtrl.push(FormOfRedemptionPage,{
-          disponibleFluz: this.disponibleFluz
+          disponibleFluz: this.disponibleFluz,
+          redemptionValue: redemptionValue
         });
         break;
       }
       default: {
-        this.navCtrl.pop();        
+//        this.navCtrl.setRoot(TabsPage);
+        this.navCtrl.pop();
         break;
       }
     }
@@ -96,10 +102,8 @@ export class RedemptionPage {
   
   updateValuesRedemption( value = 0 ) {
     this.disponibleFluz.fluzTotal = ( this.userData.fluzTotal - this.valueRedemption.fluzTotal );
+    this.valueRedemption.totalSavings = this.valueRedemption.fluzTotal * 25;
     this.disponibleFluz.totalSavings = ( this.userData.totalSavings - this.valueRedemption.totalSavings );
-    if ( value == 1 ) {
-      this.disponibleFluz.totalSavings = ( this.userData.totalSavings - ( this.valueRedemption.fluzTotal * 25 ))
-    }
   }
     
   selectedPayment(value){
@@ -114,5 +118,8 @@ export class RedemptionPage {
     this.showFluzRange = this.showFluzRange ? false : true;
   }
   
+  validateMinValue() {
+//    this.displayRedemption = ( this.userData.totalSavings >= 45000 ) ? true : false;
+  }
   
 }

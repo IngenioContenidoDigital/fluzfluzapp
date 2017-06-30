@@ -5,8 +5,8 @@
  */
 
 
-export let URL_BASE = "http://192.168.2.72/";
-export let WS_BASE = "http://192.168.2.72/override/app/services/";
+export let URL_BASE = "http://fluzfluzweb.localhost/";
+export let WS_BASE = "http://fluzfluzweb.localhost/override/app/services/";
 
 
 //export let URL_BASE = "http://fluzfluzdev.com/";

@@ -1,0 +1,22 @@
+page-message-modal {
+  grid {
+    padding: 0px;
+  }
+  .btn-close {
+    margin: 8px;
+    text-align: center;
+    ion-icon {
+      font-size: 2.4rem;
+    }
+  }
+  .ctn-background-white {
+    @extend .background-white;
+    border: 1px solid color($colors, gray-soft);
+    margin: 10px;
+  }
+  
+  .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+    border-bottom-color: transparent;
+    box-shadow: none;
+  }
+}

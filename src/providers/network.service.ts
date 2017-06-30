@@ -38,4 +38,26 @@ export class NetworkService {
           );
       });
   }
+  
+  public sendMessage(id_customer_send, id_customer_receive, message) {
+    this._url = WS_BASE+'sendMessage';
+    let params = new URLSearchParams();
+      params.set('id_customer_send', id_customer_send);
+      params.set('id_customer_receive', id_customer_receive);
+      params.set('message', message);
+      return new Promise(resolve => {
+        this.http.get(this._url, { search: params })
+          .map(res => res.json())
+          .subscribe(
+            data => {
+              this.userData = JSON.stringify(data.result);
+              resolve( this.userData );
+            },
+            (err:Response) => {
+              this.userData  = err.json();
+              resolve(this.userData );
+            }
+          );
+      });
+  }
 }
