@@ -47161,6 +47161,19 @@ page-network .ctn-btn-user {
   padding: 3px;
 }
 
+page-network .form-invitation {
+  width: 100%;
+}
+
+page-network .error {
+  font-size: 13px;
+  color: #c7254e;
+  background: #f9f2f4;
+  border-radius: 3px;
+  padding: 15px;
+  margin: -26px 0px 15px;
+}
+
 page-passcode .ctn-passcode {
   text-align: center;
 }

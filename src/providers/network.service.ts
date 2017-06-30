@@ -12,12 +12,13 @@ export class NetworkService {
     
   constructor(public http: Http) {}
 
-  public getDataAccount(id_customer, option, limit, last_total) {
+  public getDataAccount(id_customer, option, limit, last_total, obj_inv='') {
     let params = new URLSearchParams();
       params.set('id_customer', id_customer);
       params.set('option', option);
       params.set('limit', limit);
       params.set('last_total', last_total);
+      params.set('obj_inv', obj_inv);
       // No tiene los datos todavía
       return new Promise(resolve => {
         // Estamos utilizando el proveedor Angular HTTP para solicitar los datos,

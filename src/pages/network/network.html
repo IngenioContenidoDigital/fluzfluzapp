@@ -72,6 +72,117 @@
     <button ion-button color="primary" block (click)="seeMoreActivity()">VER MÁS</button>
   </div>
 <!--  <ion-label class="float-label-gray">MI INVITACIÓN</ion-label>-->
+  <ion-row>
+    <ion-col>
+        <ion-label class="float-label-gray">MI INVITACI&Oacute;N</ion-label>
+    </ion-col>
+  </ion-row>
+  <div class="ctn-background-white">  
+    <ion-grid>
+      <div  class="border-b" [@slideIn] *ngFor="let item of myInvitation"  >
+        <div *ngIf="myInvitation?.length == 2">    
+            <ion-row>
+              <ion-col col-2>
+                <div class="image-person">
+                  <img src="{{item.img}}"  onerror="this.src='assets/img/user-red.png';">          
+                </div>
+              </ion-col>
+              <ion-col col-4 class="border-b">
+                <ion-label class="font-small text-dark font-semi-bold">{{item.username}}</ion-label>
+              </ion-col>
+              <ion-col col-6 item-right>
+                <div class="ctn-btn-user">MENSAJE</div>
+                <div class="ctn-btn-user">PUSH</div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="font-more-small text-gray-normal">Puntos otorgados: {{item.points}}</ion-col>
+              <ion-col col-3 class="font-more-small text-gray-normal">Nivel Fluz: {{item.level}}</ion-col>
+              <ion-col class="font-more-small text-gray-normal">Fecha creación: {{item.dateadd}}</ion-col>
+            </ion-row>  
+        </div>
+        <div *ngIf="myInvitation?.length == 1">    
+            <div>
+                <ion-row>
+                  <ion-col col-2>
+                    <div class="image-person">
+                      <img src="{{item.img}}"  onerror="this.src='assets/img/user-red.png';">          
+                    </div>
+                  </ion-col>
+                  <ion-col col-4 class="border-b">
+                    <ion-label class="font-small text-dark font-semi-bold">{{item.username}}</ion-label>
+                  </ion-col>
+                  <ion-col col-6 item-right>
+                    <div class="ctn-btn-user">MENSAJE</div>
+                    <div class="ctn-btn-user">PUSH</div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col class="font-more-small text-gray-normal">Puntos otorgados: {{item.points}}</ion-col>
+                  <ion-col col-3 class="font-more-small text-gray-normal">Nivel Fluz: {{item.level}}</ion-col>
+                  <ion-col class="font-more-small text-gray-normal">Fecha creación: {{item.dateadd}}</ion-col>
+                </ion-row>  
+            </div>  
+            <div>
+                <ion-navbar>
+                    <ion-title>Invitation Available</ion-title>
+                </ion-navbar>
+                <ion-row>
+                    <form novalidate class="form-invitation" [formGroup]="invitationForm" (ngSubmit)="onSubmit(invitationForm)">
+                      <ion-row>   
+                        <ion-item col-6>
+                          <ion-label floating>Firstname</ion-label>
+                          <ion-input type="text" (keyup)="validateInputLogin($event)" formControlName="name" required></ion-input>
+                        </ion-item>
+                        <ion-item col-6>
+                          <ion-label floating>lastname</ion-label>
+                          <ion-input type="text" (keyup)="validateInputLogin($event)" formControlName="lastname"  required></ion-input>
+                        </ion-item>
+                      </ion-row>
+                      <ion-item>
+                        <ion-label floating>Email Address</ion-label>
+                        <ion-input type="email" (keyup)="validateInputLogin($event)" formControlName="email" required></ion-input>
+                      </ion-item>
+                      <button type='submit' block [disabled]="!enabledLoginButton" class="ng-tns-c0-0 disable-hover button button-md button-default button-default-md button-block button-block-md button-md-primary" block="" color="primary" ion-button="" ng-reflect-color="primary" ng-reflect-block="">
+                          <span class="button-inner">SEND INVITE</span>
+                          <div class="button-effect"></div>
+                      </button>
+                    </form>
+                </ion-row>
+            </div>
+        </div>    
+        <div *ngIf="myInvitation?.length == 0">    
+            <div>
+                <ion-navbar>
+                    <ion-title>Invitation Available</ion-title>
+                </ion-navbar>
+                <ion-row>
+                    <form class="form-invitation">
+                      <ion-row>   
+                        <ion-item col-6>
+                          <ion-label floating>Firstname</ion-label>
+                          <ion-input type="text" ngControl="firstname"></ion-input>
+                        </ion-item>
+                        <ion-item col-6>
+                          <ion-label floating>lastname</ion-label>
+                          <ion-input type="text" ngControl="lastname"></ion-input>
+                        </ion-item>
+                      </ion-row>
+                      <ion-item>
+                        <ion-label floating>Email Address</ion-label>
+                        <ion-input type="email" ngControl="email"></ion-input>
+                      </ion-item>
+                      <button type="submit" class="ng-tns-c0-0 disable-hover button button-md button-default button-default-md button-block button-block-md button-md-primary" block="" color="primary" ion-button="" ng-reflect-color="primary" ng-reflect-block="">
+                          <span class="button-inner">SEND INVITE</span>
+                          <div class="button-effect"></div>
+                      </button>
+                    </form>
+                </ion-row>
+            </div>
+        </div>    
+      </div>
+    </ion-grid>
+  </div>
   <!--<ion-label class="float-label-gray">FAVORITOS</ion-label>-->
   <ion-row>
     <ion-col>
