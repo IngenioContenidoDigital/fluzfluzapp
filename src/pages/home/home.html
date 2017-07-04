@@ -45,7 +45,7 @@
   
   
   <div class="card-background-page">
-    <ion-slides [autoplay]="4000" [loop]="true"  [speed]="300" [pager]="true" *ngIf="bannerData.length > 1">
+    <ion-slides [autoplay]="4000" [loop]="true"  [speed]="300" [pager]="true" *ngIf="countbannerData > 1">
       <ion-slide *ngFor="let slide of bannerData" >
         <ion-card>
           <img src="{{slide.b_img}}"/>            

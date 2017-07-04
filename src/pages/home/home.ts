@@ -27,12 +27,14 @@ export class HomePage {
   public backgroundDefault:any = "https://s3.amazonaws.com/imagenes-fluzfluz/c/3-category_default.jpg";
   public category:any = false;
   public productChild:any = [];
+  public countbannerData:any = 0;
     
   @ViewChild(Slides) slides: Slides;
   
   constructor(
     public navCtrl: NavController, public storage: Storage, public splashScreen: SplashScreen, public myAccount: MyAccountService, public home: HomeService, public categoryService: CategoryService, public tabsService: TabsService 
     ) {
+      this.countbannerData = 0;
       this.tabsService.show();
     }
   
@@ -78,6 +80,9 @@ export class HomePage {
       this.getCategoryWithFatherData();
       this.getCategoryWithOutFatherData();
     }, 100 );
+    setTimeout(()=>{
+      this.countbannerData = Object.keys(this.bannerData).length;
+    }, 500 );
     this.splashScreen.hide();
   }
   

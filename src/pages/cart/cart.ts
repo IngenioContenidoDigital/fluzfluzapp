@@ -121,6 +121,7 @@ export class CartPage {
         break;
       }
       default: {
+        this.tabsService.changeTabInContainerPage(0);
         this.navCtrl.setRoot(TabsPage);
         break;
       }
