@@ -46948,6 +46948,22 @@ page-header .searchbar-md .searchbar-input {
   font-size: 1rem;
 }
 
+page-header .countCart {
+  background-color: #E1493A;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  color: #fff;
+  font-size: 1.2rem;
+  position: fixed;
+  float: right;
+  right: 0;
+  top: 0;
+  z-index: 999;
+}
+
 page-home .ctn-user-data {
   background-color: #f2f2f2;
 }

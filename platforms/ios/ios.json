@@ -17,6 +17,10 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
@@ -39,6 +43,10 @@
                         {
                             "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"BrowserTab\"><param name=\"ios-package\" value=\"CBTBrowserTab\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -55,6 +63,9 @@
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+        },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         },
@@ -68,6 +79,12 @@
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         },
         "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+        },
+        "cordova-plugin-browsertab": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         }
     },
@@ -95,6 +112,15 @@
             "pluginId": "cordova-plugin-device",
             "clobbers": [
                 "device"
+            ]
+        },
+        {
+            "id": "cordova-plugin-inappbrowser.inappbrowser",
+            "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+            "pluginId": "cordova-plugin-inappbrowser",
+            "clobbers": [
+                "cordova.InAppBrowser.open",
+                "window.open"
             ]
         },
         {
@@ -129,16 +155,27 @@
                 "cordova.plugins.Keyboard"
             ],
             "runs": true
+        },
+        {
+            "id": "cordova-plugin-browsertab.BrowserTab",
+            "file": "plugins/cordova-plugin-browsertab/www/browsertab.js",
+            "pluginId": "cordova-plugin-browsertab",
+            "clobbers": [
+                "cordova.plugins.browsertab"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-console": "1.0.5",
         "cordova-plugin-crosswalk-webview": "2.3.0",
         "cordova-plugin-device": "1.1.4",
+        "cordova-plugin-inappbrowser": "1.7.1",
         "cordova-plugin-splashscreen": "4.0.3",
         "cordova-plugin-statusbar": "2.2.1",
         "cordova-plugin-whitelist": "1.3.1",
         "cordova-sqlite-storage": "2.0.3",
-        "ionic-plugin-keyboard": "2.2.1"
+        "ionic-plugin-keyboard": "2.2.1",
+        "cordova-plugin-compat": "1.1.0",
+        "cordova-plugin-browsertab": "0.2.0"
     }
 }

@@ -6,6 +6,9 @@ import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { BrowserTab } from '@ionic-native/browser-tab';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 /* Pages */
   
   /* Modals */
@@ -135,6 +138,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     StatusBar,
     SplashScreen,
     TabsService,
+    BrowserTab,
+    InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Storage
   ]

@@ -89,6 +89,7 @@ ext {
 
 // PLUGIN GRADLE EXTENSIONS START
 apply from: "cordova-plugin-crosswalk-webview/fluzfluz141172-xwalk.gradle"
+apply from: "cordova-plugin-browsertab/fluzfluz141172-BrowserTab.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras = file('build-extras.gradle').exists()
@@ -250,6 +251,7 @@ dependencies {
     // SUB-PROJECT DEPENDENCIES START
     debugCompile(project(path: "CordovaLib", configuration: "debug"))
     releaseCompile(project(path: "CordovaLib", configuration: "release"))
+    compile "com.android.support:customtabs:23.3.0"
     // SUB-PROJECT DEPENDENCIES END
 }
 

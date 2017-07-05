@@ -6,6 +6,8 @@ import { LoginService } from '../../providers/login-service';
 import { ConfirmPage } from '../confirm/confirm';
 import { TabsService } from '../../providers/tabs.service';
 import { TabsPage } from '../tabs/tabs';
+import { BrowserTab } from '@ionic-native/browser-tab';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 /**
  * Generated class for the Login page.
@@ -33,7 +35,7 @@ export class LoginPage {
   public updateShowDataUser: EventEmitter<boolean> = new EventEmitter<boolean>();
   public showDataUser = true;
   
-  constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, private loginService:LoginService, public storage: Storage, public alertCtrl: AlertController, public tabsService: TabsService, public platform: Platform ) {
+  constructor( private iab: InAppBrowser, private browserTab: BrowserTab, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, private loginService:LoginService, public storage: Storage, public alertCtrl: AlertController, public tabsService: TabsService, public platform: Platform ) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
   	this.loginForm = formBuilder.group({
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
@@ -183,6 +185,18 @@ export class LoginPage {
     confirm.present();
 	}
   
+  openUrl(){
+    let url = 'http://fluzfluz.com/solicitud-de-invitacion/';
+    this.browserTab.isAvailable().then((
+      isAvailable: boolean) => {
+        if (isAvailable) {
+          this.browserTab.openUrl(url);
+        } else {
+          this.iab.create(url, '_blank', 'location=yes');
+          // open URL with InAppBrowser instead or SafariViewController
+        }
+    });
+  }
   
 
 }
