@@ -19,7 +19,7 @@
   </ion-toolbar>
 
   <ion-buttons right>
-    <div>{{countCart}}</div>
+    <div class="countCart" *ngIf='countCart > 0'>{{countCart}}</div>
     <button ion-button icon-only (click)="goTo('CartPage')">
       <i class='fluz-tienda'></i>
     </button>

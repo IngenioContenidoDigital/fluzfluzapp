@@ -54,7 +54,6 @@ export class ConfirmPage {
     this.tabsService.show();
   }
   
-  //Según lo que recibe, manda a alguna página.
   public goTo(){
     this.tabsService.changeTabInContainerPage(0);
     this.navCtrl.setRoot(TabsPage);
