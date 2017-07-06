@@ -1,2 +1,9 @@
 /node_modules/
 /nbproject/private/
+/www
+/www/*
+/platforms
+/platforms/*
+/plugins
+/plugins/*
+config.xml
