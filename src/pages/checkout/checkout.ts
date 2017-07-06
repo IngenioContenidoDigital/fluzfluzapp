@@ -2,7 +2,7 @@ import { Component, trigger, style, animate, state, transition } from '@angular/
 import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { PaymentFluzPage } from '../paymentfluz/paymentfluz';
-import { AddCreditCartPage } from '../addcreditcart/addcreditcart';
+import { CreditCardPage } from '../creditcard/creditcard';
 import { PaymentPsePage } from '../paymentpse/paymentpse';
 import { TabsService } from '../../providers/tabs.service';
 
@@ -72,7 +72,7 @@ export class CheckoutPage {
             break            
           }
           case 3:{
-            this.navCtrl.push( AddCreditCartPage );
+            this.navCtrl.push( CreditCardPage );
             break            
           }
           case 4:{

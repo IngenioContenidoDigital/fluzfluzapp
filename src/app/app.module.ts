@@ -42,7 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     import { CartPage } from '../pages/cart/cart';
     import { CheckoutPage } from '../pages/checkout/checkout';
     import { PaymentFluzPage } from '../pages/paymentfluz/paymentfluz';
-    import { AddCreditCartPage } from '../pages/addcreditcart/addcreditcart';
+    import { CreditCardPage } from '../pages/creditcard/creditcard';
     import { PaymentPsePage } from '../pages/paymentpse/paymentpse';
     
     import { FormOfRedemptionPage } from '../pages/formofredemption/formofredemption';
@@ -74,7 +74,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CartPage,
     CheckoutPage,
     PaymentFluzPage,
-    AddCreditCartPage,
+    CreditCardPage,
     PaymentPsePage,
     PasscodePage,
     BonusPage,
@@ -117,7 +117,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CartPage,
     CheckoutPage,
     PaymentFluzPage,
-    AddCreditCartPage,
+    CreditCardPage,
     PaymentPsePage,
     PasscodePage,
     BonusPage,
