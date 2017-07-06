@@ -4,4 +4,6 @@
 /www/*
 /platforms
 /platforms/*
+/plugins
+/plugins/*
 config.xml
