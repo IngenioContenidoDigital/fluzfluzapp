@@ -66,7 +66,7 @@
     "cordova-plugin-inappbrowser": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-inappbrowser@1.7.1"
+            "id": "cordova-plugin-inappbrowser@~1.7.1"
         },
         "is_top_level": true,
         "variables": {}
@@ -74,7 +74,7 @@
     "cordova-plugin-browsertab": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-browsertab"
+            "id": "cordova-plugin-browsertab@~0.2.0"
         },
         "is_top_level": true,
         "variables": {}

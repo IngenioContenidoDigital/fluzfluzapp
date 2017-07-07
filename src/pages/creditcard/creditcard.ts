@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TabsService } from '../../providers/tabs.service';
 import { CreditCardService } from '../../providers/credit-card.service';
 import { Storage } from '@ionic/storage';
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the Creditcard page.
