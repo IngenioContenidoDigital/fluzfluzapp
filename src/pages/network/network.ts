@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { MessageModalPage } from '../message-modal/message-modal';
+import { InvitationThirdModalPage } from '../invitation-third-modal/invitation-third-modal';
 import { ToastController } from 'ionic-angular';
 
 /**
@@ -144,7 +145,8 @@ export class NetworkPage {
             var data = JSON.parse(data);
             console.log(data);
             if(data == ''){
-                console.log(this.countMy);
+                console.log(data);
+                this.myInvitation.push(this.countMy+2);
             }
             else{
                 console.log(this.countMy);
@@ -201,7 +203,11 @@ export class NetworkPage {
           });
         }
   }
-
+  
+  pushNewUser(){
+      this.navCtrl.push(InvitationThirdModalPage);
+  }
+    
   seeMoreActivity(){
     this.seeMoreActivityValue = ( this.seeMoreActivityValue + 5 );
     setTimeout(()=>{ this.getActivityNetworkData( this.seeMoreActivityValue );  }, 100);

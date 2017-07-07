@@ -1,0 +1,16 @@
+page-invitation-third-modal {
+    
+    .ctn-btn-user {
+        @extend .text-primary;
+        @extend .font-more-small;
+        text-align: center;
+        display: inline-block;
+        width: 90%;
+        border: 1px solid;
+        padding: 3px;
+      }
+
+    .title-invited{text-align: center;}
+    .align-text{text-align: center; margin-top: 12px;}
+    
+}

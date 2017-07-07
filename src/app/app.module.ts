@@ -54,6 +54,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   /* Billetera */
     import { PasscodePage } from '../pages/passcode/passcode';
     import { BonusPage } from '../pages/bonus/bonus';
+    
+  /* Nuevos Usuarios */
+        import { InvitationThirdModalPage } from '../pages/invitation-third-modal/invitation-third-modal';
+
+    
   
     
 @NgModule({
@@ -73,6 +78,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ConfirmatedPage,
     SearchModalPage,
     MessageModalPage,
+    InvitationThirdModalPage,
     ProductFatherPage,
     ProductChildPage,
     CartPage,
@@ -110,6 +116,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomePage,
     VaultPage,
     RedemptionPage,
+    InvitationThirdModalPage,
     NetworkPage,
     MorePage,
     LoginPage,
