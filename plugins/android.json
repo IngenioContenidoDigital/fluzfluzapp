@@ -21,6 +21,9 @@
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+        },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         },
@@ -35,7 +38,14 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+        },
+        "cordova-plugin-browsertab": {
+            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+        }
+    }
 }

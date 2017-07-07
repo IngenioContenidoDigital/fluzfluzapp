@@ -4,7 +4,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TabsService } from '../../providers/tabs.service';
 import { Banco } from '../../models/banco';
 import { BancoService } from '../../providers/banco.service';
+import { Redemption } from '../../providers/redemption.service';
 import { RedemptionConfirmPage } from '../redemption-confirm/redemption-confirm';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the FormofredemptionPage page.
@@ -15,7 +17,7 @@ import { RedemptionConfirmPage } from '../redemption-confirm/redemption-confirm'
 @Component({
   selector: 'page-formofredemption',
   templateUrl: 'formofredemption.html',
-  providers: [BancoService],
+  providers: [BancoService, Redemption],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -34,18 +36,22 @@ import { RedemptionConfirmPage } from '../redemption-confirm/redemption-confirm'
 export class FormOfRedemptionPage {
 
   public disponibleFluz:any = {};
+  public redemptionValue:any = {};
+  public redemptionData:any = {};
   public dataUserRedemption:any = {};
   public enableContinue:any = false;
   public bancos:Banco[];
   
   dataRedemption: FormGroup;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, formBuilder: FormBuilder, private backService: BancoService) {
+  constructor(public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, formBuilder: FormBuilder, private backService: BancoService, private redemption: Redemption) {
     this.disponibleFluz = navParams.get("disponibleFluz");
+    this.redemptionValue = navParams.get("redemptionValue");
     this.dataRedemption = formBuilder.group({
         firts_name: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
         last_name: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-        card: ['', Validators.compose([Validators.maxLength(12), Validators.pattern('^[1-9][0-9]*$'), Validators.required ])]
+        card: ['', Validators.compose([Validators.maxLength(12), Validators.pattern('^[1-9][0-9]*$'), Validators.required ])],
+        n_identification: ['', Validators.compose([Validators.maxLength(10), Validators.pattern('^[1-9][0-9]*$'), Validators.required ])]
     });
   }
   
@@ -87,13 +93,32 @@ export class FormOfRedemptionPage {
       this.dataUserRedemption.identification != 0 &&
       this.dataUserRedemption.banco != 0 &&
       this.dataUserRedemption.type_acount != 0 &&
-      (this.dataRedemption.controls['firts_name'].valid && this.dataRedemption.controls['last_name'].valid) 
+      (this.dataRedemption.controls['firts_name'].valid && 
+       this.dataRedemption.controls['last_name'].valid && 
+       this.dataRedemption.controls['card'].valid && 
+       this.dataRedemption.controls['n_identification'].valid) 
      ){
       this.enableContinue = true;
     }
     else {
       this.enableContinue = false;
     }
+  }
+  
+  sendToRedemption( redemptionData:any ){
+    let loader = this.loadingController.create({
+      content: "Enviando..."
+    });
+    loader.present();
+    this.redemptionData = redemptionData.value;
+    Object.assign(this.redemptionData, this.dataUserRedemption);
+    Object.assign(this.redemptionData, this.redemptionValue);
+    this.redemption.setRedemption( this.redemptionData ).then(
+      (data:any) => {
+        loader.dismiss();
+        this.goTo("Continue");
+      }
+    );
   }
   
   goTo(value:any) {

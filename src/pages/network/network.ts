@@ -1,8 +1,9 @@
 import { Component, trigger, style, animate, state, transition  } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { ModalController, NavController, NavParams } from 'ionic-angular';
 import { NetworkService } from '../../providers/network.service';
 import { Storage } from '@ionic/storage';
 import { MyAccountService } from '../../providers/myAccount.service';
+import { MessageModalPage } from '../message-modal/message-modal';
 
 /**
  * Generated class for the Network page.
@@ -39,7 +40,7 @@ export class NetworkPage {
   public seeMoreMyValue:any;
   public countActivity:any;
   public countMy:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public network: NetworkService, public storage: Storage, public myAccount: MyAccountService) {
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public network: NetworkService, public storage: Storage, public myAccount: MyAccountService) {
   }
   
   ionViewWillEnter(){
@@ -116,7 +117,6 @@ export class NetworkPage {
         );
       }
     });
-    console.log(this.myNetwork);
   }
   
   seeMoreActivity(){
@@ -127,6 +127,13 @@ export class NetworkPage {
   seeMoreMy() {
     this.seeMoreMyValue = ( this.seeMoreMyValue + 5 );
     setTimeout(()=>{ this.getMyNetworkData( this.seeMoreMyValue );  }, 100);
+  }
+  
+  sendMessage(item:any){
+    let messageModal = this.modalCtrl.create( MessageModalPage, { destiny: item } );
+    messageModal.onDidDismiss(data => {
+    });
+    messageModal.present();
   }
 
 }

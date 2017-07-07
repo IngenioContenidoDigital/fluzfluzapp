@@ -25,8 +25,8 @@ export class ProductChildPage {
   public inform:any;
   public idCart:any = 0;
   
-  @Output()
-  public updateCountCart: EventEmitter<string> = new EventEmitter<string>();
+  @Output('updateCountCart')
+  public updateCountCart: EventEmitter<number> = new EventEmitter<number>();
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public searchService: SearchService, public cartService: CartService, public storage: Storage, public tabsService: TabsService) {
     this.inform = "instructions";
@@ -42,7 +42,6 @@ export class ProductChildPage {
   addToCart(idProduct:any){
     this.storage.get('cart').then((val) => {
       this.idCart = ( val != undefined && val != null && val != '' ) ? val.id : 0;
-        
       this.cartService.addToCart( this.idCart, idProduct).subscribe(
         success => {
           if(success.status === 200) {
@@ -62,7 +61,7 @@ export class ProductChildPage {
       this.storage.get('cart').then((val) => {
         this.updateCountCart.emit( val.quantity );
       });
-    },150);
+    },500);
   }
   
   ionViewWillEnter(){

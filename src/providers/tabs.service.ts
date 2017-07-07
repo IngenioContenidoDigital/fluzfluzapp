@@ -1,11 +1,26 @@
 import {Injectable} from '@angular/core';
+import {Platform} from 'ionic-angular/index';
+import {Observable} from 'rxjs/Observable';
 
 // Declare TabsService as a provider in app.module.ts
 // Inject TabsService in your class: constructor(public tabs: TabsService){}
 // Use the this.tabs.hide() or this.tabs.show() methods wherever you want
 @Injectable()
 export class TabsService {
-  constructor() {}
+  
+  private tabChangeObserver: any;
+  public tabChange: any;
+
+  constructor(private platform: Platform){
+    this.tabChangeObserver = null;
+    this.tabChange = Observable.create(observer => {
+        this.tabChangeObserver = observer;
+    });
+  }
+
+  public changeTabInContainerPage(index: number) {
+    this.tabChangeObserver.next(index);
+  }
 
   public hide() {
     let tabs = document.querySelectorAll('.tabbar');

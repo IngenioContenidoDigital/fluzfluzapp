@@ -4,10 +4,16 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
-import { SearchModalPage } from '../pages/search-modal/search-modal';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { BrowserTab } from '@ionic-native/browser-tab';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 /* Pages */
+  
+  /* Modals */
+  import { SearchModalPage } from '../pages/search-modal/search-modal';
+  import { MessageModalPage } from '../pages/message-modal/message-modal';
   
   /* Basicas */
   import { StatusBar } from '@ionic-native/status-bar';
@@ -69,6 +75,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ConfirmPage,
     ConfirmatedPage,
     SearchModalPage,
+    MessageModalPage,
     ProductFatherPage,
     ProductChildPage,
     CartPage,
@@ -112,6 +119,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ConfirmPage,
     ConfirmatedPage,
     SearchModalPage,
+    MessageModalPage,
     ProductFatherPage,
     ProductChildPage,
     CartPage,
@@ -130,6 +138,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     StatusBar,
     SplashScreen,
     TabsService,
+    BrowserTab,
+    InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Storage
   ]

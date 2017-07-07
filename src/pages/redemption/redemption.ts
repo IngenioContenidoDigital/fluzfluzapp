@@ -37,6 +37,7 @@ export class RedemptionPage {
   public userData:any = {};
   public valueRedemption:any = {};
   public showFluzRange:any = false;
+  public displayRedemption:any = false;
   public disponibleFluz:any = {};
   public payment:any = 1;
   public singleValue:any = 0;
@@ -46,29 +47,31 @@ export class RedemptionPage {
   }
   
   ionViewWillEnter(){
-    this.tabsService.hide();
     this.getUserData();
     setTimeout(()=>{ this.resetValueRedemption(); }, 500);
+    setTimeout(()=>{ this.validateMinValue(); }, 700);
   }
 
-  ionViewWillLeave(){
-    this.tabsService.show();
-  }
   
   goTo(value:any) {
     switch (value){
       case "HomePage": {
+        this.tabsService.changeTabInContainerPage(0);
         this.navCtrl.setRoot(TabsPage);
         break;
       }
       case "FromOfRedemptionPage": {
+        var redemptionValue = (this.payment == 1) ? this.userData : this.valueRedemption;
+
         this.navCtrl.push(FormOfRedemptionPage,{
-          disponibleFluz: this.disponibleFluz
+          disponibleFluz: this.disponibleFluz,
+          redemptionValue: redemptionValue
         });
         break;
       }
       default: {
-        this.navCtrl.pop();        
+        this.tabsService.changeTabInContainerPage(0);
+        this.navCtrl.setRoot(TabsPage);
         break;
       }
     }
@@ -96,10 +99,8 @@ export class RedemptionPage {
   
   updateValuesRedemption( value = 0 ) {
     this.disponibleFluz.fluzTotal = ( this.userData.fluzTotal - this.valueRedemption.fluzTotal );
+    this.valueRedemption.totalSavings = this.valueRedemption.fluzTotal * 25;
     this.disponibleFluz.totalSavings = ( this.userData.totalSavings - this.valueRedemption.totalSavings );
-    if ( value == 1 ) {
-      this.disponibleFluz.totalSavings = ( this.userData.totalSavings - ( this.valueRedemption.fluzTotal * 25 ))
-    }
   }
     
   selectedPayment(value){
@@ -114,5 +115,8 @@ export class RedemptionPage {
     this.showFluzRange = this.showFluzRange ? false : true;
   }
   
+  validateMinValue() {
+//    this.displayRedemption = ( this.userData.totalSavings >= 45000 ) ? true : false;
+  }
   
 }

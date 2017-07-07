@@ -1,11 +1,13 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Platform, ToastController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { LoginService } from '../../providers/login-service';
 import { ConfirmPage } from '../confirm/confirm';
 import { TabsService } from '../../providers/tabs.service';
 import { TabsPage } from '../tabs/tabs';
+import { BrowserTab } from '@ionic-native/browser-tab';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 /**
  * Generated class for the Login page.
@@ -33,11 +35,40 @@ export class LoginPage {
   public updateShowDataUser: EventEmitter<boolean> = new EventEmitter<boolean>();
   public showDataUser = true;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, private loginService:LoginService, public storage: Storage, public alertCtrl: AlertController, public tabsService: TabsService) {
+  constructor( private iab: InAppBrowser, private browserTab: BrowserTab, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, private loginService:LoginService, public storage: Storage, public alertCtrl: AlertController, public tabsService: TabsService, public platform: Platform ) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
   	this.loginForm = formBuilder.group({
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
       'pwd': [null, Validators.required]
+    });
+    platform.ready().then(() => {
+        //back button handle
+        //Registration of push in Android and Windows Phone
+        var lastTimeBackPress = 0;
+        var timePeriodToExit  = 2000;
+
+        platform.registerBackButtonAction(() => {
+            // get current active page
+            let view = this.navCtrl.getActive();
+            if (view.component.name == "LoginPage") {
+                //Double check to exit app
+                if (new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
+                    this.platform.exitApp(); //Exit from app
+                } else {
+                    let toast = this.toastCtrl.create({
+                        message:  'Oprime de nuevo para salir de FluzFluz',
+                        duration: 3000,
+                        position: 'middle',
+                        cssClass: "toast"
+                    });
+                    toast.present();
+                    lastTimeBackPress = new Date().getTime();
+                }
+            }
+            else {
+              this.navCtrl.pop({});
+            }
+        });
     });
   }
   
@@ -58,9 +89,9 @@ export class LoginPage {
     else {
       this.storage.get('userData').then((val) => {
         if (val === null || val === undefined ){
-          this.storage.set('userData', false);          
+          this.storage.set('userData', false);
         }
-      });         
+      });
       setTimeout(()=>{ this.navCtrl.setRoot(TabsPage); }, 100);
     }
   }
@@ -154,6 +185,18 @@ export class LoginPage {
     confirm.present();
 	}
   
+  openUrl(){
+    let url = 'http://fluzfluz.com/solicitud-de-invitacion/';
+    this.browserTab.isAvailable().then((
+      isAvailable: boolean) => {
+        if (isAvailable) {
+          this.browserTab.openUrl(url);
+        } else {
+          this.iab.create(url, '_blank', 'location=yes');
+          // open URL with InAppBrowser instead or SafariViewController
+        }
+    });
+  }
   
 
 }

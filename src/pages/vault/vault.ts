@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { VaultService } from '../../providers/vault.service';
 import { BonusPage } from '../bonus/bonus';
-import { HomePage } from '../home/home';
+//import { HomePage } from '../home/home';
+import { TabsPage } from '../tabs/tabs';
+import { TabsService } from '../../providers/tabs.service';
 
 //import { PasscodePage } from '../passcode/passcode';
 
@@ -23,7 +25,7 @@ export class VaultPage {
   public vaultData:any = [];
   public vaultOption = '';
   public item:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public vault: VaultService) {
+  constructor( public tabsService: TabsService, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public vault: VaultService, private viewCtrl: ViewController) {
     this.vaultOption = 'bonus';
   }
 
@@ -31,6 +33,12 @@ export class VaultPage {
     setTimeout(()=>{
       this.updateVault();
     }, 100);  
+    this.tabsService.hide();
+    this.viewCtrl.showBackButton(false);
+  }
+  
+  ionViewWillLeave(){
+    this.tabsService.show();
   }
 
   updateVault(){
@@ -64,8 +72,9 @@ export class VaultPage {
   
   goTo(value){
     switch (value){
-      case "home": {
-        this.navCtrl.pop( HomePage );
+      case "HomePage": {
+        this.tabsService.changeTabInContainerPage(0);
+        this.navCtrl.setRoot(TabsPage);
         break;
       }
       default: {

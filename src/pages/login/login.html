@@ -13,12 +13,12 @@
         <i class='fluz-fluz-fluz'></i>
       </button>
     </ion-buttons>
-    <ion-title text-center>LOGIN</ion-title>
-    <ion-buttons right>
+    <ion-title text-center>LOGIN<button ion-button clear class="invisibleButton"></button></ion-title>
+<!--    <ion-buttons right>
     <button ion-button icon-only (click)="goTo()">
       <ion-icon name='close' ></ion-icon>
     </button>
-    </ion-buttons>
+    </ion-buttons>-->
   </ion-navbar>
 
 </ion-header>
@@ -47,13 +47,17 @@
   </form>
   
   <ion-label text-center>
-    <span class="text-gray-normal">¿No tienes cuenta? </span><span class="text-primary">Solicitar una invitación</span>
+    <span class="text-gray-normal">¿No tienes cuenta? </span><span class="text-primary" (click)="openUrl()">Solicitar una invitación</span>
   </ion-label>
   
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="primary" (click)="openUrl()">
     <ion-title>¿No es un miembro? Solicitar una invitación!</ion-title>
   </ion-toolbar>
 </ion-footer>
+
+
+
+<!--http://fluzfluz.com/solicitud-de-invitacion/-->

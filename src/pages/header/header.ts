@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ModalController, ViewController } from 'ionic-angular';
 import { SearchModalPage } from '../search-modal/search-modal';
 import { CartPage } from '../cart/cart';
 import { SearchService } from '../../providers/search.service';
 import { TabsPage } from '../tabs/tabs';
+import { ProductChildPage } from '../product-child/product-child';
 import { Storage } from '@ionic/storage';
+import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 
 /**
  * Generated class for the Header page.
@@ -16,7 +18,7 @@ import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-header',
   templateUrl: 'header.html',
-  providers: [SearchService]
+  providers: [SearchService,ProductChildPage],
 })
 export class HeaderPage {
   
@@ -26,33 +28,40 @@ export class HeaderPage {
   
   public searchData:any;
   public backButtonShow:any = false;
-  public countCart:any = 0;
   
-  public limit:any;
-  public total_search:any;
-    
   @Output()
   public updateSearchData: EventEmitter<string> = new EventEmitter<string>();
   
+  @Output()
+  public updateSeeMoreSearchData: EventEmitter<string> = new EventEmitter<string>();
+  
+  @Input()
+  public countCart:any = 0;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService, public viewCtrl: ViewController, public storage: Storage) {
     this.modalShow = navParams.get('modalShow') ? navParams.get('modalShow') : this.modalShow;
-    this.backButtonShow = this.backButtonShow ? this.backButtonShow : false;
-    this.storage.get('cart').then((val) => {
-      if (val != null || val != undefined ){
-        this.countCart = val.quantity;
-      }
+    this.backButtonShow = this.backButtonShow ? this.backButtonShow : false
+    IntervalObservable.create(500).subscribe( n => {
+      this.storage.get('cart').then((val) => {
+        if (val != null || val != undefined ){
+          this.countCart = val.quantity;
+        }
+      });      
     });
   }
     
-  search(){
-    this.limit = 10; 
-    this.total_search = 0; 
+  search( limit:any = 10, lastTotal:any = 0, seeMore:any = false ){
     setTimeout(() => {
-      this.searchService.search( this.searchTerm, '1', this.limit, this.total_search ).then((data) => {
+      this.searchService.search( this.searchTerm, '1', limit, lastTotal ).then((data) => {
         this.searchData = data;
-        this.updateSearchData.emit(this.searchData);
+        if ( seeMore === true ){
+          this.updateSeeMoreSearchData.emit( this.searchData );
+        }
+        else {
+          this.updateSearchData.emit( this.searchData );
+        }
       });
-    },500);
+    },100);
   }
   
   showBackButton(value:any){
@@ -72,16 +81,18 @@ export class HeaderPage {
   }
   
   openModalSearch(){
-      if ( this.modalShow === false ){
+    if ( this.modalShow === false ){
       this.modalShow = true;
       let searchModal = this.modalCtrl.create( SearchModalPage, { modalShow: true } );
       searchModal.present();
     }
   }
   
-  updateCountCart( countCart:any ) {
+  updateCountCart(countCart) {
     this.countCart = countCart;
-//    console.log( this.countCart );
   }
-
+  
+  updateSearchResults(lastTotal) {
+    this.search( ( 10 + lastTotal ), lastTotal, true );
+  }
 }
