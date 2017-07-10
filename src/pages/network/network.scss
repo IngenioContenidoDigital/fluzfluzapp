@@ -69,4 +69,21 @@ page-network {
     border: 1px solid;
     padding: 3px;
   }
+  
+  .form-invitation{width: 100%;}
+  
+  .error {
+        font-size: 13px;
+        color: rgb(199, 37, 78);
+        background: rgb(249, 242, 244);
+        border-radius: 3px;
+        padding: 15px;
+        margin: -26px 0px 15px;
+    }
+    .invited-third{color: #b2b2b2;letter-spacing: 2px;}
+    .status-pending{color: #FFA600;}
+    .status-confirm{color: #599000;}
+    .text-conf-sty{margin-top: 5px;}
+    .text-pend-sty{margin-top: 10px;}
+    .border-b{padding: 5px;}
 }

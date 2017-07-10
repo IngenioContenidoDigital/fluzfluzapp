@@ -57,6 +57,11 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   /* Billetera */
     import { PasscodePage } from '../pages/passcode/passcode';
     import { BonusPage } from '../pages/bonus/bonus';
+    
+  /* Nuevos Usuarios */
+        import { InvitationThirdModalPage } from '../pages/invitation-third-modal/invitation-third-modal';
+
+    
   
     
 @NgModule({
@@ -76,6 +81,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     ConfirmatedPage,
     SearchModalPage,
     MessageModalPage,
+    InvitationThirdModalPage,
     ProductFatherPage,
     ProductChildPage,
     CartPage,
@@ -113,6 +119,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     HomePage,
     VaultPage,
     RedemptionPage,
+    InvitationThirdModalPage,
     NetworkPage,
     MorePage,
     LoginPage,

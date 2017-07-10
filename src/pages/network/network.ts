@@ -1,9 +1,12 @@
 import { Component, trigger, style, animate, state, transition  } from '@angular/core';
 import { ModalController, NavController, NavParams } from 'ionic-angular';
 import { NetworkService } from '../../providers/network.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { MessageModalPage } from '../message-modal/message-modal';
+import { InvitationThirdModalPage } from '../invitation-third-modal/invitation-third-modal';
+import { ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the Network page.
@@ -34,13 +37,24 @@ export class NetworkPage {
   
   public activityNetwork:any = [];
   public myNetwork:any = [];
+  public myInvitation:any = [];
   public showHomeUserData:any = false;
   public userData:any = {};
   public seeMoreActivityValue:any;
   public seeMoreMyValue:any;
   public countActivity:any;
   public countMy:any;
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public network: NetworkService, public storage: Storage, public myAccount: MyAccountService) {
+  public enabledLoginButton:boolean;
+  public contPending:number = 0;
+  
+  invitationForm: FormGroup;
+  
+  constructor(public modalCtrl: ModalController,public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public network: NetworkService, public storage: Storage, public myAccount: MyAccountService) {
+        this.invitationForm = formBuilder.group({
+            'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
+            'name': [null, Validators.required],
+            'lastname': [null, Validators.required]
+        });
   }
   
   ionViewWillEnter(){
@@ -65,6 +79,7 @@ export class NetworkPage {
     setTimeout(()=>{ 
       this.getActivityNetworkData( this.seeMoreActivityValue );
       this.getMyNetworkData( this.seeMoreMyValue );
+      this.getMyInvitationData(this.seeMoreMyValue);
     }, 100);
     
   }
@@ -119,6 +134,81 @@ export class NetworkPage {
     });
   }
   
+  getMyInvitationData(limit:any){
+    this.storage.get('userData').then((val) => {
+      if( val != null && val != '' && val != undefined ){
+          this.countMy = Object.keys(this.myInvitation).length;
+          this.network.getDataAccount(val.id, 3, limit, this.countMy).then(
+          (data:any) => {
+              //this.myInvitation = JSON.parse(data);
+              //console.log( this.myInvitation );
+            var data = JSON.parse(data);
+            console.log(data);
+            if(data == ''){
+                this.myInvitation.push(data);
+            }
+            else{
+                for (let i in data) {
+                    if(data[i]['status']=='Pendiente'){
+                        this.contPending += 1;
+                    }
+                    this.myInvitation.push(data[i]);
+                }
+            }
+          }
+        );
+      }
+    });
+  }
+  
+  validateInputLogin(event:any) {
+    if(this.invitationForm.controls['email'].valid && this.invitationForm.controls['name'].valid) {
+      this.enabledLoginButton = true;
+    }
+    else {
+      this.enabledLoginButton = false;
+    }      
+  }
+  
+  onSubmit({value}) {
+      if (this.invitationForm.controls['email'].valid && this.invitationForm.controls['name'].valid && this.invitationForm.controls['lastname'].valid) {
+          
+          this.storage.get('userId').then((val) => {
+            if( val != null && val != '' && value != '' && val != undefined ){
+              let obj = JSON.stringify(value);
+              console.log(obj);
+              this.network.getDataAccount(val, 5, 0, 0, obj).then(
+                (data:any) => {
+                  if(data == "Invitacion Erronea: Este Mail ya Existe"){
+                    let toast = this.toastCtrl.create({
+                      message: data,
+                      duration: 2500,
+                      position: 'middle'
+                    });
+                    toast.present();
+                  }
+                  else{
+                    let toast = this.toastCtrl.create({
+                      message: data,
+                      duration: 2500,
+                      position: 'middle'
+                    });
+                    toast.present();  
+                    this.navCtrl.push(NetworkPage);   
+                  }
+                  //this.navCtrl.push(NetworkPage);   
+                  //location.reload();
+                }
+              );
+            }
+          });
+        }
+  }
+  
+  pushNewUser(){
+      this.navCtrl.push(InvitationThirdModalPage);
+  }
+    
   seeMoreActivity(){
     this.seeMoreActivityValue = ( this.seeMoreActivityValue + 5 );
     setTimeout(()=>{ this.getActivityNetworkData( this.seeMoreActivityValue );  }, 100);
