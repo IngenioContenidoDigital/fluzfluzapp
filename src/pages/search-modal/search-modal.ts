@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Renderer, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Output, Renderer, ElementRef, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ViewController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
@@ -12,18 +12,21 @@ import { ProductFatherPage } from '../product-father/product-father';
 export class SearchModalPage {
   
   public backButtom:any = true;
-  
-  @Output()
-  public updateSearchResults = new EventEmitter();
-  
+    
   @Output()
   public showBackButton: EventEmitter<string> = new EventEmitter<string>();
   
   public searchResult:any = [];
   public searchTotal:any;
   public countSearchResult:any;
+  public enableSeeMoreResults:any = false;
+  public noResults:any = [];
+  
+  @ViewChild('header') header;
   
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController, public tabsService: TabsService, /*public keyboard: Keyboard,*/ private renderer: Renderer, private elementRef: ElementRef) {
+    this.countSearchResult = 0;
+    this.noResults.value = true;
   }
   
   ionViewWillEnter(){
@@ -46,6 +49,7 @@ export class SearchModalPage {
   updateSearchData( searchData:any ) {
     this.searchResult = searchData.result;
     this.searchTotal = searchData.total;
+    setTimeout(() => { this.enableSeeMoreButtom(); },150);
   }
   
   openItem(item:any) {
@@ -55,9 +59,9 @@ export class SearchModalPage {
     });
   }
   
-  seeMoreResults(event) {
-    this.countSearchResult = Object.keys( this.searchResult ).length;
-    this.updateSearchResults.emit( this.countSearchResult );
+  seeMoreResults(event:any) {
+    this.countSearchResult = Object.keys( this.searchResult ).length; // Ultimo total de búsqueda
+    this.header.updateLastTotalSearch(this.countSearchResult);
   }
   
   updateSeeMoreSearchData( searchData:any ){
@@ -65,6 +69,18 @@ export class SearchModalPage {
     var data = searchData.result;
     for (let i in data) {
       this.searchResult.push(data[i]);
+    }
+    setTimeout(() => { this.enableSeeMoreButtom(); },150);
+  }
+    
+  enableSeeMoreButtom(){
+    if(this.searchResult){
+      this.enableSeeMoreResults = ( Object.keys(this.searchResult).length == this.searchTotal ) ? false : true;
+      this.noResults.value = false;
+    }
+    else {
+      this.noResults.value = true;
+      this.noResults.text = 'No se han encontrado resultados.';
     }
   }
 }

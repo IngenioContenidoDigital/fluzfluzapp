@@ -35,7 +35,8 @@ export class HeaderPage {
   @Output()
   public updateSeeMoreSearchData: EventEmitter<string> = new EventEmitter<string>();
   
-  @Input()
+  @Input('lastTotalSearch') lastTotalSearch:number;
+  
   public countCart:any = 0;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService, public viewCtrl: ViewController, public storage: Storage) {
@@ -88,11 +89,7 @@ export class HeaderPage {
     }
   }
   
-  updateCountCart(countCart) {
-    this.countCart = countCart;
-  }
-  
-  updateSearchResults(lastTotal) {
-    this.search( ( 10 + lastTotal ), lastTotal, true );
+  updateLastTotalSearch(value:any){
+    this.search( ( 10 + value ), value, true );
   }
 }
