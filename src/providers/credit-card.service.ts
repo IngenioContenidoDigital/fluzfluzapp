@@ -17,6 +17,7 @@ export class CreditCardService {
 
     public sendPayment(dataForm, userData, cart) {
         
+        this.dataPayment["namecard"] = dataForm.namecard;
         this.dataPayment["numbercard"] = dataForm.numbercard;
         this.dataPayment["datecard"] = dataForm.datecard;
         this.dataPayment["codecard"] = dataForm.codecard;

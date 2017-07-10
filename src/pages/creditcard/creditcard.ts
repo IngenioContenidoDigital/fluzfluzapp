@@ -5,6 +5,7 @@ import { TabsService } from '../../providers/tabs.service';
 import { CreditCardService } from '../../providers/credit-card.service';
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the Creditcard page.
@@ -36,8 +37,9 @@ export class CreditCardPage {
     
     public enabledLoginButton: boolean;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public tabsService: TabsService, private CreditCardService: CreditCardService, public storage: Storage, private alertCtrl: AlertController) {
+    constructor(public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public tabsService: TabsService, private CreditCardService: CreditCardService, public storage: Storage, private alertCtrl: AlertController) {
         this.creditCardForm = formBuilder.group({
+            'namecard': [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{5,100}$/i)])],
             'numbercard': [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{14,16}$/i)])],
             'datecard': [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{2}\/[0-9]{4}$/i)])],
             'codecard': [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{3,4}$/i)])]
@@ -53,7 +55,7 @@ export class CreditCardPage {
     }
 
     validateInputCreditCard(event:any) {
-        if (this.creditCardForm.controls['numbercard'].valid && this.creditCardForm.controls['datecard'].valid && this.creditCardForm.controls['codecard'].valid) {
+        if (this.creditCardForm.controls['namecard'].valid && this.creditCardForm.controls['numbercard'].valid && this.creditCardForm.controls['datecard'].valid && this.creditCardForm.controls['codecard'].valid) {
             this.enabledLoginButton = true;
         } else {
             this.enabledLoginButton = false;
@@ -63,16 +65,30 @@ export class CreditCardPage {
     pay(dataForm:any):void {
         this.storage.get('userData').then((userData) => {
             this.storage.get('cart').then((cart) => {
+                let loader = this.loadingController.create({
+                    content: "Pagando..."
+                });
+                loader.present();
+                this.enabledLoginButton = false;
                 this.CreditCardService.sendPayment(dataForm, userData, cart).subscribe(
                     success => {
                         if(success.status === 200) {
+                            loader.dismiss();
                             let response = JSON.parse(success._body);
                             console.log(response);
                             if ( response.success ) {
                                 this.storage.remove('cart').then((cart) => {
+                                    let title = 'Transacción Exitosa';
+                                    let message = response.message;
+
+                                    if ( response.order.order_state == "Pending" ) {
+                                        title = 'Transacción en Proceso';
+                                        message = 'Nos encontramos validando tu transacción, confirmaremos una vez culminemos el proceso.';
+                                    }
+
                                     let alert = this.alertCtrl.create({
-                                        title: 'Transacción Exitosa',
-                                        message: response.message,
+                                        title: title,
+                                        message: message,
                                         buttons: [
                                             {
                                                 text: 'Seguir Comprando',
@@ -82,9 +98,10 @@ export class CreditCardPage {
                                                 }
                                             },
                                             {
-                                                text: 'Ver mis bonos',
+                                                text: 'Ver Mis Bonos',
                                                 handler: () => {
-                                                    console.log('Buy clicked');
+                                                    this.tabsService.changeTabInContainerPage(1);
+                                                    this.navCtrl.setRoot(TabsPage);
                                                 }
                                             }
                                         ]
@@ -92,6 +109,7 @@ export class CreditCardPage {
                                     alert.present();
                                 });
                             } else {
+                                this.enabledLoginButton = true;
                                 let alert = this.alertCtrl.create({
                                     title: 'Error Generando Pago',
                                     subTitle: response.message,

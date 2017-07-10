@@ -16,6 +16,13 @@
             <ion-row class="border-b">
                 <ion-col col-12>
                     <ion-item>
+                        <ion-input text-center type="text" placeholder="Nombre del titular" (keyup)="validateInputCreditCard($event)" [formControl]="creditCardForm.controls['namecard']"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row class="border-b">
+                <ion-col col-12>
+                    <ion-item>
                         <i class='fluz-tarjeta' item-left></i>
                         <ion-input type="number" placeholder="Número de tarjeta" (keyup)="validateInputCreditCard($event)" [formControl]="creditCardForm.controls['numbercard']"></ion-input>
                     </ion-item>
