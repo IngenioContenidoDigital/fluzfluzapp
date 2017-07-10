@@ -116,7 +116,7 @@ export class RedemptionPage {
   }
   
   validateMinValue() {
-//    this.displayRedemption = ( this.userData.totalSavings >= 45000 ) ? true : false;
+    this.displayRedemption = ( this.userData.totalSavings >= 45000 ) ? true : false;
   }
   
 }
