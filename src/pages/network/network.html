@@ -85,7 +85,7 @@
   <div class="ctn-background-white">  
     <ion-grid>
       <div  class="border-b" [@slideIn] *ngFor="let item of myInvitation"  >
-        <div *ngIf="myInvitation?.length == 2">    
+        <div *ngIf="item.contador == 2">    
             <ion-row>
               <ion-col col-2>
                 <div class="image-person">
@@ -111,7 +111,7 @@
               <ion-col class="font-more-small text-gray-normal">Fecha creación: {{item.dateadd}}</ion-col>
             </ion-row> 
         </div>
-        <div *ngIf="myInvitation?.length == 1">    
+        <div *ngIf="item.contador == 1">    
             <div>
                 <ion-row>
                 <ion-col col-2>
@@ -166,7 +166,7 @@
                 </ion-row>
             </div>
         </div>    
-        <div *ngIf="myInvitation?.length == 0">    
+        <div *ngIf="item.contador == 0">    
             <div>
                 <ion-navbar>
                     <ion-title>Invitaci&oacute;n Disponible</ion-title>
@@ -196,25 +196,25 @@
             </div>
         </div>    
       </div>
-      <div *ngIf = "myInvitation?.length == 2">
-          <ion-row>
-              <ion-col col-2>
-                <div class="image-person">
-                  <img src=""  onerror="this.src='assets/img/user-invited.png';">          
-                </div>
-              </ion-col>
-              <ion-col col-8 class="invited-third">
-                <div>
-                    <p>Encuentra una Invitaci&oacute;n.</p>
-                </div> 
-              </ion-col>
-              <ion-col col-2>
-                <div class="image-person">
-                  <img src=""  onerror="this.src='assets/img/plus.png';" outline (click)="pushNewUser()"> 
-                </div>
-              </ion-col>    
-          </ion-row> 
-      </div>  
+      <div *ngIf = "myInvitation?.length == 2 && contPending == 1">
+        <ion-row>
+            <ion-col col-2>
+              <div class="image-person">
+                <img src=""  onerror="this.src='assets/img/user-invited.png';">          
+              </div>
+            </ion-col>
+            <ion-col col-8 class="invited-third">
+              <div>
+                  <p>Encuentra una Invitaci&oacute;n.</p>
+              </div> 
+            </ion-col>
+            <ion-col col-2>
+              <div class="image-person">
+                <img src=""  onerror="this.src='assets/img/plus.png';" outline (click)="pushNewUser()"> 
+              </div>
+            </ion-col>    
+        </ion-row> 
+    </div>  
     </ion-grid>
   </div>
   <!--<ion-label class="float-label-gray">FAVORITOS</ion-label>-->

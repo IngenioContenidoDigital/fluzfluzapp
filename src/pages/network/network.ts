@@ -45,7 +45,7 @@ export class NetworkPage {
   public countActivity:any;
   public countMy:any;
   public enabledLoginButton:boolean;
-
+  public contPending:number = 0;
   
   invitationForm: FormGroup;
   
@@ -145,14 +145,15 @@ export class NetworkPage {
             var data = JSON.parse(data);
             console.log(data);
             if(data == ''){
-                console.log(data);
-                this.myInvitation.push(this.countMy+2);
+                this.myInvitation.push(data);
             }
             else{
-                console.log(this.countMy);
                 for (let i in data) {
-                        this.myInvitation.push(data[i]);
+                    if(data[i]['status']=='Pendiente'){
+                        this.contPending += 1;
                     }
+                    this.myInvitation.push(data[i]);
+                }
             }
           }
         );
