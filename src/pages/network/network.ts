@@ -42,10 +42,12 @@ export class NetworkPage {
   public userData:any = {};
   public seeMoreActivityValue:any;
   public seeMoreMyValue:any;
+  public countInvitation:any;
   public countActivity:any;
   public countMy:any;
   public enabledLoginButton:boolean;
   public contPending:number = 0;
+  public contConfirm:number = 0;
   
   invitationForm: FormGroup;
   
@@ -69,6 +71,7 @@ export class NetworkPage {
     this.getUserData();
     this.seeMoreActivityValue = 5;
     this.seeMoreMyValue = 5;
+    this.countInvitation = 2;
     this.countMy = 0;
     if( ( Object.keys(this.activityNetwork).length ) > 5 ){
       this.activityNetwork = [];
@@ -76,10 +79,13 @@ export class NetworkPage {
     if( ( Object.keys(this.myNetwork).length ) > 5 ){
       this.myNetwork = [];
     }
+    if( ( Object.keys(this.myInvitation).length ) <= 2  ){
+      this.myInvitation = [];
+    }
     setTimeout(()=>{ 
       this.getActivityNetworkData( this.seeMoreActivityValue );
       this.getMyNetworkData( this.seeMoreMyValue );
-      this.getMyInvitationData(this.seeMoreMyValue);
+      this.getMyInvitationData(this.countInvitation);
     }, 100);
     
   }
@@ -151,6 +157,9 @@ export class NetworkPage {
                 for (let i in data) {
                     if(data[i]['status']=='Pendiente'){
                         this.contPending += 1;
+                    }
+                    else if(data[i]['status']=='Confirmado'){
+                        this.contConfirm += 1;
                     }
                     this.myInvitation.push(data[i]);
                 }
