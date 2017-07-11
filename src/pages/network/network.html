@@ -196,7 +196,7 @@
             </div>
         </div>    
       </div>
-      <div *ngIf = "myInvitation?.length == 2 && contPending == 1">
+      <div *ngIf = "myInvitation?.length == 2 && (contPending == 1 || contConfirm == 2)">
         <ion-row>
             <ion-col col-2>
               <div class="image-person">
