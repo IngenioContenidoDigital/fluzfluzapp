@@ -81,6 +81,8 @@ export class NetworkPage {
     }
     if( ( Object.keys(this.myInvitation).length ) <= 2  ){
       this.myInvitation = [];
+      this.contPending = 0;
+      this.contConfirm = 0;
     }
     setTimeout(()=>{ 
       this.getActivityNetworkData( this.seeMoreActivityValue );
@@ -157,9 +159,11 @@ export class NetworkPage {
                 for (let i in data) {
                     if(data[i]['status']=='Pendiente'){
                         this.contPending += 1;
+                        console.log(this.contPending);
                     }
                     else if(data[i]['status']=='Confirmado'){
                         this.contConfirm += 1;
+                        console.log(this.contConfirm);
                     }
                     this.myInvitation.push(data[i]);
                 }
