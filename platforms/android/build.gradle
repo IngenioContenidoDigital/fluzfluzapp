@@ -88,8 +88,8 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
-apply from: "cordova-plugin-crosswalk-webview/fluzfluz141172-xwalk.gradle"
 apply from: "cordova-plugin-browsertab/fluzfluz141172-BrowserTab.gradle"
+apply from: "cordova-plugin-crosswalk-webview/fluzfluz141172-xwalk.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras = file('build-extras.gradle').exists()

@@ -1,6 +1,14 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+        "id": "cordova-plugin-browsertab.BrowserTab",
+        "file": "plugins/cordova-plugin-browsertab/www/browsertab.js",
+        "pluginId": "cordova-plugin-browsertab",
+        "clobbers": [
+            "cordova.plugins.browsertab"
+        ]
+    },
+    {
         "id": "cordova-plugin-device.device",
         "file": "plugins/cordova-plugin-device/www/device.js",
         "pluginId": "cordova-plugin-device",
@@ -49,19 +57,13 @@ module.exports = [
             "cordova.plugins.Keyboard"
         ],
         "runs": true
-    },
-    {
-        "id": "cordova-plugin-browsertab.BrowserTab",
-        "file": "plugins/cordova-plugin-browsertab/www/browsertab.js",
-        "pluginId": "cordova-plugin-browsertab",
-        "clobbers": [
-            "cordova.plugins.browsertab"
-        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
+    "cordova-plugin-compat": "1.1.0",
+    "cordova-plugin-browsertab": "0.2.0",
     "cordova-plugin-console": "1.0.5",
     "cordova-plugin-crosswalk-webview": "2.3.0",
     "cordova-plugin-device": "1.1.4",
@@ -70,9 +72,7 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.2.1",
     "cordova-plugin-whitelist": "1.3.1",
     "cordova-sqlite-storage": "2.0.3",
-    "ionic-plugin-keyboard": "2.2.1",
-    "cordova-plugin-compat": "1.1.0",
-    "cordova-plugin-browsertab": "0.2.0"
+    "ionic-plugin-keyboard": "2.2.1"
 };
 // BOTTOM OF METADATA
 });

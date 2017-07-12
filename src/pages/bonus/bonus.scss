@@ -4,12 +4,32 @@ page-bonus {
     margin: 10px;
   }
   
+  .button-md-primary {
+    width: 100%;
+  }
   .ctn-bonus {
     padding: 0px;
     .static-height{
       height: 70px;
     }
     .ctn-info-bonus{
+      .col {
+        .fluz-passcodeB {
+          @extend .font-more-small;
+          width: 15%;
+          height: 30px;
+          vertical-align: middle;
+          line-height: 24px;
+          float: left;
+        }
+        .text-spacer {
+          margin: 5px 0px;
+          width: 85%;
+        }
+        .text-right{
+          text-align: right;
+        }
+      }
       .label-md{
         margin: 5px 0px;
       }

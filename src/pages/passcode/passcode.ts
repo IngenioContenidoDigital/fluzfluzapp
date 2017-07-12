@@ -48,15 +48,12 @@ export class PasscodePage {
     this.resetPasscode();
     this.storage.get('userId').then((val) => {
       this.passcodeService.getPasscode(val).then((data:any)=>{
-          console.log(data['0']);
           this.response = data['0'];
           if( this.response.vault_code === null || this.response.vault_code === 'null' || this.response.vault_code == undefined || this.response.vault_code == 'undefined' ){
-            console.log("Voy a guardar una contraseña");
             this.setPasscode = true;
           }
           else {
             this.setPasscode = false;
-            console.log("Ya tengo contraseña.");
             this.textHeader = 'Ingresa tu contraseña';
             this.textButton = 'CONFIRMAR';
           }

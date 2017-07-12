@@ -7,6 +7,9 @@
         "files": {}
     },
     "installed_plugins": {
+        "cordova-plugin-browsertab": {
+            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         },
@@ -37,9 +40,6 @@
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
-        },
-        "cordova-plugin-browsertab": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         }
     },
