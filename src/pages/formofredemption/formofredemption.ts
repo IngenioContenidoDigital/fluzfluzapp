@@ -65,9 +65,24 @@ export class FormOfRedemptionPage {
     this.tabsService.show();
   }
   
-  getDataBank(){
-    this.backService.getBanks().then(bancos => this.bancos = bancos);
-  }
+    getDataBank(){
+        let loader = this.loadingController.create({
+            content: "Cargando Lista de Bancos"
+        });
+        loader.present();
+        this.backService.getBanks().subscribe(
+            success => {
+                if(success.status === 200) {
+                    let response = JSON.parse(success._body);
+                    this.bancos = response;
+                    loader.dismiss();
+                }
+            },
+            error => { 
+                console.log(error)
+            }
+        );
+    }
   
   setIdentification(value:any){
     this.dataUserRedemption.identification = value;

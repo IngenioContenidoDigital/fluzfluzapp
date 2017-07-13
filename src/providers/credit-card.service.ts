@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Headers, Http, Response } from '@angular/http';
 import { WS_BASE } from './config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -23,7 +23,7 @@ export class CreditCardService {
         this.dataPayment["codecard"] = dataForm.codecard;
         this.dataPayment["id_customer"] = userData.id;
         this.dataPayment["id_cart"] = cart.id;
-        this.dataPayment["payment"] = 'credit_card';
+        this.dataPayment["payment"] = 'Tarjeta_credito';
         
         let dataPayment = JSON.stringify( this.dataPayment );
 

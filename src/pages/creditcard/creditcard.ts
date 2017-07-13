@@ -35,7 +35,7 @@ import { LoadingController } from 'ionic-angular';
 export class CreditCardPage {
     creditCardForm: FormGroup;
     
-    public enabledLoginButton: boolean;
+    public enabledPayButton: boolean = false;
 
     constructor(public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public tabsService: TabsService, private CreditCardService: CreditCardService, public storage: Storage, private alertCtrl: AlertController) {
         this.creditCardForm = formBuilder.group({
@@ -56,9 +56,9 @@ export class CreditCardPage {
 
     validateInputCreditCard(event:any) {
         if (this.creditCardForm.controls['namecard'].valid && this.creditCardForm.controls['numbercard'].valid && this.creditCardForm.controls['datecard'].valid && this.creditCardForm.controls['codecard'].valid) {
-            this.enabledLoginButton = true;
+            this.enabledPayButton = true;
         } else {
-            this.enabledLoginButton = false;
+            this.enabledPayButton = false;
         }
     }
     
@@ -69,13 +69,12 @@ export class CreditCardPage {
                     content: "Pagando..."
                 });
                 loader.present();
-                this.enabledLoginButton = false;
+                this.enabledPayButton = false;
                 this.CreditCardService.sendPayment(dataForm, userData, cart).subscribe(
                     success => {
                         if(success.status === 200) {
                             loader.dismiss();
                             let response = JSON.parse(success._body);
-                            console.log(response);
                             if ( response.success ) {
                                 this.storage.remove('cart').then((cart) => {
                                     let title = 'Transacción Exitosa';
@@ -109,7 +108,7 @@ export class CreditCardPage {
                                     alert.present();
                                 });
                             } else {
-                                this.enabledLoginButton = true;
+                                this.enabledPayButton = true;
                                 let alert = this.alertCtrl.create({
                                     title: 'Error Generando Pago',
                                     subTitle: response.message,
