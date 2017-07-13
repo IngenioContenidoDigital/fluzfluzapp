@@ -1,5 +1,5 @@
 import { Component, trigger, style, animate, state, transition  } from '@angular/core';
-import { ModalController, NavController, NavParams } from 'ionic-angular';
+import { ModalController, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { NetworkService } from '../../providers/network.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
@@ -51,7 +51,7 @@ export class NetworkPage {
   
   invitationForm: FormGroup;
   
-  constructor(public modalCtrl: ModalController,public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public network: NetworkService, public storage: Storage, public myAccount: MyAccountService) {
+  constructor(public loadingController: LoadingController, public modalCtrl: ModalController,public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public network: NetworkService, public storage: Storage, public myAccount: MyAccountService) {
         this.invitationForm = formBuilder.group({
             'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
             'name': [null, Validators.required],
@@ -190,14 +190,20 @@ export class NetworkPage {
             if( val != null && val != '' && value != '' && val != undefined ){
               let obj = JSON.stringify(value);
               console.log(obj);
+              let loader = this.loadingController.create({
+                content: "Enviando..."
+              });
+              loader.present();
               this.network.getDataAccount(val, 5, 0, 0, obj).then(
                 (data:any) => {
+                  let rData = JSON.parse(data);
                   if(data == "Invitacion Erronea: Este Mail ya Existe"){
                     let toast = this.toastCtrl.create({
                       message: data,
                       duration: 2500,
                       position: 'middle'
                     });
+                    loader.dismiss();
                     toast.present();
                   }
                   else{
@@ -206,11 +212,11 @@ export class NetworkPage {
                       duration: 2500,
                       position: 'middle'
                     });
-                    toast.present();  
-                    this.navCtrl.push(NetworkPage);   
+                      loader.dismiss();
+                      toast.present();  
+                      this.navCtrl.setRoot(NetworkPage); 
                   }
-                  //this.navCtrl.push(NetworkPage);   
-                  //location.reload();
+                  
                 }
               );
             }
