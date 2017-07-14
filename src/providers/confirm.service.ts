@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, URLSearchParams, Response } from '@angular/http';
 import { WS_BASE } from './config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -9,7 +9,7 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class ConfirmService {
-
+  public data:any;
   constructor(private http: Http) { }
 
   confirm(variables): Observable<any> {
@@ -35,5 +35,23 @@ export class ConfirmService {
     }
     return Observable.throw(errMsg);
   }
-
+  
+  public getPhone(id_customer:any) {
+    return new Promise(resolve => {
+      let params = new URLSearchParams();
+      params.set('id_customer', id_customer);
+      this.http.get(WS_BASE+'getPhoneByIdCustomer', { search: params })
+        .map(res => res.json())
+        .subscribe(
+        	data => {
+            this.data = data.result;
+            resolve(this.data);
+          },
+          (err:Response) => {
+            this.data = '{"Error": "Error al obtener el estado del telefono."}';
+            resolve(this.data);
+          }
+        );
+    });
+  }
 }

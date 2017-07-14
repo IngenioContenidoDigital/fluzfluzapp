@@ -36,4 +36,43 @@ page-confirm {
     width: 80%;
     border-radius: 2px;
   }
+  
+  .grid{
+    padding: 0px;
+    .col {
+      padding: 5px;
+      .ctn-img{
+        width: 100%;
+        height: 100%;
+        position: relative;
+        img{
+          max-height: 100%;
+          max-width: 100%;
+          width: auto;
+          height: auto;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: auto;              
+        }
+      }
+      .label-md{
+        @extend .font-small-normal;
+        margin: 5px 0;
+        text-transform: capitalize;
+        vertical-align: middle;
+        line-height: 33px;
+        font-weight: normal !important;
+      }
+      div{
+        ion-icon{
+          @include font-size(14px);
+          line-height: 43px;
+        }
+      }
+    }
+  }
+      
 }

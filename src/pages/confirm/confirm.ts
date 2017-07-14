@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, trigger, style, animate, state, transition } from '@angular/core';
 import { NavController, NavParams, AlertController, Platform, ToastController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -6,11 +6,26 @@ import { ConfirmService } from '../../providers/confirm.service';
 import { ConfirmatedPage } from '../confirmated/confirmated';
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs';
+import { CountryService } from '../../providers/country.service';
  
 @Component({
   selector: 'page-confirm',
   templateUrl: 'confirm.html',
-  providers: [ConfirmService]
+  providers: [CountryService, ConfirmService],
+  animations: [
+    trigger('slideIn', [
+      state('*', style({ 'overflow-y': 'hidden' })),
+      state('void', style({ 'overflow-y': 'hidden' })),
+      transition('* => void', [
+          style({ height: '*' }),
+          animate(250, style({ height: 0 }))
+      ]),
+      transition('void => *', [
+          style({ height: '0' }),
+          animate(250, style({ height: '*' }))
+      ])
+    ])
+  ]
 })
 export class ConfirmPage {
 
@@ -22,8 +37,14 @@ export class ConfirmPage {
   public textButton:string = "CONTINUAR";
   public textFooter:string = "¿De dónde viene este número?";
   public textContact:string = "¿No es tu número? ";
+  public showFormPhone:any = false;
+  public countries:any = {
+    name: 'Colombia',
+    code: '57',
+    flag: 'https://restcountries.eu/data/co.svg'
+  };
   
-  constructor( public platform: Platform, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService,  formBuilder: FormBuilder, private confirmService: ConfirmService, public storage: Storage, public alertCtrl: AlertController) {
+  constructor( private countryService: CountryService, public platform: Platform, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService,  formBuilder: FormBuilder, private confirmService: ConfirmService, public storage: Storage, public alertCtrl: AlertController) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
     this.confirmForm = formBuilder.group({
       'confirmNumber': [null, Validators.compose([Validators.required, Validators.minLength(6),Validators.pattern('^[0-9]{1,6}$')])]
@@ -48,6 +69,8 @@ export class ConfirmPage {
   
   ionViewWillEnter(){
     this.tabsService.hide();
+    this.getPhone();
+    this.setCountry();
   }
 
   ionViewWillLeave(){
@@ -93,10 +116,41 @@ export class ConfirmPage {
       }
     );
   }
-  
-  
+
   showConfirm() {
     this.textFooter = "¡El número de confirmación ingresado es incorrecto!";
     this.enabledConfirmButton = false;  
-	}  
+	}
+  
+  getPhone(){
+    this.storage.get('userData').then((val) => {
+      this.confirmService.getPhone(val.id).then( (data:any)=> {
+        console.log("Esto es el phone: ");
+        console.log(data);
+        if( data.phone == null || data.phone == undefined  ) {
+          this.showFormPhone = true;
+        }
+        
+      });
+    });
+  }
+  
+  getDataCountry(){
+    this.countryService.getCountries().then( 
+      (countries:any) => {
+        this.countries = JSON.parse(countries);
+        console.log( this.countries );
+      }
+    );
+  }
+  
+  setCountry() {
+    this.countries.name = 'Colombia';
+    this.countries.flag = 'https://restcountries.eu/data/col.svg';
+    this.countries.code = '57';
+  }
+  
+  openModalCountry(){
+    console.log('openModalCountry se ejecuta');
+  }
 }

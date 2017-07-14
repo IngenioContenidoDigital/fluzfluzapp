@@ -13,34 +13,63 @@
       </button>
     </ion-buttons>
     <ion-title text-center>CONFIRMAR<button ion-button clear class="invisibleButton"></button></ion-title>
-<!--    <ion-buttons right>
-    <button ion-button icon-only (click)="goTo()">
-      <ion-icon name='close' ></ion-icon>
-    </button>
-    </ion-buttons>-->
   </ion-navbar>
 
 </ion-header>
 
 <ion-content no-padding>
-  <form class="ctn-float">
-    <ion-label text-center margin-bottom class="text-dark left">{{textInfo}}</ion-label>
-    <div text-center *ngIf="nextViewConfirm!==true" class="row text-dark">
-      <h1 class="width-100">XXX XXX 4565</h1>
-    </div>
-    <ion-item no-padding *ngIf="nextViewConfirm===true" >
-      <ion-input class="confimNumber" type="number" (keyup)="validateConfirmNumber($event)" [formControl]="confirmForm.controls['confirmNumber']"  placeholder="X X X X X X"></ion-input>
-    </ion-item>
-    <div padding-vertical>
-      <button ion-button color="primary" block [disabled]="!enabledConfirmButton" (click)="nextView()">{{textButton}}</button>
-    </div>
-    <ion-label text-center>
-      <span class="text-gray-normal">{{textContact}}</span><span class="text-primary">Contáctenos</span>
-    </ion-label>
-  </form>
+  <div class="ctn-float" *ngIf="showFormPhone">
+      <ion-label text-center margin-bottom class="text-dark left">
+        Debes registrar un número de teléfono móvil para la confirmación de tu cuenta.
+        Este será tu número de teléfono por defecto. 
+      </ion-label>
+      <ion-grid>
+        <ion-row class="border-b" (click)="openModalCountry(item)">
+          <ion-col col-2>
+            <div class="ctn-img">
+              <img src="{{countries.flag}}">
+            </div>
+          </ion-col>
+          <ion-col>
+            <ion-label class="font-semi-bold">{{countries.code}}  {{countries.name}}</ion-label>
+          </ion-col>
+          <ion-col col-1 class="background-soft">
+            <div text-center>
+              <ion-icon name="ios-arrow-forward"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-item no-padding>
+        <ion-input class="confimNumber" type="number" (keyup)="validateConfirmNumber($event)" [formControl]="confirmForm.controls['confirmNumber']"  placeholder="X X X X X X"></ion-input>
+      </ion-item>
+      <div padding-vertical>
+        <button ion-button color="primary" block [disabled]="!enabledConfirmButton" (click)="nextView()">{{textButton}}</button>
+      </div>
+      <ion-label text-center>
+        <span class="text-gray-normal">{{textContact}}</span><span class="text-primary">Contáctenos</span>
+      </ion-label>
+  </div>
+  <div *ngIf="!showFormPhone">
+    <form class="ctn-float">
+      <ion-label text-center margin-bottom class="text-dark left">{{textInfo}}</ion-label>
+      <div text-center *ngIf="nextViewConfirm!==true" class="row text-dark">
+        <h1 class="width-100">XXX XXX 4565</h1>
+      </div>
+      <ion-item no-padding *ngIf="nextViewConfirm===true" >
+        <ion-input class="confimNumber" type="number" (keyup)="validateConfirmNumber($event)" [formControl]="confirmForm.controls['confirmNumber']"  placeholder="X X X X X X"></ion-input>
+      </ion-item>
+      <div padding-vertical>
+        <button ion-button color="primary" block [disabled]="!enabledConfirmButton" (click)="nextView()">{{textButton}}</button>
+      </div>
+      <ion-label text-center>
+        <span class="text-gray-normal">{{textContact}}</span><span class="text-primary">Contáctenos</span>
+      </ion-label>
+    </form>
+  </div>
   
 
-<ion-footer>
+<ion-footer *ngIf="!showFormPhone" [@slideIn]>
   <ion-toolbar color="primary">
     <ion-title>{{textFooter}}</ion-title>
   </ion-toolbar>
