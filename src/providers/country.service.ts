@@ -20,8 +20,6 @@ export class CountryService {
           .map(res => res.json())
           .subscribe(
             data => {
-              console.log("En el servicio de country");
-              console.log(data);
               this.userData = JSON.stringify(data);
               resolve( this.userData );
             },

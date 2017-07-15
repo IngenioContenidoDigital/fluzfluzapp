@@ -54,4 +54,49 @@ export class ConfirmService {
         );
     });
   }
+  
+  public setPhone(id_customer:any, phone:any) {
+    console.log(phone);
+    return new Promise(resolve => {
+      let params = new URLSearchParams();
+      params.set('id_customer', id_customer);
+      params.set('phone', phone);
+      console.log(phone);
+      this.http.get(WS_BASE+'setPhoneByIdCustomer', { search: params })
+        .map(res => res.json())
+        .subscribe(
+        	data => {
+            this.data = data.result;
+            resolve(this.data);
+          },
+          (err:Response) => {
+            this.data = '{"Error": "Error al guardar el telefono."}';
+            resolve(this.data);
+          }
+        );
+    });
+  }
+  
+  public sendSMS(id_customer:any) {
+    return new Promise(resolve => {
+      let params = new URLSearchParams();
+      params.set('id_customer', id_customer);
+      this.http.get(WS_BASE+'sendSMSConfirm', { search: params })
+        .map(res => res.json())
+        .subscribe(
+        	data => {
+            console.log("Dentro del servicio: ");
+            console.log(data);
+            console.log("");
+            this.data = data.result;
+            resolve(this.data);
+          },
+          (err:Response) => {
+            this.data = '{"Error": "Error al intentar enviar el sms."}';
+            resolve(this.data);
+          }
+        );
+    });
+  }
+  
 }

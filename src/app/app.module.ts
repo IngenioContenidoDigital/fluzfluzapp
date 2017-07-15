@@ -13,6 +13,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   
   /* Modals */
   import { SearchModalPage } from '../pages/search-modal/search-modal';
+  import { CountryModalPage } from '../pages/country-modal/country-modal';
   import { MessageModalPage } from '../pages/message-modal/message-modal';
   
   /* Basicas */
@@ -80,6 +81,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     ConfirmPage,
     ConfirmatedPage,
     SearchModalPage,
+    CountryModalPage,
     MessageModalPage,
     InvitationThirdModalPage,
     ProductFatherPage,
@@ -126,6 +128,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     ConfirmPage,
     ConfirmatedPage,
     SearchModalPage,
+    CountryModalPage,
     MessageModalPage,
     ProductFatherPage,
     ProductChildPage,

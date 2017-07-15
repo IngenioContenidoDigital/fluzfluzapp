@@ -19,19 +19,17 @@
 
 <ion-content no-padding>
   <div class="ctn-float" *ngIf="showFormPhone">
-      <ion-label text-center margin-bottom class="text-dark left">
-        Debes registrar un número de teléfono móvil para la confirmación de tu cuenta.
-        Este será tu número de teléfono por defecto. 
+      <ion-label text-center margin-bottom class="text-dark left">Debes registrar un número de teléfono móvil para la confirmación de tu cuenta.<br>Este será tu número de teléfono por defecto. 
       </ion-label>
       <ion-grid>
-        <ion-row class="border-b" (click)="openModalCountry(item)">
+        <ion-row class="border-b" (click)="openModalCountry()">
           <ion-col col-2>
             <div class="ctn-img">
               <img src="{{countries.flag}}">
             </div>
           </ion-col>
-          <ion-col>
-            <ion-label class="font-semi-bold">{{countries.code}}  {{countries.name}}</ion-label>
+          <ion-col col-9>
+            <ion-label class="font-semi-bold">{{countries.callingCodes}}  {{countries.name}}</ion-label>
           </ion-col>
           <ion-col col-1 class="background-soft">
             <div text-center>
@@ -41,14 +39,11 @@
         </ion-row>
       </ion-grid>
       <ion-item no-padding>
-        <ion-input class="confimNumber" type="number" (keyup)="validateConfirmNumber($event)" [formControl]="confirmForm.controls['confirmNumber']"  placeholder="X X X X X X"></ion-input>
+        <ion-input class="confimNumber" type="number" (keyup)="validatePhoneNumber($event)" [formControl]="phoneForm.controls['phoneNumber']"  placeholder="XXXXXXXXXX"></ion-input>
       </ion-item>
       <div padding-vertical>
-        <button ion-button color="primary" block [disabled]="!enabledConfirmButton" (click)="nextView()">{{textButton}}</button>
+        <button ion-button color="primary" block [disabled]="!enabledPhoneButton" (click)="savePhone()">{{textButton}}</button>
       </div>
-      <ion-label text-center>
-        <span class="text-gray-normal">{{textContact}}</span><span class="text-primary">Contáctenos</span>
-      </ion-label>
   </div>
   <div *ngIf="!showFormPhone">
     <form class="ctn-float">
@@ -62,9 +57,12 @@
       <div padding-vertical>
         <button ion-button color="primary" block [disabled]="!enabledConfirmButton" (click)="nextView()">{{textButton}}</button>
       </div>
-      <ion-label text-center>
-        <span class="text-gray-normal">{{textContact}}</span><span class="text-primary">Contáctenos</span>
+      <ion-label text-center (click)="sendSMSAgain()">
+        <span class="text-gray-normal">¿Aún no llega tu código?  </span><span class="text-primary">Reenviar</span>
       </ion-label>
+<!--      <ion-label text-center>
+        <span class="text-gray-normal">{{textContact}}</span><span class="text-primary">Contáctenos</span>
+      </ion-label>-->
     </form>
   </div>
   
