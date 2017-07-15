@@ -89,19 +89,16 @@ export class ConfirmPage {
   
   //Activa la siguiente vista
   nextView() {
-    let loader = this.loadingController.create({
-      content: "Enviando sms..."
-    });
-    loader.present();
     if ( !this.nextViewConfirm ){
+      let loader = this.loadingController.create({
+        content: "Validando..."
+      });
+      loader.present();
       this.storage.get('userData').then((val) => {
         this.confirmService.sendSMS(val.id).then(
           (data:any) =>{
             loader.dismiss();
             this.nextViewConfirm = true;
-            if (this.confirmForm.controls['confirmNumber'].valid){
-              this.confirm(this.confirmForm.value);
-            }
             this.enabledConfirmButton = false;    
             this.textInfo = "Introduce el código de 6 dígitos que se envió a tu teléfono móvil registrado a través de SMS.";
             this.textButton = "CONFIRMAR";
@@ -109,6 +106,11 @@ export class ConfirmPage {
           }
         );
       });
+    }
+    else {
+      if (this.confirmForm.controls['confirmNumber'].valid){
+        this.confirm(this.confirmForm.value);
+      }
     }
   }
   
@@ -161,7 +163,7 @@ export class ConfirmPage {
   
   confirm (valor:any) {
     let loader = this.loadingController.create({
-      content: "Enviando..."
+      content: "Validando..."
     });
     this.storage.get('userData').then((val) => {
       let data = {
@@ -177,7 +179,7 @@ export class ConfirmPage {
           }
           else {
             this.showConfirm();
-          }
+          }          
         },
         //Si hay algun error en el servidor.
         error =>{ 
