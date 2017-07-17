@@ -132,7 +132,7 @@
         </ion-item>
       </ion-list>
       <ion-list>
-        <ion-item>
+        <ion-item *ngIf="showSavings">
           <ion-label class="font-more-small text-primary">TUS AHORROS:</ion-label>
           <ion-label class="font-small text-primary" text-right>${{cart.total_savings_in_value}} ({{cart.total_savings_in_percent}}%)</ion-label>
         </ion-item>

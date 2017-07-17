@@ -196,7 +196,6 @@ export class NetworkPage {
               loader.present();
               this.network.getDataAccount(val, 5, 0, 0, obj).then(
                 (data:any) => {
-                  let rData = JSON.parse(data);
                   if(data == "Invitacion Erronea: Este Mail ya Existe"){
                     let toast = this.toastCtrl.create({
                       message: data,

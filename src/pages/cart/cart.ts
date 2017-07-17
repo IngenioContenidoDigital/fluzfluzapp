@@ -5,6 +5,7 @@ import { CartService } from '../../providers/cart.service';
 import { CheckoutPage } from '../checkout/checkout';
 import { TabsService } from '../../providers/tabs.service';
 import { TabsPage } from '../tabs/tabs';
+import { SHOW_SAVINGS } from '../../providers/config';
 
 /**
  * Generated class for the Cart page.
@@ -39,6 +40,8 @@ export class CartPage {
   public index:any = -1;
   public textEditButton:string = "Editar";
   public showTerms = false;
+  public showSavings = SHOW_SAVINGS;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public cartService: CartService, public tabsService: TabsService) {
   }
 

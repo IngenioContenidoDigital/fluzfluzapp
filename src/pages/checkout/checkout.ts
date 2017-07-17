@@ -5,6 +5,7 @@ import { PaymentFluzPage } from '../paymentfluz/paymentfluz';
 import { CreditCardPage } from '../creditcard/creditcard';
 import { PaymentPsePage } from '../paymentpse/paymentpse';
 import { TabsService } from '../../providers/tabs.service';
+import { SHOW_SAVINGS } from '../../providers/config';
 
 /**
  * Generated class for the Checkout page.
@@ -36,6 +37,7 @@ export class CheckoutPage {
   public payment:any = 0;
   public products:any = 0;
   public showTerms:any = false;
+  public showSavings = SHOW_SAVINGS;
   
  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public tabsService: TabsService) {
     this.cart = navParams.get("cart");

@@ -4,6 +4,7 @@ import { SearchService } from '../../providers/search.service';
 import { CartService } from '../../providers/cart.service';
 import { Storage } from '@ionic/storage';
 import { TabsService } from '../../providers/tabs.service';
+import { SHOW_SAVINGS } from '../../providers/config';
 
 /**
  * Generated class for the ProductChild page.
@@ -24,6 +25,7 @@ export class ProductChildPage {
   public terms:any = '';
   public inform:any;
   public idCart:any = 0;
+  public showSavings = SHOW_SAVINGS;
   
   @Output('updateCountCart')
   public updateCountCart: EventEmitter<number> = new EventEmitter<number>();

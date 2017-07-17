@@ -20,3 +20,7 @@ export let WS_BASE = "http://fluzfluzdev.com/override/app/services/";
 // REST de los los indicativos telefónicos.
 
 export let URL_BASE_COUNTRY_CODE = "https://restcountries.eu/rest/v2";
+
+
+// VAriable para mostrar los ahorros.
+export let SHOW_SAVINGS = false;

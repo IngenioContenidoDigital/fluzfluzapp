@@ -29,7 +29,7 @@
   <ion-grid class="font-extra-small text-dark font-semi-bold">
     <ion-row class="padding-h-5 table-titles">
       <ion-col col-3 text-left>VALOR EN TIENDA</ion-col>
-      <ion-col col-2 text-center>%AHORRO</ion-col>
+      <ion-col col-2 text-center *ngIf="showSavings">%AHORRO</ion-col>
       <ion-col text-center>FLUZ A RECIBIR</ion-col>
       <ion-col text-center>PRECIO EN FLUZ</ion-col>
       <ion-col col-2 text-right>PRECIO</ion-col>
@@ -37,7 +37,7 @@
     <div  *ngFor="let item of productChild.result" class="border-b">
       <ion-row class="padding-h-5 margin-t-5 font-more-small">
         <ion-col col-3 text-left>COP ${{item.c_price}}</ion-col>
-        <ion-col col-2 text-center>{{item.c_percent_save}}%</ion-col>
+        <ion-col col-2 text-center *ngIf="showSavings">{{item.c_percent_save}}%</ion-col>
         <ion-col text-center>+{{item.c_win_fluz}}</ion-col>
         <ion-col text-center>-{{item.c_price_fluz}}</ion-col>
         <ion-col col-2 text-right>${{item.c_price}}</ion-col>
