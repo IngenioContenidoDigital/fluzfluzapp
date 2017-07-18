@@ -12,15 +12,15 @@
 //export let URL_BASE = "http://fluzfluzweb.localhost/";
 //export let WS_BASE = "http://fluzfluzweb.localhost/override/app/services/";
 
-export let URL_BASE = "http://fluzfluzdev.com/";
-export let WS_BASE = "http://fluzfluzdev.com/override/app/services/";
+export const URL_BASE = "http://fluzfluzdev.com/";
+export const WS_BASE = "http://fluzfluzdev.com/override/app/services/";
 
 
 
 // REST de los los indicativos telefónicos.
 
-export let URL_BASE_COUNTRY_CODE = "https://restcountries.eu/rest/v2";
+export const URL_BASE_COUNTRY_CODE = "https://restcountries.eu/rest/v2";
 
 
-// VAriable para mostrar los ahorros.
-export let SHOW_SAVINGS = false;
+// Variable para mostrar los ahorros.
+export const SHOW_SAVINGS = false;

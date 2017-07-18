@@ -6,6 +6,8 @@ import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// Plugins
+import { Network } from '@ionic-native/network';
 import { BrowserTab } from '@ionic-native/browser-tab';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
@@ -150,8 +152,9 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     TabsService,
     BrowserTab,
     InAppBrowser,
+    Network,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Storage
+//    Storage
   ]
 })
 export class AppModule {}

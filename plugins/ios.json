@@ -36,6 +36,9 @@
         },
         "cordova-plugin-browsertab": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         }
     },
     "dependent_plugins": {
