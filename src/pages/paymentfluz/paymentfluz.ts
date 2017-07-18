@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { MyAccountService } from '../../providers/myAccount.service';
-import { Storage } from '@ionic/storage';
+import { Component, trigger, style, animate, state, transition } from '@angular/core';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { FormGroup, } from '@angular/forms';
 import { TabsService } from '../../providers/tabs.service';
+import { MyAccountService } from '../../providers/myAccount.service';
+import { PaymentFluzService } from '../../providers/paymentfluz.service';
+import { CartService } from '../../providers/cart.service';
+import { Storage } from '@ionic/storage';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the Paymentfluz page.
@@ -13,7 +17,21 @@ import { TabsService } from '../../providers/tabs.service';
 @Component({
   selector: 'page-paymentfluz',
   templateUrl: 'paymentfluz.html',
-  providers: [MyAccountService]
+  providers: [MyAccountService,PaymentFluzService,CartService],
+  animations: [
+    trigger('slideIn', [
+      state('*', style({ 'overflow-y': 'hidden' })),
+      state('void', style({ 'overflow-y': 'hidden' })),
+      transition('* => void', [
+          style({ height: '*' }),
+          animate(250, style({ height: 0 }))
+      ]),
+      transition('void => *', [
+          style({ height: '0' }),
+          animate(250, style({ height: '*' }))
+      ])
+    ])
+  ]
 })
 export class PaymentFluzPage {
   
@@ -22,16 +40,24 @@ export class PaymentFluzPage {
   public singleValue:any = 0;
   public calcules:any = {};
   public payment:any = 0;
+  public enabledPayButton: boolean = false;
+  public enabledPaymentRemaining: boolean = true;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public myAccount: MyAccountService, public storage: Storage, public tabsService: TabsService) {
-  }
+  paymentFluzForm: FormGroup;
+  
+    constructor(private toastCtrl: ToastController, public loadingController: LoadingController, public cartService: CartService, private PaymentFluzService: PaymentFluzService, public navCtrl: NavController, public navParams: NavParams, public myAccount: MyAccountService, public storage: Storage, public tabsService: TabsService) {
+        
+    }
 
   ionViewWillEnter(){
     this.tabsService.hide();
     this.updateFluzTotals();
     this.updateDataView();
-    setTimeout(()=>{ this.calcules.you_may = this.cart.order_total }, 200);
     this.calcules.fluz_result = 0;
+    setTimeout(()=>{ this.calcules.you_may = this.cart.order_total }, 200);
+    setTimeout(()=>{ this.singleValue = (this.cart.total_discounts/25) }, 200);
+    setTimeout(()=>{ this.updateCalcules() }, 200);
+    setTimeout(()=>{ this.enabledPayButton = false; }, 201);
   }
   
   ionViewWillLeave(){
@@ -60,8 +86,15 @@ export class PaymentFluzPage {
   }
   
   updateCalcules(){
-    this.calcules.you_may = (this.cart.order_total - (this.singleValue * 25 ));
+    this.calcules.you_may = (this.cart.total_products - (this.singleValue * 25 ));
     this.calcules.fluz_result = ( this.userData.fluzTotal - this.singleValue);
+    if ( this.singleValue != 0 || this.singleValue != "" ) {
+        this.enabledPayButton = true;
+        this.enabledPaymentRemaining = false;
+    } else {
+        this.enabledPayButton = false;
+        this.enabledPaymentRemaining = true;
+    }
   }
   
   selectedPayment(value){
@@ -91,6 +124,42 @@ export class PaymentFluzPage {
       }
     }
   }
-  
+
+    pay():void {
+        this.storage.get('userData').then((userData) => {
+            this.storage.get('cart').then((cartData) => {
+                let loader = this.loadingController.create({
+                    content: "Aplicando Puntos..."
+                });
+                loader.present();
+                this.PaymentFluzService.applyPoints(userData.id,cartData,this.singleValue).subscribe(
+                    success => {
+                        loader.dismiss();
+                        if(success.status === 200) {
+                            this.storage.set('cart', JSON.parse(success._body)).then((cartData) => {
+                                this.sendNotification("Fluz aplicados");
+                                this.navCtrl.pop();
+                            });;
+                        } else {
+                            this.sendNotification("Error aplicando fluz.");
+                        }
+                    },
+                    error => {
+                        loader.dismiss();
+                        console.log(error)
+                    }
+                );
+            });
+        });
+    }
+    
+    sendNotification(message:string):void {
+        let toast = this.toastCtrl.create({
+            message: message,
+            duration: 1000,
+            position: 'middle'
+        });
+        toast.present();
+    }
 
 }
