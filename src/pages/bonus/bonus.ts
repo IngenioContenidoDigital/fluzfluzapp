@@ -2,6 +2,7 @@ import { Component, trigger, style, animate, state, transition } from '@angular/
 import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { BonusService } from '../../providers/bonus.service';
+import { SHOW_REFINE_BUTTONS } from '../../providers/config';
 
 @Component({
   selector: 'page-bonus',
@@ -29,6 +30,7 @@ export class BonusPage {
   public bonusT:any;
   public showDetails:any;
   public status:any;
+  public showRefine:any = SHOW_REFINE_BUTTONS;
   
   constructor(public loadingController: LoadingController, public bonusService: BonusService, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService) {
     this.manufacturer = navParams.get("manufacturer");

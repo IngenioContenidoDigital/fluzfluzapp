@@ -87,12 +87,9 @@
       </ion-grid>
     </div>
   </div>
+  <div class="padding-10" *ngIf="valueRedemption.fluzTotal != 0 && displayRedemption === true" [@slideIn] (click)="goTo('FromOfRedemptionPage')">
+    <button ion-button color="primary" block>SIGUIENTE</button>
+  </div>
   <div class="spacer-25"></div>
   <div class="spacer-25"></div>
 </ion-content>
-
-<ion-footer *ngIf="valueRedemption.fluzTotal != 0 && displayRedemption === true" [@slideIn] (click)="goTo('FromOfRedemptionPage')">
-  <ion-toolbar color="primary">
-    <ion-title>SIGUIENTE</ion-title>
-  </ion-toolbar>
-</ion-footer>

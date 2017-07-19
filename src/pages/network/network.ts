@@ -7,6 +7,7 @@ import { MyAccountService } from '../../providers/myAccount.service';
 import { MessageModalPage } from '../message-modal/message-modal';
 import { InvitationThirdModalPage } from '../invitation-third-modal/invitation-third-modal';
 import { ToastController } from 'ionic-angular';
+import { SHOW_REFINE_BUTTONS } from '../../providers/config';
 
 /**
  * Generated class for the Network page.
@@ -48,7 +49,7 @@ export class NetworkPage {
   public enabledLoginButton:boolean;
   public contPending:number = 0;
   public contConfirm:number = 0;
-  
+  public showRefine:any = SHOW_REFINE_BUTTONS;  
   invitationForm: FormGroup;
   
   constructor(public loadingController: LoadingController, public modalCtrl: ModalController,public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public network: NetworkService, public storage: Storage, public myAccount: MyAccountService) {

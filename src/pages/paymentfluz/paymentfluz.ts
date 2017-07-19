@@ -71,6 +71,7 @@ export class PaymentFluzPage {
         (data:any) => {
           this.userData = Object.assign(this.userData, JSON.parse(data));
           this.userData.fluzTotal = this.userData.fluzTotal == null ? 0 : this.userData.fluzTotal;
+          setTimeout(()=>{ this.maxPayFluz = ( this.cart.total_price_in_points >= this.userData.fluzTotal ) ? this.userData.fluzTotal : this.cart.total_price_in_points; }, 200);
         }
       );
     });
@@ -80,7 +81,6 @@ export class PaymentFluzPage {
     this.storage.get('cart').then((val) => {
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
     });
-    setTimeout(()=>{ this.maxPayFluz = ( this.cart.total_price_in_points >= this.userData.fluzTotal ) ? this.userData.fluzTotal : this.cart.total_price_in_points; }, 200);
   }
   
   inputChange(){

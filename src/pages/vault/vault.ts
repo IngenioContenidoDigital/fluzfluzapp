@@ -6,6 +6,7 @@ import { BonusPage } from '../bonus/bonus';
 //import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
 import { TabsService } from '../../providers/tabs.service';
+import { SHOW_REFINE_BUTTONS } from '../../providers/config';
 
 //import { PasscodePage } from '../passcode/passcode';
 
@@ -25,6 +26,8 @@ export class VaultPage {
   public vaultData:any = [];
   public vaultOption = '';
   public item:any;
+  public showRefine:any = SHOW_REFINE_BUTTONS;  
+  
   constructor( public tabsService: TabsService, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public vault: VaultService, private viewCtrl: ViewController) {
     this.vaultOption = 'bonus';
   }

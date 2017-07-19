@@ -60,21 +60,21 @@
         </div>
       </div>
       <div class="ctn-options">
-        <div class="row">
+        <div class="row" *ngIf="showOptions">
           <i class='fluz-estadistica'></i>
           <ion-label class="text-dark">Estadística</ion-label>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="showOptions">
           <i class='fluz-personal-information'></i>
           <ion-label class="text-dark">Mi Información Personal</ion-label>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="showOptions">
           <i class='fluz-mesages'></i>
           <ion-label class="text-dark">Mis Mensajes</ion-label>
         </div>
         <div class="row">
           <i class='fluz-cellphone'></i>
-          <ion-label class="text-dark">Fecha Agregada</ion-label>
+          <ion-label class="text-dark">Fecha Agregada <span class="right">{{userData.dateAddFull}}</span></ion-label>
         </div>
       </div>
     </div>

@@ -33,7 +33,7 @@
   </div>
   <div [ngSwitch]="vaultOption" no-padding class="ctn-purchases">
     <ion-list *ngSwitchCase="'bonus'">
-      <ion-label text-right class="font-small text-primary font-semi-bold">Refinar</ion-label>
+      <ion-label text-right class="font-small text-primary font-semi-bold"  *ngIf="showRefine">Refinar</ion-label>
       <div class="purchases">       
         <ion-grid>
           <ion-row class="border-b" *ngFor="let item of vaultData" (click)="openItem(item)">

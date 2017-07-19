@@ -6,6 +6,7 @@ import { ConfirmatedPage } from '../confirmated/confirmated';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { Storage } from '@ionic/storage';
 import { LoginService } from '../../providers/login-service';
+import { SHOW_MORE_OPTIONS } from '../../providers/config';
 
 /**
  * Generated class for the More page.
@@ -21,6 +22,7 @@ import { LoginService } from '../../providers/login-service';
 export class MorePage {
 
   public userData:any = {};
+  public showOptions:any = SHOW_MORE_OPTIONS;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public myAccount: MyAccountService, private loginService:LoginService) {
   }
@@ -35,6 +37,7 @@ export class MorePage {
         this.userData.userName = val.firstname;
         this.myAccount.getDataAccount(val.id).then(
           (data:any) => {
+            console.log(data);
             this.userData = Object.assign(this.userData, JSON.parse(data));
             this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
           }

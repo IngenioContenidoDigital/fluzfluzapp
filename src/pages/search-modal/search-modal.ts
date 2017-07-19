@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ViewController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { ProductFatherPage } from '../product-father/product-father';
-
+import { SHOW_REFINE_BUTTONS } from '../../providers/config';
 
 @Component({
   selector: 'page-search-modal',
@@ -21,7 +21,8 @@ export class SearchModalPage {
   public countSearchResult:any;
   public enableSeeMoreResults:any = false;
   public noResults:any = [];
-  
+  public showRefine:any = SHOW_REFINE_BUTTONS;  
+    
   @ViewChild('header') header;
   
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController, public tabsService: TabsService, /*public keyboard: Keyboard,*/ private renderer: Renderer, private elementRef: ElementRef) {
