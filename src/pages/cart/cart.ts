@@ -36,6 +36,7 @@ export class CartPage {
 
   public products:Array<Object>;
   public cart:any = {};
+  public discounts:any = {};
   public displayOptions:any = 0;
   public index:any = -1;
   public textEditButton:string = "Editar";
@@ -107,11 +108,13 @@ export class CartPage {
       }
     );
   }
+ 
   
   updateDataView () {
     this.storage.get('cart').then((val) => {
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
       this.products = ( val != undefined && val != null && val != '' ) ? val.products : [];
+      this.discounts = ( val != undefined && val != null && val != '' ) ? val.discounts : [];
     });
   }
   
@@ -136,6 +139,7 @@ export class CartPage {
   }
   
   ionViewWillEnter(){
+    this.updateDataView();
     this.tabsService.hide();
   }
 
