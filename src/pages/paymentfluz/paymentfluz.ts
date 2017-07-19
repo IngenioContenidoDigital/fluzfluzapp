@@ -40,6 +40,7 @@ export class PaymentFluzPage {
   public singleValue:any = 0;
   public calcules:any = {};
   public payment:any = 0;
+  public maxPayFluz:any;
   public enabledPayButton: boolean = false;
   public enabledPaymentRemaining: boolean = true;
   
@@ -79,6 +80,7 @@ export class PaymentFluzPage {
     this.storage.get('cart').then((val) => {
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
     });
+    setTimeout(()=>{ this.maxPayFluz = ( this.cart.total_price_in_points >= this.userData.fluzTotal ) ? this.userData.fluzTotal : this.cart.total_price_in_points; }, 200);
   }
   
   inputChange(){

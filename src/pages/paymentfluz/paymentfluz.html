@@ -20,7 +20,7 @@
     </ion-row>
     <ion-row class="padding-h-8">
       <ion-col>
-        <ion-range min="0" [max]="cart.total_price_in_points" [(ngModel)]="singleValue" color="danger" pin="true" debounce="500" step="20" (ionChange)="inputChange($event)"></ion-range>
+        <ion-range min="0" [max]="maxPayFluz" [(ngModel)]="singleValue" color="danger" pin="true" debounce="500" step="20" (ionChange)="inputChange($event)"></ion-range>
       </ion-col>
     </ion-row>
     <ion-row class="padding-number-fluz border-b">
