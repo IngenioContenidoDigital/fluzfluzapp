@@ -152,7 +152,7 @@ export class NetworkPage {
               //this.myInvitation = JSON.parse(data);
               //console.log( this.myInvitation );
             var data = JSON.parse(data);
-            console.log(data);
+//            console.log(data);
             if(data == ''){
                 this.myInvitation.push(data);
             }
@@ -160,11 +160,11 @@ export class NetworkPage {
                 for (let i in data) {
                     if(data[i]['status']=='Pendiente'){
                         this.contPending += 1;
-                        console.log(this.contPending);
+//                        console.log(this.contPending);
                     }
                     else if(data[i]['status']=='Confirmado'){
                         this.contConfirm += 1;
-                        console.log(this.contConfirm);
+//                        console.log(this.contConfirm);
                     }
                     this.myInvitation.push(data[i]);
                 }
@@ -190,7 +190,7 @@ export class NetworkPage {
           this.storage.get('userId').then((val) => {
             if( val != null && val != '' && value != '' && val != undefined ){
               let obj = JSON.stringify(value);
-              console.log(obj);
+//              console.log(obj);
               let loader = this.loadingController.create({
                 content: "Enviando..."
               });

@@ -56,12 +56,10 @@ export class ConfirmService {
   }
   
   public setPhone(id_customer:any, phone:any) {
-    console.log(phone);
     return new Promise(resolve => {
       let params = new URLSearchParams();
       params.set('id_customer', id_customer);
       params.set('phone', phone);
-      console.log(phone);
       this.http.get(WS_BASE+'setPhoneByIdCustomer', { search: params })
         .map(res => res.json())
         .subscribe(
@@ -85,9 +83,6 @@ export class ConfirmService {
         .map(res => res.json())
         .subscribe(
         	data => {
-            console.log("Dentro del servicio: ");
-            console.log(data);
-            console.log("");
             this.data = data.result;
             resolve(this.data);
           },

@@ -37,7 +37,7 @@ export class MorePage {
         this.userData.userName = val.firstname;
         this.myAccount.getDataAccount(val.id).then(
           (data:any) => {
-            console.log(data);
+//            console.log(data);
             this.userData = Object.assign(this.userData, JSON.parse(data));
             this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
           }

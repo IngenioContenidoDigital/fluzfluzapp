@@ -73,7 +73,7 @@ export class BonusPage {
   }
   
   saveStatusBonus(item:any, used:any){
-    console.log(item);
+//    console.log(item);
     if(used == 1){
       let alert = this.alertCtrl.create({
         title: 'Actualizar',

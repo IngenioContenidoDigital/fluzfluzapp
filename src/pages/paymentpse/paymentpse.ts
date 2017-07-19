@@ -119,7 +119,7 @@ export class PaymentPsePage {
                         if(success.status === 200) {
                             loader.dismiss();
                             let response = JSON.parse(success._body);
-                            console.log(response);
+//                            console.log(response);
                             if ( response.success ) {
                                 this.storage.remove('cart').then((cart) => {
                                     let title = 'Transacción Exitosa';

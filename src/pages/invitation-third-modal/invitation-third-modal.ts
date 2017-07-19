@@ -74,13 +74,13 @@ export class InvitationThirdModalPage {
   onSubmit({value},value2:{}) {
       
       if (this.invitationForm.controls['email'].valid && this.invitationForm.controls['name'].valid && this.invitationForm.controls['lastname'].valid) {
-          console.log(value);
-          console.log(value2);
+//          console.log(value);
+//          console.log(value2);
       
           this.storage.get('userId').then((val) => {
             if( val != null && val != '' && value != '' && val != undefined ){
               let obj = JSON.stringify(value);
-              console.log(obj);
+//              console.log(obj);
               this.network.getDataAccount(value2, 5, 0, 0, obj).then(
                 (data:any) => {
                   if(data == "Invitacion Erronea: Este Mail ya Existe"){
