@@ -11,6 +11,7 @@ import { HomeService } from '../../providers/home.service';
 import { CategoryService } from '../../providers/category.service';
 import { TabsService } from '../../providers/tabs.service';
 import { ProductChildPage } from '../product-child/product-child';
+import { SHOW_HOME_CATEGORY } from '../../providers/config';
 
 @Component({
   selector: 'page-home',
@@ -28,6 +29,7 @@ export class HomePage {
   public category:any = false;
   public productChild:any = [];
   public countbannerData:any = 0;
+  public homeCategories:any = SHOW_HOME_CATEGORY;
     
   @ViewChild(Slides) slides: Slides;
   
@@ -121,7 +123,7 @@ export class HomePage {
   }
   
   getCategoryWithOutFatherData(){
-    this.categoryService.getCategory( 2, 0, 6 ).then(
+    this.categoryService.getCategory( 2, 0, 4 ).then(
       (data:any) => {
         this.categoryWithOutFatherData = data.result;
       }

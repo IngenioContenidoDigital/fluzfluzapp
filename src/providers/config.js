@@ -22,5 +22,12 @@ export const WS_BASE = "http://fluzfluzdev.com/override/app/services/";
 export const URL_BASE_COUNTRY_CODE = "https://restcountries.eu/rest/v2";
 
 
-// Variable para mostrar los ahorros.
+// Variables de configuración: 
+// 
+// Mostrar los ahorros en toda la tienda.
 export const SHOW_SAVINGS = false;
+
+// Mostrar las categorias: 
+//   1 - Mostar 1 por fila apaisado.
+//   2 - Mostar 2 por fila mosaico.
+export const SHOW_HOME_CATEGORY = 1;
