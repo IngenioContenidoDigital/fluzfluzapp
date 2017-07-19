@@ -6,28 +6,39 @@ import 'rxjs/add/operator/map';
 
 
 @Injectable()
-export class CreditCardService {
+export class PaymentFluzService {
 
-    private _url: string = WS_BASE+'pay';
+    private _url: string = WS_BASE+'cart';
     public headers = new Headers({ 'Content-Type': 'application/json' });
     public responsePayment: any;
+    public dataApplyPoints = {};
     public dataPayment = {};
     
     constructor(public http: Http) {}
 
-    public sendPayment(dataForm, userData, cart) {
+    public applyPoints(user,cart,points) {
         
-        this.dataPayment["namecard"] = dataForm.namecard;
-        this.dataPayment["numbercard"] = dataForm.numbercard;
-        this.dataPayment["datecard"] = dataForm.datecard;
-        this.dataPayment["codecard"] = dataForm.codecard;
+        this.dataApplyPoints["option"] = 3;
+        this.dataApplyPoints["idCustomer"] = user;
+        this.dataApplyPoints["cart"] = cart;
+        this.dataApplyPoints["points"] = points;
+        
+        let dataApplyPoints = JSON.stringify( this.dataApplyPoints );
+
+        return this.http.post(this._url, dataApplyPoints, this.headers)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+    }
+    
+    public sendPayment(userData,cart) {
+
         this.dataPayment["id_customer"] = userData.id;
         this.dataPayment["id_cart"] = cart.id;
-        this.dataPayment["payment"] = 'Tarjeta_credito';
         
         let dataPayment = JSON.stringify( this.dataPayment );
+        let url = WS_BASE+'payFreeOrder';
 
-        return this.http.post(this._url, dataPayment, this.headers)
+        return this.http.post(url, dataPayment, this.headers)
                     .map(this.extractData)
                     .catch(this.handleError);
     }

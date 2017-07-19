@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 
 
 @Injectable()
-export class CreditCardService {
+export class PaymentPseService {
 
     private _url: string = WS_BASE+'pay';
     public headers = new Headers({ 'Content-Type': 'application/json' });
@@ -15,15 +15,16 @@ export class CreditCardService {
     
     constructor(public http: Http) {}
 
-    public sendPayment(dataForm, userData, cart) {
-        
-        this.dataPayment["namecard"] = dataForm.namecard;
-        this.dataPayment["numbercard"] = dataForm.numbercard;
-        this.dataPayment["datecard"] = dataForm.datecard;
-        this.dataPayment["codecard"] = dataForm.codecard;
+    public sendPayment(dataForm, bankname, userData, cart) {
+
+        this.dataPayment["bank"] = dataForm.bank;
+        this.dataPayment["bankname"] = bankname;
+        this.dataPayment["typecustomer"] = dataForm.typecustomer;
+        this.dataPayment["typedocument"] = dataForm.typedocument;
+        this.dataPayment["numberdocument"] = dataForm.numberdocument;
         this.dataPayment["id_customer"] = userData.id;
         this.dataPayment["id_cart"] = cart.id;
-        this.dataPayment["payment"] = 'Tarjeta_credito';
+        this.dataPayment["payment"] = 'PSE';
         
         let dataPayment = JSON.stringify( this.dataPayment );
 
