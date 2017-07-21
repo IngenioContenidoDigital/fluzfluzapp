@@ -36,7 +36,6 @@
         "cordova-android": "^6.2.3",
         "cordova-ios": "~4.3.1",
         "cordova-plugin-browsertab": "~0.2.0",
-        "cordova-plugin-console": "1.0.5",
         "cordova-plugin-device": "1.1.4",
         "cordova-plugin-inappbrowser": "~1.7.1",
         "cordova-plugin-network-information": "^1.3.3",
@@ -73,7 +72,6 @@
     "description": "fluzfluz: An Ionic project",
     "cordova": {
         "plugins": {
-            "cordova-plugin-console": {},
             "cordova-plugin-device": {},
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-statusbar": {},
