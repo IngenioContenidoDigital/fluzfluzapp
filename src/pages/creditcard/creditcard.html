@@ -31,7 +31,7 @@
             <ion-row>
                 <ion-col col-6 class="border-r">
                     <ion-item>
-                        <ion-input type="text" placeholder="MM/YYYY" (keyup)="validateInputCreditCard($event)" [formControl]="creditCardForm.controls['datecard']"></ion-input>
+                        <ion-datetime displayFormat="MM/YYYY" pickerFormat="MM YYYY" placeholder="MM/YYYY" doneText="OK" cancelText="Cancelar" [min]="yearMin" [max]="yearMax" (ionChange)="validateInputCreditCard($event)" [formControl]="creditCardForm.controls['datecard']"></ion-datetime>
                     </ion-item>
                 </ion-col>
                 <ion-col col-6>

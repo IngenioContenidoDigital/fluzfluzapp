@@ -36,12 +36,14 @@ export class CreditCardPage {
     creditCardForm: FormGroup;
     
     public enabledPayButton: boolean = false;
+    public yearMin:any = new Date().getFullYear();
+    public yearMax:any = new Date().getFullYear() + 15;
 
     constructor(public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public tabsService: TabsService, private CreditCardService: CreditCardService, public storage: Storage, private alertCtrl: AlertController) {
         this.creditCardForm = formBuilder.group({
             'namecard': [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{5,100}$/i)])],
             'numbercard': [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{14,16}$/i)])],
-            'datecard': [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{2}\/[0-9]{4}$/i)])],
+            'datecard': [null, Validators.compose([Validators.required])],
             'codecard': [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{3,4}$/i)])]
         });
     }
