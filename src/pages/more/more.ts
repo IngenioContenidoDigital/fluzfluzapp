@@ -7,6 +7,8 @@ import { MyAccountService } from '../../providers/myAccount.service';
 import { Storage } from '@ionic/storage';
 import { LoginService } from '../../providers/login-service';
 import { SHOW_MORE_OPTIONS } from '../../providers/config';
+import { SHOW_SAVINGS } from '../../providers/config';
+import { SHOW_LASTED_FLUZ } from '../../providers/config';
 
 /**
  * Generated class for the More page.
@@ -23,6 +25,8 @@ export class MorePage {
 
   public userData:any = {};
   public showOptions:any = SHOW_MORE_OPTIONS;
+  public showSavings:any = SHOW_SAVINGS;
+  public lastedFluz:any = SHOW_LASTED_FLUZ;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public myAccount: MyAccountService, private loginService:LoginService) {
   }

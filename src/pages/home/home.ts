@@ -12,6 +12,7 @@ import { CategoryService } from '../../providers/category.service';
 import { TabsService } from '../../providers/tabs.service';
 import { ProductChildPage } from '../product-child/product-child';
 import { SHOW_HOME_CATEGORY } from '../../providers/config';
+import { SHOW_LASTED_FLUZ } from '../../providers/config';
 
 @Component({
   selector: 'page-home',
@@ -30,6 +31,7 @@ export class HomePage {
   public productChild:any = [];
   public countbannerData:any = 0;
   public homeCategories:any = SHOW_HOME_CATEGORY;
+  public lastedFluz:any = SHOW_LASTED_FLUZ;
     
   @ViewChild(Slides) slides: Slides;
   

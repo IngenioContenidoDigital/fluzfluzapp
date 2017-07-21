@@ -18,9 +18,9 @@
     <ion-searchbar [(ngModel)]="searchTerm" (input)="search()" (click)="openModalSearch()" placeholder="Buscar por tienda"></ion-searchbar>
   </ion-toolbar>
 
-  <ion-buttons right>
+  <ion-buttons right (click)="goTo('CartPage')">
     <div class="countCart" *ngIf='countCart > 0'>{{countCart}}</div>
-    <button ion-button icon-only (click)="goTo('CartPage')">
+    <button ion-button icon-only>
       <i class='fluz-tienda'></i>
     </button>
   </ion-buttons>

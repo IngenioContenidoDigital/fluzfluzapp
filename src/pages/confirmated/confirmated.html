@@ -37,7 +37,7 @@
     
     <div class="ctn-user-data">
       <div class="row">
-        <div class="col col-50">
+        <div class="col col-50" *ngIf="lastedFluz">
           <ion-label class="text-primary">
             {{userData.fluzLasted}}
           </ion-label>          
@@ -63,7 +63,7 @@
             Miembros ganadores
           </ion-label>
         </div>
-        <div class="col col-50">
+        <div class="col col-50" *ngIf="showSavings">
           <ion-label class="text-dark">
             ${{userData.totalSavings}}
             <span>COP</span>

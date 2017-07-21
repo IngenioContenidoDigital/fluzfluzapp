@@ -4,6 +4,8 @@ import { TabsService } from '../../providers/tabs.service';
 import { Storage } from '@ionic/storage';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { TabsPage } from '../tabs/tabs';
+import { SHOW_SAVINGS } from '../../providers/config';
+import { SHOW_LASTED_FLUZ } from '../../providers/config';
 
 /**
  * Generated class for the Confirmated page.
@@ -20,6 +22,8 @@ import { TabsPage } from '../tabs/tabs';
 export class ConfirmatedPage {
   
   public userData:any = {};
+  public showSavings:any = SHOW_SAVINGS;
+  public lastedFluz:any = SHOW_LASTED_FLUZ;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, public storage: Storage, public myAccount: MyAccountService) {
   }

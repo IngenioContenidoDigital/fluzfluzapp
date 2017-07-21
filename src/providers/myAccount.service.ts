@@ -16,11 +16,7 @@ export class MyAccountService {
     let params = new URLSearchParams();
       params.set('userId', value);
 
-      // No tiene los datos todavía
       return new Promise(resolve => {
-        // Estamos utilizando el proveedor Angular HTTP para solicitar los datos,
-        // Luego en la respuesta, mapeará los datos JSON a un objeto JS analizado.
-        // A continuación, procesamos los datos y resolvemos la promesa con los nuevos datos.
         this.http.get(this._url, { search: params })
           .map(res => res.json())
           .subscribe(

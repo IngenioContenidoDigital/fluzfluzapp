@@ -39,11 +39,11 @@ export class InvitationThirdModalPage {
   invitationForm: FormGroup;  
 
   constructor(public navCtrl: NavController,formBuilder: FormBuilder,public modalCtrl: ModalController, public myAccount: MyAccountService,public toastCtrl: ToastController, public network: NetworkService, public storage: Storage, public navParams: NavParams, public viewCtrl: ViewController) {
-        this.invitationForm = formBuilder.group({
-            'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
-            'name': [null, Validators.required],
-            'lastname': [null, Validators.required]
-        });
+    this.invitationForm = formBuilder.group({
+      'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
+      'name': [null, Validators.required],
+      'lastname': [null, Validators.required]
+    });
   }
 
   ionViewDidLoad() {
@@ -72,40 +72,34 @@ export class InvitationThirdModalPage {
   }
   
   onSubmit({value},value2:{}) {
-      
-      if (this.invitationForm.controls['email'].valid && this.invitationForm.controls['name'].valid && this.invitationForm.controls['lastname'].valid) {
-//          console.log(value);
-//          console.log(value2);
-      
-          this.storage.get('userId').then((val) => {
-            if( val != null && val != '' && value != '' && val != undefined ){
-              let obj = JSON.stringify(value);
-//              console.log(obj);
-              this.network.getDataAccount(value2, 5, 0, 0, obj).then(
-                (data:any) => {
-                  if(data == "Invitacion Erronea: Este Mail ya Existe"){
-                    let toast = this.toastCtrl.create({
-                      message: data,
-                      duration: 2500,
-                      position: 'middle'
-                    });
-                    toast.present();
-                  }
-                  else{
-                    let toast = this.toastCtrl.create({
-                      message: data,
-                      duration: 2500,
-                      position: 'middle'
-                    });
-                    toast.present();  
-                  }
-                  //this.navCtrl.push(NetworkPage);   
-                  location.reload();
-                }
-              );
+    if (this.invitationForm.controls['email'].valid && this.invitationForm.controls['name'].valid && this.invitationForm.controls['lastname'].valid) {
+      this.storage.get('userId').then((val) => {
+        if( val != null && val != '' && value != '' && val != undefined ){
+          let obj = JSON.stringify(value);
+          this.network.getDataAccount(value2, 5, 0, 0, obj).then(
+            (data:any) => {
+              if(data == "Invitacion Erronea: Este Mail ya Existe"){
+                let toast = this.toastCtrl.create({
+                  message: data,
+                  duration: 2500,
+                  position: 'middle'
+                });
+                toast.present();
+              }
+              else{
+                let toast = this.toastCtrl.create({
+                  message: data,
+                  duration: 2500,
+                  position: 'middle'
+                });
+                toast.present();  
+              }
+              location.reload();
             }
-          });
+          );
         }
+      });
+    }
   }
   
   sendMessage(item:any){
