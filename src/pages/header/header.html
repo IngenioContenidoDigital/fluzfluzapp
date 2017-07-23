@@ -15,7 +15,7 @@
   </ion-buttons>
 
 	<ion-toolbar>
-    <ion-searchbar [(ngModel)]="searchTerm" (input)="search()" (click)="openModalSearch()" placeholder="Buscar por tienda"></ion-searchbar>
+    <ion-searchbar #input [(ngModel)]="searchTerm" (input)="search()" (click)="openModalSearch()" placeholder="Buscar por tienda"></ion-searchbar>
   </ion-toolbar>
 
   <ion-buttons right (click)="goTo('CartPage')">

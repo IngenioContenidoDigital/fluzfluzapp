@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output, Input, Renderer, ElementRef, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ModalController, ViewController, LoadingController } from 'ionic-angular';
 import { SearchModalPage } from '../search-modal/search-modal';
@@ -37,9 +37,11 @@ export class HeaderPage {
   
   @Input('lastTotalSearch') lastTotalSearch:number;
   
+  @ViewChild('input') myInput;
+  
   public countCart:any = 0;
   
-  constructor( public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService, public viewCtrl: ViewController, public storage: Storage) {
+  constructor( public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService, public viewCtrl: ViewController, public storage: Storage, private renderer: Renderer, private elementRef: ElementRef) {
     this.modalShow = navParams.get('modalShow') ? navParams.get('modalShow') : this.modalShow;
     this.backButtonShow = this.backButtonShow ? this.backButtonShow : false
     IntervalObservable.create(500).subscribe( n => {
@@ -52,14 +54,17 @@ export class HeaderPage {
   }
     
   search( limit:any = 10, lastTotal:any = 0, seeMore:any = false ){
+    this.myInput.setFocus();
     let loader = this.loadingController.create({
       content: "Buscando..."
     });
+    this.myInput.setFocus();
     loader.present();
     setTimeout(() => {
       this.searchService.search( this.searchTerm, '1', limit, lastTotal ).then((data) => {
         this.searchData = data;
         loader.dismiss();
+        this.myInput.setFocus();
         if ( seeMore === true ){
           this.updateSeeMoreSearchData.emit( this.searchData );
         }
