@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ModalController, ViewController } from 'ionic-angular';
+import { ModalController, ViewController, LoadingController } from 'ionic-angular';
 import { SearchModalPage } from '../search-modal/search-modal';
 import { CartPage } from '../cart/cart';
 import { SearchService } from '../../providers/search.service';
@@ -39,7 +39,7 @@ export class HeaderPage {
   
   public countCart:any = 0;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService, public viewCtrl: ViewController, public storage: Storage) {
+  constructor( public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService, public viewCtrl: ViewController, public storage: Storage) {
     this.modalShow = navParams.get('modalShow') ? navParams.get('modalShow') : this.modalShow;
     this.backButtonShow = this.backButtonShow ? this.backButtonShow : false
     IntervalObservable.create(500).subscribe( n => {
@@ -52,9 +52,14 @@ export class HeaderPage {
   }
     
   search( limit:any = 10, lastTotal:any = 0, seeMore:any = false ){
+    let loader = this.loadingController.create({
+      content: "Buscando..."
+    });
+    loader.present();
     setTimeout(() => {
       this.searchService.search( this.searchTerm, '1', limit, lastTotal ).then((data) => {
         this.searchData = data;
+        loader.dismiss();
         if ( seeMore === true ){
           this.updateSeeMoreSearchData.emit( this.searchData );
         }
