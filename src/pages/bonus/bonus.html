@@ -68,9 +68,9 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col>
+        <ion-col (click)="copyToClipboard(item.card_code)">
           <div text-center>
-            <ion-label class="font-more-small text-primary">Toque para copiar</ion-label>            
+            <ion-label class="font-more-small text-primary">Toca para copiar</ion-label>            
             <ion-label class="font-normal">{{item.card_code}}</ion-label>            
           </div>
         </ion-col>

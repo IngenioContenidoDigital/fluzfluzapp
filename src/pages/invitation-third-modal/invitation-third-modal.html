@@ -20,16 +20,16 @@
             <form novalidate class="form-invitation" [formGroup]="invitationForm"  (ngSubmit)="onSubmit(invitationForm)">
                 <ion-row>   
                     <ion-item col-6>
-                      <ion-label floating>Firstname</ion-label>
+                      <ion-label floating>Nombre</ion-label>
                       <ion-input type="text" (keyup)="validateInputLogin($event)" formControlName="name" required></ion-input>
                     </ion-item>
                     <ion-item col-6>
-                      <ion-label floating>lastname</ion-label>
+                      <ion-label floating>Apellido</ion-label>
                       <ion-input type="text" (keyup)="validateInputLogin($event)" formControlName="lastname"  required></ion-input>
                     </ion-item>
                 </ion-row>
                 <ion-item>
-                    <ion-label floating>Email Address</ion-label>
+                    <ion-label floating>Correo</ion-label>
                     <ion-input type="email" (keyup)="validateInputLogin($event)" formControlName="email" required></ion-input>
                 </ion-item>
                 

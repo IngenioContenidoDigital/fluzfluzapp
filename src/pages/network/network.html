@@ -17,7 +17,7 @@
   <div class="ctn-user-data" *ngIf="showHomeUserData===true">
     <ion-grid>
       <ion-row>
-        <ion-col col-2 text-center>
+        <ion-col text-center>
           <!--<div class="ctn-float-img">-->
             <img src="{{userData.image}}" onerror="this.src='assets/img/user-red.png';">
           <!--</div>-->
@@ -25,7 +25,7 @@
             Hola, {{userData.userName}}!
           </ion-label>
         </ion-col>
-        <ion-col col-4>
+        <ion-col col-4 *ngIf="lastedFluz">
           <ion-label class="text-primary">
             {{userData.fluzLasted}}
           </ion-label>          
@@ -33,7 +33,7 @@
             Fluz últimos 30 días
           </ion-label>
         </ion-col>
-        <ion-col col-3>
+        <ion-col>
           <ion-label class="text-dark">
             +{{userData.fluzTotal}}
           </ion-label>
@@ -41,7 +41,7 @@
             Fluz totales
           </ion-label>              
         </ion-col>
-        <ion-col col-3>
+        <ion-col>
           <ion-label class="text-dark">
             +{{userData.winnerMembers}}
           </ion-label>

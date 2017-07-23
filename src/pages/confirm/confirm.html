@@ -49,7 +49,7 @@
     <form class="ctn-float">
       <ion-label text-center margin-bottom class="text-dark left">{{textInfo}}</ion-label>
       <div text-center *ngIf="nextViewConfirm!==true" class="row text-dark">
-        <h1 class="width-100">XXX XXX 4565</h1>
+        <h1 class="width-100">{{phoneNumber}}</h1>
       </div>
       <ion-item no-padding *ngIf="nextViewConfirm===true" >
         <ion-input class="confimNumber" type="number" (keyup)="validateConfirmNumber($event)" [formControl]="confirmForm.controls['confirmNumber']"  placeholder="X X X X X X"></ion-input>

@@ -35,7 +35,7 @@ export class ConfirmPage {
   public nextViewConfirm:boolean = false;
   public enabledConfirmButton:boolean = true;
   public enabledPhoneButton:boolean = false;
-  public textInfo:string   = "Enviamos un código de confirmación a tu teléfono móvil a través de SMS para verificar que eres el propietario de esta cuenta.";
+  public textInfo:string   = "Enviaremos un código de confirmación a tu teléfono móvil a través de SMS para verificar que eres el propietario de esta cuenta.";
   public textButton:string = "CONTINUAR";
   public textFooter:string = "¿De dónde viene este número?";
   public textContact:string = "¿No es tu número? ";
@@ -45,6 +45,7 @@ export class ConfirmPage {
     callingCodes: '57',
     flag: 'https://restcountries.eu/data/col.svg'
   };
+  public phoneNumber:any;
   
   constructor( public loadingController: LoadingController, public modalCtrl: ModalController, public platform: Platform, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService,  formBuilder: FormBuilder, private confirmService: ConfirmService, public storage: Storage, public alertCtrl: AlertController) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
@@ -149,7 +150,7 @@ export class ConfirmPage {
         data =>{
           loader.dismiss();
           if(data == true){
-            this.showFormPhone = false;
+            setTimeout(()=>{ this.getPhone(); }, 500);
           }
         }
       );
@@ -165,6 +166,7 @@ export class ConfirmPage {
     let loader = this.loadingController.create({
       content: "Validando..."
     });
+    loader.present();
     this.storage.get('userData').then((val) => {
       let data = {
         confirmNumber: valor.confirmNumber,
@@ -195,10 +197,19 @@ export class ConfirmPage {
 	}
   
   getPhone(){
+    let loader = this.loadingController.create({
+      content: "Cargando..."
+    });
+    loader.present();
     this.storage.get('userData').then((val) => {
       this.confirmService.getPhone(val.id).then( (data:any)=> {
+        loader.dismiss();
         if( data.phone == null || data.phone == undefined  ) {
           this.showFormPhone = true;
+        }
+        else{
+          this.phoneNumber = data.formatPhone;
+          this.showFormPhone = false;
         }
       });
     });

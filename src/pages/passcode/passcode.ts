@@ -45,9 +45,15 @@ export class PasscodePage {
   }
   
   ionViewWillEnter(){
+    let loader = this.loadingController.create({
+      content: "Cargando..."
+    });
+    loader.present();
     this.resetPasscode();
     this.storage.get('userId').then((val) => {
       this.passcodeService.getPasscode(val).then((data:any)=>{
+          loader.dismiss();
+          console.log(data);
           this.response = data['0'];
           if( this.response.vault_code === null || this.response.vault_code === 'null' || this.response.vault_code == undefined || this.response.vault_code == 'undefined' ){
             this.setPasscode = true;
@@ -74,6 +80,8 @@ export class PasscodePage {
     this.enableConfirmPasscode = false;
     this.enableKeyboard = true;
     this.passcode = '';
+    this.textHeader = 'Ingresa tu contraseña';
+    this.textButton = this.setPasscode ? 'ESTABLECER' : 'CONFIRMAR';
   }
   
   confirmContinue(){
@@ -82,15 +90,16 @@ export class PasscodePage {
         if ( this.passcode == this.passcodeConfirm ){
           this.storage.get('userId').then((val) => {
             this.passcodeService.setPasscode( val, this.passcode ).then((data:any)=>{
-              let response = JSON.parse(data);
-              this.setPasscode = response ? false : true;
+              console.log(data);
+              this.setPasscode = data ? false : true;
+              let msg = data ? "S" : "No s" ; 
               let toast = this.toastCtrl.create({
-                message:  'Se ha guardado tu contraseña.',
+                message:  msg+'e ha guardado tu contraseña.',
                 duration: 2500,
                 position: 'middle'
               });
               toast.present();
-              this.goTo('VaultPage');            
+              data ? this.goTo('VaultPage') : this.resetPasscode();
             });
           });
         }

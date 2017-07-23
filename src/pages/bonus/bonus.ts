@@ -1,5 +1,6 @@
 import { Component, trigger, style, animate, state, transition } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, LoadingController } from 'ionic-angular';
+import { Clipboard } from '@ionic-native/clipboard';
 import { TabsService } from '../../providers/tabs.service';
 import { BonusService } from '../../providers/bonus.service';
 import { SHOW_REFINE_BUTTONS } from '../../providers/config';
@@ -7,7 +8,7 @@ import { SHOW_REFINE_BUTTONS } from '../../providers/config';
 @Component({
   selector: 'page-bonus',
   templateUrl: 'bonus.html',
-  providers: [BonusService],
+  providers: [BonusService, Clipboard],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -32,7 +33,7 @@ export class BonusPage {
   public status:any;
   public showRefine:any = SHOW_REFINE_BUTTONS;
   
-  constructor(public loadingController: LoadingController, public bonusService: BonusService, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService) {
+  constructor( public toastCtrl: ToastController, private clipboard: Clipboard, public loadingController: LoadingController, public bonusService: BonusService, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService) {
     this.manufacturer = navParams.get("manufacturer");
     this.bonus = navParams.get("bonus");
     this.bonus.showDetails = true;
@@ -138,5 +139,17 @@ export class BonusPage {
         }
       }
     );    
+  }
+  
+  
+  copyToClipboard(code:any) {
+    let toast = this.toastCtrl.create({
+          message:  'Copiado.',
+          duration: 1000,
+          position: 'middle',
+          cssClass: "toast"
+        });
+    this.clipboard.copy(code);
+    toast.present();
   }
 }
