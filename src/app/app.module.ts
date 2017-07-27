@@ -63,6 +63,10 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     
   /* Nuevos Usuarios */
         import { InvitationThirdModalPage } from '../pages/invitation-third-modal/invitation-third-modal';
+  
+  /* Transferencia de Fluz */
+        import { TransferFluzPage } from '../pages/transferfluz/transferfluz';
+        import { TransferFluzConfirmPage } from '../pages/transferfluz-confirm/transferfluz-confirm';
 
     
   
@@ -98,7 +102,9 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     CategoryPage,
     CategoriesPage,
     FormOfRedemptionPage,
-    RedemptionConfirmPage
+    RedemptionConfirmPage,
+    TransferFluzPage,
+    TransferFluzConfirmPage
   ],
   imports: [
     BrowserModule,
@@ -144,7 +150,9 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     CategoryPage,
     CategoriesPage,
     FormOfRedemptionPage,
-    RedemptionConfirmPage
+    RedemptionConfirmPage,
+    TransferFluzPage,
+    TransferFluzConfirmPage
   ],
   providers: [
     StatusBar,

@@ -49,4 +49,9 @@ page-more {
   .right{
     float: right;
   }
+  
+  .icon-transfer {
+      @include font-size(25px);
+      padding: 8px;
+  }
 }
