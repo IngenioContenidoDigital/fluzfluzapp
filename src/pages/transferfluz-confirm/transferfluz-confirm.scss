@@ -1,0 +1,32 @@
+page-transferfluz-confirm {
+  @extend .font-family;
+  .ctn-background-white {
+    @extend .background-white;
+    border: 1px solid color($colors, gray-soft);
+    margin: 10px;
+  }
+  .border-b-primary {
+    border-bottom: 3px solid color($colors, primary);
+  }
+  .icon-confirm {
+      color: #5BC95A;
+      font-size: 12vw;
+  }
+  .icon {
+      margin: 15px 0 0 0;
+  }
+  .title {
+    @extend .text-gray-normal;
+    @extend .font-more-small;
+    padding: 0 23px;
+  }
+  .grid {
+    padding: 0px;
+    .row {
+      padding: 10px 8px;
+    }
+    .padding-number-fluz {
+      padding: 0 8px 10px 8px;
+    }
+  }
+}

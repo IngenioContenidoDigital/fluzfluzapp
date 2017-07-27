@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../login/login';
+import { TransferFluzPage } from '../transferfluz/transferfluz';
 import { ConfirmPage } from '../confirm/confirm';
 import { ConfirmatedPage } from '../confirmated/confirmated';
 import { MyAccountService } from '../../providers/myAccount.service';
@@ -77,6 +78,11 @@ export class MorePage {
       
       case "ConfirmatedPage": {
         this.navCtrl.push( ConfirmatedPage );
+        break;
+      }
+      
+      case "TransferFluzPage": {
+        this.navCtrl.push( TransferFluzPage );
         break;
       }
       
