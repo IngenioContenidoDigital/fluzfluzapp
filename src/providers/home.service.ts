@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, URLSearchParams, Response } from '@angular/http';
 import { WS_BASE } from './config';
 import 'rxjs/add/operator/map';
 
@@ -14,10 +14,28 @@ export class HomeService {
   
   public getBanner() {
     return new Promise(resolve => {
-      // Estamos utilizando el proveedor Angular HTTP para solicitar los datos,
-      // Luego en la respuesta, mapeará los datos JSON a un objeto JS analizado.
-      // A continuación, procesamos los datos y resolvemos la promesa con los nuevos datos.
       this.http.get(this._url)
+        .map(res => res.json())
+        .subscribe(
+        	data => {
+            this.data = data;
+            resolve(this.data);
+          },
+          (err:Response) => {
+            this.data = '{"Error": "Error al traer los banners"}';
+            resolve(this.data);
+          }
+        );
+    });
+  }
+  
+  public getMapData(latitude:any, longitude:any){
+    let url = WS_BASE + '/getAddressMaps';
+    let params = new URLSearchParams();
+      params.set('latitude', latitude);
+      params.set('longitude', longitude);
+    return new Promise(resolve => {
+      this.http.get(url, { search: params })
         .map(res => res.json())
         .subscribe(
         	data => {

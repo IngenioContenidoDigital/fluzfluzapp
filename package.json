@@ -27,6 +27,8 @@
         "@ionic-native/clipboard": "^4.1.0",
         "@ionic-native/core": "^3.12.1",
         "@ionic-native/device": "^3.12.1",
+        "@ionic-native/geolocation": "^4.1.0",
+        "@ionic-native/google-maps": "^4.1.0",
         "@ionic-native/in-app-browser": "^3.13.1",
         "@ionic-native/keyboard": "^3.12.1",
         "@ionic-native/network": "^4.0.1",
@@ -39,6 +41,9 @@
         "cordova-ios": "~4.3.1",
         "cordova-plugin-browsertab": "~0.2.0",
         "cordova-plugin-device": "1.1.4",
+        "cordova-plugin-geolocation": "^2.4.3",
+        "cordova-plugin-googlemaps": "^1.4.3",
+        "cordova-plugin-googlemaps-sdk": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps-sdk.git",
         "cordova-plugin-inappbrowser": "~1.7.1",
         "cordova-plugin-network-information": "^1.3.3",
         "cordova-plugin-splashscreen": "~4.0.3",
@@ -60,6 +65,7 @@
         "@ionic/app-scripts": "^1.3.6",
         "@ionic/cli-plugin-cordova": "1.4.0",
         "@ionic/cli-plugin-ionic-angular": "1.3.1",
+        "@types/d3": "4.10.0",
         "typescript": "^2.3.4"
     },
     "cordovaPlugins": [
@@ -83,7 +89,16 @@
             "cordova-plugin-inappbrowser": {},
             "cordova-plugin-browsertab": {},
             "cordova-plugin-network-information": {},
-            "cordova-clipboard": {}
+            "cordova-clipboard": {},
+            "cordova-plugin-geolocation": {
+                "GEOLOCATION_USAGE_DESCRIPTION": " "
+            },
+            "cordova-plugin-googlemaps": {
+                "API_KEY_FOR_ANDROID": "AIzaSyCQ8OO2Mb25LdxYZhK1bH8mO5BmGEs7jH4",
+                "API_KEY_FOR_IOS": "AIzaSyCQ8OO2Mb25LdxYZhK1bH8mO5BmGEs7jH4",
+                "NSLOCATIONWHENINUSEUSAGEDESCRIPTION": "Show your location on the map",
+                "NSLOCATIONALWAYSUSAGEDESCRIPTION": "Trace your location on the map"
+            }
         },
         "dependencies": {
             "@angular/animations": "^4.2.3",

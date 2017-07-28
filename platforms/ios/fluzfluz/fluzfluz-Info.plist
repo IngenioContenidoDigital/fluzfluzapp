@@ -60,5 +60,29 @@
       <key>NSAllowsArbitraryLoads</key>
       <true/>
     </dict>
+    <key>Google Maps API Key</key>
+    <string>AIzaSyCQ8OO2Mb25LdxYZhK1bH8mO5BmGEs7jH4</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>$NSLocationWhenInUseUsageDescription</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>$NSLocationAlwaysUsageDescription</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>googlechromes</string>
+      <string>comgooglemaps</string>
+    </array>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>com.ionicframework.fluzfluz141172</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.ionicframework.fluzfluz141172</string>
+        </array>
+      </dict>
+    </array>
   </dict>
 </plist>

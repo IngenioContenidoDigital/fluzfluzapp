@@ -5,6 +5,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Geolocation } from '@ionic-native/geolocation';
 
 // Plugins
 import { Network } from '@ionic-native/network';
@@ -62,15 +63,12 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     import { BonusPage } from '../pages/bonus/bonus';
     
   /* Nuevos Usuarios */
-        import { InvitationThirdModalPage } from '../pages/invitation-third-modal/invitation-third-modal';
+    import { InvitationThirdModalPage } from '../pages/invitation-third-modal/invitation-third-modal';
   
   /* Transferencia de Fluz */
-        import { TransferFluzPage } from '../pages/transferfluz/transferfluz';
-        import { TransferFluzConfirmPage } from '../pages/transferfluz-confirm/transferfluz-confirm';
-
-    
-  
-    
+    import { TransferFluzPage } from '../pages/transferfluz/transferfluz';
+    import { TransferFluzConfirmPage } from '../pages/transferfluz-confirm/transferfluz-confirm';
+                
 @NgModule({
   declarations: [
     MyApp,
@@ -161,6 +159,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     BrowserTab,
     InAppBrowser,
     Network,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
 //    Storage
   ]

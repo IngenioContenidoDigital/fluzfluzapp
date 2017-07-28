@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { MessageModalPage } from '../message-modal/message-modal';
 import { InvitationThirdModalPage } from '../invitation-third-modal/invitation-third-modal';
+import { NetworkTreePage } from '../network-tree/network-tree';
 import { ToastController } from 'ionic-angular';
 import { SHOW_REFINE_BUTTONS } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
@@ -91,7 +92,7 @@ export class NetworkPage {
       this.getActivityNetworkData( this.seeMoreActivityValue );
       this.getMyNetworkData( this.seeMoreMyValue );
       this.getMyInvitationData(this.countInvitation);
-    }, 100);
+    }, 200);
     
   }
   
@@ -130,11 +131,16 @@ export class NetworkPage {
   }
   
   getMyNetworkData( limit:any ){
+    let loader = this.loadingController.create({
+      content: "Cargando..."
+    });
+    loader.present();
     this.storage.get('userData').then((val) => {
       if( val != null && val != '' && val != undefined ){
         this.countMy = Object.keys(this.myNetwork).length;
         this.network.getDataAccount(val.id, 2, limit, this.countMy).then(
           (data:any) => {
+            loader.dismiss();
             var data = JSON.parse(data);
             for (let i in data) {
               this.myNetwork.push(data[i]);
@@ -246,5 +252,27 @@ export class NetworkPage {
     });
     messageModal.present();
   }
-
+  
+  openNetworkTree() {
+    let loader = this.loadingController.create({
+      content: "Cargadando..."
+    });
+    loader.present();
+    this.storage.get('userData').then((val) => {
+      if( val != null && val != '' && val != undefined ){
+        this.countMy = Object.keys(this.myNetwork).length;
+        this.network.getDataAccount(val.id, 2, 0, 0).then(
+          (data:any) => {
+            loader.dismiss();
+            var data = JSON.parse(data);
+//            console.log("arbolito:");
+//            console.log(data);
+            this.navCtrl.push( NetworkTreePage,{
+              tree: data
+            });
+          }
+        );
+      }
+    });
+  }
 }

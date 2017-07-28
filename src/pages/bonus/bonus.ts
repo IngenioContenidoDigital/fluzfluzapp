@@ -1,9 +1,12 @@
-import { Component, trigger, style, animate, state, transition } from '@angular/core';
+import { Component, trigger, style, animate, state, transition, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController, LoadingController } from 'ionic-angular';
 import { Clipboard } from '@ionic-native/clipboard';
 import { TabsService } from '../../providers/tabs.service';
 import { BonusService } from '../../providers/bonus.service';
 import { SHOW_REFINE_BUTTONS } from '../../providers/config';
+import { Geolocation } from '@ionic-native/geolocation';
+
+declare var google;
 
 @Component({
   selector: 'page-bonus',
@@ -25,6 +28,13 @@ import { SHOW_REFINE_BUTTONS } from '../../providers/config';
   ]
 })
 export class BonusPage {
+  // Maps
+  @ViewChild('map') mapElement: ElementRef;
+  public map: any;
+  public markers: any = [];
+  public ubication:any = '';
+  public latitude:any;
+  public longitude:any;
   
   public manufacturer:any;
   public bonus:any = [];
@@ -33,7 +43,7 @@ export class BonusPage {
   public status:any;
   public showRefine:any = SHOW_REFINE_BUTTONS;
   
-  constructor( public toastCtrl: ToastController, private clipboard: Clipboard, public loadingController: LoadingController, public bonusService: BonusService, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService) {
+  constructor( public toastCtrl: ToastController, private clipboard: Clipboard, public loadingController: LoadingController, public bonusService: BonusService, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, public geolocation: Geolocation) {
     this.manufacturer = navParams.get("manufacturer");
     this.bonus = navParams.get("bonus");
     this.bonus.showDetails = true;
@@ -52,6 +62,11 @@ export class BonusPage {
       }
       case "2": {
         data.showDirections = data.showDirections ? false : true ;
+        setTimeout(()=>{ 
+          if(data.showDirections){
+            this.inizializateMap();
+          } 
+        }, 200 );
         break;
       }
       case "3": {
@@ -74,7 +89,6 @@ export class BonusPage {
   }
   
   saveStatusBonus(item:any, used:any){
-//    console.log(item);
     if(used == 1){
       let alert = this.alertCtrl.create({
         title: 'Actualizar',
@@ -141,7 +155,6 @@ export class BonusPage {
     );    
   }
   
-  
   copyToClipboard(code:any) {
     let toast = this.toastCtrl.create({
           message:  'Copiado.',
@@ -152,4 +165,65 @@ export class BonusPage {
     this.clipboard.copy(code);
     toast.present();
   }
+  
+  inizializateMap(){
+    this.getUbication();
+    setTimeout(()=>{
+      this.ubication != '' ? this.loadMap() : this.inizializateMap();
+    }, 200 );
+  }
+  
+  getUbication(){
+    this.geolocation.getCurrentPosition().then((position) => {
+        this.ubication = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+      }, (err) => {
+//      console.log(err);
+    });
+  }
+  
+  loadMap(){
+    let mapOptions = {
+      zoomControl: false,
+      mapTypeControl: false,
+      streetViewControl: false,
+      rotateControl: true,
+      fullscreenControl: false,
+      backgroundColor: "#f2f2f2",
+      clickableIcons: false,
+      center: this.ubication,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    this.getLocations();
+  }
+  
+  getLocations(){
+    this.bonusService.getMapData(this.latitude, this.longitude, this.manufacturer.id_manufacturer ).then((data:any)=>{
+      for(let pos of data.result){
+        this.addMarker(pos.latitude, pos.longitude);
+      }
+    });
+  }
+  
+  addMarker(lat: number, lng: number): void {
+    let img = {
+      url: 'assets/img/pointer.svg',
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(25, 25)
+    };
+    let latLng = new google.maps.LatLng(lat, lng);
+    let marker = new google.maps.Marker({
+      map: this.map,
+      position: latLng,
+      icon: img,
+      opacity: 0.7
+    });
+    this.markers.push(marker); 
+  }
+  
 }
