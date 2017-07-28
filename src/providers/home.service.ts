@@ -29,11 +29,12 @@ export class HomeService {
     });
   }
   
-  public getMapData(latitude:any, longitude:any){
+  public getMapData(latitude:any, longitude:any, option:any){
     let url = WS_BASE + '/getAddressMaps';
     let params = new URLSearchParams();
       params.set('latitude', latitude);
       params.set('longitude', longitude);
+      params.set('option', option);
     return new Promise(resolve => {
       this.http.get(url, { search: params })
         .map(res => res.json())

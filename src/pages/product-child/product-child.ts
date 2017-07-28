@@ -39,7 +39,6 @@ export class ProductChildPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public searchService: SearchService, public cartService: CartService, public storage: Storage, public tabsService: TabsService, public geolocation: Geolocation, public bonusService: BonusService) {
     this.inform = "instructions";
     this.manufacturer = navParams.get("manufacturer");
-    console.log(this.manufacturer);
     this.productFather = navParams.get("productFather");
     this.searchService.search( this.productFather.id_parent, '3' ).then((data) => {
       this.productChild = data;
@@ -109,7 +108,7 @@ export class ProductChildPage {
       backgroundColor: "#f2f2f2",
       clickableIcons: false,
       center: this.ubication,
-      zoom: 15,
+      zoom: 10,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -117,7 +116,7 @@ export class ProductChildPage {
   }
   
   getLocations(){
-    this.bonusService.getMapData(this.latitude, this.longitude, this.manufacturer.id_manufacturer ).then((data:any)=>{
+    this.bonusService.getMapData(this.latitude, this.longitude, this.manufacturer.m_id, 2 ).then((data:any)=>{
       for(let pos of data.result){
         this.addMarker(pos.latitude, pos.longitude);
       }

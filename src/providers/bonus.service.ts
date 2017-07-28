@@ -33,12 +33,13 @@ export class BonusService {
       });
   }
   
-  public getMapData(latitude:any, longitude:any, manufacturer:any){
+  public getMapData(latitude:any, longitude:any, manufacturer:any, option:any){
     let url = WS_BASE + '/getAddressMaps';
     let params = new URLSearchParams();
       params.set('latitude', latitude);
       params.set('longitude', longitude);
       params.set('id_manufacturer', manufacturer);
+      params.set('option', option);
     return new Promise(resolve => {
       this.http.get(url, { search: params })
         .map(res => res.json())

@@ -204,7 +204,7 @@ export class HomePage {
       backgroundColor: "#f2f2f2",
       clickableIcons: false,
       center: this.ubication,
-      zoom: 15,
+      zoom: 10,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -212,7 +212,7 @@ export class HomePage {
   }
   
   getLocations(){
-    this.home.getMapData(this.latitude, this.longitude).then((data:any)=>{
+    this.home.getMapData(this.latitude, this.longitude, 1).then((data:any)=>{
       for(let pos of data.result){
         this.addMarker(pos.latitude, pos.longitude);
       }

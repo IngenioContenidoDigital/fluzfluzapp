@@ -193,7 +193,7 @@ export class BonusPage {
       backgroundColor: "#f2f2f2",
       clickableIcons: false,
       center: this.ubication,
-      zoom: 15,
+      zoom: 10,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -201,7 +201,7 @@ export class BonusPage {
   }
   
   getLocations(){
-    this.bonusService.getMapData(this.latitude, this.longitude, this.manufacturer.id_manufacturer ).then((data:any)=>{
+    this.bonusService.getMapData(this.latitude, this.longitude, this.manufacturer.id_manufacturer, 2 ).then((data:any)=>{
       for(let pos of data.result){
         this.addMarker(pos.latitude, pos.longitude);
       }

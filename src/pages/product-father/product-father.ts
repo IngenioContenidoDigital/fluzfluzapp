@@ -23,7 +23,7 @@ export class ProductFatherPage {
     this.searchService.search( this.manufacturer.m_id, '2' ).then((data) => {
       this.productFather = data;
       if( this.productFather.total == 1 ){
-        this.openItem( this.productFather.result['0'] );
+        setTimeout(()=>{ this.openItem( this.productFather.result['0'] ); }, 300 );
       }
     });
   }
