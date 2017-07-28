@@ -5,6 +5,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Geolocation } from '@ionic-native/geolocation';
 
 // Plugins
 import { Network } from '@ionic-native/network';
@@ -62,10 +63,11 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     import { BonusPage } from '../pages/bonus/bonus';
     
   /* Nuevos Usuarios */
-        import { InvitationThirdModalPage } from '../pages/invitation-third-modal/invitation-third-modal';
-
+    import { InvitationThirdModalPage } from '../pages/invitation-third-modal/invitation-third-modal';
+        
+  /* Network */
+    import { NetworkTreePage } from '../pages/network-tree/network-tree';
     
-  
     
 @NgModule({
   declarations: [
@@ -98,7 +100,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     CategoryPage,
     CategoriesPage,
     FormOfRedemptionPage,
-    RedemptionConfirmPage
+    RedemptionConfirmPage,
+    NetworkTreePage
   ],
   imports: [
     BrowserModule,
@@ -144,7 +147,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     CategoryPage,
     CategoriesPage,
     FormOfRedemptionPage,
-    RedemptionConfirmPage
+    RedemptionConfirmPage,
+    NetworkTreePage
   ],
   providers: [
     StatusBar,
@@ -153,6 +157,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     BrowserTab,
     InAppBrowser,
     Network,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
 //    Storage
   ]

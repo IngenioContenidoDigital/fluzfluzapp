@@ -105,9 +105,7 @@
       </div>
       <div class="ctn-accordeon-details">
         <ion-list *ngIf="item.showDirections" [@slideIn]>
-          <ion-item>
-            <div class="inner-html">direcciones</div>
-          </ion-item>
+          <div #map id="map"></div>
         </ion-list>
       </div>
       <div class="ctn-accordeon-title">

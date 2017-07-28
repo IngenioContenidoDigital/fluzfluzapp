@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Slides } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { ConfirmPage } from '../confirm/confirm';
@@ -13,6 +13,9 @@ import { TabsService } from '../../providers/tabs.service';
 import { ProductChildPage } from '../product-child/product-child';
 import { SHOW_HOME_CATEGORY } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
+import { Geolocation } from '@ionic-native/geolocation';
+
+declare var google;
 
 @Component({
   selector: 'page-home',
@@ -20,6 +23,15 @@ import { SHOW_LASTED_FLUZ } from '../../providers/config';
   providers: [MyAccountService, HomeService, CategoryService]
 })
 export class HomePage {
+  
+  
+  // Maps
+  @ViewChild('map') mapElement: ElementRef;
+  public map: any;
+  public markers: any = [];
+  public ubication:any = '';
+  public latitude:any;
+  public longitude:any;
   
   public userData:any = {};
   public showHomeUserData:any = false;
@@ -36,7 +48,7 @@ export class HomePage {
   @ViewChild(Slides) slides: Slides;
   
   constructor(
-    public navCtrl: NavController, public storage: Storage, public splashScreen: SplashScreen, public myAccount: MyAccountService, public home: HomeService, public categoryService: CategoryService, public tabsService: TabsService 
+    public navCtrl: NavController, public storage: Storage, public splashScreen: SplashScreen, public myAccount: MyAccountService, public home: HomeService, public categoryService: CategoryService, public tabsService: TabsService, public geolocation: Geolocation
     ) {
       this.countbannerData = 0;
       this.tabsService.show();
@@ -88,6 +100,7 @@ export class HomePage {
       this.countbannerData = Object.keys(this.bannerData).length;
     }, 500 );
     this.splashScreen.hide();
+    this.inizializateMap();
   }
   
   getUserData() {
@@ -164,4 +177,84 @@ export class HomePage {
     });
   }
   
+  inizializateMap(){
+    this.getUbication();
+    setTimeout(()=>{
+      this.ubication != '' ? this.loadMap() : this.inizializateMap();
+    }, 200 );
+  }
+  
+  getUbication(){
+    this.geolocation.getCurrentPosition().then((position) => {
+        this.ubication = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+      }, (err) => {
+//      console.log(err);
+    });
+  }
+  
+  loadMap(){
+    let mapOptions = {
+      zoomControl: false,
+      mapTypeControl: false,
+      streetViewControl: true,
+      rotateControl: true,
+      fullscreenControl: true,
+      backgroundColor: "#f2f2f2",
+      clickableIcons: false,
+      center: this.ubication,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    this.getLocations();
+  }
+  
+  getLocations(){
+    this.home.getMapData(this.latitude, this.longitude).then((data:any)=>{
+      for(let pos of data.result){
+        this.addMarker(pos.latitude, pos.longitude);
+      }
+    });
+//    let location = {
+//      lat: 4.71103,
+//      lng: -74.11187
+//    }
+//    setTimeout(()=>{
+//      this.addMarker(location.lat, location.lng);
+//      this.addRadius();
+//    }, 500 );
+  }
+  
+  addMarker(lat: number, lng: number): void {
+    let img = {
+      url: 'assets/img/pointer.svg',
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(25, 25)
+    };
+    let latLng = new google.maps.LatLng(lat, lng);
+    let marker = new google.maps.Marker({
+      map: this.map,
+      position: latLng,
+      icon: img,
+      opacity: 0.7
+    });
+    this.markers.push(marker); 
+  }
+  
+  addRadius() {
+    let circle = new google.maps.Circle({
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: this.map,
+      center: this.ubication,
+      radius: 10000
+    });
+  }
 }

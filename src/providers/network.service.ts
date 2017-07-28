@@ -9,6 +9,7 @@ export class NetworkService {
 
   private _url: string = WS_BASE+'getNetwork';
   public userData: any = {};
+  public data:any = {};
     
   constructor(public http: Http) {}
 
