@@ -35,6 +35,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   import { VaultPage } from '../pages/vault/vault';
   import { RedemptionPage } from '../pages/redemption/redemption';
   import { NetworkPage } from '../pages/network/network';
+  import { NetworkTreePage } from '../pages/network-tree/network-tree';
   import { MorePage } from '../pages/more/more';
   
   /* Login */
@@ -80,6 +81,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     VaultPage,
     RedemptionPage,
     NetworkPage,
+    NetworkTreePage,
     MorePage,
     LoginPage,
     ConfirmPage,
@@ -129,6 +131,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     RedemptionPage,
     InvitationThirdModalPage,
     NetworkPage,
+    NetworkTreePage,
     MorePage,
     LoginPage,
     ConfirmPage,
