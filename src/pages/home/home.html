@@ -3,12 +3,12 @@
 </ion-header>
 
 <ion-content no-padding>
-  <div class="ctn-user-data" *ngIf="showHomeUserData===true">
+  <div class="ctn-user-data border-primary" *ngIf="showHomeUserData===true">
     <ion-grid>
       <ion-row>
         <ion-col col text-center>
           <!--<div class="ctn-float-img">-->
-            <img src="{{userData.image}}">
+            <img src="{{userData.image}}" onerror="this.src='assets/img/user-red.png';">
           <!--</div>-->
           <ion-label class="text-gray-normal">
             Hola, {{userData.userName}}!
@@ -35,7 +35,7 @@
             +{{userData.winnerMembers}}
           </ion-label>
           <ion-label class="text-gray-normal">
-            Miembros ganadores
+            Fluzzers
           </ion-label>
         </ion-col>
       </ion-row>
@@ -77,11 +77,11 @@
   
   <ion-grid class="ctn-ctgry-final">
     <ion-row>
-      <ion-col text-left class="title-ctgry">CERCA DE USTED</ion-col>
+      <ion-col text-left class="title-ctgry">CERCA DE TÍ</ion-col>
       <ion-col text-right class="title-view-all font-semi-bold" (click)="openViewAllCategories()">Ver Todo</ion-col>
     </ion-row>
   </ion-grid>
-  <div #map id="map"></div>
+  <div #map id="map" (markerClick)="updateDiv()"></div>
     
   <ion-grid class="ctn-ctgry-final">
     <ion-row>

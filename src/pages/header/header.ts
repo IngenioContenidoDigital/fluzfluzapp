@@ -5,7 +5,6 @@ import { SearchModalPage } from '../search-modal/search-modal';
 import { CartPage } from '../cart/cart';
 import { SearchService } from '../../providers/search.service';
 import { TabsPage } from '../tabs/tabs';
-import { ProductChildPage } from '../product-child/product-child';
 import { Storage } from '@ionic/storage';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 
@@ -18,7 +17,7 @@ import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 @Component({
   selector: 'page-header',
   templateUrl: 'header.html',
-  providers: [SearchService,ProductChildPage],
+  providers: [SearchService],
 })
 export class HeaderPage {
   

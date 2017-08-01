@@ -5,6 +5,7 @@ import { CartService } from '../../providers/cart.service';
 import { Storage } from '@ionic/storage';
 import { TabsService } from '../../providers/tabs.service';
 import { SHOW_SAVINGS } from '../../providers/config';
+import { SHOW_MAP_PRODUCT_PAGE } from '../../providers/config';
 import { BonusService } from '../../providers/bonus.service';
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -32,6 +33,7 @@ export class ProductChildPage {
   public inform:any;
   public idCart:any = 0;
   public showSavings = SHOW_SAVINGS;
+  public showMapProductPage = SHOW_MAP_PRODUCT_PAGE;
   
   @Output('updateCountCart')
   public updateCountCart: EventEmitter<number> = new EventEmitter<number>();
@@ -108,7 +110,7 @@ export class ProductChildPage {
       backgroundColor: "#f2f2f2",
       clickableIcons: false,
       center: this.ubication,
-      zoom: 10,
+      zoom: 14,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -129,7 +131,7 @@ export class ProductChildPage {
       size: new google.maps.Size(71, 71),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(17, 34),
-      scaledSize: new google.maps.Size(25, 25)
+      scaledSize: new google.maps.Size(10, 10)
     };
     let latLng = new google.maps.LatLng(lat, lng);
     let marker = new google.maps.Marker({

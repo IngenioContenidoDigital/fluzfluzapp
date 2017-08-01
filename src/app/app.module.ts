@@ -44,6 +44,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     import { ConfirmatedPage } from '../pages/confirmated/confirmated';
 
   /* Product */
+    import { ProductModalPage } from '../pages/product-modal/product-modal';
     import { ProductFatherPage } from '../pages/product-father/product-father';
     import { ProductChildPage } from '../pages/product-child/product-child';
     import { CategoryPage } from '../pages/category/category';
@@ -91,6 +92,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     MessageModalPage,
     InvitationThirdModalPage,
     ProductFatherPage,
+    ProductModalPage,
     ProductChildPage,
     CartPage,
     CheckoutPage,
@@ -140,6 +142,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     CountryModalPage,
     MessageModalPage,
     ProductFatherPage,
+    ProductModalPage,
     ProductChildPage,
     CartPage,
     CheckoutPage,

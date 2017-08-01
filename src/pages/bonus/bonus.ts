@@ -193,7 +193,7 @@ export class BonusPage {
       backgroundColor: "#f2f2f2",
       clickableIcons: false,
       center: this.ubication,
-      zoom: 10,
+      zoom: 14,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -214,7 +214,7 @@ export class BonusPage {
       size: new google.maps.Size(71, 71),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(17, 34),
-      scaledSize: new google.maps.Size(25, 25)
+      scaledSize: new google.maps.Size(10, 10)
     };
     let latLng = new google.maps.LatLng(lat, lng);
     let marker = new google.maps.Marker({

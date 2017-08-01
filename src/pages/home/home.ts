@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, Slides } from 'ionic-angular';
+import { NavController, Slides, LoadingController, ModalController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { ConfirmPage } from '../confirm/confirm';
 import { CategoryPage } from '../category/category';
@@ -11,16 +11,19 @@ import { HomeService } from '../../providers/home.service';
 import { CategoryService } from '../../providers/category.service';
 import { TabsService } from '../../providers/tabs.service';
 import { ProductChildPage } from '../product-child/product-child';
+import { ProductModalPage } from '../product-modal/product-modal';
 import { SHOW_HOME_CATEGORY } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
+import { DEV_UBICATION } from '../../providers/config';
 import { Geolocation } from '@ionic-native/geolocation';
+import { SearchService } from '../../providers/search.service';
 
 declare var google;
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [MyAccountService, HomeService, CategoryService]
+  providers: [MyAccountService, HomeService, CategoryService, SearchService]
 })
 export class HomePage {
   
@@ -42,13 +45,31 @@ export class HomePage {
   public category:any = false;
   public productChild:any = [];
   public countbannerData:any = 0;
+  public devUbication:any = DEV_UBICATION;
   public homeCategories:any = SHOW_HOME_CATEGORY;
   public lastedFluz:any = SHOW_LASTED_FLUZ;
+  public markerPlace = {
+        url: 'assets/img/pointer.svg',
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(10, 10)
+      };
     
   @ViewChild(Slides) slides: Slides;
   
   constructor(
-    public navCtrl: NavController, public storage: Storage, public splashScreen: SplashScreen, public myAccount: MyAccountService, public home: HomeService, public categoryService: CategoryService, public tabsService: TabsService, public geolocation: Geolocation
+    public navCtrl: NavController,
+    public storage: Storage,
+    public splashScreen: SplashScreen,
+    public myAccount: MyAccountService,
+    public home: HomeService,
+    public categoryService: CategoryService,
+    public tabsService: TabsService,
+    public geolocation: Geolocation,
+    private searchService: SearchService,
+    public loadingController: LoadingController,
+    public modalCtrl: ModalController
     ) {
       this.countbannerData = 0;
       this.tabsService.show();
@@ -98,9 +119,9 @@ export class HomePage {
     }, 100 );
     setTimeout(()=>{
       this.countbannerData = Object.keys(this.bannerData).length;
+      this.inizializateMap();
     }, 500 );
     this.splashScreen.hide();
-    this.inizializateMap();
   }
   
   getUserData() {
@@ -181,17 +202,45 @@ export class HomePage {
     this.getUbication();
     setTimeout(()=>{
       this.ubication != '' ? this.loadMap() : this.inizializateMap();
+      this.ubication != '' ? this.setMyUbication() : this.inizializateMap();
     }, 200 );
   }
   
+  setMyUbication() {
+    let img = {
+      url: this.userData.image == false ? 'assets/img/user-red.png' : this.userData.image ,
+      size: new google.maps.Size(80, 80),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(30, 30)
+    };
+    setTimeout(()=>{
+      this.addMarker(this.latitude, this.longitude, img, true, false, true, false);
+    }, 500 );
+  }
+  
   getUbication(){
-    this.geolocation.getCurrentPosition().then((position) => {
-        this.ubication = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-      }, (err) => {
-//      console.log(err);
-    });
+    if(!this.devUbication){
+      this.geolocation.getCurrentPosition().then((position) => {
+          this.ubication = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          this.latitude = position.coords.latitude;
+          this.longitude = position.coords.longitude;
+        }, (err) => {
+  //      console.log(err);
+      });      
+    }
+    else {
+      this.latitude = 4.71103;
+      this.longitude = -74.11187;
+      this.ubication = {
+        lat: this.latitude,
+        lng: this.longitude
+      }
+      setTimeout(()=>{
+        this.addMarker(this.ubication.lat, this.ubication.lng, this.markerPlace);
+  //      this.addRadius();
+      }, 300 );      
+    }
   }
   
   loadMap(){
@@ -204,7 +253,7 @@ export class HomePage {
       backgroundColor: "#f2f2f2",
       clickableIcons: false,
       center: this.ubication,
-      zoom: 10,
+      zoom: 14,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -214,37 +263,43 @@ export class HomePage {
   getLocations(){
     this.home.getMapData(this.latitude, this.longitude, 1).then((data:any)=>{
       for(let pos of data.result){
-        this.addMarker(pos.latitude, pos.longitude);
+        this.addMarker(pos.latitude, pos.longitude, this.markerPlace, false, true);
       }
     });
-//    let location = {
-//      lat: 4.71103,
-//      lng: -74.11187
-//    }
-//    setTimeout(()=>{
-//      this.addMarker(location.lat, location.lng);
-//      this.addRadius();
-//    }, 500 );
   }
   
-  addMarker(lat: number, lng: number): void {
-    let img = {
-      url: 'assets/img/pointer.svg',
-      size: new google.maps.Size(71, 71),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(17, 34),
-      scaledSize: new google.maps.Size(25, 25)
-    };
+  addMarker(lat: number, lng: number, img:any, animation = false, opacity = false, zindex = false, clickeable = true): void {
     let latLng = new google.maps.LatLng(lat, lng);
     let marker = new google.maps.Marker({
       map: this.map,
       position: latLng,
       icon: img,
-      opacity: 0.7
+      opacity: opacity ? 0.7 : '',
+      animation: animation ? google.maps.Animation.DROP : '',
+      zIndex: zindex ? google.maps.Marker.MAX_ZINDEX + 1 : '',
+      clickable: clickeable
     });
-    this.markers.push(marker); 
+    this.markers.push(marker);
+    google.maps.event.addListener(marker, 'click', () => {
+      //infoWindow.open(this.map, marker);
+      let loader = this.loadingController.create({
+        content: "Cargando..."
+      });
+      loader.present();
+      let position = marker.getPosition();
+      let lat = position.lat();
+      let lng = position.lng();
+      this.searchService.searchByMap( lat, lng ).then((data:any) => {
+        loader.dismiss();
+        console.log(data);
+        let messageModal = this.modalCtrl.create( ProductModalPage, { productMap: data, result: data.result } );
+        messageModal.onDidDismiss(data => {
+        });
+        messageModal.present();
+      });
+    });
   }
-  
+    
   addRadius() {
     let circle = new google.maps.Circle({
       strokeColor: '#FF0000',

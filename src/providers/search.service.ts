@@ -37,4 +37,27 @@ export class SearchService {
         );
     });
   }
+  
+  public searchByMap( lat:any, lng:any ) {
+    let params = new URLSearchParams();
+    params.set('lat', lat);
+    params.set('lng', lng);
+    let url = WS_BASE + '/searchByMap';
+    return new Promise(resolve => {
+      this.http.get(url, { search: params })
+        .map(res => res.json())
+        .subscribe(
+        	data => {
+            this.data = data;
+            resolve(this.data);
+          },
+          (err:Response) => {
+            this.data = '{"Error": "Error al traer las tiendas"}';
+            resolve(this.data);
+          }
+        );
+    });
+  }
+  
+  
 }

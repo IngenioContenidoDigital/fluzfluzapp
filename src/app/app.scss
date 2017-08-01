@@ -106,6 +106,10 @@
     border: 1px solid color($colors, gray-soft);
   }
   
+  .border-primary {
+    border-bottom: 2px solid color($colors, primary);
+  }
+  
   .border {
     border: 1px solid color($colors, gray-soft);
   }

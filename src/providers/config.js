@@ -56,3 +56,16 @@ export const SHOW_REFINE_BUTTONS = false;
 
 // Mostar Fluz últimos 30 días.
 export const SHOW_LASTED_FLUZ = false;
+
+
+
+//  Mapas: 
+// 
+//  Ubicación de desarrollo:
+    export const DEV_UBICATION = false;
+    
+//  
+//  
+//  Product Page:
+    export const SHOW_MAP_PRODUCT_PAGE = false;
+  
