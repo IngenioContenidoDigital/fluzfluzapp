@@ -72,21 +72,21 @@
           <i class='fluz-estadistica'></i>
           <ion-label class="text-dark">Estadística</ion-label>
         </div>
-        <div class="row" *ngIf="showOptions">
-          <i class='fluz-personal-information'></i>
+        <div class="row" (click)="goTo('PersonalInformationPage')">
+          <ion-icon name="person" class="icon-more"></ion-icon>
           <ion-label class="text-dark">Mi Información Personal</ion-label>
         </div>
         <div class="row" *ngIf="showOptions">
           <i class='fluz-mesages'></i>
           <ion-label class="text-dark">Mis Mensajes</ion-label>
         </div>
+        <div class="row" (click)="goTo('TransferFluzPage')">
+          <ion-icon name="swap" class="icon-more"></ion-icon>
+          <ion-label class="text-dark">Transferencia Fluz</ion-label>
+        </div>
         <div class="row">
           <i class='fluz-cellphone'></i>
           <ion-label class="text-dark">Fecha Agregada <span class="right">{{userData.dateAddFull}}</span></ion-label>
-        </div>
-        <div class="row" (click)="goTo('TransferFluzPage')">
-          <ion-icon name="swap" class="icon-transfer"></ion-icon>
-          <ion-label class="text-dark">Transferencia Fluz</ion-label>
         </div>
       </div>
     </div>
