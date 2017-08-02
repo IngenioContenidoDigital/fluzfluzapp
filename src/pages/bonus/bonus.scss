@@ -17,17 +17,14 @@ page-bonus {
         .fluz-passcodeB {
           @extend .font-more-small;
           width: 15%;
-          height: 30px;
+          height: 20px;
           vertical-align: middle;
-          line-height: 24px;
+          line-height: 18px;
           float: left;
         }
         .text-spacer {
           margin: 5px 0px;
           width: 85%;
-        }
-        .text-right{
-          text-align: right;
         }
       }
       .label-md{

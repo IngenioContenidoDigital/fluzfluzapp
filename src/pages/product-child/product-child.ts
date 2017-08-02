@@ -44,6 +44,7 @@ export class ProductChildPage {
     this.productFather = navParams.get("productFather");
     this.searchService.search( this.productFather.id_parent, '3' ).then((data) => {
       this.productChild = data;
+      console.log(this.productFather);
       this.intructions = this.productChild.result['0'].instructions;
       this.terms = this.productChild.result['0'].terms;
     });
@@ -76,7 +77,9 @@ export class ProductChildPage {
   
   ionViewWillEnter(){
     this.tabsService.hide();
-    this.inizializateMap();
+    if(this.showMapProductPage){
+      this.inizializateMap();
+    }
   }
 
   ionViewWillLeave(){

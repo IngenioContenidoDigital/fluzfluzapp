@@ -48,13 +48,6 @@ export class HomePage {
   public devUbication:any = DEV_UBICATION;
   public homeCategories:any = SHOW_HOME_CATEGORY;
   public lastedFluz:any = SHOW_LASTED_FLUZ;
-  public markerPlace = {
-        url: 'assets/img/pointer.svg',
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(10, 10)
-      };
     
   @ViewChild(Slides) slides: Slides;
   
@@ -191,6 +184,8 @@ export class HomePage {
     
     this.productChild.image_manufacturer = item.image;
     this.productChild.id_parent = item.pf_id;
+    this.productChild.p_name = item.pf_name;
+    this.productChild.online_only = item.online_only;
     
     this.navCtrl.push(ProductChildPage,{
       manufacturer: this.productChild,
@@ -236,10 +231,6 @@ export class HomePage {
         lat: this.latitude,
         lng: this.longitude
       }
-      setTimeout(()=>{
-        this.addMarker(this.ubication.lat, this.ubication.lng, this.markerPlace);
-  //      this.addRadius();
-      }, 300 );      
     }
   }
   
@@ -263,7 +254,32 @@ export class HomePage {
   getLocations(){
     this.home.getMapData(this.latitude, this.longitude, 1).then((data:any)=>{
       for(let pos of data.result){
-        this.addMarker(pos.latitude, pos.longitude, this.markerPlace, false, true);
+        let scaledSize = 10;
+        if(pos.size != 1){ 
+          if(pos.size >= 2 && pos.size <= 4){
+            scaledSize = 15;
+          }
+          if(pos.size >= 5 && pos.size <= 8){
+            scaledSize = 20;
+          }
+          if(pos.size >= 9 && pos.size <= 11){
+            scaledSize = 25;
+          }
+          if(pos.size >= 12 && pos.size <= 15){
+            scaledSize = 30;
+          }
+          if(pos.size > 15){
+            scaledSize = 35;
+          }
+        } 
+        let markerPlace = {
+          url: 'assets/img/pointer.svg',
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(scaledSize, scaledSize)
+        };
+        this.addMarker(pos.latitude, pos.longitude, markerPlace, false, true);
       }
     });
   }
@@ -289,9 +305,10 @@ export class HomePage {
       let position = marker.getPosition();
       let lat = position.lat();
       let lng = position.lng();
+      console.log(lat);
+      console.log(lng);
       this.searchService.searchByMap( lat, lng ).then((data:any) => {
         loader.dismiss();
-        console.log(data);
         let messageModal = this.modalCtrl.create( ProductModalPage, { productMap: data, result: data.result } );
         messageModal.onDidDismiss(data => {
         });

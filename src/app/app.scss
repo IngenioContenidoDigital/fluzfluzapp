@@ -217,6 +217,10 @@ ion-icon {
   margin: 5px;
 }
 
+.margin-v {
+  margin: 5px 0px;
+}
+
 .spacer-10 {
   height: 10px;
 }
@@ -240,6 +244,9 @@ ion-title {
   }
 }
 
+.text-right{
+  text-align: right;
+}
 
 .inner-html{
   white-space: normal !important;

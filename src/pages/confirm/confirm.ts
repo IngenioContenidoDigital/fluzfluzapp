@@ -46,6 +46,7 @@ export class ConfirmPage {
     flag: 'https://restcountries.eu/data/col.svg'
   };
   public phoneNumber:any;
+  public showSendAgain:any = false;
   
   constructor( public loadingController: LoadingController, public modalCtrl: ModalController, public platform: Platform, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService,  formBuilder: FormBuilder, private confirmService: ConfirmService, public storage: Storage, public alertCtrl: AlertController) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
@@ -99,11 +100,12 @@ export class ConfirmPage {
         this.confirmService.sendSMS(val.id).then(
           (data:any) =>{
             loader.dismiss();
+            this.showSendAgain = true;
             this.nextViewConfirm = true;
             this.enabledConfirmButton = false;    
             this.textInfo = "Introduce el código de 6 dígitos que se envió a tu teléfono móvil registrado a través de SMS.";
             this.textButton = "CONFIRMAR";
-            this.textContact = "¿Teniendo problemas? ";
+            this.textContact = "¿Tienes algún problema? ";
           }
         );
       });

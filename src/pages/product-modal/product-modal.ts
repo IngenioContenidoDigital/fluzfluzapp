@@ -4,11 +4,13 @@ import { ProductChildPage } from '../product-child/product-child';
 import { SearchService } from '../../providers/search.service';
 import { ProductFatherPage } from '../product-father/product-father';
 import { SHOW_SAVINGS } from '../../providers/config';
+import { Storage } from '@ionic/storage';
+import { CartService } from '../../providers/cart.service';
 
 @Component({
   selector: 'page-product-modal',
   templateUrl: 'product-modal.html',
-  providers: [SearchService,ProductChildPage],
+  providers: [SearchService,ProductChildPage,CartService],
 })
 export class ProductModalPage {
   public backButtom:any = true;
@@ -24,8 +26,12 @@ export class ProductModalPage {
   public terms:any = '';
   public showChild = false;
   public showSavings = SHOW_SAVINGS;
+  public idCart:any = 0;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public searchService: SearchService, public loadingController: LoadingController, public viewCtrl: ViewController ) {
+  @Output('updateCountCart')
+  public updateCountCart: EventEmitter<number> = new EventEmitter<number>();
+  
+  constructor( public storage: Storage, public navCtrl: NavController,  public cartService: CartService, public navParams: NavParams, public searchService: SearchService, public loadingController: LoadingController, public viewCtrl: ViewController ) {
     this.productMap = navParams.get('productMap');
     this.manufacturer = this.productMap.result[0];
   }
@@ -77,5 +83,30 @@ export class ProductModalPage {
   
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+  
+  addToCart(idProduct:any){
+    this.storage.get('cart').then((val) => {
+      this.idCart = ( val != undefined && val != null && val != '' ) ? val.id : 0;
+      this.cartService.addToCart( this.idCart, idProduct).subscribe(
+        success => {
+          if(success.status === 200) {
+            this.storage.set('cart', JSON.parse(success._body));
+            this.updateCountCartEmit();
+          }
+        },
+        error =>{
+          console.log(error)
+        }
+      ); 
+    });
+  }
+  
+  updateCountCartEmit(){
+    setTimeout(() => {
+      this.storage.get('cart').then((val) => {
+        this.updateCountCart.emit( val.quantity );
+      });
+    },500);
   }
 }

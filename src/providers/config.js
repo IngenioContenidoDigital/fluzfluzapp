@@ -4,6 +4,14 @@
  * and open the template in the editor.
  */
 
+
+export const DEV_MODE = false;
+
+// Produccion:
+//
+export const URL_BASE = DEV_MODE ? "http://192.168.2.72/"                       : "https://fluzfluz.co/" ;
+export const WS_BASE  = DEV_MODE ? "http://192.168.2.72/override/app/services/" : "https://fluzfluz.co/override/app/services/";
+
 // Faber PC:
 //
 //export let URL_BASE = "http://192.168.2.72/";
@@ -24,8 +32,9 @@
 
 // Produccion:
 //
-export const URL_BASE = "https://fluzfluz.co/";
-export const WS_BASE  = "https://fluzfluz.co/override/app/services/";
+//export const URL_BASE = "https://fluzfluz.co/";
+//export const WS_BASE = "https://fluzfluz.co/override/app/services/";
+
 
 
 
@@ -62,7 +71,7 @@ export const SHOW_LASTED_FLUZ = false;
 //  Mapas: 
 // 
 //  Ubicación de desarrollo:
-    export const DEV_UBICATION = false;
+    export const DEV_UBICATION = DEV_MODE ? true : false;
     
 //  
 //  

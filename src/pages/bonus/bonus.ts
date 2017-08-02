@@ -77,7 +77,6 @@ export class BonusPage {
         break;
       }
     }
-    
   }
   
   ionViewWillEnter(){

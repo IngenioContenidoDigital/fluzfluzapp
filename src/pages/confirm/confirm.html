@@ -57,9 +57,11 @@
       <div padding-vertical>
         <button ion-button color="primary" block [disabled]="!enabledConfirmButton" (click)="nextView()">{{textButton}}</button>
       </div>
-      <ion-label text-center (click)="sendSMSAgain()">
-        <span class="text-gray-normal">¿Aún no llega tu código?  </span><span class="text-primary">Reenviar</span>
-      </ion-label>
+      <div *ngIf="showSendAgain">
+        <ion-label text-center (click)="sendSMSAgain()">
+          <span class="text-gray-normal">¿Aún no llega tu código?  </span><span class="text-primary">Reenviar</span>
+        </ion-label>
+      </div>
 <!--      <ion-label text-center>
         <span class="text-gray-normal">{{textContact}}</span><span class="text-primary">Contáctenos</span>
       </ion-label>-->

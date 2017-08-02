@@ -53,7 +53,6 @@ export class PasscodePage {
     this.storage.get('userId').then((val) => {
       this.passcodeService.getPasscode(val).then((data:any)=>{
           loader.dismiss();
-          console.log(data);
           this.response = data['0'];
           if( this.response.vault_code === null || this.response.vault_code === 'null' || this.response.vault_code == undefined || this.response.vault_code == 'undefined' ){
             this.setPasscode = true;
@@ -90,7 +89,6 @@ export class PasscodePage {
         if ( this.passcode == this.passcodeConfirm ){
           this.storage.get('userId').then((val) => {
             this.passcodeService.setPasscode( val, this.passcode ).then((data:any)=>{
-              console.log(data);
               this.setPasscode = data ? false : true;
               let msg = data ? "S" : "No s" ; 
               let toast = this.toastCtrl.create({
