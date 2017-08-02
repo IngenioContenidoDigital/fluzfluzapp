@@ -68,9 +68,15 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     import { InvitationThirdModalPage } from '../pages/invitation-third-modal/invitation-third-modal';
   
   /* Transferencia de Fluz */
-    import { TransferFluzPage } from '../pages/transferfluz/transferfluz';
-    import { TransferFluzConfirmPage } from '../pages/transferfluz-confirm/transferfluz-confirm';
-                
+        import { TransferFluzPage } from '../pages/transferfluz/transferfluz';
+        import { TransferFluzConfirmPage } from '../pages/transferfluz-confirm/transferfluz-confirm';
+        
+  /* Informacion Personal */
+        import { PersonalInformationPage } from '../pages/personalinformation/personalinformation';
+
+    
+  
+    
 @NgModule({
   declarations: [
     MyApp,
@@ -106,7 +112,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     FormOfRedemptionPage,
     RedemptionConfirmPage,
     TransferFluzPage,
-    TransferFluzConfirmPage
+    TransferFluzConfirmPage,
+    PersonalInformationPage
   ],
   imports: [
     BrowserModule,
@@ -156,7 +163,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     FormOfRedemptionPage,
     RedemptionConfirmPage,
     TransferFluzPage,
-    TransferFluzConfirmPage
+    TransferFluzConfirmPage,
+    PersonalInformationPage
   ],
   providers: [
     StatusBar,

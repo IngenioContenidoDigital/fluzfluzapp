@@ -1,0 +1,29 @@
+page-personalinformation {
+    @extend .font-family;
+    .ng-valid, .item-inner {
+        border-bottom-color: #dedede !important;
+        border-bottom-color: 1px solid #dedede !important;
+        box-shadow: none !important;
+    }
+    .ctn-background-white {
+        @extend .background-white;
+        border: 1px solid color($colors, gray-soft);
+        margin: 10px;
+    }
+    .icon-contact {
+        color: color($colors, primary);
+        font-size: 25vw;
+    }
+    .title-segments {
+        @extend .text-primary;
+        margin: 15px 0 0 0;
+    }
+    .grid {
+        padding: 0 0 0 16px;
+        .row {
+            .title {
+                color: #999;
+            }
+        }
+    }
+}
