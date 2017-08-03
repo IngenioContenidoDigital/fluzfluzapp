@@ -50,19 +50,16 @@ export class PasscodePage {
     });
     loader.present();
     this.resetPasscode();
-    this.storage.get('userId').then((val) => {
-      this.passcodeService.getPasscode(val).then((data:any)=>{
-          loader.dismiss();
-          this.response = data['0'];
-          if( this.response.vault_code === null || this.response.vault_code === 'null' || this.response.vault_code == undefined || this.response.vault_code == 'undefined' ){
-            this.setPasscode = true;
-          }
-          else {
-            this.setPasscode = false;
-            this.textHeader = 'Ingresa tu contraseña';
-            this.textButton = 'CONFIRMAR';
-          }
-      });
+    this.storage.get('passcode').then((val) => {
+      loader.dismiss();
+      if( val == 'true' ){
+        this.setPasscode = false;
+        this.textHeader  = 'Ingresa tu contraseña';
+        this.textButton  = 'CONFIRMAR';
+      }
+      else {
+        this.setPasscode = true;
+      }
     });
   }
   
@@ -90,6 +87,7 @@ export class PasscodePage {
           this.storage.get('userId').then((val) => {
             this.passcodeService.setPasscode( val, this.passcode ).then((data:any)=>{
               this.setPasscode = data ? false : true;
+              this.storage.set('passcode', data );
               let msg = data ? "S" : "No s" ; 
               let toast = this.toastCtrl.create({
                 message:  msg+'e ha guardado tu contraseña.',

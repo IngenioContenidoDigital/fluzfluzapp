@@ -87,7 +87,7 @@ export class HomePage {
    
   ionViewWillEnter(){
     this.storage.get('userData').then((val) => {
-        this.storage.get('userConfirm').then((userConfirm)=> {
+      this.storage.get('userConfirm').then((userConfirm)=> {
         if ( val !== false ){
           if (val === null || val === undefined ){
             this.goTo("LoginPage");
@@ -100,21 +100,20 @@ export class HomePage {
           }
           else {
             this.updateShowDataUser(true);          
+            setTimeout(()=>{
+              this.getUserData();
+              this.getBannerData();
+              this.getCategoryWithFatherData();
+              this.getCategoryWithOutFatherData();
+            }, 100 );
+            setTimeout(()=>{
+              this.countbannerData = Object.keys(this.bannerData).length;
+              this.inizializateMap();
+            }, 500 );
           }
         }
       });
     });
-    setTimeout(()=>{
-      this.getUserData();
-      this.getBannerData();
-      this.getCategoryWithFatherData();
-      this.getCategoryWithOutFatherData();
-    }, 100 );
-    setTimeout(()=>{
-      this.countbannerData = Object.keys(this.bannerData).length;
-      this.inizializateMap();
-    }, 500 );
-    this.splashScreen.hide();
   }
   
   getUserData() {

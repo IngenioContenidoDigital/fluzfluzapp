@@ -13,7 +13,7 @@ export class PasscodeService {
 
   constructor(public http: Http) {}
   
-  public getPasscode(id_customer:any, id_manufacturer:any = null) {
+  public getPasscode(id_customer:any) {
     return new Promise(resolve => {
       let params = new URLSearchParams();
       params.set('id_customer', id_customer);

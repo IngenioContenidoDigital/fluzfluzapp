@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController, Platform, ToastController } 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { LoginService } from '../../providers/login-service';
+import { PasscodeService } from '../../providers/passcode.service';
 import { ConfirmPage } from '../confirm/confirm';
 import { TabsService } from '../../providers/tabs.service';
 import { TabsPage } from '../tabs/tabs';
@@ -19,12 +20,12 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [LoginService]
+  providers: [LoginService,PasscodeService]
 })
 export class LoginPage {
   public nextLoginButton:boolean;
   public enabledLoginButton:boolean;
-  public userData:any;
+  public userData:any = [];
   public userId:any;
   public userConfirm:any;
 
@@ -35,7 +36,7 @@ export class LoginPage {
   public updateShowDataUser: EventEmitter<boolean> = new EventEmitter<boolean>();
   public showDataUser = true;
   
-  constructor( private iab: InAppBrowser, private browserTab: BrowserTab, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, private loginService:LoginService, public storage: Storage, public alertCtrl: AlertController, public tabsService: TabsService, public platform: Platform ) {
+  constructor( public passcodeService: PasscodeService, private iab: InAppBrowser, private browserTab: BrowserTab, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, private loginService:LoginService, public storage: Storage, public alertCtrl: AlertController, public tabsService: TabsService, public platform: Platform ) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
   	this.loginForm = formBuilder.group({
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
@@ -112,6 +113,19 @@ export class LoginPage {
      	success => {
         if(success.status === 200) {
           
+          this.userData = JSON.parse(success._body);
+          console.log(this.userData.id);
+          // Establece el passcode en true or false.
+          this.passcodeService.getPasscode(this.userData.id).then((data:any)=>{
+            let response = data['0'];
+            if( response.vault_code === null || response.vault_code === 'null' || response.vault_code === undefined || response.vault_code == 'undefined' || response.vault_code == 0 ){
+              
+            }
+            else {
+              this.storage.set('passcode', true);
+            }
+          });
+          
           //Obtiene el id de algún antiguo usuario.
           this.storage.get('userId').then((val) => {
             //Valida si hay o no usuario antiguo.
@@ -119,6 +133,7 @@ export class LoginPage {
               //Guarda el id antiguo y la respuesta del servidor.
               this.userId = val;
               this.userData = JSON.parse(success._body);
+              
               
               //Valida si son el mismo usuario. (El id antiguo y el nuevo.)
               if ( this.userId === this.userData.id ) {
