@@ -9,6 +9,7 @@ import { PaymentFluzService } from '../../providers/paymentfluz.service';
 import { LoadingController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { SHOW_SAVINGS } from '../../providers/config';
+import { PersonalInformationService } from '../../providers/personalinformation.service';
 
 /**
  * Generated class for the Checkout page.
@@ -19,7 +20,7 @@ import { SHOW_SAVINGS } from '../../providers/config';
 @Component({
   selector: 'page-checkout',
   templateUrl: 'checkout.html',
-  providers: [PaymentFluzService],
+  providers: [PaymentFluzService,PersonalInformationService],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -44,7 +45,9 @@ export class CheckoutPage {
   public showTerms:any = false;
   public showSavings = SHOW_SAVINGS;
   
- constructor(private alertCtrl: AlertController, public loadingController: LoadingController, private PaymentFluzService: PaymentFluzService, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public tabsService: TabsService) {
+  public creditCardSaved:any = [];
+  
+ constructor(private alertCtrl: AlertController, public loadingController: LoadingController, private PaymentFluzService: PaymentFluzService, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public tabsService: TabsService, private personalInformationService: PersonalInformationService) {
     this.cart = navParams.get("cart");
   }
 
@@ -116,6 +119,7 @@ export class CheckoutPage {
           } else {
             switch (this.payment){
               case 1:{
+                this.navCtrl.push(CreditCardPage,{creditCardSaved: this.creditCardSaved});
                 break            
               }
               case 2:{
@@ -143,6 +147,18 @@ export class CheckoutPage {
     }
   }
   
+    getSevedCreditCard(){
+        this.storage.get('userData').then((userData) => {
+            this.personalInformationService.getSevedCreditCard(userData.id).subscribe(
+                success => {
+                    if(success.status === 200) {
+                        this.creditCardSaved = JSON.parse(success._body);
+                    }
+                }
+            );
+        });
+    }
+  
   updateShowTerms(item){
     this.showTerms = this.showTerms != item.id_product ? item.id_product : false;
   }
@@ -150,6 +166,7 @@ export class CheckoutPage {
   ionViewWillEnter(){
     this.updateDataView();
     this.tabsService.hide();
+    this.getSevedCreditCard();
   }
 
   ionViewWillLeave(){
