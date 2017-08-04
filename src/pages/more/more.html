@@ -76,7 +76,7 @@
           <ion-icon name="person" class="icon-more"></ion-icon>
           <ion-label class="text-dark">Mi Información Personal</ion-label>
         </div>
-        <div class="row" *ngIf="showOptions">
+        <div class="row" (click)="goTo('MessagesPage')">
           <i class='fluz-mesages'></i>
           <ion-label class="text-dark">Mis Mensajes</ion-label>
         </div>

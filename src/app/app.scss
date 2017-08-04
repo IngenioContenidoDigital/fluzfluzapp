@@ -213,6 +213,7 @@ ion-icon {
 .margin-t-5{
   margin-top: 5px;
 }
+
 .margin-5 {
   margin: 5px;
 }
@@ -236,6 +237,12 @@ ion-icon {
 
 .wrap {
   white-space: normal;
+}
+
+.overflow{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 ion-title {

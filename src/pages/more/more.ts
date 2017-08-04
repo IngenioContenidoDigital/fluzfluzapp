@@ -3,9 +3,11 @@ import { NavController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { TransferFluzPage } from '../transferfluz/transferfluz';
 import { PersonalInformationPage } from '../personalinformation/personalinformation';
+import { MessagesPage } from '../messages/messages';
 import { ConfirmPage } from '../confirm/confirm';
 import { ConfirmatedPage } from '../confirmated/confirmated';
 import { MyAccountService } from '../../providers/myAccount.service';
+import { MessagesService } from '../../providers/messages.service';
 import { Storage } from '@ionic/storage';
 import { LoginService } from '../../providers/login-service';
 import { SHOW_MORE_OPTIONS } from '../../providers/config';
@@ -21,7 +23,7 @@ import { SHOW_LASTED_FLUZ } from '../../providers/config';
 @Component({
   selector: 'page-more',
   templateUrl: 'more.html',
-  providers: [MyAccountService,LoginService]
+  providers: [MyAccountService,LoginService,MessagesService]
 })
 export class MorePage {
 
@@ -30,7 +32,7 @@ export class MorePage {
   public showSavings:any = SHOW_SAVINGS;
   public lastedFluz:any = SHOW_LASTED_FLUZ;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public myAccount: MyAccountService, private loginService:LoginService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public myAccount: MyAccountService, private loginService:LoginService, public messagesService: MessagesService) {
   }
 
   ionViewWillEnter(){
@@ -89,6 +91,11 @@ export class MorePage {
       
       case "PersonalInformationPage": {
         this.navCtrl.push( PersonalInformationPage );
+        break;
+      }
+      
+      case "MessagesPage": {
+        this.navCtrl.push( MessagesPage );
         break;
       }
       

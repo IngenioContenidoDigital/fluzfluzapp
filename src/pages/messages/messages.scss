@@ -1,0 +1,26 @@
+page-messages {
+  .ctn-background-white {
+    @extend .background-white;
+    border: 1px solid color($colors, gray-soft);
+    margin: 10px;
+    .col {
+      padding: 5px;
+      .label{
+        margin: 5px 0px;
+      }
+    }
+    .text-primary {
+      margin-right: 0px;
+    }
+    .font-extra-small {
+      margin: 0;
+    }
+    .description {
+      white-space: normal;
+    }
+  }
+  .image-person {
+    max-width: 100%;
+    margin-top: 10px;
+  }
+}

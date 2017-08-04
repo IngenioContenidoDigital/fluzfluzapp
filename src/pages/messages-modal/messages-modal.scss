@@ -1,6 +1,9 @@
-page-message-modal {
+page-messages-modal {
   .grid {
     padding: 0px;
+  }
+  .img {
+    max-width: 90%;
   }
   .btn-close {
     margin: 8px;
@@ -12,11 +15,13 @@ page-message-modal {
   .ctn-background-white {
     @extend .background-white;
     border: 1px solid color($colors, gray-soft);
-    margin: 10px;
-  }
-  
-  .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
-    border-bottom-color: transparent;
-    box-shadow: none;
+    padding: 5px;
+    ion-label .label-md, .label{
+      margin: 5px 0px;
+    }
+    .hour {
+      margin: 0;
+      text-align: right;
+    }
   }
 }

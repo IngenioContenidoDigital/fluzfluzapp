@@ -18,6 +18,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   import { SearchModalPage } from '../pages/search-modal/search-modal';
   import { CountryModalPage } from '../pages/country-modal/country-modal';
   import { MessageModalPage } from '../pages/message-modal/message-modal';
+  import { MessagesModalPage } from '../pages/messages-modal/messages-modal';
   
   /* Basicas */
   import { StatusBar } from '@ionic-native/status-bar';
@@ -68,13 +69,15 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     import { InvitationThirdModalPage } from '../pages/invitation-third-modal/invitation-third-modal';
   
   /* Transferencia de Fluz */
-        import { TransferFluzPage } from '../pages/transferfluz/transferfluz';
-        import { TransferFluzConfirmPage } from '../pages/transferfluz-confirm/transferfluz-confirm';
+    import { TransferFluzPage } from '../pages/transferfluz/transferfluz';
+    import { TransferFluzConfirmPage } from '../pages/transferfluz-confirm/transferfluz-confirm';
         
   /* Informacion Personal */
-        import { PersonalInformationPage } from '../pages/personalinformation/personalinformation';
+    import { PersonalInformationPage } from '../pages/personalinformation/personalinformation';
 
-    
+  /* Mensajes */
+    import { MessagesPage } from '../pages/messages/messages';
+  
   
     
 @NgModule({
@@ -113,7 +116,9 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     RedemptionConfirmPage,
     TransferFluzPage,
     TransferFluzConfirmPage,
-    PersonalInformationPage
+    PersonalInformationPage,
+    MessagesPage,
+    MessagesModalPage
   ],
   imports: [
     BrowserModule,
@@ -164,7 +169,9 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     RedemptionConfirmPage,
     TransferFluzPage,
     TransferFluzConfirmPage,
-    PersonalInformationPage
+    PersonalInformationPage,
+    MessagesPage,
+    MessagesModalPage
   ],
   providers: [
     StatusBar,
