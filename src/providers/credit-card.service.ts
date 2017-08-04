@@ -21,6 +21,7 @@ export class CreditCardService {
         this.dataPayment["numbercard"] = dataForm.numbercard;
         this.dataPayment["datecard"] = dataForm.datecard;
         this.dataPayment["codecard"] = dataForm.codecard;
+        this.dataPayment["checkautorizationcard"] = dataForm.checkautorizationcard;
         this.dataPayment["id_customer"] = userData.id;
         this.dataPayment["id_cart"] = cart.id;
         this.dataPayment["payment"] = 'Tarjeta_credito';

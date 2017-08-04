@@ -40,10 +40,21 @@ export class CreditCardPage {
     public yearMax:any = new Date().getFullYear() + 15;
 
     constructor(public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public tabsService: TabsService, private CreditCardService: CreditCardService, public storage: Storage, private alertCtrl: AlertController) {
+        
+        let creditCardSaved = navParams.get("creditCardSaved");        
+        if ( !creditCardSaved ) {
+            creditCardSaved = {
+                nameOwner : null,
+                num_creditCard : null,
+                date_expiration : null,
+            };
+        }
+        
         this.creditCardForm = formBuilder.group({
-            'namecard': [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{5,100}$/i)])],
-            'numbercard': [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{14,16}$/i)])],
-            'datecard': [null, Validators.compose([Validators.required])],
+            'namecard': [creditCardSaved.nameOwner, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{5,100}$/i)])],
+            'checkautorizationcard': [null, Validators.compose([])],
+            'numbercard': [creditCardSaved.num_creditCard, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{14,16}$/i)])],
+            'datecard': [creditCardSaved.date_expiration, Validators.compose([Validators.required])],
             'codecard': [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{3,4}$/i)])]
         });
     }

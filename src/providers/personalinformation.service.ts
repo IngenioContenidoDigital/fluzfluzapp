@@ -69,6 +69,17 @@ export class PersonalInformationService {
                     .catch(this.handleError);
     }
     
+    public getSevedCreditCard(id_customer) {
+        let _url = WS_BASE+'sevedCreditCard';
+        
+        this.data["id_customer"] = id_customer;
+        let data = JSON.stringify( this.data );
+        
+        return this.http.post(_url, data, this.headers)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+    }
+    
     private extractData(res: Response) {
         return res || { };
     }
