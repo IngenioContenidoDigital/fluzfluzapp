@@ -1,10 +1,11 @@
 import { Component, trigger, style, animate, state, transition } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { CartService } from '../../providers/cart.service';
 import { CheckoutPage } from '../checkout/checkout';
 import { TabsService } from '../../providers/tabs.service';
 import { TabsPage } from '../tabs/tabs';
+import { HomePage } from '../home/home';
 import { SHOW_SAVINGS } from '../../providers/config';
 
 /**
@@ -43,7 +44,7 @@ export class CartPage {
   public showTerms = false;
   public showSavings = SHOW_SAVINGS;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public cartService: CartService, public tabsService: TabsService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public cartService: CartService, public tabsService: TabsService, public viewCtrl: ViewController) {
   }
 
   ionViewDidLoad() {
@@ -127,8 +128,10 @@ export class CartPage {
         break;
       }
       default: {
-        this.tabsService.changeTabInContainerPage(0);
-        this.navCtrl.setRoot(TabsPage);
+        this.navCtrl.popToRoot();
+//        this.viewCtrl.dismiss();
+//        this.tabsService.changeTabInContainerPage(0);
+//        this.navCtrl.setRoot(TabsPage);
         break;
       }
     }

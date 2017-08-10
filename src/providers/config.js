@@ -5,7 +5,7 @@
  */
 
 
-export const DEV_MODE = true;
+export const DEV_MODE = false;
 
 // Produccion:
 //
@@ -71,8 +71,8 @@ export const SHOW_LASTED_FLUZ = false;
 //  Mapas: 
 // 
 //  Ubicación de desarrollo:
-//    export const DEV_UBICATION = DEV_MODE ? true : false;
-    export const DEV_UBICATION = true;
+    export const DEV_UBICATION = DEV_MODE ? true : false;
+//    export const DEV_UBICATION = true;
     
 //  
 //  

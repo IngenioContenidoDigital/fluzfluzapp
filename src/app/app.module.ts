@@ -6,6 +6,7 @@ import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 // Plugins
 import { Network } from '@ionic-native/network';
@@ -181,6 +182,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     InAppBrowser,
     Network,
     Geolocation,
+    GoogleMaps,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
 //    Storage
   ]

@@ -92,7 +92,7 @@
           </ion-row>
           <ion-row class="ctn-terms padding-h-5">
             <ion-col>
-              <ion-label item-left class="text-dark" *ngIf="item.is_virtual==1">Solo Online</ion-label>
+              <ion-label item-left class="text-dark" *ngIf="item.online_only==1">Solo Online</ion-label>
             </ion-col>
             <ion-col text-right>
               <ion-label item-right class="text-primary font-more-small terms" (click)="updateShowTerms(item)">Términos y condiciones</ion-label>

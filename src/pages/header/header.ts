@@ -84,9 +84,14 @@ export class HeaderPage {
     }
     else if ( value === "Back"){
       this.navCtrl.pop();
+      this.viewCtrl.dismiss();
     }
     else {
-      this.navCtrl.setRoot(TabsPage);
+      this.viewCtrl.dismiss();
+//      this.navCtrl.pop();
+//      this.viewCtrl.dismiss();
+//      this.navCtrl.popToRoot();
+//      this.navCtrl.setRoot(TabsPage);
     }
   }
   
@@ -94,6 +99,10 @@ export class HeaderPage {
     if ( this.modalShow === false ){
       this.modalShow = true;
       let searchModal = this.modalCtrl.create( SearchModalPage, { modalShow: true } );
+      searchModal.onDidDismiss(data => {
+        this.showBackButton(false);
+        this.modalShow = false;
+      });
       searchModal.present();
     }
   }

@@ -47,6 +47,10 @@ export class SearchModalPage {
     this.viewCtrl.dismiss();
   }
   
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+  
   updateSearchData( searchData:any ) {
     this.searchResult = searchData.result;
     this.searchTotal = searchData.total;
