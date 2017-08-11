@@ -4,6 +4,12 @@ page-checkout {
     border: 1px solid color($colors, gray-soft);
     margin: 10px;
     border-radius: 2px;
+    .img-card {
+        padding: 8px;
+        width: 2.9em;
+        height: 2.35em;
+        margin: 5px 0px 0px 1px;
+    }
     row {
       border: 1px solid color($colors, gray-soft);
     }
