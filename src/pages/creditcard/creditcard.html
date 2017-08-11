@@ -21,10 +21,15 @@
                 </ion-col>
             </ion-row>
             <ion-row class="border-b">
-                <ion-col col-12>
+                <ion-col [ngClass]="cardSaved ? col-10 : col-12">
                     <ion-item>
                         <i class='fluz-tarjeta' item-left></i>
-                        <ion-input type="number" placeholder="Número de tarjeta" (keyup)="validateInputCreditCard($event)" [formControl]="creditCardForm.controls['numbercard']"></ion-input>
+                        <ion-input type="{{inputcardtype}}" placeholder="Número de tarjeta" (keyup)="validateInputCreditCard($event)" [formControl]="creditCardForm.controls['numbercard']"></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-2 *ngIf="cardSaved">
+                    <ion-item class="iconviewcard" text-center>
+                        <ion-icon name="{{iconview}}" (click)="viewCard()"></ion-icon>
                     </ion-item>
                 </ion-col>
             </ion-row>

@@ -26,6 +26,29 @@ export class PersonalInformationService {
                     .catch(this.handleError);
     }
     
+    public getPhonesCustomer(id_customer) {
+        let _url = WS_BASE+'getPhonesCustomer';
+        
+        this.data["id_customer"] = id_customer;
+        let data = JSON.stringify( this.data );
+        
+        return this.http.post(_url, data, this.headers)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+    }
+
+    public addPhone(id_customer, phone) {
+        let _url = WS_BASE+'addPhoneCustomer';
+        
+        this.data["id_customer"] = id_customer;
+        this.data["phone"] = phone;
+        let data = JSON.stringify( this.data );
+        
+        return this.http.post(_url, data, this.headers)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+    }
+    
     public getPersonalInformation(id_customer) {
         let _url = WS_BASE+'personalinformation';
         
