@@ -38,6 +38,9 @@ export class CreditCardPage {
     public enabledPayButton: boolean = false;
     public yearMin:any = new Date().getFullYear();
     public yearMax:any = new Date().getFullYear() + 15;
+    public cardSaved:boolean = true;
+    public iconview:any = "eye";
+    public inputcardtype:any = "password";
 
     constructor(public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public tabsService: TabsService, private CreditCardService: CreditCardService, public storage: Storage, private alertCtrl: AlertController) {
         
@@ -48,6 +51,9 @@ export class CreditCardPage {
                 num_creditCard : null,
                 date_expiration : null,
             };
+            this.cardSaved = false;
+            this.inputcardtype = "number";
+            this.iconview = "eye-off";
         }
         
         this.creditCardForm = formBuilder.group({
@@ -137,5 +143,15 @@ export class CreditCardPage {
                 );
             });
         });
+    }
+    
+    viewCard() {
+        if ( this.inputcardtype == "number" ) {
+            this.inputcardtype = "password";
+            this.iconview = "eye";
+        } else {
+            this.inputcardtype = "number";
+            this.iconview = "eye-off";
+        }
     }
 }

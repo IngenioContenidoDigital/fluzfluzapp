@@ -105,4 +105,20 @@ page-cart {
   .background-white{
     background-color: color($colors, white);    
   }
+    .block-phone-telco {
+        margin-top: -15px;
+        .item {
+            padding-left: 0;
+            .item-inner {
+                border: 0;
+            }
+        }
+        .icon {
+            color: #E1493A;
+            margin-top: 0.9em;
+        }
+        .label {
+            white-space: normal;
+        }
+    }
 }

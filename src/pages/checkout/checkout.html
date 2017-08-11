@@ -16,8 +16,8 @@
 <ion-content no-padding class="background-soft">
   
   <div class="ctn-pagos background-white">
-    <div class="row" (click)="selectedPayment(1)">
-      <i class='fluz-tarjeta' item-start></i>
+    <div class="row" (click)="selectedPayment(1)" *ngIf="creditCardSaved.num_creditCard">
+      <img class="img-card" src="assets/icon/cards/{{creditCardSaved.name_creditCard}}.png" onerror="this.src='assets/icon/cards/default.png';">
       <ion-label class="text-dark">Pagar con tarjeta: ...{{creditCardSaved.last_digits}}</ion-label>
       <ion-icon [name]="payment == 1 ? 'md-checkmark' : 'ios-arrow-forward'"></ion-icon>
     </div>
