@@ -10,17 +10,14 @@ import { NetworkTreePage } from '../network-tree/network-tree';
 import { ToastController } from 'ionic-angular';
 import { SHOW_REFINE_BUTTONS } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
+import { ProductChildPage } from '../product-child/product-child';
+import { ProductFatherPage } from '../product-father/product-father';
+import { SearchService } from '../../providers/search.service';
 
-/**
- * Generated class for the Network page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-network',
   templateUrl: 'network.html',
-  providers: [NetworkService, MyAccountService],
+  providers: [NetworkService, MyAccountService,SearchService],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -55,7 +52,7 @@ export class NetworkPage {
   public lastedFluz:any = SHOW_LASTED_FLUZ;
   invitationForm: FormGroup;
   
-  constructor(public loadingController: LoadingController, public modalCtrl: ModalController,public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public network: NetworkService, public storage: Storage, public myAccount: MyAccountService) {
+  constructor(public searchService: SearchService, public loadingController: LoadingController, public modalCtrl: ModalController,public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public network: NetworkService, public storage: Storage, public myAccount: MyAccountService) {
         this.invitationForm = formBuilder.group({
             'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
             'name': [null, Validators.required],
@@ -272,6 +269,28 @@ export class NetworkPage {
             });
           }
         );
+      }
+    });
+  }
+  
+  openProduct(item:any){
+    let manufacturer:any = {};
+    manufacturer.image_manufacturer = item.img;
+    manufacturer.m_name = item.name_product;
+    manufacturer.m_id = item.id_manufacturer;
+    
+    this.searchService.search( item.id_manufacturer, '2' ).then((data:any) => {
+      if(data.total == 1){
+        let productFather:any = data.result['0'];
+        this.navCtrl.push(ProductChildPage,{
+          manufacturer: manufacturer,
+          productFather: productFather
+        });
+      }
+      else {
+        this.navCtrl.push(ProductFatherPage,{
+          manufacturer: manufacturer
+        });        
       }
     });
   }

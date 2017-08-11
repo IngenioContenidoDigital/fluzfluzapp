@@ -279,8 +279,8 @@ export class HomePage {
     let icon: MarkerIcon = {
       url: 'https://s3.amazonaws.com/imagenes-fluzfluz/app/marker.png',
       size: {
-        width: 15,
-        height: 15
+        width: 30,
+        height: 30
       }
     }
     let markerOptions: MarkerOptions = {
@@ -294,15 +294,8 @@ export class HomePage {
           content: "Cargando..."
         });
         loader.present();
-        console.log('position');
-        console.log(marker.getPosition());
-        console.log(position);
         let lat = position.lat;
         let lng = position.lng;
-        console.log('lat');
-        console.log(lat);
-        console.log('lng');
-        console.log(lng);
         this.searchService.searchByMap( lat, lng ).then((data:any) => {
           loader.dismiss();
           let messageModal = this.modalCtrl.create( ProductModalPage, { productMap: data, result: data.result } );

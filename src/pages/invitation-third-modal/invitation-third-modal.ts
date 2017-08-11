@@ -1,5 +1,5 @@
 import { Component, trigger, style, animate, state, transition  } from '@angular/core';
-import { ViewController,ModalController,NavController, NavParams } from 'ionic-angular';
+import { ViewController,ModalController,NavController, NavParams, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { NetworkService } from '../../providers/network.service';
@@ -38,7 +38,7 @@ export class InvitationThirdModalPage {
   public countMy:any;
   invitationForm: FormGroup;  
 
-  constructor(public navCtrl: NavController,formBuilder: FormBuilder,public modalCtrl: ModalController, public myAccount: MyAccountService,public toastCtrl: ToastController, public network: NetworkService, public storage: Storage, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(public loadingController: LoadingController, public navCtrl: NavController,formBuilder: FormBuilder,public modalCtrl: ModalController, public myAccount: MyAccountService,public toastCtrl: ToastController, public network: NetworkService, public storage: Storage, public navParams: NavParams, public viewCtrl: ViewController) {
     this.invitationForm = formBuilder.group({
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
       'name': [null, Validators.required],
@@ -72,29 +72,36 @@ export class InvitationThirdModalPage {
   }
   
   onSubmit({value},value2:{}) {
+    let loader = this.loadingController.create({
+      content: "Enviando..."
+    });
+    loader.present();
     if (this.invitationForm.controls['email'].valid && this.invitationForm.controls['name'].valid && this.invitationForm.controls['lastname'].valid) {
       this.storage.get('userId').then((val) => {
         if( val != null && val != '' && value != '' && val != undefined ){
           let obj = JSON.stringify(value);
           this.network.getDataAccount(value2, 5, 0, 0, obj).then(
             (data:any) => {
+              loader.dismiss();
               if(data == "Invitacion Erronea: Este Mail ya Existe"){
                 let toast = this.toastCtrl.create({
                   message: data,
-                  duration: 2500,
-                  position: 'middle'
+                  position: 'middle',
+                  showCloseButton: true,
+                  closeButtonText: 'Ok'
                 });
                 toast.present();
               }
               else{
                 let toast = this.toastCtrl.create({
                   message: data,
-                  duration: 2500,
-                  position: 'middle'
+                  position: 'middle',
+                  showCloseButton: true,
+                  closeButtonText: 'Ok'
                 });
                 toast.present();  
               }
-              location.reload();
+              this.viewCtrl.dismiss();
             }
           );
         }

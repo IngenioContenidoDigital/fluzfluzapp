@@ -5,70 +5,67 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title class="title-invited">INVITAR</ion-title>
+    <ion-title text-center>INVITAR<button ion-button clear class="invisibleButton"></button></ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content no-padding>
-    
-    <div>
-        <ion-row>
-            <form novalidate class="form-invitation" [formGroup]="invitationForm"  (ngSubmit)="onSubmit(invitationForm)">
-                <ion-row>   
-                    <ion-item col-6>
-                      <ion-label floating>Nombre</ion-label>
-                      <ion-input type="text" (keyup)="validateInputLogin($event)" formControlName="name" required></ion-input>
-                    </ion-item>
-                    <ion-item col-6>
-                      <ion-label floating>Apellido</ion-label>
-                      <ion-input type="text" (keyup)="validateInputLogin($event)" formControlName="lastname"  required></ion-input>
-                    </ion-item>
-                </ion-row>
-                <ion-item>
-                    <ion-label floating>Correo</ion-label>
-                    <ion-input type="email" (keyup)="validateInputLogin($event)" formControlName="email" required></ion-input>
-                </ion-item>
-                
-            </form>
-            <ion-row>
-                <ion-col>
-                    <ion-label class="float-label-gray">FLUZZERS CON INVITACI&Oacute;NES</ion-label>
-                </ion-col>
-            </ion-row>
-                <ion-grid>
-                  <ion-row  *ngIf="treeNetwork.length < 1">
-                    <ion-col>
-                      <ion-label class="font-small text-dark font-semi-bold">Aún no tienes actividad en tu Network</ion-label>
-                    </ion-col>
-                  </ion-row>
-                  <div  class="border-b" [@slideIn] *ngFor="let item of treeNetwork"  >
-                    <ion-row>
-                      <ion-col col-2>
-                        <div class="image-person">
-                          <img src="{{item.img}}"  onerror="this.src='assets/img/user-red.png';">          
-                        </div>
-                      </ion-col>
-                      <ion-col col-4 class="border-b">
-                        <ion-label class="font-small text-dark font-semi-bold capitalize">{{item.username}}</ion-label>
-                      </ion-col>
-                      <ion-col col-3 item-right class="border-b">
-                              <div class="ctn-btn-user align-text" (click)="sendMessage(item)">MENSAJE</div>
-                      </ion-col>
-                      <ion-col col-3 item-right class="align-text">
-                              <ion-radio [disabled]="!enabledLoginButton" class="radio radio-inline radio-red" (click)="onSubmit(invitationForm,item.id)"></ion-radio>
-                      </ion-col>
-                    </ion-row>
-                    <ion-row>
-                      <ion-col class="font-more-small text-gray-normal">Fluz otorgados: {{item.points}}</ion-col>
-                      <ion-col col-3 class="font-more-small text-gray-normal">Nivel Fluz: {{item.level}}</ion-col>
-                      <ion-col class="font-more-small text-gray-normal">Fecha creación: {{item.dateadd}}</ion-col>
-                    </ion-row>    
-                  </div>
-                </ion-grid>
+  <div>
+    <ion-row>
+      <form novalidate class="form-invitation" [formGroup]="invitationForm"  (ngSubmit)="onSubmit(invitationForm)">
+        <ion-row>   
+          <ion-item col-6>
+            <ion-label floating>Nombre</ion-label>
+            <ion-input type="text" (keyup)="validateInputLogin($event)" formControlName="name" required></ion-input>
+          </ion-item>
+          <ion-item col-6>
+            <ion-label floating>Apellido</ion-label>
+            <ion-input type="text" (keyup)="validateInputLogin($event)" formControlName="lastname"  required></ion-input>
+          </ion-item>
         </ion-row>
-      </div>
+        <ion-item>
+          <ion-label floating>Correo</ion-label>
+          <ion-input type="email" (keyup)="validateInputLogin($event)" formControlName="email" required></ion-input>
+        </ion-item>
+      </form>
+
+      <ion-row>
+        <ion-col>
+          <ion-label class="float-label-gray">FLUZZERS CON INVITACI&Oacute;NES</ion-label>
+        </ion-col>
+      </ion-row>
+      
+      <ion-grid>
+        <ion-row  *ngIf="treeNetwork.length < 1">
+          <ion-col>
+            <ion-label class="font-small text-dark font-semi-bold">Aún no tienes actividad en tu Network</ion-label>
+          </ion-col>
+        </ion-row>
+        <div  class="border-b" [@slideIn] *ngFor="let item of treeNetwork"  >
+          <ion-row>
+            <ion-col col-2>
+              <div class="image-person">
+                <img src="{{item.img}}"  onerror="this.src='assets/img/user-red.png';">          
+              </div>
+            </ion-col>
+            <ion-col col-4 class="border-b">
+              <ion-label class="font-small text-dark font-semi-bold capitalize">{{item.username}}</ion-label>
+            </ion-col>
+            <ion-col col-3 item-right class="border-b">
+              <div class="ctn-btn-user align-text" (click)="sendMessage(item)">MENSAJE</div>
+            </ion-col>
+            <ion-col col-3 item-right class="align-text">
+              <ion-radio [disabled]="!enabledLoginButton" class="radio radio-inline radio-red" (click)="onSubmit(invitationForm,item.id)"></ion-radio>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="font-more-small text-gray-normal">Fluz otorgados: {{item.points}}</ion-col>
+            <ion-col col-3 class="font-more-small text-gray-normal">Nivel Fluz: {{item.level}}</ion-col>
+            <ion-col class="font-more-small text-gray-normal">Fecha creación: {{item.dateadd}}</ion-col>
+          </ion-row>    
+        </div>
+      </ion-grid>
+    </ion-row>
+  </div>
 </ion-content>
