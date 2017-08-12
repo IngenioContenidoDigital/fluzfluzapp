@@ -206,7 +206,7 @@ export class ConfirmPage {
     this.storage.get('userData').then((val) => {
       this.confirmService.getPhone(val.id).then( (data:any)=> {
         loader.dismiss();
-        if( data.phone == null || data.phone == undefined  ) {
+        if( data.phone == null || data.phone == undefined || data.phone == 0 || data.phone == '0' ) {
           this.showFormPhone = true;
         }
         else{
