@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
+import { Headers, Http, Response, URLSearchParams } from '@angular/http';
 import { WS_BASE } from './config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -11,6 +11,7 @@ import 'rxjs/Rx';
 export class LoginService {
   
   public response:any;
+  public data:any;
 
   constructor(private http: Http) { }
 
@@ -22,6 +23,16 @@ export class LoginService {
       .catch(this.handleError);
   }
 
+  public register(value) {
+    let bodyString = JSON.stringify(value);
+    console.log('bodyString');
+    console.log(bodyString);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    return this.http.post(WS_BASE+'creationCustomer', bodyString, headers)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+  
   private extractData(res: Response) {
     return res || { };
   }
@@ -58,5 +69,7 @@ export class LoginService {
         );
     });
   }
+  
+  
 }
 

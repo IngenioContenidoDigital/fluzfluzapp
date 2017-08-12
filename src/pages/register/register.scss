@@ -1,0 +1,7 @@
+page-register {
+  .ctn-background-white {
+    @extend .background-white;
+    border: 1px solid color($colors, gray-soft);
+    margin: 10px;
+  }
+}

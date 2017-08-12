@@ -42,6 +42,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   
   /* Login */
     import { LoginPage } from '../pages/login/login';
+    import { RegisterPage } from '../pages/register/register';
     import { ConfirmPage } from '../pages/confirm/confirm';
     import { ConfirmatedPage } from '../pages/confirmated/confirmated';
 
@@ -95,6 +96,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     NetworkTreePage,
     MorePage,
     LoginPage,
+    RegisterPage,
     ConfirmPage,
     ConfirmatedPage,
     SearchModalPage,
@@ -149,6 +151,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     NetworkTreePage,
     MorePage,
     LoginPage,
+    RegisterPage,
     ConfirmPage,
     ConfirmatedPage,
     SearchModalPage,

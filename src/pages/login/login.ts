@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform, ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Platform, ToastController, LoadingController, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { LoginService } from '../../providers/login-service';
@@ -7,6 +7,7 @@ import { PasscodeService } from '../../providers/passcode.service';
 import { ConfirmPage } from '../confirm/confirm';
 import { TabsService } from '../../providers/tabs.service';
 import { TabsPage } from '../tabs/tabs';
+import { RegisterPage } from '../register/register';
 import { BrowserTab } from '@ionic-native/browser-tab';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
@@ -36,7 +37,7 @@ export class LoginPage {
   public updateShowDataUser: EventEmitter<boolean> = new EventEmitter<boolean>();
   public showDataUser = true;
   
-  constructor( public passcodeService: PasscodeService, private iab: InAppBrowser, private browserTab: BrowserTab, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, private loginService:LoginService, public storage: Storage, public alertCtrl: AlertController, public tabsService: TabsService, public platform: Platform ) {
+  constructor( public modalCtrl: ModalController, public loadingController: LoadingController,  public passcodeService: PasscodeService, private iab: InAppBrowser, private browserTab: BrowserTab, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, private loginService:LoginService, public storage: Storage, public alertCtrl: AlertController, public tabsService: TabsService, public platform: Platform ) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
   	this.loginForm = formBuilder.group({
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
@@ -213,5 +214,12 @@ export class LoginPage {
     });
   }
   
+  openRegister(){
+    let registerModal = this.modalCtrl.create( RegisterPage );
+    registerModal.onDidDismiss(data => {
+    
+    });
+    registerModal.present();
+  }
 
 }

@@ -1,0 +1,111 @@
+<ion-header>
+
+  
+  <ion-navbar hideBackButton="true" hide-tabs>
+    <ion-buttons left>
+      <button ion-button icon-only>
+        <i class='fluz-fluz-fluz'></i>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>FORMULARIO DE REGISTRO<button ion-button clear class="invisibleButton"></button></ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only navPop>
+        <ion-icon name='close' ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding class="background-soft">
+  <div class="ctn-background-white">
+    <ion-grid  [formGroup]="registerForm" >
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Nombre (Necesario)</ion-label>
+          <ion-input type="text" (keyup)="validateInput($event)" [formControl]="registerForm.controls['firts_name']"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Apellido (Necesario)</ion-label>
+          <ion-input type="text" (keyup)="validateInput($event)" [formControl]="registerForm.controls['last_name']"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Nombre de usuario(Necesario)</ion-label>
+          <ion-input type="text" (keyup)="validateInput($event)" [formControl]="registerForm.controls['user_name']"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Correo electronico (Necesario)</ion-label>
+          <ion-input type="email" (keyup)="validateInput($event)" [formControl]="registerForm.controls['email']"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Teléfono móvil (Necesario)</ion-label>
+          <ion-input type="number" (keyup)="validateInput($event)" [formControl]="registerForm.controls['phone']"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Fecha de Nacimiento (Necesario)</ion-label>
+          <ion-input type="date" (keyup)="validateInput($event)" [formControl]="registerForm.controls['date']"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Dirección (Necesario)</ion-label>
+          <ion-input type="text" (keyup)="validateInput($event)" [formControl]="registerForm.controls['address']"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Complemento de dirección (Necesario)</ion-label>
+          <ion-input type="text" (keyup)="validateInput($event)" [formControl]="registerForm.controls['address2']"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Ciudad (Necesario)</ion-label>
+          <ion-select okText="OK" cancelText="Cancelar" (ionChange)="validateInput($event)" [formControl]="registerForm.controls['city']">
+            <ion-option *ngFor="let city of cities" [value] = "city.name">{{city.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Tipo identificación (Necesario)</ion-label>
+          <ion-select okText="OK" cancelText="Cancelar" (ionChange)="validateInput($event)" [formControl]="registerForm.controls['type_identification']">
+            <ion-option [value] = "0">Cédula de ciudadania</ion-option>
+            <ion-option [value] = "1">Nit</ion-option>
+            <ion-option [value] = "2">Cédula Extrangería</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Número de identificación (Necesario)</ion-label>
+          <ion-input type="number" (keyup)="validateInput($event)" [formControl]="registerForm.controls['number_identification']"></ion-input>
+        </ion-item>
+      </ion-row>
+    </ion-grid>
+  </div>
+    
+  <div class="spacer-25"></div>
+  <div class="spacer-25"></div>
+  <div class="spacer-25"></div>
+  
+</ion-content>
+
+
+
+<ion-footer>
+  <ion-toolbar color="primary" *ngIf="enabledSaveButton" (click)="send(registerForm.value)">
+    <ion-title>ENVIAR</ion-title>
+  </ion-toolbar>
+</ion-footer>
