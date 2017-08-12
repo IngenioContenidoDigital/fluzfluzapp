@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PersonalInformationService } from '../../providers/personalinformation.service';
 import { LoginService } from '../../providers/login-service';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-register',
@@ -14,7 +15,7 @@ export class RegisterPage {
   registerForm: FormGroup;
   public enabledSaveButton = false;
   public cities:any;
-  constructor( private loginService: LoginService, private personalInformationService: PersonalInformationService, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder) {
+  constructor( private alertCtrl: AlertController, private loginService: LoginService, private personalInformationService: PersonalInformationService, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder) {
     this.registerForm = formBuilder.group({
       'firts_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{5,100}$/i)])],
       'user_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{5,100}$/i)])],
@@ -64,6 +65,9 @@ export class RegisterPage {
           let response = JSON.parse(success._body);
           this.cities = response;
         }
+        else {
+          
+        }
       },
       error => {
         this.navCtrl.pop();
@@ -76,10 +80,30 @@ export class RegisterPage {
      	success => {
         if(success.status === 200) {
           let response = JSON.parse(success._body);
+          console.log('response');
+          console.log(response);
           if (response.success){
+            let alert = this.alertCtrl.create({
+              title: 'Registro completo',
+              subTitle: 'Tu contraseña es tu número de identificación.',
+              buttons: [{
+                text: 'Ok',
+                handler: () => {
+                  alert.dismiss();
+                  this.navCtrl.pop();
+                }
+              }]
+            });
+            alert.present();
             console.log('todo bien');
           }
           else {
+            let alert = this.alertCtrl.create({
+              title: 'Error:',
+              subTitle: 'Ha ocurrido un error en tu registro, por favor intenta de nuevo.',
+              buttons: ['OK']
+            });
+            alert.present();
             console.log('todo mal');
             console.log(response.error);
           }
@@ -87,8 +111,15 @@ export class RegisterPage {
       },
       //Si hay algun error en el servidor.
       error =>{ 
+        let alert = this.alertCtrl.create({
+          title: 'Error:',
+          subTitle: 'Ha ocurrido un error en tu registro, por favor intenta de nuevo.',
+          buttons: ['OK']
+        });
+        alert.present();
         console.log(error)
       }
     );
   }
+ 
 }
