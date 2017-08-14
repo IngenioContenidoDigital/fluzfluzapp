@@ -50,4 +50,25 @@ export class HomeService {
         );
     });
   }
+  
+  public getNotificationBarOrders(id_customer:any){
+    let url = WS_BASE + '/getNotificationBarOrders';
+    let params = new URLSearchParams();
+      params.set('id_customer', id_customer);
+    return new Promise(resolve => {
+      this.http.get(url, { search: params })
+        .map(res => res.json())
+        .subscribe(
+        	data => {
+            this.data = data;
+            resolve(this.data);
+          },
+          (err:Response) => {
+            this.data = '{"Error": "Error al traer el estado de ordenes."}';
+            resolve(this.data);
+          }
+        );
+    });
+  }
+  
 }

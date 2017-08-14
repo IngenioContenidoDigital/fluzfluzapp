@@ -3,6 +3,17 @@
 </ion-header>
 
 <ion-content no-padding>
+  <div class="ctn-notification background-primary" *ngIf="notificationBar.setVisible===true" [@slideIn]>
+    <ion-row>
+      <ion-col col-1></ion-col>
+      <ion-col col-10>
+        <ion-label text-wrap text-center class="font-more-small">{{this.notificationBar.text}}</ion-label>
+      </ion-col>
+      <ion-col col-1 (click)="closeNotification()">
+        <ion-icon name="md-close-circle" ></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
   <div class="ctn-user-data border-primary" *ngIf="showHomeUserData===true">
     <ion-grid>
       <ion-row>
@@ -41,8 +52,7 @@
       </ion-row>
     </ion-grid>
       
-  </div> 
-  
+  </div>
   
   <div class="card-background-page">
     <ion-slides [autoplay]="4000" [loop]="true"  [speed]="300" [pager]="true" *ngIf="countbannerData > 1">

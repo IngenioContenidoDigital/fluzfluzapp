@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef,  trigger, style, animate, state, transition } from '@angular/core';
 import { NavController, Slides, LoadingController, ModalController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { ConfirmPage } from '../confirm/confirm';
@@ -30,6 +30,20 @@ declare var google;
     CategoryService,
     SearchService,
     GoogleMaps
+  ],
+  animations: [
+    trigger('slideIn', [
+      state('*', style({ 'overflow-y': 'hidden' })),
+      state('void', style({ 'overflow-y': 'hidden' })),
+      transition('* => void', [
+          style({ height: '*' }),
+          animate(250, style({ height: 0 }))
+      ]),
+      transition('void => *', [
+          style({ height: '0' }),
+          animate(250, style({ height: '*' }))
+      ])
+    ])
   ]
 })
 export class HomePage {
@@ -54,6 +68,7 @@ export class HomePage {
   public devUbication:any = DEV_UBICATION;
   public homeCategories:any = SHOW_HOME_CATEGORY;
   public lastedFluz:any = SHOW_LASTED_FLUZ;
+  public notificationBar:any = [];
     
   @ViewChild(Slides) slides: Slides;
   
@@ -113,8 +128,38 @@ export class HomePage {
               this.getBannerData();
               this.getCategoryWithFatherData();
               this.getCategoryWithOutFatherData();
+              this.home.getNotificationBarOrders(val.id).then((data:any)=>{
+                let notificationData = data.result;
+                this.notificationBar.text = data.result;
+                switch (notificationData.alert){
+                  case 4: {
+                    this.notificationBar.setVisible = true;
+                    this.notificationBar.text = "Tu cuenta se encuentra actualmente cancelada.";
+                    break;
+                  }
+                  case 3: {
+                    this.notificationBar.setVisible = true;
+                    this.notificationBar.text = "Has hecho "+notificationData.orden+" de "+notificationData.quantity_max+" compras y te estas pasando de la fecha de vencimiento. Si no haces "+notificationData.quantity+" compras más hasta el ("+notificationData.dateCancel+") tu cuenta será cancelada!";
+                    break;
+                  }
+                  case 2: {
+                    this.notificationBar.setVisible = true;
+                    this.notificationBar.text = "Increíble! Tu compra mensual mínima se ha cumplido.";
+                    break;
+                  }
+                  case 1: {
+                    this.notificationBar.setVisible = true;
+                    this.notificationBar.text = "Has hecho "+notificationData.orden+" de "+notificationData.total+" compras. Necesitaras hacer "+notificationData.quantity+" compras más hasta el ("+notificationData.date+") para cubrir tu requisito mensual";
+                    break;
+                  }
+                  default: {
+                    this.notificationBar.setVisible = false;
+                    break;
+                  }
+                }
+              });
             }, 100 );
-            setTimeout(()=>{location
+            setTimeout(()=>{
               this.countbannerData = Object.keys(this.bannerData).length;
 //              this.inizializateMap();
               this.getPosition();
@@ -123,6 +168,10 @@ export class HomePage {
         }
       });
     });
+  }
+  
+  closeNotification(){
+    this.notificationBar.setVisible = false;
   }
    
   getUserData() {
@@ -199,9 +248,6 @@ export class HomePage {
       manufacturer: this.productChild,
       productFather: this.productChild
     });
-  }
-  
-  ngAfterViewInit() {
   }
   
   getPosition():any {
