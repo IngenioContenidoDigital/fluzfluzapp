@@ -25,10 +25,8 @@ export class LoginService {
 
   public register(value) {
     let bodyString = JSON.stringify(value);
-    console.log('bodyString');
-    console.log(bodyString);
     let headers = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.post(WS_BASE+'creationCustomer', bodyString, headers)
+    return this.http.post(WS_BASE+'createCustomer', bodyString, headers)
       .map(this.extractData)
       .catch(this.handleError);
   }
