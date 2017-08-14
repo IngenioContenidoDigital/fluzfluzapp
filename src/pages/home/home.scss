@@ -1,5 +1,17 @@
 page-home {
   @extend .font-family;
+  .ctn-notification{
+    .row {
+      align-items: center;
+    }
+    .label-md {
+      margin: 5px;
+      color: color($colors, white);
+    }
+    ion-icon {
+      color: color($colors, white);
+    }
+  }
   .ctn-user-data{
     background-color: color($colors, background-soft);
     .grid {
