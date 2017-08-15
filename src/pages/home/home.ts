@@ -69,6 +69,7 @@ export class HomePage {
   public homeCategories:any = SHOW_HOME_CATEGORY;
   public lastedFluz:any = SHOW_LASTED_FLUZ;
   public notificationBar:any = [];
+  public profileBar:any = true;
     
   @ViewChild(Slides) slides: Slides;
   
@@ -109,6 +110,7 @@ export class HomePage {
   }
    
   ionViewWillEnter(){
+    this.notificationBar.setVisible = false
     this.storage.get('userData').then((val) => {
       this.storage.get('userConfirm').then((userConfirm)=> {
         if ( val !== false ){
@@ -128,9 +130,15 @@ export class HomePage {
               this.getBannerData();
               this.getCategoryWithFatherData();
               this.getCategoryWithOutFatherData();
+            }, 100 );
+            setTimeout(()=>{
               this.home.getNotificationBarOrders(val.id).then((data:any)=>{
+//                console.log(data.result);
                 let notificationData = data.result;
-                this.notificationBar.text = data.result;
+                this.notificationBar = data.result;
+                if(this.notificationBar.profile_complete<100){
+                  this.profileBar = true;
+                }
                 switch (notificationData.alert){
                   case 4: {
                     this.notificationBar.setVisible = true;
@@ -158,8 +166,6 @@ export class HomePage {
                   }
                 }
               });
-            }, 100 );
-            setTimeout(()=>{
               this.countbannerData = Object.keys(this.bannerData).length;
 //              this.inizializateMap();
               this.getPosition();
@@ -172,6 +178,10 @@ export class HomePage {
   
   closeNotification(){
     this.notificationBar.setVisible = false;
+  }
+  
+  closeProfile() {
+    this.profileBar = false;
   }
    
   getUserData() {

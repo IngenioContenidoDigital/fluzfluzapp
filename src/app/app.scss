@@ -27,6 +27,7 @@
 .white         {color: color($colors, white);}
 .green         {color: color($colors, green);}
 .yellow        {color: color($colors, yellow);}
+.dorado        {color: color($colors, dorado);}
 
 /* Textos del tema*/
   
@@ -195,6 +196,12 @@ ion-icon {
 }
 .background-primary {
   background-color: color($colors, primary);
+}
+.background-dorado {
+  background-color: color($colors, dorado);
+}
+.background-green {
+  background-color: color($colors, green);
 }
 
 .padding-5 {

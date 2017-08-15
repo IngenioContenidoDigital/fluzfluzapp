@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response, URLSearchParams } from '@angular/http';
+import { Headers, Http, Response/*, URLSearchParams*/ } from '@angular/http';
 import { WS_BASE } from './config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';

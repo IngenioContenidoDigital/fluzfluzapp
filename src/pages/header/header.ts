@@ -4,7 +4,7 @@ import { ModalController, ViewController, LoadingController } from 'ionic-angula
 import { SearchModalPage } from '../search-modal/search-modal';
 import { CartPage } from '../cart/cart';
 import { SearchService } from '../../providers/search.service';
-import { TabsPage } from '../tabs/tabs';
+//import { TabsPage } from '../tabs/tabs';
 import { Storage } from '@ionic/storage';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 

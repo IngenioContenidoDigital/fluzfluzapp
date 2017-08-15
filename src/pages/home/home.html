@@ -3,13 +3,24 @@
 </ion-header>
 
 <ion-content no-padding>
-  <div class="ctn-notification background-primary" *ngIf="notificationBar.setVisible===true" [@slideIn]>
+  <div [ngClass]="( notificationBar.alert >= 3 ) ? 'ctn-notification background-primary' : ( notificationBar.alert == 2 ) ?  'ctn-notification background-green' : 'ctn-notification background-dorado' " *ngIf="notificationBar.setVisible===true" [@slideIn]>
     <ion-row>
       <ion-col col-1></ion-col>
       <ion-col col-10>
-        <ion-label text-wrap text-center class="font-more-small">{{this.notificationBar.text}}</ion-label>
+        <ion-label text-wrap text-center class="font-more-small">{{notificationBar.text}}</ion-label>
       </ion-col>
       <ion-col col-1 (click)="closeNotification()">
+        <ion-icon name="md-close-circle" ></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="ctn-notification background-primary" *ngIf="notificationBar.profile_complete < 100 && profileBar == true" [@slideIn]>
+    <ion-row>
+      <ion-col col-1></ion-col>
+      <ion-col col-10>
+        <ion-label text-wrap text-center class="font-more-small">Tu perfil de usuario está completado en un {{notificationBar.profile_complete}}%</ion-label>
+      </ion-col>
+      <ion-col col-1 (click)="closeProfile()">
         <ion-icon name="md-close-circle" ></ion-icon>
       </ion-col>
     </ion-row>

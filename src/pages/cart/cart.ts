@@ -5,7 +5,7 @@ import { CartService } from '../../providers/cart.service';
 import { CheckoutPage } from '../checkout/checkout';
 import { TabsService } from '../../providers/tabs.service';
 import { TabsPage } from '../tabs/tabs';
-import { HomePage } from '../home/home';
+//import { HomePage } from '../home/home';
 import { SHOW_SAVINGS } from '../../providers/config';
 import { PersonalInformationService } from '../../providers/personalinformation.service';
 
