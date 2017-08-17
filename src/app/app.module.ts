@@ -20,6 +20,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   import { CountryModalPage } from '../pages/country-modal/country-modal';
   import { MessageModalPage } from '../pages/message-modal/message-modal';
   import { MessagesModalPage } from '../pages/messages-modal/messages-modal';
+  import { ProfileModalPage } from '../pages/profile-modal/profile-modal';
   
   /* Basicas */
   import { StatusBar } from '@ionic-native/status-bar';
@@ -102,6 +103,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     SearchModalPage,
     CountryModalPage,
     MessageModalPage,
+    ProfileModalPage,
     InvitationThirdModalPage,
     ProductFatherPage,
     ProductModalPage,
@@ -157,6 +159,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     SearchModalPage,
     CountryModalPage,
     MessageModalPage,
+    ProfileModalPage,
     ProductFatherPage,
     ProductModalPage,
     ProductChildPage,
