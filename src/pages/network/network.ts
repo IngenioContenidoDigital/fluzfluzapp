@@ -115,14 +115,10 @@ export class NetworkPage {
     this.storage.get('userData').then((val) => {
       if( val != null && val != '' && val != undefined ){
         this.countActivity = Object.keys(this.activityNetwork).length;
-        console.log('this.countActivity');
-        console.log(this.countActivity);
         this.network.getDataAccount(val.id, 1, limit, this.countActivity).then(
           (data:any) => {
             var data = JSON.parse(data);
             this.totalActivity = data.total;
-            console.log('this.totalActivity');
-            console.log(this.totalActivity);
             var result = data.result;
             for (let i in result) {
               this.activityNetwork.push(result[i]);
