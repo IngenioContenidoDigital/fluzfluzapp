@@ -75,7 +75,7 @@ export class NetworkPage {
     this.seeMoreMyValue = 5;
     this.countInvitation = 2;
     this.countMy = 0;
-    if( ( Object.keys(this.activityNetwork).length ) > 5 ){
+    if( ( Object.keys(this.activityNetwork).length ) >= 5 ){
       this.activityNetwork = [];
     }
     if( ( Object.keys(this.myNetwork).length ) > 5 ){
@@ -123,6 +123,7 @@ export class NetworkPage {
             for (let i in result) {
               this.activityNetwork.push(result[i]);
             }
+            setTimeout(()=>{ this.countActivity = Object.keys(this.activityNetwork).length; }, 100);
           }
         );
       }

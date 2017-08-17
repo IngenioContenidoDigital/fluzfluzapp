@@ -55,12 +55,12 @@
   <ion-label class="float-label-gray">ACTIVIDAD</ion-label>
   <div class="ctn-background-white">
     <ion-grid>
-      <ion-row *ngIf="totalActivity < 1">
+      <ion-row *ngIf="countActivity < 1">
         <ion-col>
           <ion-label class="font-small text-dark font-semi-bold">Aún no tienes actividad en tu Network</ion-label>
         </ion-col>
       </ion-row>
-      <div *ngIf="totalActivity > 0">
+      <div *ngIf="countActivity > 0">
         <ion-row  [@slideIn] *ngFor="let item of activityNetwork"  class="border-b">
           <ion-col>
             <div class="image-product" (click)="openProduct(item)">
@@ -75,7 +75,7 @@
       </div>
     </ion-grid>
   </div>
-  <div class="padding-h-10" *ngIf="totalActivity > 0">
+  <div class="padding-h-10" *ngIf="countActivity > 0">
     <button ion-button color="primary" block (click)="seeMoreActivity()">VER MÁS</button>
   </div>
 <!--  <ion-label class="float-label-gray">MI INVITACIÓN</ion-label>-->
