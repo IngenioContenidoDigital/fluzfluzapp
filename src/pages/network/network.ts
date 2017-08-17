@@ -43,7 +43,7 @@ export class NetworkPage {
   public seeMoreActivityValue:any;
   public seeMoreMyValue:any;
   public countInvitation:any;
-  public countActivity:any;
+  public countActivity:any = 0;
   public countMy:any;
   public enabledLoginButton:boolean;
   public contPending:number = 0;
@@ -86,11 +86,11 @@ export class NetworkPage {
       this.contConfirm = 0;
     }
     setTimeout(()=>{ 
+      this.countActivity = 0;
       this.getActivityNetworkData( this.seeMoreActivityValue );
       this.getMyNetworkData( this.seeMoreMyValue );
       this.getMyInvitationData(this.countInvitation);
     }, 200);
-    
   }
   
   updateShowDataUser(value:any){
@@ -115,6 +115,8 @@ export class NetworkPage {
     this.storage.get('userData').then((val) => {
       if( val != null && val != '' && val != undefined ){
         this.countActivity = Object.keys(this.activityNetwork).length;
+        console.log('this.countActivity');
+        console.log(this.countActivity);
         this.network.getDataAccount(val.id, 1, limit, this.countActivity).then(
           (data:any) => {
             var data = JSON.parse(data);
