@@ -12,6 +12,7 @@ export class ProfileModalPage {
   public customer:any = [];
   public invitated:any = [];
   public data:any;
+  public showInvitation:any;
   
   constructor(  public storage: Storage, public navCtrl: NavController, public navParams: NavParams, public myAccount: MyAccountService ) {
     this.data = navParams.get('customer');

@@ -48,8 +48,8 @@
     </ion-row>
     <div class="ctn-background-white">
       <ion-grid>
-        <div  class="border-b" *ngIf="invitated.total > 0">
-          <div *ngFor="let item of invitated.result">
+        <div *ngIf="invitated.total > 0">
+          <div class="border-b" *ngFor="let item of invitated.result">
             <ion-row>
               <ion-col col-2>
                 <div class="image-person">
@@ -70,11 +70,32 @@
             </ion-row>    
           </div>
         </div>
-        <ion-row  *ngIf="invitated.total < 2">
-          <ion-col>
-            <ion-label class="font-small text-dark font-semi-bold">invitacion</ion-label>
-          </ion-col>
-        </ion-row>
+        <!--<ion-row  *ngIf="invitated.total < 2">-->
+        <div>
+          <ion-row (click)="showInvitation()">
+            <ion-col text-center>
+              <ion-label class="font-small text-dark font-semi-bold ctn-btn-user">Invitar a nombre de {{customer.username}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <form class="form-invitation">
+            <ion-row>
+              <ion-item col-6>
+                <ion-label floating>Nombre</ion-label>
+                <ion-input type="text" required></ion-input>
+              </ion-item>
+              <ion-item col-6>
+                <ion-label floating>Apellido</ion-label>
+                <ion-input type="text" required></ion-input>
+              </ion-item>
+            </ion-row>
+            <ion-row>
+              <ion-item col-12>
+                <ion-label floating>Correo</ion-label>
+                <ion-input type="email" required></ion-input>
+              </ion-item>
+            </ion-row>
+          </form>
+        </div>
       </ion-grid>
     </div>
   </div>
