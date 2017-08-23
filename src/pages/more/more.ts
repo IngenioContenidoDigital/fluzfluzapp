@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { TransferFluzPage } from '../transferfluz/transferfluz';
 import { PersonalInformationPage } from '../personalinformation/personalinformation';
@@ -32,7 +32,7 @@ export class MorePage {
   public showSavings:any = SHOW_SAVINGS;
   public lastedFluz:any = SHOW_LASTED_FLUZ;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public myAccount: MyAccountService, private loginService:LoginService, public messagesService: MessagesService) {
+  constructor( public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public myAccount: MyAccountService, private loginService:LoginService, public messagesService: MessagesService) {
   }
 
   ionViewWillEnter(){
@@ -55,10 +55,15 @@ export class MorePage {
   }
   
   logout(){
+    let loader = this.loadingController.create({
+      content: "Cerrando sesión..."
+    });
+    loader.present();
     this.loginService.logout().then(
       (data:boolean) => {
+        loader.dismiss();
         if ( data ){
-          this.storage.set('userData', false);          
+          this.storage.set('userData', false);
         }
       }
     );

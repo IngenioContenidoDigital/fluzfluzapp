@@ -12,6 +12,7 @@ import { SHOW_REFINE_BUTTONS } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
 import { ProductChildPage } from '../product-child/product-child';
 import { ProductFatherPage } from '../product-father/product-father';
+import { ProfileModalPage } from '../profile-modal/profile-modal';
 import { SearchService } from '../../providers/search.service';
 
 @Component({
@@ -296,5 +297,13 @@ export class NetworkPage {
         });        
       }
     });
+  }
+  
+  openCustomer(item:any){
+//    console.log(item);
+    let messageModal = this.modalCtrl.create( ProfileModalPage, { customer: item } );
+    messageModal.onDidDismiss(data => {
+    });
+    messageModal.present();
   }
 }

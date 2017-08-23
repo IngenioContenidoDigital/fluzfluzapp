@@ -1,0 +1,68 @@
+page-profile-modal {
+  @extend .font-family;
+  .ctn-img {
+    max-height: 80px;
+    padding-top: 30px;
+    text-align: center;
+    img {
+      width: 100px;
+      border: 5px solid color($colors, white);
+      border-radius: 50%;
+    }
+  }
+  .ctn-info-profile { 
+    padding: 0px;
+    .name-profile {
+      margin: 5px;
+    }
+    .ctn-btn-user {
+      @extend .text-primary;
+      @extend .font-more-small;
+      text-align: center;
+      display: inline-block;
+      width: 90%;
+      border: 1px solid;
+      padding: 5px;
+    }
+  }
+  .ctn-ivited {
+    .float-label-gray {
+      @extend .text-gray-normal;
+      @extend .font-more-small;
+      padding: 0 23px;
+      margin: 25px 0 0 0;
+    }
+  }
+  .ctn-background-white {
+    @extend .background-white;
+    border: 1px solid color($colors, gray-soft);
+    margin: 10px;
+    .col {
+      padding: 5px;
+      .image-person {
+        max-width: 80%;
+      }
+      .label{
+        margin: 5px 0px;
+      }
+    }
+    .ctn-btn-user {
+      @extend .text-primary;
+      @extend .font-more-small;
+      text-align: center;
+      display: inline-block;
+      width: 90%;
+      border: 1px solid;
+      padding: 3px;
+    }
+    .text-primary {
+      margin-right: 0px;
+    }
+    .font-extra-small {
+      margin: 0;
+    }
+    .description {
+      white-space: normal;
+    }
+  }
+}

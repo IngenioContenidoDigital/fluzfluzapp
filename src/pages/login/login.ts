@@ -110,8 +110,13 @@ export class LoginPage {
   
   //Hace el login en la aplicación
   login(valor:any):void {
+    let loader = this.loadingController.create({
+      content: "Autenticando..."
+    });
+    loader.present();
   	this.loginService.postLogin(valor).subscribe(
      	success => {
+        loader.dismiss();
         if(success.status === 200) {
           
           this.userData = JSON.parse(success._body);
@@ -173,7 +178,8 @@ export class LoginPage {
         }
       },
       //Si hay algun error en el servidor.
-      error =>{ 
+      error =>{
+        loader.dismiss();
         console.log(error)
       }
     );
