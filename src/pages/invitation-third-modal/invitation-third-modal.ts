@@ -34,79 +34,40 @@ import { MessageModalPage } from '../message-modal/message-modal';
 export class InvitationThirdModalPage {
   
   public enabledLoginButton:boolean;
-  public treeNetwork:any = [];
+  public customer:any = [];
   public countMy:any;
+  public enabledInvitationButton:any = false;
+  public showInvitationForm:any = false;
   invitationForm: FormGroup;  
 
   constructor(public loadingController: LoadingController, public navCtrl: NavController,formBuilder: FormBuilder,public modalCtrl: ModalController, public myAccount: MyAccountService,public toastCtrl: ToastController, public network: NetworkService, public storage: Storage, public navParams: NavParams, public viewCtrl: ViewController) {
     this.invitationForm = formBuilder.group({
+      'firtsname' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,100}$/i)])],
+      'lastname' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,100}$/i)])],
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
-      'name': [null, Validators.required],
-      'lastname': [null, Validators.required]
     });
   }
 
   ionViewDidLoad() {
+    this.getUsersWithInvitations();
+  }
+  
+  getUsersWithInvitations() {
+    let loader = this.loadingController.create({
+      content: "Cargando..."
+    });
+    loader.present();
     this.storage.get('userData').then((val) => {
       if( val != null && val != '' && val != undefined ){
-        this.countMy = Object.keys(this.treeNetwork).length;
-        this.network.getDataAccount(val.id, 4, 8, this.countMy).then(
+        this.network.findInvitation(val.id).then(
           (data:any) => {
+            loader.dismiss();
             var data = JSON.parse(data);
-            for (let i in data) {
-              this.treeNetwork.push(data[i]);
-            }
+            this.customer = data;
           }
         );
       }
     });
-  }
-  
-  validateInputLogin(event:any) {
-    if(this.invitationForm.controls['email'].valid && this.invitationForm.controls['name'].valid) {
-      this.enabledLoginButton = true;
-    }
-    else {
-      this.enabledLoginButton = false;
-    }      
-  }
-  
-  onSubmit({value},value2:{}) {
-    let loader = this.loadingController.create({
-      content: "Enviando..."
-    });
-    loader.present();
-    if (this.invitationForm.controls['email'].valid && this.invitationForm.controls['name'].valid && this.invitationForm.controls['lastname'].valid) {
-      this.storage.get('userId').then((val) => {
-        if( val != null && val != '' && value != '' && val != undefined ){
-          let obj = JSON.stringify(value);
-          this.network.getDataAccount(value2, 5, 0, 0, obj).then(
-            (data:any) => {
-              loader.dismiss();
-              if(data == "Invitacion Erronea: Este Mail ya Existe"){
-                let toast = this.toastCtrl.create({
-                  message: data,
-                  position: 'middle',
-                  showCloseButton: true,
-                  closeButtonText: 'Ok'
-                });
-                toast.present();
-              }
-              else{
-                let toast = this.toastCtrl.create({
-                  message: data,
-                  position: 'middle',
-                  showCloseButton: true,
-                  closeButtonText: 'Ok'
-                });
-                toast.present();  
-              }
-              this.viewCtrl.dismiss();
-            }
-          );
-        }
-      });
-    }
   }
   
   sendMessage(item:any){
@@ -116,4 +77,71 @@ export class InvitationThirdModalPage {
     messageModal.present();
   }
   
+  showInvitation(item:any) {
+    this.showInvitationForm = this.showInvitationForm == item.id ? false : item.id;
+    this.invitationForm.reset();
+  }
+  
+  validateInput(event:any) {
+    if (
+      this.invitationForm.controls['firtsname'].valid &&
+      this.invitationForm.controls['lastname'].valid &&
+      this.invitationForm.controls['email'].valid
+    ) {
+      this.enabledInvitationButton = true;
+    } 
+    else {
+      this.enabledInvitationButton = false;
+    }
+  }
+  
+  sendInvitation( item:any, formData:any ){
+    let loader = this.loadingController.create({
+      content: "Enviando..."
+    });
+    loader.present();
+    if (this.invitationForm.controls['email'].valid && this.invitationForm.controls['firtsname'].valid && this.invitationForm.controls['lastname'].valid) {
+      this.network.sendInvitation(item.id, formData).then(
+        (data:any) => {
+          loader.dismiss();
+          let d = JSON.parse(data);
+          let errorMessage = '';
+          if( d.error < 4 ){
+            setTimeout(()=>{ this.getUsersWithInvitations(); }, 500);
+            this.showInvitation(false);
+          }
+          if(d.error == '0'){
+            errorMessage = 'Invitación enviada correctamente.';
+          }
+          else {
+            switch (d.error){
+              case '1': {
+                errorMessage = 'Este Fluzzer no tiene invitaciones disponibles.';
+                break;
+              }
+              case '2': {
+                errorMessage = 'Nombre o apellido incorrecto.';
+                break;
+              }
+              case '3': {
+                errorMessage = 'El correo ya se encuentra en uso.';
+                break;
+              }
+              default: {
+                errorMessage = 'Ha ocurrido un error, intenta de nuevo.';
+                break;
+              }
+            }
+          }
+          let toast = this.toastCtrl.create({
+            message: errorMessage,
+            position: 'middle',
+            duration: 2000,
+          });
+          toast.present();
+        }
+      );
+    }
+  }
 }
+        

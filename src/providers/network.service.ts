@@ -61,4 +61,51 @@ export class NetworkService {
           );
       });
   }
+  
+  public sendInvitation(id_customer:any, formData:any) {
+    this._url = WS_BASE+'sendInvitation';
+    let params = new URLSearchParams();
+      params.set('id_customer', id_customer);
+      params.set('email', formData.email);
+      params.set('firtsname', formData.firtsname);
+      params.set('lastname', formData.lastname);
+      return new Promise(resolve => {
+        this.http.get(this._url, { search: params })
+          .map(res => res.json())
+          .subscribe(
+            data => {
+              this.userData = JSON.stringify(data.result);
+              resolve( this.userData );
+            },
+            (err:Response) => {
+              this.userData  = err.json();
+              resolve(this.userData );
+            }
+          );
+      });
+  }
+  
+  public findInvitation(id_customer:any) {
+    this._url = WS_BASE+'findInvitation';
+    let params = new URLSearchParams();
+      params.set('id_customer', id_customer);
+      return new Promise(resolve => {
+        this.http.get(this._url, { search: params })
+          .map(res => res.json())
+          .subscribe(
+            data => {
+              this.userData = JSON.stringify(data.result);
+              resolve( this.userData );
+            },
+            (err:Response) => {
+              this.userData  = err.json();
+              resolve(this.userData );
+            }
+          );
+      });
+  }
+  
+  
+  
+  
 }

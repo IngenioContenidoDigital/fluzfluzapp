@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.fluzfluz141172" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ionicframework.fluzfluz141172" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>FluzFluz</name>
     <description>Un club de compras.</description>
     <author email="contacto@ingeniocontenido.co" href="http://fluzfluz.co/">Ingenio Contenido</author>
