@@ -71,4 +71,24 @@ export class MyAccountService {
           );
       });
   }
+  
+  public getActivityNetworkProfile(id_customer:any) {
+    let _url = WS_BASE+'getActivityNetworkProfile';
+    let params = new URLSearchParams();
+      params.set('id_customer', id_customer);
+      return new Promise(resolve => {
+        this.http.get(_url, { search: params })
+          .map(res => res.json())
+          .subscribe(
+            data => {
+              this.userData = JSON.stringify(data);
+              resolve( this.userData );
+            },
+            (err:Response) => {
+              this.userData  = err.json();
+              resolve(this.userData );
+            }
+          );
+      });
+  }
 }

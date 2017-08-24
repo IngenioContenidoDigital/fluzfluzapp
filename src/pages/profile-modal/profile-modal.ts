@@ -1,27 +1,31 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { ModalController, ViewController, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { Storage } from '@ionic/storage';
 import { ToastController } from 'ionic-angular';
 import { NetworkService } from '../../providers/network.service';
+import { SearchService } from '../../providers/search.service';
+import { ProductChildPage } from '../product-child/product-child';
+import { ProductFatherPage } from '../product-father/product-father';
+import { MessageModalPage } from '../message-modal/message-modal';
 
 @Component({
   selector: 'page-profile-modal',
   templateUrl: 'profile-modal.html',
-  providers: [MyAccountService, NetworkService]
+  providers: [MyAccountService, NetworkService, SearchService]
 })
 export class ProfileModalPage {
   invitationForm: FormGroup;
   public customer:any = [];
   public invitated:any = [];
+  public activity:any = [];
   public data:any;
   public enabledInvitationButton = false;
   public showInvitationForm:any = false;
   
-  constructor( public toastCtrl: ToastController, public network: NetworkService, public loadingController: LoadingController, public storage: Storage, public navCtrl: NavController, public navParams: NavParams, public myAccount: MyAccountService, formBuilder: FormBuilder ) {
+  constructor( public modalCtrl: ModalController, public viewCtrl: ViewController, public searchService: SearchService, public toastCtrl: ToastController, public network: NetworkService, public loadingController: LoadingController, public storage: Storage, public navCtrl: NavController, public navParams: NavParams, public myAccount: MyAccountService, formBuilder: FormBuilder ) {
     this.data = navParams.get('customer');
-    
     this.invitationForm = formBuilder.group({
       'firtsname' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,100}$/i)])],
       'lastname' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,100}$/i)])],
@@ -33,6 +37,7 @@ export class ProfileModalPage {
     setTimeout(()=>{
       this.getCustomerData();
       this.getInvitationData();
+      this.getActivityNetwork();
     }, 500);
   }
   
@@ -64,9 +69,22 @@ export class ProfileModalPage {
     );
   }
   
+  getActivityNetwork(){
+    let loader = this.loadingController.create({
+      content: "Cargando..."
+    });
+    loader.present();
+    this.myAccount.getActivityNetworkProfile( this.data.id ).then(
+      (data:any)=>{
+        loader.dismiss();
+        this.activity = JSON.parse(data);
+      }
+    );
+  }
+  
   toggleInvitation() {
-    this.showInvitationForm = this.showInvitationForm ? false : true;
     this.invitationForm.reset();
+    setTimeout(()=>{ this.showInvitationForm = this.showInvitationForm ? false : true; }, 500);
   }
   
   validateInput(event:any) {
@@ -134,5 +152,51 @@ export class ProfileModalPage {
     
   }
   
+  openProduct(item:any){
+    let manufacturer:any = {};
+    manufacturer.image_manufacturer = item.img;
+    manufacturer.m_name = item.name_product;
+    manufacturer.m_id = item.id_manufacturer;
+    
+    this.searchService.search( item.id_manufacturer, '2' ).then((data:any) => {
+      if(data.total == 1){
+        let productFather:any = data.result['0'];
+        this.navCtrl.push(ProductChildPage,{
+          manufacturer: manufacturer,
+          productFather: productFather
+        });
+      }
+      else {
+        this.navCtrl.push(ProductFatherPage,{
+          manufacturer: manufacturer
+        });        
+      }
+    });
+  }
+  
+  dismiss(send:any = false) {
+    this.viewCtrl.dismiss( { send: send } );
+  }
+  
+  openCustomer(item:any){
+    if(item.status == "Confirmado"){
+      this.dismiss(item);
+    }
+    else if (item.status == "Pendiente") {
+      let toast = this.toastCtrl.create({
+        message: "Este Fluzzer aún no ha aceptado la invitación.",
+        position: 'middle',
+        duration: 2000,
+      });
+      toast.present();
+    }
+  }
+  
+  sendMessage(item:any){
+    let messageModal = this.modalCtrl.create( MessageModalPage, { destiny: item } );
+    messageModal.onDidDismiss(data => {
+    });
+    messageModal.present();
+  }
 
 }

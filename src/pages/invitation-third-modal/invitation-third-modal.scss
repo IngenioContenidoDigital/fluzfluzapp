@@ -1,13 +1,42 @@
 page-invitation-third-modal {
-    
-    .ctn-btn-user {
-        @extend .text-primary;
-        @extend .font-more-small;
-        text-align: center;
-        display: inline-block;
-        width: 90%;
-        border: 1px solid;
-        padding: 3px;
+  .ctn-background-white {
+    .image-person {
+      max-width: 80%;
+    }
+    @extend .background-white;
+    border: 1px solid color($colors, gray-soft);
+    margin: 10px;
+    .col {
+      padding: 5px;
+      .label{
+        margin: 5px 0px;
       }
-    .align-text{text-align: center; margin-top: 12px;}
+    }
+    .text-primary {
+      margin-right: 0px;
+    }
+    .font-extra-small {
+      margin: 0;
+    }
+    .description {
+      white-space: normal;
+    }
+    .ctn-btn-user {
+      @extend .text-primary;
+      @extend .font-more-small;
+      text-align: center;
+      display: inline-block;
+      width: 90%;
+      border: 1px solid;
+      padding: 3px;
+    }
+    .ctn-btn-invitation{
+      @extend .text-primary;
+      @extend .font-more-small;
+      text-align: center;
+      display: inline-block;
+      width: 100%;
+      padding: 3px;
+    }
+  }
 }

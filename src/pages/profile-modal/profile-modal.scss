@@ -55,6 +55,14 @@ page-profile-modal {
       border: 1px solid;
       padding: 3px;
     }
+    .ctn-btn-invitation{
+      @extend .text-primary;
+      @extend .font-more-small;
+      text-align: center;
+      display: inline-block;
+      width: 100%;
+      padding: 3px;
+    }
     .text-primary {
       margin-right: 0px;
     }
@@ -65,4 +73,12 @@ page-profile-modal {
       white-space: normal;
     }
   }
+  
+  .float-label-gray {
+    @extend .text-gray-normal;
+    @extend .font-more-small;
+    padding: 0 23px;
+    margin: 25px 0 0 0;
+  }
+  
 }

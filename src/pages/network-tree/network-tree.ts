@@ -141,8 +141,6 @@ export class NetworkTreePage {
   }
   
   ionViewWillEnter() {
-    console.log('ionViewDidLoad NetworkTreePage');
-    console.log(this.tree);
     let cadena = {
      "name": "flare",
      "children": [

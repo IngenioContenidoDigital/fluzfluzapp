@@ -26,7 +26,6 @@ export class MessagesPage {
       this.messages.getConversations(val.id).then(
         (data:any) => {
           this.conversations = data;
-          console.log(this.conversations);
         }
       );
     });

@@ -78,8 +78,8 @@ export class InvitationThirdModalPage {
   }
   
   showInvitation(item:any) {
-    this.showInvitationForm = this.showInvitationForm == item.id ? false : item.id;
     this.invitationForm.reset();
+    setTimeout(()=>{ this.showInvitationForm = this.showInvitationForm == item.id ? false : item.id;  }, 200);
   }
   
   validateInput(event:any) {

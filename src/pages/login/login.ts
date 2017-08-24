@@ -120,7 +120,7 @@ export class LoginPage {
         if(success.status === 200) {
           
           this.userData = JSON.parse(success._body);
-          console.log(this.userData.id);
+//          console.log(this.userData.id);
           // Establece el passcode en true or false.
           this.passcodeService.getPasscode(this.userData.id).then((data:any)=>{
             let response = data['0'];

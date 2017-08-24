@@ -299,10 +299,18 @@ export class NetworkPage {
     });
   }
   
+  openCustomerId(item:any){
+    let data = item;
+    data.id = item.id_customer;
+    setTimeout(()=>{ this.openCustomer(data); }, 100);
+  }
+  
   openCustomer(item:any){
-//    console.log(item);
     let messageModal = this.modalCtrl.create( ProfileModalPage, { customer: item } );
     messageModal.onDidDismiss(data => {
+      if(data){
+        this.openCustomer(data.send);
+      }
     });
     messageModal.present();
   }

@@ -52,7 +52,7 @@
       </ion-row>
     </ion-grid>
   </div> 
-  <ion-label class="float-label-gray">ACTIVIDAD</ion-label>
+  <ion-label class="float-label-gray">ACTIVIDAD RECIENTE</ion-label>
   <div class="ctn-background-white">
     <ion-grid>
       <ion-row *ngIf="countActivity < 1">
@@ -68,7 +68,7 @@
             </div>
           </ion-col>
           <ion-col col-8>
-            <ion-label class="font-small text-dark font-semi-bold">{{item.name_customer}}</ion-label>
+            <ion-label class="font-small text-dark font-semi-bold" (click)="openCustomerId(item)">{{item.name_customer}}</ion-label>
             <ion-label class="font-more-small text-gray-normal font-semi-bold description">Ha comprado <span class="text-primary" (click)="openProduct(item)">{{item.name_product}}</span> y generado {{item.credits}} Fluz</ion-label>
           </ion-col>
         </ion-row>
@@ -90,17 +90,14 @@
         <div *ngIf="item.contador == 2">    
             <ion-row>
               <ion-col col-2>
-                <div class="image-person">
+                <div class="image-person" (click)="openCustomer(item)">
                   <img src="{{item.img}}"  onerror="this.src='assets/img/user-red.png';">          
                 </div>
               </ion-col>
               <ion-col col-4 class="border-b">
-                <ion-label class="font-small text-dark font-semi-bold">{{item.name}}</ion-label>
+                <ion-label class="font-small text-dark font-semi-bold" (click)="openCustomer(item)">{{item.name}}</ion-label>
               </ion-col>
-              <ion-col col-6 item-right class="border-b">
-                <div *ngIf="item.status=='Pendiente'">
-                    <p class="font-more-small text-gray-normal text-pend-sty">Estado: <span class="status-pending">{{item.status}}</span></p>
-                </div>
+              <ion-col col-6 item-right text-right class="border-b">
                 <div *ngIf="item.status=='Confirmado'">
                     <div class="ctn-btn-user" (click)="sendMessage(item)">MENSAJE</div>
                     <div class="font-more-small text-gray-normal text-conf-sty">Estado: <span class="status-confirm">{{item.status}}</span></div>
@@ -110,7 +107,7 @@
             <ion-row>
               <ion-col class="font-more-small text-gray-normal">Fluz otorgados: {{item.points}}</ion-col>
               <ion-col col-3 class="font-more-small text-gray-normal">Nivel Fluz: {{item.level}}</ion-col>
-              <ion-col class="font-more-small text-gray-normal">Fecha creación: {{item.dateadd}}</ion-col>
+              <ion-col text-right class="font-more-small text-gray-normal">Fecha creación: {{item.dateadd}}</ion-col>
             </ion-row> 
         </div>
         <div *ngIf="item.contador == 1">    
@@ -124,10 +121,7 @@
                 <ion-col col-4 class="border-b">
                   <ion-label class="font-small text-dark font-semi-bold">{{item.name}}</ion-label>
                 </ion-col>
-                <ion-col col-6 item-right class="border-b">
-                  <div *ngIf="item.status=='Pendiente'">
-                      <p class="font-more-small text-gray-normal text-pend-sty">Estado: <span class="status-pending">{{item.status}}</span></p>
-                  </div>
+                <ion-col col-6 item-right text-right class="border-b">
                   <div *ngIf="item.status=='Confirmado'">
                       <div class="ctn-btn-user" (click)="sendMessage(item)">MENSAJE</div>
                       <div class="font-more-small text-gray-normal text-conf-sty">Estado: <span class="status-confirm">{{item.status}}</span></div>
@@ -137,7 +131,7 @@
               <ion-row>
                 <ion-col class="font-more-small text-gray-normal">Fluz otorgados: {{item.points}}</ion-col>
                 <ion-col col-3 class="font-more-small text-gray-normal">Nivel Fluz: {{item.level}}</ion-col>
-                <ion-col class="font-more-small text-gray-normal">Fecha creación: {{item.dateadd}}</ion-col>
+                <ion-col text-right class="font-more-small text-gray-normal">Fecha creación: {{item.dateadd}}</ion-col>
               </ion-row> 
             </div>  
             <div>
@@ -245,7 +239,7 @@
           <ion-col col-4 class="border-b">
             <ion-label class="font-small text-dark font-semi-bold capitalize" (click)="openCustomer(item)">{{item.username}}</ion-label>
           </ion-col>
-          <ion-col col-6 item-right class="border-b">
+          <ion-col col-6 item-right text-right  class="border-b">
             <div class="ctn-btn-user" (click)="sendMessage(item)">MENSAJE</div>
             <div class="font-more-small text-gray-normal margin-t-5">Estado: <span class="status-confirm">{{item.status}}</span></div>
           </ion-col>
@@ -253,7 +247,7 @@
         <ion-row>
           <ion-col class="font-more-small text-gray-normal">Fluz otorgados: {{item.points}}</ion-col>
           <ion-col col-3 class="font-more-small text-gray-normal">Nivel Fluz: {{item.level}}</ion-col>
-          <ion-col class="font-more-small text-gray-normal">Fecha creación: {{item.dateadd}}</ion-col>
+          <ion-col text-right  class="font-more-small text-gray-normal">Fecha creación: {{item.dateadd}}</ion-col>
         </ion-row>    
       </div>
     </ion-grid>
