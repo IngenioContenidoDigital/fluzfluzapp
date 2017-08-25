@@ -158,10 +158,7 @@ export class NetworkPage {
           this.countMy = Object.keys(this.myInvitation).length;
           this.network.getDataAccount(val.id, 3, limit, this.countMy).then(
           (data:any) => {
-              //this.myInvitation = JSON.parse(data);
-              //console.log( this.myInvitation );
             var data = JSON.parse(data);
-//            console.log(data);
             if(data == ''){
                 this.myInvitation.push(data);
             }
@@ -169,11 +166,9 @@ export class NetworkPage {
                 for (let i in data) {
                     if(data[i]['status']=='Pendiente'){
                         this.contPending += 1;
-//                        console.log(this.contPending);
                     }
                     else if(data[i]['status']=='Confirmado'){
                         this.contConfirm += 1;
-//                        console.log(this.contConfirm);
                     }
                     this.myInvitation.push(data[i]);
                 }
@@ -199,7 +194,6 @@ export class NetworkPage {
           this.storage.get('userId').then((val) => {
             if( val != null && val != '' && value != '' && val != undefined ){
               let obj = JSON.stringify(value);
-//              console.log(obj);
               let loader = this.loadingController.create({
                 content: "Enviando..."
               });
@@ -266,8 +260,6 @@ export class NetworkPage {
           (data:any) => {
             loader.dismiss();
             var data = JSON.parse(data);
-//            console.log("arbolito:");
-//            console.log(data);
             this.navCtrl.push( NetworkTreePage,{
               tree: data
             });
