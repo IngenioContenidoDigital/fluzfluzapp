@@ -1,18 +1,18 @@
 page-tabs {
-  .tabs-md .tabbar {
+  .tabs .tabbar {
     background-color: color($colors, primary);
   }
-  .tabs-md .tab-button,
-  .tabs-md .tab-button-icon {
+  .tabs .tab-button,
+  .tabs .tab-button-icon {
     @extend .gray-soft;
   }
-  .tabs-md .tab-button[aria-selected=true],
-  .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
+  .tabs .tab-button[aria-selected=true],
+  .tabs .tab-button[aria-selected=true] .tab-button-icon {
     @extend .white;
     opacity: 1;
   }
   
-  .tabs-md .tab-button-text{
+  .tabs .tab-button-text{
     @extend .font-family;
     @include font-size(9px);
   }

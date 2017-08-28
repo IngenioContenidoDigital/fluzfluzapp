@@ -11,10 +11,10 @@ page-paymentfluz {
       padding: 0 10px;
       border-bottom: 1px solid color($colors, gray-soft);
     }
-    .range-md.range-has-pin{
+    .range.range-has-pin{
       padding: 0 8px;
     }
-    .range-md {
+    .range {
       padding: 0 8px;
     }
     ion-input{
@@ -27,15 +27,15 @@ page-paymentfluz {
     }
     .cart-values {
       margin-top: 1px;
-      .list-md {
+      .list {
         margin: 0px;
       }
-      .list-md .item-block .item-inner {
+      .list .item-block .item-inner {
         border-bottom: none;
       }
       ion-list {
         width: 100%;
-        .item-md {
+        .item {
           padding-left: 13px;
         }
       }

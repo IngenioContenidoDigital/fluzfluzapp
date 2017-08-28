@@ -4,7 +4,7 @@ page-home {
     .row {
       align-items: center;
     }
-    .label-md {
+    .label {
       margin: 5px;
       color: color($colors, white);
     }
@@ -33,14 +33,14 @@ page-home {
           @extend .font-extra-small;
         }
         border-left: 1px solid color($colors, gray-soft);
-        .label-md {
+        .label {
           margin: 0px 3px;
         }
       }
     }
   }
   
-  .card-md{
+  .card{
     margin: 0px;
     width: 100%;
     border-radius: 0px;
@@ -51,7 +51,7 @@ page-home {
       position: relative;
       text-align: center;
     }
-    .card-title, .card-md h2 {
+    .card-title, .card h2 {
       @extend .font-normal;
       position: absolute;
       top: 36%;
@@ -151,7 +151,7 @@ page-home {
         min-height: 85px;
       }
     }
-    .card-title-s, .card-md h2 {
+    .card-title-s, .card h2 {
       @extend .font-small-normal;
       position: absolute;
       top: 36%;
@@ -165,7 +165,7 @@ page-home {
       width: 100%;
       color: #fff;
     }
-    .card-md {
+    .card {
       background-color: color($colors, primary);
       width: 100%;
       margin: 0px;
@@ -187,4 +187,10 @@ page-home {
   ion-app._gmaps_cdv_ .nav-decor {
     background-color: rgba(0,0,0,0);
 }
+
+    // iOS
+    .card-ios{
+        margin: 0px;
+        width: 100%;
+    }
  }

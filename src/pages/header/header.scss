@@ -1,10 +1,10 @@
 page-header {
-  .searchbar-md .searchbar-input {
+  .searchbar .searchbar-input {
     background-color: color($colors, background-soft);
     text-align: center;
     box-shadow: none;
   }
-  .searchbar-md .searchbar-input {
+  .searchbar .searchbar-input {
     @include font-size(14px);
   }
   

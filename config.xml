@@ -25,6 +25,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+    <preference name="SplashScreenDelay" value="3000" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -82,7 +83,7 @@
     </platform>
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
     <engine name="android" spec="^6.2.3" />
-    <engine name="ios" spec="~4.3.1" />
+    <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-clipboard" spec="^1.0.0" />
     <plugin name="cordova-plugin-browsertab" spec="~0.2.0" />
     <plugin name="cordova-plugin-device" spec="1.1.4" />

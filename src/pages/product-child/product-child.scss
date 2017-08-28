@@ -16,7 +16,7 @@ page-product-child {
   .col {
     padding: 5px 0px;
   }
-  .button-md{
+  .button{
     height: 2.4rem;
     margin: 0px;
   }
@@ -43,12 +43,12 @@ page-product-child {
     padding: 10px 5px;
   }
   .item-inner{
-    .label-md {
+    .label {
       margin: 0px;
     }
   }
   
-  .segment-md .segment-button {
+  .segment .segment-button {
     @extend .text-dark;
     background-color: color($colors, background-soft);
     &.segment-activated{

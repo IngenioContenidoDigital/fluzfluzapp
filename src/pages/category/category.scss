@@ -7,7 +7,7 @@ page-category {
         min-height: 85px;
       }
     }
-    .card-title, .card-md h2 {
+    .card-title, .card h2 {
       @extend .font-small-normal;
       position: absolute;
       top: 36%;
@@ -21,7 +21,7 @@ page-category {
       width: 100%;
       color: #fff;
     }
-    .card-md {
+    .card {
       background-color: color($colors, primary);
       width: 100%;
       margin: 0px;

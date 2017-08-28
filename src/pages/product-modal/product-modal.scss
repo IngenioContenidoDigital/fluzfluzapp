@@ -50,7 +50,7 @@ page-product-modal {
     .col {
       padding: 5px 0px;
     }
-    .button-md{
+    .button{
       height: 2.4rem;
       margin: 0px;
     }
@@ -77,12 +77,12 @@ page-product-modal {
       padding: 10px 5px;
     }
     .item-inner{
-      .label-md {
+      .label {
         margin: 0px;
       }
     }
 
-    .segment-md .segment-button {
+    .segment .segment-button {
       @extend .text-dark;
       background-color: color($colors, background-soft);
       &.segment-activated{

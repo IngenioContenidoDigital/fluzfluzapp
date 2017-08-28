@@ -24,8 +24,8 @@ page-confirm {
     text-align: center !important;
   }
   
-  .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
-  .item-md.item-input.input-has-focus .item-inner {
+  .item.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
+  .item.item-input.input-has-focus .item-inner {
     border-bottom-color: color($colors, gray-soft);
     box-shadow: inset 0 -1px 0 0 color($colors, gray-soft);
     border-bottom: 0px solid color($colors, gray-soft);
@@ -58,7 +58,7 @@ page-confirm {
           margin: auto;
         }
       }
-      .label-md{
+      .label{
         @extend .font-small-normal;
         margin: 5px 0;
         text-transform: capitalize;

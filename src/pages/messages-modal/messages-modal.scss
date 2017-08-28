@@ -16,7 +16,7 @@ page-messages-modal {
     @extend .background-white;
     border: 1px solid color($colors, gray-soft);
     padding: 5px;
-    ion-label .label-md, .label{
+    ion-label .label, .label{
       margin: 5px 0px;
     }
     .hour {

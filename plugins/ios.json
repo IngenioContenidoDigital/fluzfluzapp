@@ -7,13 +7,32 @@
         "files": {}
     },
     "installed_plugins": {
+        "cordova-clipboard": {
+            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+        },
+        "cordova-plugin-browsertab": {
+            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+        },
         "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         },
+        "cordova-plugin-geolocation": {
+            "GEOLOCATION_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+        },
+        "cordova-plugin-googlemaps": {
+            "API_KEY_FOR_IOS": "AIzaSyCQ8OO2Mb25LdxYZhK1bH8mO5BmGEs7jH4",
+            "LOCATION_WHEN_IN_USE_DESCRIPTION": "Show your location on the map",
+            "LOCATION_ALWAYS_USAGE_DESCRIPTION": "Trace your location on the map",
+            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+        },
         "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+        },
+        "cordova-plugin-network-information": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         },
         "cordova-plugin-splashscreen": {
@@ -30,32 +49,13 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
-        },
-        "cordova-plugin-browsertab": {
-            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
-        },
-        "cordova-plugin-network-information": {
-            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
-        },
-        "cordova-clipboard": {
-            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
-        },
-        "cordova-plugin-geolocation": {
-            "GEOLOCATION_USAGE_DESCRIPTION": " ",
-            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
-        },
-        "cordova-plugin-googlemaps": {
-            "API_KEY_FOR_IOS": "AIzaSyCQ8OO2Mb25LdxYZhK1bH8mO5BmGEs7jH4",
-            "NSLOCATIONWHENINUSEUSAGEDESCRIPTION": "Show your location on the map",
-            "NSLOCATIONALWAYSUSAGEDESCRIPTION": "Trace your location on the map",
-            "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         }
     },
     "dependent_plugins": {
-        "cordova-plugin-compat": {
+        "com.googlemaps.ios": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         },
-        "com.googlemaps.ios": {
+        "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
         }
     }

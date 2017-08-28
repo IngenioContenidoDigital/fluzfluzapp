@@ -24,7 +24,7 @@ page-checkout {
         @include font-size(25px);
         padding: 8px;
       }
-      ion-icon.icon.icon-md.ion-md-checkmark {
+      ion-icon.icon.icon.ion-md-checkmark {
         @extend .primary;
       }
     }
@@ -75,13 +75,13 @@ page-checkout {
       min-width: 50%;
     }
     .cart-values {
-      .label-md {
+      .label {
         margin: 13px 0;
       }
-      .list-md{
+      .list{
         @extend .border-b;
         margin-bottom: 1px;
-        .item-md{
+        .item{
           padding-left: 5px;
         }
       }

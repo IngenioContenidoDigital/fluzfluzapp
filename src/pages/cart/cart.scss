@@ -25,7 +25,7 @@ page-cart {
     padding: 10px;
     text-align: center;
     color: color($colors, white);;
-    .label-md {
+    .label {
       margin: 5px;
     }
   }
@@ -46,18 +46,18 @@ page-cart {
     margin-top: 5px;
   }
   .cart-values {
-    .label-md {
+    .label {
       margin: 13px 0;
     }
-    .list-md{
+    .list{
       @extend .border-b;
       margin-bottom: 5px;
-      .item-md{
+      .item{
         padding-left: 5px;
       }
     }
   }
-  .list-md .item-block .item-inner {
+  .list .item-block .item-inner {
     border-bottom: 0px;
   }
   
@@ -80,7 +80,7 @@ page-cart {
         text-align: center;
         vertical-align: middle;
         justify-content: center;
-        .label-md{
+        .label{
           margin: 0;
           line-height: 28px;
         }

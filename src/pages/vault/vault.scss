@@ -1,14 +1,14 @@
 page-vault {
-  .segment-md .segment-button {
+  .segment .segment-button {
     color: color($colors, dark);
   }
   .ctn-purchases {
-    .label-md{
+    .label{
       margin: 13px;
     }
-    .item-md.item-block .item-inner {
+    .item.item-block .item-inner {
       padding-right: 0px;
-      .label-md {
+      .label {
         margin: 0px;
       }
     }
@@ -23,7 +23,6 @@ page-vault {
           .ctn-img{
             width: 100%;
             height: 100%;
-            position: relative;
             img{
               max-height: 100%;
               max-width: 100%;
@@ -37,7 +36,7 @@ page-vault {
               margin: auto;              
             }
           }
-          .label-md{
+          .label{
             margin: 5px 0;
             text-transform: capitalize;
           }
