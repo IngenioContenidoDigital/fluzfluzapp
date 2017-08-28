@@ -12,4 +12,11 @@ page-login {
     width: 80%;
     border-radius: 2px;
   }
+  
+  .toolbar-ios ion-title {
+      padding: 0px;
+      .toolbar-title-ios {
+          font-size: 1.2rem;
+      }
+  }
 }
