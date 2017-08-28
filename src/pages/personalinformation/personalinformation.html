@@ -52,11 +52,11 @@
                         </ion-item>
                         <ion-item>
                             <ion-label stacked>Correo electrónico</ion-label>
-                            <ion-input type="email" readonly disabled="true" (keyup)="validateInput($event)" [formControl]="personalInformationForm.controls['email']"></ion-input>
+                            <ion-input type="email" readonly (keyup)="validateInput($event)" [formControl]="personalInformationForm.controls['email']"></ion-input>
                         </ion-item>
                         <ion-item>
                             <ion-label stacked>Identificación</ion-label>
-                            <ion-input type="number" readonly disabled="true" (keyup)="validateInput($event)" [formControl]="personalInformationForm.controls['dni']"></ion-input>
+                            <ion-input type="number" readonly (keyup)="validateInput($event)" [formControl]="personalInformationForm.controls['dni']"></ion-input>
                         </ion-item>
                         <ion-item>
                             <ion-label stacked>Fecha de nacimiento</ion-label>
@@ -87,10 +87,10 @@
                                 <ion-option value="Otra Profesion">Otra Profesion</ion-option>
                             </ion-select>
                         </ion-item>
-                        <ion-item>
+<!--                        <ion-item>
                             <ion-label stacked>Empresa</ion-label>
                             <ion-input type="text" (keyup)="validateInput($event)" [formControl]="personalInformationForm.controls['field_work']"></ion-input>
-                        </ion-item>
+                        </ion-item>-->
                         <ion-item>
                             <ion-label stacked>Mascota</ion-label>
                             <ion-select okText="OK" cancelText="Cancelar" (ionChange)="validateInput($event)" [formControl]="personalInformationForm.controls['pet']">
@@ -141,16 +141,16 @@
                         </ion-item>
                     </ion-list>
                 </div>
+              <div class="margin-5">
                 <button ion-button block (click)="changePassword(personalInformationForm.value)">Cambiar Contraseña</button>
+              </div>
             </div>
+        </div>
+      
+        <div class="margin-5">
+          <button ion-button block [disabled]="!enabledSaveButton" [@slideIn] (click)="save(personalInformationForm.value)">GUARDAR</button>
         </div>
         <div class="spacer-25"></div>
         <div class="spacer-25"></div>
     </form>
 </ion-content>
-
-<ion-footer [@slideIn] *ngIf="enabledSaveButton" (click)="save(personalInformationForm.value)">
-    <ion-toolbar color="primary">
-        <ion-title>GUARDAR</ion-title>
-    </ion-toolbar>
-</ion-footer>

@@ -46,14 +46,14 @@ export class PersonalInformationPage {
             'segmentselected': ["basic", Validators.compose([Validators.required])],
             
             'id_gender': [null, Validators.compose([Validators.required])],
-            'firstname': [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{2,100}$/i)])],
-            'lastname': [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{2,100}$/i)])],
-            'email': [null, Validators.compose([Validators.required])],
-            'dni': [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{5,15}$/i)])],
+            'firstname': [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,100}$/i)])],
+            'lastname': [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,100}$/i)])],
+            'email': [{value: null, disabled: true}, Validators.compose([Validators.required])],
+            'dni': [{value: null, disabled: true}, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{5,15}$/i)])],
             'birthday': [null, Validators.compose([Validators.required])],
             'civil_status': [null, Validators.compose([])],
             'occupation_status': [null, Validators.compose([])],
-            'field_work': [null, Validators.compose([])],
+            /*'field_work': [null, Validators.compose([])],*/
             'pet': [null, Validators.compose([])],
             'pet_name': [null, Validators.compose([])],
             'spouse_name': [null, Validators.compose([Validators.pattern(/^[a-zA-Z\s]{2,100}$/i)])],
@@ -127,7 +127,7 @@ export class PersonalInformationPage {
                         this.personalInformationForm.get('birthday').setValue(response.birthday);
                         this.personalInformationForm.get('civil_status').setValue(response.civil_status);
                         this.personalInformationForm.get('occupation_status').setValue(response.occupation_status);
-                        this.personalInformationForm.get('field_work').setValue(response.field_work);
+                        /*this.personalInformationForm.get('field_work').setValue(response.field_work);*/
                         this.personalInformationForm.get('pet').setValue(response.pet);
                         this.personalInformationForm.get('pet_name').setValue(response.pet_name);
                         this.personalInformationForm.get('spouse_name').setValue(response.spouse_name);
@@ -256,23 +256,23 @@ export class PersonalInformationPage {
         if (
             this.personalInformationForm.controls['segmentselected'].valid &&
             this.personalInformationForm.controls['id_gender'].valid &&
-            this.personalInformationForm.controls['firstname'].valid &&
-            this.personalInformationForm.controls['lastname'].valid &&
-            this.personalInformationForm.controls['email'].valid &&
-            this.personalInformationForm.controls['dni'].valid &&
-            this.personalInformationForm.controls['birthday'].valid &&
-            this.personalInformationForm.controls['civil_status'].valid &&
-            this.personalInformationForm.controls['occupation_status'].valid &&
-            this.personalInformationForm.controls['field_work'].valid &&
-            this.personalInformationForm.controls['pet'].valid &&
-            this.personalInformationForm.controls['pet_name'].valid &&
-            this.personalInformationForm.controls['spouse_name'].valid &&
-            this.personalInformationForm.controls['children'].valid &&
-            this.personalInformationForm.controls['phone_provider'].valid &&
-            this.personalInformationForm.controls['phone'].valid &&
-            this.personalInformationForm.controls['address1'].valid &&
-            this.personalInformationForm.controls['address2'].valid &&
-            this.personalInformationForm.controls['city'].valid
+            this.personalInformationForm.controls['firstname'].valid 
+//            this.personalInformationForm.controls['lastname'].valid &&
+//            this.personalInformationForm.controls['email'].valid &&
+//            this.personalInformationForm.controls['dni'].valid &&
+//            this.personalInformationForm.controls['birthday'].valid &&
+//            this.personalInformationForm.controls['civil_status'].valid &&
+//            this.personalInformationForm.controls['occupation_status'].valid &&
+//            /*this.personalInformationForm.controls['field_work'].valid &&*/
+//            this.personalInformationForm.controls['pet'].valid &&
+//            this.personalInformationForm.controls['pet_name'].valid &&
+//            this.personalInformationForm.controls['spouse_name'].valid &&
+//            this.personalInformationForm.controls['children'].valid &&
+//            this.personalInformationForm.controls['phone_provider'].valid &&
+//            this.personalInformationForm.controls['phone'].valid &&
+//            this.personalInformationForm.controls['address1'].valid &&
+//            this.personalInformationForm.controls['address2'].valid &&
+//            this.personalInformationForm.controls['city'].valid
         ) {
             this.enabledSaveButton = true;
         } else {
