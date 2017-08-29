@@ -37,6 +37,7 @@ export class BonusPage {
   public longitude:any;
   
   public manufacturer:any;
+  public directions:any = [];
   public bonus:any = [];
   public bonusT:any;
   public showDetails:any;
@@ -64,7 +65,8 @@ export class BonusPage {
         data.showDirections = data.showDirections ? false : true ;
         setTimeout(()=>{ 
           if(data.showDirections){
-            this.inizializateMap();
+//            this.inizializateMap();
+            this.getDirections();
           } 
         }, 200 );
         break;
@@ -163,6 +165,15 @@ export class BonusPage {
         });
     this.clipboard.copy(code);
     toast.present();
+  }
+  
+  getDirections(){
+    this.bonusService.getAddressManufacturer(this.manufacturer.id_manufacturer).then(
+      (data:any)=>{
+        this.directions = data.result;
+      }
+    );
+    
   }
   
   inizializateMap(){

@@ -40,9 +40,11 @@ export class PersonalInformationPage {
     private enabledSaveButton:boolean = false;
     public phoneProviders:any = [];
     public cities:any = [];
+    public userData:any = [];
     
     constructor(public loadingController: LoadingController, public navCtrl: NavController, formBuilder: FormBuilder, public navParams: NavParams, public tabsService: TabsService, public storage: Storage, private alertCtrl: AlertController, private personalInformationService: PersonalInformationService ) {
-        this.personalInformationForm = formBuilder.group({
+        this.userData = navParams.get("customer");
+          this.personalInformationForm = formBuilder.group({
             'segmentselected': ["basic", Validators.compose([Validators.required])],
             
             'id_gender': [null, Validators.compose([Validators.required])],
@@ -56,7 +58,7 @@ export class PersonalInformationPage {
             /*'field_work': [null, Validators.compose([])],*/
             'pet': [null, Validators.compose([])],
             'pet_name': [null, Validators.compose([])],
-            'spouse_name': [null, Validators.compose([Validators.pattern(/^[a-zA-Z\s]{2,100}$/i)])],
+            'spouse_name': [null, Validators.compose([Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,100}$/i)])],
             'children': [null, Validators.compose([Validators.pattern(/^[0-9]{1,2}$/i)])],
             'phone_provider': [null, Validators.compose([])],
             'phone': [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{8,15}$/i)])],

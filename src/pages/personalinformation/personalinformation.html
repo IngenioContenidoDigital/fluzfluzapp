@@ -13,7 +13,9 @@
 <ion-content no-padding class="background-soft">
     <form [formGroup]="personalInformationForm">
         <div>
-            <ion-label class="icon" text-center><ion-icon name="contact" class="icon-contact" text-center></ion-icon></ion-label>
+            <div class="ctn-float-img">
+              <img src="{{userData.image}}" onerror="this.src='assets/img/user-red.png';">
+            </div>
             <div class="ctn-background-white">
                 <ion-label class="title-segments" text-center>{{titlesegments}}</ion-label>
                 <div class="segments">

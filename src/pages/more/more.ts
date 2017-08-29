@@ -95,7 +95,7 @@ export class MorePage {
       }
       
       case "PersonalInformationPage": {
-        this.navCtrl.push( PersonalInformationPage );
+        this.navCtrl.push( PersonalInformationPage, {customer: this.userData} );
         break;
       }
       

@@ -136,12 +136,12 @@
           <ion-label class="font-small" text-right>{{cart.format_order_total}}</ion-label>
         </ion-item>
       </ion-list>
-      <ion-list>
+<!--      <ion-list>
         <ion-item>
           <ion-label class="font-more-small">PRECIO EN FLUZ:</ion-label>
           <ion-label class="font-small" text-right>{{cart.total_price_in_points}}</ion-label>
         </ion-item>
-      </ion-list>
+      </ion-list>-->
       <ion-list *ngIf="discounts"> 
         <ion-item *ngFor="let item of discounts">
           <ion-label class="font-more-small">FLUZ APLICADOS:</ion-label>

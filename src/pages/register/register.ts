@@ -17,9 +17,9 @@ export class RegisterPage {
   public cities:any;
   constructor( private alertCtrl: AlertController, private loginService: LoginService, private personalInformationService: PersonalInformationService, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder) {
     this.registerForm = formBuilder.group({
-      'firts_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{5,100}$/i)])],
+      'firts_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,100}$/i)])],
       'user_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{5,100}$/i)])],
-      'last_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{5,100}$/i)])],
+      'last_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,100}$/i)])],
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
       'phone' : [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{10}$/i)])],
       'date' : [null, Validators.compose([Validators.required])],

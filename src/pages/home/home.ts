@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { HomeService } from '../../providers/home.service';
+import { InvitationThirdModalPage } from '../invitation-third-modal/invitation-third-modal';
 import { CategoryService } from '../../providers/category.service';
 import { TabsService } from '../../providers/tabs.service';
 import { ProductChildPage } from '../product-child/product-child';
@@ -172,6 +173,10 @@ export class HomePage {
         }
       });
     });
+  }
+  
+  pushNewUser(){
+    this.navCtrl.push(InvitationThirdModalPage);
   }
   
   closeNotification(){

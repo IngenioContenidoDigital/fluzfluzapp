@@ -33,6 +33,26 @@ export class BonusService {
       });
   }
   
+  public getAddressManufacturer(manufacturer:any){
+    let url = WS_BASE + '/getAddressManufacturer';
+    let params = new URLSearchParams();
+      params.set('id_manufacturer', manufacturer);
+    return new Promise(resolve => {
+      this.http.get(url, { search: params })
+        .map(res => res.json())
+        .subscribe(
+        	data => {
+            this.data = data;
+            resolve(this.data);
+          },
+          (err:Response) => {
+            this.data = '{"Error": "Error al traer los banners"}';
+            resolve(this.data);
+          }
+        );
+    });
+  }
+  
   public getMapData(latitude:any, longitude:any, manufacturer:any, option:any){
     let url = WS_BASE + '/getAddressMaps';
     let params = new URLSearchParams();

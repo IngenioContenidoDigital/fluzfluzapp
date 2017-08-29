@@ -103,7 +103,7 @@
       </ion-row>
       <div class="ctn-accordeon-title">
         <ion-row>
-          <ion-label (click)="toggleDescription(item,'1')">Intrucciones</ion-label>
+          <ion-label (click)="toggleDescription(item,'1')">Instrucciones</ion-label>
         </ion-row>
       </div>
       <div class="ctn-accordeon-details">
@@ -114,14 +114,23 @@
           </ion-item>
         </ion-list>
       </div>
-      <div class="ctn-accordeon-title">
+      <div class="ctn-accordeon-title" *ngIf="item.online_only == 0">
         <ion-row>
-          <ion-label (click)="toggleDescription(item,'2')">Ubicación</ion-label>
+          <ion-label (click)="toggleDescription(item,'2')">Direcciones</ion-label>
         </ion-row>
       </div>
       <div class="ctn-accordeon-details">
         <ion-list *ngIf="item.showDirections" [@slideIn]>
-          <div #map id="map"></div>
+          <!--<div #map id="map"></div>-->
+          <div class="ctn-directions">
+            <ion-scroll scrollY="true" style="width: 100%; height: 100%;">
+              <div *ngFor="let item of directions" class="margin-5 border-b">
+                <ion-label class="font-semi-bold text-dark margin-5">{{item.firstname}}</ion-label>
+                <ion-label class="font-semi-bold text-gray-normal margin-5">{{item.address1}}</ion-label>
+                <ion-label class="font-semi-bold text-gray-normal margin-5">{{item.city}}</ion-label>
+              </div>
+            </ion-scroll>
+          </div>
         </ion-list>
       </div>
       <div class="ctn-accordeon-title">
