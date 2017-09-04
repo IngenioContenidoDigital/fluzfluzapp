@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { HomePage } from '../home/home';
 //import { VaultPage } from '../vault/vault';
-import { RedemptionPage } from '../redemption/redemption';
+import { MapPage } from '../map/map';
 import { PasscodePage } from '../passcode/passcode';
 import { NetworkPage } from '../network/network';
 import { MorePage } from '../more/more';
@@ -17,7 +17,7 @@ export class TabsPage {
 
   tab1Root = HomePage;
   tab2Root = PasscodePage;
-  tab3Root = RedemptionPage;
+  tab3Root = MapPage;
   tab4Root = NetworkPage;
   tab5Root = MorePage;
   

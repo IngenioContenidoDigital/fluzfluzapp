@@ -36,6 +36,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   /* TabsPages */
   import { HomePage } from '../pages/home/home';
   import { VaultPage } from '../pages/vault/vault';
+  import { MapPage } from '../pages/map/map';
   import { RedemptionPage } from '../pages/redemption/redemption';
   import { NetworkPage } from '../pages/network/network';
   import { NetworkTreePage } from '../pages/network-tree/network-tree';
@@ -123,6 +124,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     TransferFluzConfirmPage,
     PersonalInformationPage,
     MessagesPage,
+    MapPage,
     MessagesModalPage
   ],
   imports: [
@@ -178,6 +180,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     TransferFluzConfirmPage,
     PersonalInformationPage,
     MessagesPage,
+    MapPage,
     MessagesModalPage
   ],
   providers: [

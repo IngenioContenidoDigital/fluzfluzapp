@@ -54,4 +54,11 @@ page-more {
       @include font-size(25px);
       padding: 8px;
   }
+  
+  .icon-more-redemption {
+      @include font-size(25px);
+      padding: 8px;
+      margin-top: 8px;
+      width: 40px;
+  }
 }

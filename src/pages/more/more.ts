@@ -13,6 +13,7 @@ import { LoginService } from '../../providers/login-service';
 import { SHOW_MORE_OPTIONS } from '../../providers/config';
 import { SHOW_SAVINGS } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
+import { RedemptionPage } from '../redemption/redemption';
 
 /**
  * Generated class for the More page.
@@ -101,6 +102,11 @@ export class MorePage {
       
       case "MessagesPage": {
         this.navCtrl.push( MessagesPage );
+        break;
+      }
+      
+      case "RedemptionPage": {
+        this.navCtrl.push( RedemptionPage );
         break;
       }
       

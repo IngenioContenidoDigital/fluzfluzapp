@@ -1,9 +1,3 @@
-<!--
-  Generated template for the More page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <page-header (updateCountCart)='updateCountCart($event)'></page-header>
 </ion-header>
@@ -79,6 +73,10 @@
         <div class="row" (click)="goTo('MessagesPage')">
           <i class='fluz-mesages'></i>
           <ion-label class="text-dark">Mis Mensajes</ion-label>
+        </div>
+        <div class="row" (click)="goTo('RedemptionPage')">
+          <ion-icon name="fluz-redemption" class="icon-more-redemption"></ion-icon>
+          <ion-label class="text-dark">Redimir Fluz</ion-label>
         </div>
         <div class="row" (click)="goTo('TransferFluzPage')">
           <ion-icon name="swap" class="icon-more"></ion-icon>
