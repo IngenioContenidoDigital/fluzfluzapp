@@ -1,5 +1,5 @@
 import { Component, trigger, style, animate, state, transition  } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { TabsPage } from '../tabs/tabs';
 import { FormOfRedemptionPage } from '../formofredemption/formofredemption';
@@ -43,13 +43,14 @@ export class RedemptionPage {
   public singleValue:any = 0;
   
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, public storage: Storage, public myAccount: MyAccountService) {
+  constructor( public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, public storage: Storage, public myAccount: MyAccountService) {
+    this.disponibleFluz.fluzTotal = 0;
+    this.disponibleFluz.totalSavings = 0;
   }
   
   ionViewWillEnter(){
     this.getUserData();
     setTimeout(()=>{ this.resetValueRedemption(); }, 500);
-    setTimeout(()=>{ this.validateMinValue(); }, 700);
   }
 
   
@@ -78,6 +79,10 @@ export class RedemptionPage {
   }
   
   getUserData() {
+    let loader = this.loadingController.create({
+      content: "Cargando datos de usuario..."
+    });
+    loader.present();
     this.storage.get('userData').then((val) => {
       if( val != null && val != '' && val != undefined ){
         this.userData.userName = val.firstname;
@@ -85,6 +90,10 @@ export class RedemptionPage {
           (data:any) => {
             this.userData = Object.assign(this.userData, JSON.parse(data));
             this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
+            setTimeout(()=>{ 
+              loader.dismiss();
+              this.validateMinValue(); 
+            }, 500);
           }
         );
       }

@@ -29,11 +29,11 @@
   <form [formGroup]="loginForm" class="ctn-float">
     
     <ion-item no-padding>
-      <ion-input type="email" (keyup)="validateInputLogin($event)" [formControl]="loginForm.controls['email']"  placeholder="Correo electrónico"></ion-input>
+      <ion-input type="email" (keyup)="validateInputLogin($event)" (change)="validateInputLogin($event)" [formControl]="loginForm.controls['email']"  placeholder="Correo electrónico"></ion-input>
     </ion-item>
 
     <ion-item no-padding>
-      <ion-input type="password" (keyup)="validateInputLogin($event)" [formControl]="loginForm.controls['pwd']" placeholder="Contraseña"></ion-input>
+      <ion-input type="password" (keyup)="validateInputLogin($event)" (change)="validateInputLogin($event)" [formControl]="loginForm.controls['pwd']" placeholder="Contraseña"></ion-input>
     </ion-item>
     
     <div padding-vertical>

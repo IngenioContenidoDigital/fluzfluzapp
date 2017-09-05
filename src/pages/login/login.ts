@@ -40,7 +40,7 @@ export class LoginPage {
   constructor( public modalCtrl: ModalController, public loadingController: LoadingController,  public passcodeService: PasscodeService, private iab: InAppBrowser, private browserTab: BrowserTab, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, private loginService:LoginService, public storage: Storage, public alertCtrl: AlertController, public tabsService: TabsService, public platform: Platform ) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
   	this.loginForm = formBuilder.group({
-      'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]+\.[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
+      'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
       'pwd': [null, Validators.required]
     });
     platform.ready().then(() => {
