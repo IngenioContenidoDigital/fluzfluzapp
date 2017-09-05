@@ -9,8 +9,8 @@ export const DEV_MODE = false;
 
 // Produccion:
 //
-export const URL_BASE = DEV_MODE ? "http://192.168.2.72/"                       : "https://fluzfluz.co/" ;
-export const WS_BASE  = DEV_MODE ? "http://192.168.2.72/override/app/services/" : "https://fluzfluz.co/override/app/services/";
+export const URL_BASE = DEV_MODE ? "http://192.168.2.73/"                       : "https://fluzfluz.co/" ;
+export const WS_BASE  = DEV_MODE ? "http://192.168.2.73/override/app/services/" : "https://fluzfluz.co/override/app/services/";
 
 // Faber PC:
 //

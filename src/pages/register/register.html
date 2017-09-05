@@ -47,26 +47,8 @@
       </ion-row>
       <ion-row>
         <ion-item>
-          <ion-label stacked>Teléfono móvil (Necesario)</ion-label>
-          <ion-input type="number" (keyup)="validateInput($event)" [formControl]="registerForm.controls['phone']"></ion-input>
-        </ion-item>
-      </ion-row>
-      <ion-row>
-        <ion-item>
-          <ion-label stacked>Fecha de Nacimiento (Necesario)</ion-label>
-          <ion-input type="date" (keyup)="validateInput($event)" [formControl]="registerForm.controls['date']"></ion-input>
-        </ion-item>
-      </ion-row>
-      <ion-row>
-        <ion-item>
           <ion-label stacked>Dirección (Necesario)</ion-label>
           <ion-input type="text" (keyup)="validateInput($event)" [formControl]="registerForm.controls['address']"></ion-input>
-        </ion-item>
-      </ion-row>
-      <ion-row>
-        <ion-item>
-          <ion-label stacked>Complemento de dirección (Necesario)</ion-label>
-          <ion-input type="text" (keyup)="validateInput($event)" [formControl]="registerForm.controls['address2']"></ion-input>
         </ion-item>
       </ion-row>
       <ion-row>
@@ -84,6 +66,7 @@
             <ion-option [value] = "0">Cédula de ciudadania</ion-option>
             <ion-option [value] = "1">Nit</ion-option>
             <ion-option [value] = "2">Cédula Extranjería</ion-option>
+            <ion-option [value] = "3">Pasaporte</ion-option>
           </ion-select>
         </ion-item>
       </ion-row>

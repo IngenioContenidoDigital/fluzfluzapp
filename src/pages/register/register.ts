@@ -21,10 +21,7 @@ export class RegisterPage {
       'user_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{5,100}$/i)])],
       'last_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,100}$/i)])],
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
-      'phone' : [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{10}$/i)])],
-      'date' : [null, Validators.compose([Validators.required])],
       'address' : [null,  Validators.compose([Validators.required])],
-      'address2' : [null,  Validators.compose([Validators.required])],
       'city' : [null,  Validators.compose([Validators.required])],
       'type_identification' : [null,  Validators.compose([Validators.required])],
       'number_identification' : [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{5,15}$/i)])]
@@ -42,10 +39,7 @@ export class RegisterPage {
       this.registerForm.controls['last_name'].valid &&
       this.registerForm.controls['user_name'].valid &&
       this.registerForm.controls['email'].valid &&
-      this.registerForm.controls['phone'].valid &&
-      this.registerForm.controls['date'].valid &&
       this.registerForm.controls['address'].valid &&
-      this.registerForm.controls['address2'].valid &&
       this.registerForm.controls['city'].valid &&
       this.registerForm.controls['type_identification'].valid &&
       this.registerForm.controls['number_identification'].valid
