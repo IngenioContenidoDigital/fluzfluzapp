@@ -8,6 +8,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps } from '@ionic-native/google-maps';
 
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
+
+
 // Plugins
 import { Network } from '@ionic-native/network';
 import { BrowserTab } from '@ionic-native/browser-tab';
@@ -192,6 +198,10 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     Network,
     Geolocation,
     GoogleMaps,
+    Camera,
+    File,
+    FilePath, 
+    FileTransfer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
 //    Storage
   ]

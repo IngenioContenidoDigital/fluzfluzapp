@@ -3,8 +3,8 @@
 </ion-header>
 
 <ion-content no-padding>
-  <div class="ctn-float-img">
-    <img src="{{userData.image}}" onerror="this.src='assets/img/user-red.png';">
+  <div class="ctn-float-img" (click)="profilePicture()">
+    <img cache="false" src="{{userData.image}}" onerror="this.src='assets/img/user-red.png';">
   </div>
   <div text-center class="ctn-float">
     <div class="spacer"></div>
