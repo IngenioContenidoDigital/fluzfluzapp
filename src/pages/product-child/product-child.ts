@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { SearchService } from '../../providers/search.service';
 import { CartService } from '../../providers/cart.service';
 import { Storage } from '@ionic/storage';
@@ -38,7 +38,7 @@ export class ProductChildPage {
   @Output('updateCountCart')
   public updateCountCart: EventEmitter<number> = new EventEmitter<number>();
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public searchService: SearchService, public cartService: CartService, public storage: Storage, public tabsService: TabsService, public geolocation: Geolocation, public bonusService: BonusService) {
+  constructor(  public toastCtrl: ToastController, public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public searchService: SearchService, public cartService: CartService, public storage: Storage, public tabsService: TabsService, public geolocation: Geolocation, public bonusService: BonusService) {
     this.inform = "instructions";
     this.manufacturer = navParams.get("manufacturer");
     this.productFather = navParams.get("productFather");
@@ -50,28 +50,51 @@ export class ProductChildPage {
   }
 
   addToCart(idProduct:any){
+    let loader = this.loadingController.create({
+      content: "Agregando..."
+    });
+    loader.present();
     this.storage.get('cart').then((val) => {
       this.idCart = ( val != undefined && val != null && val != '' ) ? val.id : 0;
       this.cartService.addToCart( this.idCart, idProduct).subscribe(
         success => {
+          loader.dismiss();
           if(success.status === 200) {
             this.storage.set('cart', JSON.parse(success._body));
             this.updateCountCartEmit();
           }
         },
         error =>{
-          console.log(error)
+          loader.dismiss();
+          this.toast('Ah ocurrido un error agregando el producto al carrito.');
+          console.log(error);
         }
       ); 
     });
   }
   
   updateCountCartEmit(){
+    let loader = this.loadingController.create({
+      content: "Actualizando Carrito..."
+    });
+    loader.present();
     setTimeout(() => {
       this.storage.get('cart').then((val) => {
         this.updateCountCart.emit( val.quantity );
+        loader.dismiss();
+        this.toast('Agregado al carrito.');
       });
     },500);
+  }
+  
+  toast(msg){
+    let toast = this.toastCtrl.create({
+          message:  msg,
+          duration: 1000,
+          position: 'middle',
+          cssClass: "toast"
+        });
+    toast.present();
   }
   
   ionViewWillEnter(){

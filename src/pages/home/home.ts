@@ -16,6 +16,8 @@ import { SHOW_HOME_CATEGORY } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
 import { DEV_UBICATION } from '../../providers/config';
 import { SearchService } from '../../providers/search.service';
+//import { FirebaseAnalytics } from '@ionic-native/firebase-analytics';
+
 
 @Component({
   selector: 'page-home',
@@ -70,6 +72,7 @@ export class HomePage {
     public tabsService: TabsService,
     public loadingController: LoadingController,
     public modalCtrl: ModalController,
+//    private firebaseAnalytics: FirebaseAnalytics
     
     ) {
       this.countbannerData = 0;
@@ -94,6 +97,10 @@ export class HomePage {
   }
    
   ionViewWillEnter(){
+//    this.firebaseAnalytics.logEvent('page_view', {page: "homepage"})
+//    .then((res: any) => console.log(res))
+//    .catch((error: any) => console.error(error));
+    
     this.notificationBar.setVisible = false;
     this.storage.get('userData').then((val) => {
       this.storage.get('userConfirm').then((userConfirm)=> {

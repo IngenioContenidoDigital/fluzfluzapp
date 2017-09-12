@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps } from '@ionic-native/google-maps';
 
+//import { FirebaseAnalytics } from '@ionic-native/firebase-analytics';
+
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
@@ -202,6 +204,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     File,
     FilePath, 
     FileTransfer,
+//    FirebaseAnalytics,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
 //    Storage
   ]
