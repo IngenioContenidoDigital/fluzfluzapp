@@ -79,4 +79,3 @@ export const SHOW_LASTED_FLUZ = false;
 //  
 //  Product Page:
     export const SHOW_MAP_PRODUCT_PAGE = false;
-  

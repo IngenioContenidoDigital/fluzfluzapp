@@ -32,7 +32,9 @@
     </ion-segment>
   </div>
   <div [ngSwitch]="vaultOption" no-padding class="ctn-purchases">
+    
     <ion-list *ngSwitchCase="'bonus'">
+      <ion-label class="font-small font-semi-bold">Mis códigos</ion-label>
       <ion-label text-right class="font-small text-primary font-semi-bold"  *ngIf="showRefine">Refinar</ion-label>
       <div class="purchases">       
         <ion-grid>

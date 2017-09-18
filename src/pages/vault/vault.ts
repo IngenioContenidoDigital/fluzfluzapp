@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { VaultService } from '../../providers/vault.service';
 import { BonusPage } from '../bonus/bonus';
@@ -28,7 +28,7 @@ export class VaultPage {
   public item:any;
   public showRefine:any = SHOW_REFINE_BUTTONS;  
   
-  constructor( public tabsService: TabsService, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public vault: VaultService, private viewCtrl: ViewController) {
+  constructor( public loadingController: LoadingController, public tabsService: TabsService, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public vault: VaultService, private viewCtrl: ViewController) {
     this.vaultOption = 'bonus';
   }
 
@@ -57,11 +57,16 @@ export class VaultPage {
   }
   
   openItem(item){
+    let loader = this.loadingController.create({
+      content: "Cargando..."
+    });
+    loader.present();
     this.item = item;
     this.storage.get('userData').then((val) => {
       if( val != null && val != '' && val != undefined ){
         this.vault.getVaultData(val.id, this.item.id_manufacturer).then(
           (data:any) => {
+            loader.dismiss();
             this.navCtrl.push( BonusPage,{
               manufacturer: this.item,
               bonus: data.result,

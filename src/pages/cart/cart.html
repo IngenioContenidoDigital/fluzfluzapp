@@ -40,7 +40,7 @@
   </div>
   <div *ngIf="cart.quantity > 0">
     <div class="sub-header">
-      <ion-label>{{cart.quantity}} BONOS CON FLUZ TOTAL: <b>+{{cart.total_fluz}}</b></ion-label>
+      <ion-label>{{cart.quantity}} BONOS CON FLUZ TOTAL: <b>+{{cart.total_fluz/2}}</b></ion-label>
     </div>
     <ion-grid class="font-small text-dark" no-padding *ngFor="let item of products">
       <div>
@@ -101,7 +101,7 @@
           </ion-row>
           <ion-row class="padding-5">
             <ion-col col-3 text-left>${{item.app_price_shop}}</ion-col>
-            <ion-col col-3 text-left>+{{item.points}}</ion-col>
+            <ion-col col-3 text-left>+{{item.points/2}}</ion-col>
             <ion-col col-3 text-left>{{item.price_in_points}}</ion-col>
             <ion-col col-3 text-left>${{item.total}}</ion-col>
           </ion-row>
@@ -155,7 +155,7 @@
         </ion-item>
         <ion-item>
           <ion-label class="font-more-small text-primary">FLUZ GANADOS:</ion-label>
-          <ion-label class="font-small text-primary" text-right>+ {{cart.total_fluz}}</ion-label>
+          <ion-label class="font-small text-primary" text-right>+ {{cart.total_fluz/2}}</ion-label>
         </ion-item>
         <ion-item>
           <ion-label class="font-more-small text-primary">PRECIO EN FLUZ:</ion-label>

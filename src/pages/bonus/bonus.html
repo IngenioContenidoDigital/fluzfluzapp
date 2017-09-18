@@ -60,7 +60,8 @@
         <ion-col>
           <div text-left>
             <ion-label class="font-more-small text-gray-normal">Compra:</ion-label>
-            <ion-label class="font-small">{{item.date}}</ion-label>
+            <ion-label class="font-small green" *ngIf="item.gift == true">Obsequio</ion-label>
+            <ion-label class="font-small" *ngIf="item.gift !== true">{{item.date}}</ion-label>
           </div>
         </ion-col>
         <ion-col *ngIf="item.online_only == 1">

@@ -47,7 +47,7 @@
           </ion-col>
           <ion-col>
             <ion-label class="font-small text-gray-dark font-semi-bold" text-right>Gana Hasta</ion-label>
-            <ion-label class="font-small text-primary font-semi-bold" text-right>{{item.points}} FLUZ</ion-label>
+            <ion-label class="font-small text-primary font-semi-bold" text-right>{{item.points/2}} FLUZ</ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -84,7 +84,7 @@
           <ion-row class="padding-h-5 margin-t-5 font-more-small">
             <ion-col col-3 text-left>COP ${{item.c_price}}</ion-col>
             <ion-col col-2 text-center *ngIf="showSavings">{{item.c_percent_save}}%</ion-col>
-            <ion-col text-center>+{{item.c_win_fluz}}</ion-col>
+            <ion-col text-center>+{{item.c_win_fluz/2}}</ion-col>
             <ion-col text-center>-{{item.c_price_fluz}}</ion-col>
             <ion-col col-2 text-right>${{item.c_price}}</ion-col>
           </ion-row>
@@ -140,7 +140,7 @@
         </ion-col>
         <ion-col>
           <ion-label class="font-small text-gray-dark font-semi-bold" text-right>Gana Hasta</ion-label>
-          <ion-label class="font-small text-primary font-semi-bold" text-right>{{item.m_points}} FLUZ</ion-label>
+          <ion-label class="font-small text-primary font-semi-bold" text-right>{{item.m_points/2}} FLUZ</ion-label>
         </ion-col>
       </ion-row>
     </ion-grid>  
