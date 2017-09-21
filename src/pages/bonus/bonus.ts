@@ -1,17 +1,20 @@
 import { Component, trigger, style, animate, state, transition, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, LoadingController, ModalController } from 'ionic-angular';
 import { Clipboard } from '@ionic-native/clipboard';
 import { TabsService } from '../../providers/tabs.service';
 import { BonusService } from '../../providers/bonus.service';
 import { SHOW_REFINE_BUTTONS } from '../../providers/config';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Storage } from '@ionic/storage';
+import { GiftModalPage } from '../gift-modal/gift-modal';
+import { VaultService } from '../../providers/vault.service';
 
 declare var google;
 
 @Component({
   selector: 'page-bonus',
   templateUrl: 'bonus.html',
-  providers: [BonusService, Clipboard],
+  providers: [BonusService, Clipboard, VaultService],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -44,7 +47,20 @@ export class BonusPage {
   public status:any;
   public showRefine:any = SHOW_REFINE_BUTTONS;
   
-  constructor( public toastCtrl: ToastController, private clipboard: Clipboard, public loadingController: LoadingController, public bonusService: BonusService, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, public geolocation: Geolocation) {
+  constructor( 
+    private alertCtrl: AlertController,
+    private clipboard: Clipboard,
+    public modalCtrl: ModalController,
+    public storage: Storage,
+    public toastCtrl: ToastController,
+    public loadingController: LoadingController,
+    public bonusService: BonusService,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public tabsService: TabsService,
+    public geolocation: Geolocation,
+    public vault: VaultService
+  ){
     this.manufacturer = navParams.get("manufacturer");
     this.bonus = navParams.get("bonus");
     this.bonus.showDetails = true;
@@ -236,4 +252,29 @@ export class BonusPage {
     this.markers.push(marker); 
   }
   
+  openModalGift(item:any){
+    let giftModal = this.modalCtrl.create( GiftModalPage, { bonus: item } );
+    giftModal.onDidDismiss(
+      (data:any) => {
+        let loader = this.loadingController.create({
+          content: "Cargando..."
+        });
+        loader.present();
+        this.storage.get('userData').then(
+          (val) => {
+            if( val != null && val != '' && val != undefined ){
+              this.vault.getVaultData(val.id, this.bonus['0'].id_manufacturer).then(
+                (data:any) => {
+                  loader.dismiss();
+                  this.bonus = data.result;
+                  this.bonusT = data.total;
+                }
+              );
+            }
+          }
+        );
+      }
+    );
+    giftModal.present();
+  }
 }

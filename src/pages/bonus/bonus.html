@@ -34,17 +34,23 @@
     <div class="ctn-info-bonus">
       <ion-row>
         <ion-col col-6>
-          <div *ngIf="item.used == 0">
-            <i class="fluz-passcodeB green"></i>
-            <ion-label class="text-spacer">Disponible</ion-label>
+          <div *ngIf="item.send_gift != 1">
+            <div *ngIf="item.used == 0">
+              <i class="fluz-passcodeB green"></i>
+              <ion-label class="text-spacer">Disponible</ion-label>
+            </div>
+            <div *ngIf="item.used == 1">
+              <i class="fluz-passcodeB yellow"></i>
+              <ion-label class="text-spacer">Usado</ion-label>
+            </div>
+            <div *ngIf="item.used == 2">
+              <i class="fluz-passcodeB primary"></i>
+              <ion-label class="text-spacer">Terminado</ion-label>
+            </div>
           </div>
-          <div *ngIf="item.used == 1">
-            <i class="fluz-passcodeB yellow"></i>
-            <ion-label class="text-spacer">Usado</ion-label>
-          </div>
-          <div *ngIf="item.used == 2">
+          <div *ngIf="item.send_gift == 1">
             <i class="fluz-passcodeB primary"></i>
-            <ion-label class="text-spacer">Terminado</ion-label>
+            <ion-label class="text-spacer">Obsequiado</ion-label>
           </div>
         </ion-col>
         <ion-col col-6>
@@ -73,11 +79,11 @@
         <ion-col>
           <div text-right>
             <ion-label class="font-more-small text-gray-normal">Vencimiento</ion-label>
-            <ion-label class="font-small">{{item.expiration}}</ion-label>
+            <ion-label class="font-small">{{item.date_expiration}}</ion-label>
           </div>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="item.send_gift != 1">
         <ion-col (click)="copyToClipboard(item.card_code)">
           <div text-center>
             <ion-label class="font-normal">{{item.card_code}}</ion-label>            
@@ -145,6 +151,11 @@
             <div class="inner-html" [innerHTML]="item.description"></div>
           </ion-item>
         </ion-list>
+      </div>
+      <div class="ctn-accordeon-title" *ngIf="item.send_gift < 1 ">
+        <ion-row>
+          <ion-label (click)="openModalGift(item)">Obsequiar Código</ion-label>
+        </ion-row>
       </div>
     </div>
   </ion-grid>

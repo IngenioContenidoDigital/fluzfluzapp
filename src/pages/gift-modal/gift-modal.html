@@ -1,0 +1,62 @@
+<!--
+  Generated template for the MessagesModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar hideBackButton="true" hide-tabs>
+    <ion-buttons left>
+      <button ion-button icon-only>
+        <i class='fluz-fluz-fluz'></i>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>OBSEQUIAR CÓDIGO</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name='close' ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding class="background-soft">
+  <div class="ctn-background-white">
+    <ion-grid class="border-b">
+      <ion-row>
+        <ion-col col-12>Fluzzer Destino</ion-col>
+        <ion-col col-12>
+          <ion-input text-center class="search-fluzzer" type="text" placeholder="Buscar Fluzzers" [(ngModel)]="searchBox" (keyup)="searchFluzzer()"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-row *ngIf="!notFound && fluzzers.length > 0">
+      <ion-list col-12 radio-group [(ngModel)]="fluzzerSelected" (ionChange)="enableSendGift()">
+        <ion-item *ngFor="let fluzzer of fluzzers">
+          <ion-label>
+            {{fluzzer.username}}
+            <br>
+            <p class="email-fluzzer">{{fluzzer.email}}</p>
+          </ion-label>
+          <ion-radio color="danger" [value]="fluzzer.id_customer"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+    <ion-row *ngIf="notFound">
+      <ion-col col-12 text-center class="not-found">No se encontraron fluzzers relacionados</ion-col>
+    </ion-row>
+  </div>
+  <div class="ctn-background-white" *ngIf="fluzzerSelected != ''">
+    <ion-item>
+      <ion-label>Mensaje</ion-label>
+      <ion-textarea [(ngModel)]="message" name="message"></ion-textarea>
+    </ion-item>
+  </div>
+</ion-content>
+
+<ion-footer *ngIf="displayGiftBonus" [@slideIn]>
+  <ion-toolbar color="primary" (click)="sendGift()">
+    <ion-title>ENVIAR</ion-title>
+  </ion-toolbar>
+</ion-footer>

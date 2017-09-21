@@ -82,21 +82,25 @@ export class TransferFluzPage {
         this.fluzzerSelected = "";
         this.notFound = false;
         setTimeout(()=>{
-            if ( this.searchBox != "" ) {
-                this.transferFluz.searchFluzzers(this.searchBox).subscribe(
-                    success => {
-                        let response = JSON.parse(success._body);
-                        if ( response.success ) {
-                            this.fluzzers = response.fluzzers;
-                        } else {
-                            this.notFound = true;
-                        }
-                    },
-                    error => {
-                        console.log(error)
-                    }
-                );
+          this.storage.get('userData').then(
+            (userData:any) => {
+              if ( this.searchBox != "" ) {
+                  this.transferFluz.searchFluzzers(this.searchBox, userData.id).subscribe(
+                      success => {
+                          let response = JSON.parse(success._body);
+                          if ( response.success ) {
+                              this.fluzzers = response.fluzzers;
+                          } else {
+                              this.notFound = true;
+                          }
+                      },
+                      error => {
+                          console.log(error)
+                      }
+                  );
+              }
             }
+          );
         }, 500);
         this.enableTransfer();
     }

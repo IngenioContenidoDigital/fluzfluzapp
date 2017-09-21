@@ -52,7 +52,7 @@ export class PasscodePage {
     this.resetPasscode();
     this.storage.get('passcode').then((val) => {
       loader.dismiss();
-      if( val == 'true' ){
+      if( val == 'true' || val == true ){
         this.setPasscode = false;
         this.textHeader  = 'Ingresa tu contraseña';
         this.textButton  = 'CONFIRMAR';
@@ -85,8 +85,8 @@ export class PasscodePage {
       if( this.enableConfirmPasscode == true ){
         if ( this.passcode == this.passcodeConfirm ){
           this.storage.get('userId').then((val) => {
-            this.passcodeService.setPasscode( val, this.passcode ).then((data:any)=>{
-              this.setPasscode = data ? false : true;
+            this.passcodeService.setPasscode( val, this.passcode ).then((data:boolean)=>{
+              this.setPasscode = data;
               this.storage.set('passcode', data );
               let msg = data ? "S" : "No s" ; 
               let toast = this.toastCtrl.create({

@@ -14,9 +14,10 @@ export class TransferFluzService {
     
     constructor(public http: Http) {}
 
-    public searchFluzzers(searchBox) {
+    public searchFluzzers(searchBox, userId) {
         
         this.dataSearch["searchBox"] = searchBox;
+        this.dataSearch["userId"] = userId;
         
         let dataSearch = JSON.stringify( this.dataSearch );
         let _url = WS_BASE+'searchFluzzer';

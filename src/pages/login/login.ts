@@ -119,16 +119,9 @@ export class LoginPage {
         loader.dismiss();
         if(success.status === 200) {
           this.userData = JSON.parse(success._body);
-//          console.log(this.userData.id);
           // Establece el passcode en true or false.
           this.passcodeService.getPasscode(this.userData.id).then((data:any)=>{
-            let response = data['0'];
-            if( response.vault_code === null || response.vault_code === 'null' || response.vault_code === undefined || response.vault_code == 'undefined' || response.vault_code == 0 ){
-              
-            }
-            else {
-              this.storage.set('passcode', true);
-            }
+            this.storage.set('passcode', data);
           });
           
           //Obtiene el id de algún antiguo usuario.
