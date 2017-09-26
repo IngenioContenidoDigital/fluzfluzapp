@@ -6,16 +6,16 @@ import { NetworkService } from '../../providers/network.service';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { ToastController } from 'ionic-angular';
 import { MessageModalPage } from '../message-modal/message-modal';
-/**
- * Generated class for the InvitationThirdModalPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { AnalyticsService } from '../../providers/analytics.service';
+
 @Component({
   selector: 'page-invitation-third-modal',
   templateUrl: 'invitation-third-modal.html',
-  providers: [NetworkService, MyAccountService],
+  providers: [
+    NetworkService,
+    MyAccountService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -40,14 +40,30 @@ export class InvitationThirdModalPage {
   public showInvitationForm:any = false;
   invitationForm: FormGroup;  
 
-  constructor(public loadingController: LoadingController, public navCtrl: NavController,formBuilder: FormBuilder,public modalCtrl: ModalController, public myAccount: MyAccountService,public toastCtrl: ToastController, public network: NetworkService, public storage: Storage, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(
+    public loadingController: LoadingController,
+    public navCtrl: NavController,
+    public formBuilder: FormBuilder,
+    public modalCtrl: ModalController,
+    public myAccount: MyAccountService,
+    public toastCtrl: ToastController,
+    public network: NetworkService,
+    public storage: Storage,
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    public analytics: AnalyticsService
+  ) {
     this.invitationForm = formBuilder.group({
       'firtsname' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,100}$/i)])],
       'lastname' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,100}$/i)])],
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
     });
   }
-
+  
+  ionViewWillEnter(){
+    this.analytics.trackView('InvitationThirdModalPage');
+  }
+  
   ionViewDidLoad() {
     this.getUsersWithInvitations();
   }

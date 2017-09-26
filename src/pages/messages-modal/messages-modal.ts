@@ -1,16 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { ViewController, NavController, NavParams } from 'ionic-angular';
 import { Content } from 'ionic-angular';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the MessagesModalPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-messages-modal',
   templateUrl: 'messages-modal.html',
+  providers: [
+    AnalyticsService
+  ]
 })
 export class MessagesModalPage {
   public conversation:any;
@@ -18,7 +16,12 @@ export class MessagesModalPage {
   public userId:any;
   @ViewChild(Content) content: Content;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    public analytics: AnalyticsService
+  ) {
     this.conversation = navParams.get('conversation');
     this.userData = navParams.get('userData');
     this.userId = navParams.get('userId');
@@ -29,6 +32,7 @@ export class MessagesModalPage {
   }
   
   ionViewWillEnter(){
+    this.analytics.trackView('MessagesModalPage');
     setTimeout(()=>{ this.scrollToBottom(); }, 200);
   }
   

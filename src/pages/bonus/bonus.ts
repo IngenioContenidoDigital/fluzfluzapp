@@ -8,13 +8,19 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
 import { GiftModalPage } from '../gift-modal/gift-modal';
 import { VaultService } from '../../providers/vault.service';
+import { AnalyticsService } from '../../providers/analytics.service';
 
 declare var google;
 
 @Component({
   selector: 'page-bonus',
   templateUrl: 'bonus.html',
-  providers: [BonusService, Clipboard, VaultService],
+  providers: [
+    BonusService,
+    Clipboard,
+    VaultService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -59,7 +65,8 @@ export class BonusPage {
     public navParams: NavParams,
     public tabsService: TabsService,
     public geolocation: Geolocation,
-    public vault: VaultService
+    public vault: VaultService,
+    public analytics: AnalyticsService
   ){
     this.manufacturer = navParams.get("manufacturer");
     this.bonus = navParams.get("bonus");
@@ -98,6 +105,7 @@ export class BonusPage {
   }
   
   ionViewWillEnter(){
+    this.analytics.trackView('BonusPage');
     this.tabsService.hide();
   }
 

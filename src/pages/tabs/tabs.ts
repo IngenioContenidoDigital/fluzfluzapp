@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { HomePage } from '../home/home';
-//import { VaultPage } from '../vault/vault';
 import { MapPage } from '../map/map';
 import { PasscodePage } from '../passcode/passcode';
 import { NetworkPage } from '../network/network';

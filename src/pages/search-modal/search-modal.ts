@@ -4,10 +4,14 @@ import { ViewController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { ProductFatherPage } from '../product-father/product-father';
 import { SHOW_REFINE_BUTTONS } from '../../providers/config';
+import { AnalyticsService } from '../../providers/analytics.service';
 
 @Component({
   selector: 'page-search-modal',
   templateUrl: 'search-modal.html',
+  providers: [
+    AnalyticsService
+  ]
 })
 export class SearchModalPage {
   
@@ -25,12 +29,21 @@ export class SearchModalPage {
     
   @ViewChild('header') header;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController, public tabsService: TabsService, /*public keyboard: Keyboard,*/ private renderer: Renderer, private elementRef: ElementRef) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    public tabsService: TabsService,
+    private renderer: Renderer,
+    private elementRef: ElementRef,
+    public analytics: AnalyticsService
+  ){
     this.countSearchResult = 0;
     this.noResults.value = true;
   }
   
   ionViewWillEnter(){
+    this.analytics.trackView('SearchModalPage');
     this.tabsService.show();
   }
   

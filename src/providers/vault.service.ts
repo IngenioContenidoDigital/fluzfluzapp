@@ -28,7 +28,28 @@ export class VaultService {
             resolve(this.data);
           },
           (err:Response) => {
-            this.data = '{"Error": "Error al traer los banners"}';
+            this.data = '{"Error": "Error al traer los códigos"}';
+            resolve(this.data);
+          }
+        );
+    });
+  }
+  
+  public getOrderHistory(id_customer:any) {
+    return new Promise(resolve => {
+      let url = WS_BASE + '/getOrderHistory';
+      let params = new URLSearchParams();
+      params.set('id_customer', id_customer);
+      
+      this.http.get(url, { search: params })
+        .map(res => res.json())
+        .subscribe(
+        	data => {
+            this.data = data;
+            resolve(this.data);
+          },
+          (err:Response) => {
+            this.data = '{"Error": "Error al traer el historial de ordenes"}';
             resolve(this.data);
           }
         );

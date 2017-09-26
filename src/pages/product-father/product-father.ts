@@ -2,23 +2,26 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { SearchService } from '../../providers/search.service';
 import { ProductChildPage } from '../product-child/product-child';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the Product page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-product-father',
   templateUrl: 'product-father.html',
-  providers: [SearchService]
+  providers: [
+    SearchService,
+    AnalyticsService
+  ]
 })
 export class ProductFatherPage {
   
   public manufacturer:any = {};
   public productFather:any = {};
-  constructor(public navCtrl: NavController, public navParams: NavParams, public searchService: SearchService)  {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public searchService: SearchService,
+    public analytics: AnalyticsService
+  ){
     this.manufacturer = navParams.get("manufacturer");
     this.searchService.search( this.manufacturer.m_id, '2' ).then((data) => {
       this.productFather = data;
@@ -26,6 +29,10 @@ export class ProductFatherPage {
         setTimeout(()=>{ this.openItem( this.productFather.result['0'] ); }, 300 );
       }
     });
+  }
+  
+  ionViewWillEnter(){
+    this.analytics.trackView('ProductFatherPage');
   }
   
   openItem(item:any) {

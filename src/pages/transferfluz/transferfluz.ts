@@ -6,17 +6,16 @@ import { MyAccountService } from '../../providers/myAccount.service';
 import { TransferFluzService } from '../../providers/transferfluz.service';
 import { TransferFluzConfirmPage } from '../transferfluz-confirm/transferfluz-confirm';
 import { LoadingController } from 'ionic-angular';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the TransferFluz page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-transferfluz',
   templateUrl: 'transferfluz.html',
-  providers: [ MyAccountService,TransferFluzService ],
+  providers: [
+    MyAccountService,
+    TransferFluzService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -43,30 +42,41 @@ export class TransferFluzPage {
     public notFound:any = false;
   
   
-    constructor(public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, public storage: Storage, public myAccount: MyAccountService, public transferFluz: TransferFluzService, private alertCtrl: AlertController) {
+    constructor(
+      public loadingController: LoadingController,
+      public navCtrl: NavController,
+      public navParams: NavParams,
+      public tabsService: TabsService,
+      public storage: Storage,
+      public myAccount: MyAccountService,
+      public transferFluz: TransferFluzService,
+      private alertCtrl: AlertController,
+      public analytics: AnalyticsService
+    ){
     }
     
     ionViewWillEnter(){
-        this.getUserData();
-        this.tabsService.hide();
+      this.analytics.trackView('TransferFluzPage');
+      this.getUserData();
+      this.tabsService.hide();
     }
 
     ionViewWillLeave(){
-        this.tabsService.show();
+      this.tabsService.show();
     }
 
     getUserData() {
-        this.storage.get('userData').then((val) => {
-            if( val != null && val != '' && val != undefined ){
-                this.userData.userName = val.firstname;
-                this.myAccount.getDataAccount(val.id).then(
-                    (data:any) => {
-                        this.userData = Object.assign(this.userData, JSON.parse(data));
-                        this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
-                    }
-                );
+      this.storage.get('userData').then((val) => {
+        if( val != null && val != '' && val != undefined ){
+          this.userData.userName = val.firstname;
+          this.myAccount.getDataAccount(val.id).then(
+            (data:any) => {
+              this.userData = Object.assign(this.userData, JSON.parse(data));
+              this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
             }
-        });
+          );
+        }
+      });
     }
 
     enableTransfer() {

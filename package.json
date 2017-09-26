@@ -55,7 +55,9 @@
         "cordova-plugin-file": "^4.3.3",
         "cordova-plugin-file-transfer": "^1.6.3",
         "cordova-plugin-filepath": "^1.0.2",
+        "cordova-plugin-firebase-analytics": "^0.11.0",
         "cordova-plugin-geolocation": "^2.4.3",
+        "cordova-plugin-google-analytics": "^1.8.3",
         "cordova-plugin-googlemaps": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git#multiple_maps",
         "cordova-plugin-googlemaps-sdk": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps-sdk.git",
         "cordova-plugin-inappbrowser": "~1.7.1",
@@ -125,7 +127,8 @@
             "cordova-plugin-file-transfer": {},
             "cordova-plugin-file": {},
             "cordova-plugin-filepath": {},
-            "org.apache.cordova.plugin.cache": {}
+            "org.apache.cordova.plugin.cache": {},
+            "cordova-plugin-google-analytics": {}
         },
         "dependencies": {
             "@angular/animations": "^4.2.3",

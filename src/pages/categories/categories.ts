@@ -2,23 +2,26 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { CategoryService } from '../../providers/category.service';
 import { CategoryPage } from '../category/category';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the CategoriesPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-categories',
   templateUrl: 'categories.html',
-  providers: [ CategoryService ]
+  providers: [ 
+    CategoryService,
+    AnalyticsService
+  ]
 })
 export class CategoriesPage {
 
   public categories:any = [];
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public categoryService: CategoryService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public categoryService: CategoryService,
+    public analytics: AnalyticsService
+  ){
     this.categories = navParams.get("categories");
   }
   
@@ -31,5 +34,9 @@ export class CategoriesPage {
         });
       }  
     );
+  }
+  
+  ionViewWillEnter(){
+    this.analytics.trackView('CategoriesPage');
   }
 }

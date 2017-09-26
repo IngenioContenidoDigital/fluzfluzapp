@@ -50,7 +50,7 @@
         <div *ngIf="showFluzRange == true" [@slideIn]>
           <ion-row class="padding-h-8">
             <ion-col>
-              <ion-range min="0" [max]="userData.fluzTotal" [(ngModel)]="valueRedemption.fluzTotal" color="danger" pin="true" debounce="500" (ionChange)="updateValuesRedemption('1')"></ion-range>
+              <ion-range [min]="minValueRedemption" [max]="userData.fluzTotal" [(ngModel)]="valueRedemption.fluzTotal" color="danger" pin="true" debounce="500" (ionChange)="updateValuesRedemption('1')"></ion-range>
             </ion-col>
           </ion-row>
           <ion-row class="padding-number-fluz border-b">

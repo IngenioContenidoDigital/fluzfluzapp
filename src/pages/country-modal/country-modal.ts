@@ -2,21 +2,33 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { CountryService } from '../../providers/country.service';
+import { AnalyticsService } from '../../providers/analytics.service';
 
 @Component({
   selector: 'page-country-modal',
   templateUrl: 'country-modal.html',
-  providers: [CountryService]
+  providers: [
+    CountryService,
+    AnalyticsService
+  ]
 })
 export class CountryModalPage {
   
   public countries:any;
   
-  constructor(public viewCtrl: ViewController, private countryService: CountryService, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService ) {
+  constructor(
+    private countryService: CountryService,
+    public viewCtrl: ViewController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public tabsService: TabsService,
+    public analytics: AnalyticsService
+  ) {
     
   }
   
   ionViewWillEnter(){
+    this.analytics.trackView('Country-ModalPage');
     this.tabsService.hide();
     this.getDataCountry();
   }

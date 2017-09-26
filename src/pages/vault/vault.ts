@@ -3,36 +3,44 @@ import { NavController, NavParams, ViewController, LoadingController } from 'ion
 import { Storage } from '@ionic/storage';
 import { VaultService } from '../../providers/vault.service';
 import { BonusPage } from '../bonus/bonus';
-//import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
 import { TabsService } from '../../providers/tabs.service';
 import { SHOW_REFINE_BUTTONS } from '../../providers/config';
-
+import { AnalyticsService } from '../../providers/analytics.service';
 //import { PasscodePage } from '../passcode/passcode';
 
-/**
- * Generated class for the Vault page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-vault',
   templateUrl: 'vault.html',
-  providers: [VaultService]
+  providers: [
+    VaultService,
+    AnalyticsService
+  ]
 })
 export class VaultPage {
   
   public vaultData:any = [];
+  public historyData:any = [];
   public vaultOption = '';
   public item:any;
   public showRefine:any = SHOW_REFINE_BUTTONS;  
   
-  constructor( public loadingController: LoadingController, public tabsService: TabsService, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public vault: VaultService, private viewCtrl: ViewController) {
+  constructor(
+    public loadingController: LoadingController,
+    public tabsService: TabsService,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public storage: Storage,
+    public vault: VaultService,
+    private viewCtrl: ViewController,
+    public analytics: AnalyticsService
+  ){
     this.vaultOption = 'bonus';
   }
 
   ionViewWillEnter(){
+    this.updateHistory();
+    this.analytics.trackView('VaultPage');
     setTimeout(()=>{
       this.updateVault();
     }, 100);  
@@ -54,6 +62,20 @@ export class VaultPage {
         );
       }
     });
+  }
+  
+  updateHistory(){
+    this.storage.get('userData').then(
+      (val) => {
+        this.vault.getOrderHistory(val.id).then(
+          (data:any) => {
+            this.historyData = data.result;
+            console.log('this.historyData');
+            console.log(this.historyData);
+          }
+        );
+      }
+    );
   }
   
   openItem(item){

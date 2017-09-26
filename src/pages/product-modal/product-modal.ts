@@ -6,11 +6,17 @@ import { ProductFatherPage } from '../product-father/product-father';
 import { SHOW_SAVINGS } from '../../providers/config';
 import { Storage } from '@ionic/storage';
 import { CartService } from '../../providers/cart.service';
+import { AnalyticsService } from '../../providers/analytics.service';
 
 @Component({
   selector: 'page-product-modal',
   templateUrl: 'product-modal.html',
-  providers: [SearchService,ProductChildPage,CartService],
+  providers: [
+    SearchService,
+    ProductChildPage,
+    CartService,
+    AnalyticsService
+  ],
 })
 export class ProductModalPage {
   public backButtom:any = true;
@@ -31,12 +37,22 @@ export class ProductModalPage {
   @Output('updateCountCart')
   public updateCountCart: EventEmitter<number> = new EventEmitter<number>();
   
-  constructor( public storage: Storage, public navCtrl: NavController,  public cartService: CartService, public navParams: NavParams, public searchService: SearchService, public loadingController: LoadingController, public viewCtrl: ViewController ) {
+  constructor(
+    public storage: Storage,
+    public navCtrl: NavController,
+    public cartService: CartService,
+    public navParams: NavParams,
+    public searchService: SearchService,
+    public loadingController: LoadingController,
+    public viewCtrl: ViewController,
+    public analytics: AnalyticsService
+  ){
     this.productMap = navParams.get('productMap');
     this.manufacturer = this.productMap.result[0];
   }
 
   ionViewWillEnter(){
+    this.analytics.trackView('ProductModalPage');
     let loader = this.loadingController.create({
       content: "Cargando..."
     });

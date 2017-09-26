@@ -6,18 +6,16 @@ import { CreditCardService } from '../../providers/credit-card.service';
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs';
 import { LoadingController } from 'ionic-angular';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the Creditcard page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
-    selector: 'page-creditcard',
-    templateUrl: 'creditcard.html',
-    providers: [CreditCardService],
-    animations: [
+  selector: 'page-creditcard',
+  templateUrl: 'creditcard.html',
+  providers: [
+    CreditCardService,
+    AnalyticsService
+  ],
+  animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
       state('void', style({ 'overflow-y': 'hidden' })),
@@ -42,7 +40,17 @@ export class CreditCardPage {
     public iconview:any = "eye";
     public inputcardtype:any = "password";
 
-    constructor(public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public tabsService: TabsService, private CreditCardService: CreditCardService, public storage: Storage, private alertCtrl: AlertController) {
+    constructor(
+      public loadingController: LoadingController,
+      public navCtrl: NavController,
+      public navParams: NavParams,
+      public formBuilder: FormBuilder,
+      public tabsService: TabsService,
+      private CreditCardService: CreditCardService,
+      public storage: Storage,
+      private alertCtrl: AlertController,
+      public analytics: AnalyticsService
+    ) {
         
         let creditCardSaved = navParams.get("creditCardSaved");        
         if ( !creditCardSaved ) {
@@ -66,7 +74,8 @@ export class CreditCardPage {
     }
     
     ionViewWillEnter(){
-        this.tabsService.hide();
+      this.analytics.trackView('CreditCartPage');
+      this.tabsService.hide();
     }
 
     ionViewWillLeave(){

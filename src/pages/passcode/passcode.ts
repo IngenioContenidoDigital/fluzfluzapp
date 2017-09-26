@@ -5,17 +5,15 @@ import { VaultPage } from '../vault/vault';
 import { Storage } from '@ionic/storage';
 import { LoadingController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
-
-/**
- * Generated class for the Passcode page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { AnalyticsService } from '../../providers/analytics.service';
+  
 @Component({
   selector: 'page-passcode',
   templateUrl: 'passcode.html',
-  providers: [PasscodeService],
+  providers: [
+    PasscodeService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -41,10 +39,21 @@ export class PasscodePage {
   public textHeader:string = 'Ingresa tu contraseña';
   public textButton:string = 'ESTABLECER';
   public response:any;
-  constructor( public loadingController: LoadingController, public tabsService: TabsService, public alertCtrl: AlertController, public storage: Storage, public toastCtrl: ToastController, public passcodeService: PasscodeService, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public loadingController: LoadingController,
+    public tabsService: TabsService,
+    public alertCtrl: AlertController,
+    public storage: Storage,
+    public toastCtrl: ToastController,
+    public passcodeService: PasscodeService,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public analytics: AnalyticsService
+  ) {
   }
   
   ionViewWillEnter(){
+    this.analytics.trackView('PasscodePage');
     let loader = this.loadingController.create({
       content: "Cargando..."
     });

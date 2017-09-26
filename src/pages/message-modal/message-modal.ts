@@ -3,17 +3,15 @@ import { ViewController, NavController, NavParams } from 'ionic-angular';
 import { NetworkService } from '../../providers/network.service';
 import { Storage } from '@ionic/storage';
 import { LoadingController } from 'ionic-angular';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the MessageModalPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-message-modal',
   templateUrl: 'message-modal.html',
-  providers: [NetworkService],
+  providers: [
+    NetworkService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -36,11 +34,23 @@ export class MessageModalPage {
   public enableContinue:any = true;
 //  public resultMessage:any = false;
   
-  constructor(public loadingController: LoadingController, public storage: Storage, public network: NetworkService, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public loadingController: LoadingController,
+    public storage: Storage,
+    public network: NetworkService,
+    public viewCtrl: ViewController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public analytics: AnalyticsService
+  ) {
     this.destiny = navParams.get('destiny');
     this.message = 'Hola! '+ this.destiny.username + ', ';
   }
-
+  
+  ionViewWillEnter(){
+    this.analytics.trackView('MessageModalPage');
+  }
+  
   dismiss() {
     this.viewCtrl.dismiss();
   }

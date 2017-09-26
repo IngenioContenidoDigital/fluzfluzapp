@@ -8,13 +8,19 @@ import { SHOW_SAVINGS } from '../../providers/config';
 import { SHOW_MAP_PRODUCT_PAGE } from '../../providers/config';
 import { BonusService } from '../../providers/bonus.service';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AnalyticsService } from '../../providers/analytics.service';
 
 declare var google;
 
 @Component({
   selector: 'page-product-child',
   templateUrl: 'product-child.html',
-  providers: [BonusService, SearchService, CartService]
+  providers: [
+    BonusService,
+    SearchService,
+    CartService,
+    AnalyticsService
+  ]
 })
 export class ProductChildPage {
   // Maps
@@ -38,7 +44,19 @@ export class ProductChildPage {
   @Output('updateCountCart')
   public updateCountCart: EventEmitter<number> = new EventEmitter<number>();
   
-  constructor(  public toastCtrl: ToastController, public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public searchService: SearchService, public cartService: CartService, public storage: Storage, public tabsService: TabsService, public geolocation: Geolocation, public bonusService: BonusService) {
+  constructor(
+    public toastCtrl: ToastController,
+    public loadingController: LoadingController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public searchService: SearchService,
+    public cartService: CartService,
+    public storage: Storage,
+    public tabsService: TabsService,
+    public geolocation: Geolocation,
+    public bonusService: BonusService,
+    public analytics: AnalyticsService
+  ) {
     this.inform = "instructions";
     this.manufacturer = navParams.get("manufacturer");
     this.productFather = navParams.get("productFather");
@@ -98,6 +116,7 @@ export class ProductChildPage {
   }
   
   ionViewWillEnter(){
+    this.analytics.trackView('ProductChildPage');
     this.tabsService.hide();
     if(this.showMapProductPage){
       this.inizializateMap();

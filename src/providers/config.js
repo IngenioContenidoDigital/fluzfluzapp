@@ -47,6 +47,11 @@ export const URL_BASE_COUNTRY_CODE = "https://restcountries.eu/rest/v2";
 
 // Variables de configuración: 
 // 
+//  Valor de cada Fluz
+    export const FLUZ_VALUE = 25;
+
+
+// 
 // Mostrar los ahorros en toda la tienda.
 export const SHOW_SAVINGS = false;
 
@@ -68,7 +73,6 @@ export const SHOW_REFINE_BUTTONS = false;
 export const SHOW_LASTED_FLUZ = false;
 
 
-
 //  Mapas: 
 // 
 //  Ubicación de desarrollo:
@@ -79,3 +83,13 @@ export const SHOW_LASTED_FLUZ = false;
 //  
 //  Product Page:
     export const SHOW_MAP_PRODUCT_PAGE = false;
+    
+//  Google Analytics
+    export const TRACKER_ID = 'UA-79675815-4';
+    export const TRACKER_INTERVAL = 10;
+
+
+//  Redemption Value:
+    export const REDEMPTION_MIN_VALUE = 100000;
+
+  

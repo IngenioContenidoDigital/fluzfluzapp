@@ -3,20 +3,19 @@ import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { TabsPage } from '../tabs/tabs';
 import { FormOfRedemptionPage } from '../formofredemption/formofredemption';
-//import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
 import { MyAccountService } from '../../providers/myAccount.service';
+import { AnalyticsService } from '../../providers/analytics.service';
+import { REDEMPTION_MIN_VALUE } from '../../providers/config';
+import { FLUZ_VALUE } from '../../providers/config';
 
-/**
- * Generated class for the Redemption page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-redemption',
   templateUrl: 'redemption.html',
-  providers: [ MyAccountService ],
+  providers: [
+    MyAccountService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -41,14 +40,23 @@ export class RedemptionPage {
   public disponibleFluz:any = {};
   public payment:any = 1;
   public singleValue:any = 0;
+  public minValueRedemption = (REDEMPTION_MIN_VALUE/FLUZ_VALUE);
   
-  
-  constructor( public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, public storage: Storage, public myAccount: MyAccountService) {
+  constructor(
+    public loadingController: LoadingController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public tabsService: TabsService,
+    public storage: Storage,
+    public myAccount: MyAccountService,
+    public analytics: AnalyticsService
+  ){
     this.disponibleFluz.fluzTotal = 0;
     this.disponibleFluz.totalSavings = 0;
   }
   
   ionViewWillEnter(){
+    this.analytics.trackView('RedemptionPage');
     this.getUserData();
     setTimeout(()=>{ this.resetValueRedemption(); }, 500);
   }
@@ -125,7 +133,7 @@ export class RedemptionPage {
   }
   
   validateMinValue() {
-    this.displayRedemption = ( this.userData.totalSavings >= 45000 ) ? true : false;
+    this.displayRedemption = ( this.userData.totalSavings >= REDEMPTION_MIN_VALUE ) ? true : false;
   }
   
 }

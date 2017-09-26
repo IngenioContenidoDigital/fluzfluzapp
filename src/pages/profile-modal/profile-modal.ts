@@ -9,11 +9,17 @@ import { SearchService } from '../../providers/search.service';
 import { ProductChildPage } from '../product-child/product-child';
 import { ProductFatherPage } from '../product-father/product-father';
 import { MessageModalPage } from '../message-modal/message-modal';
+import { AnalyticsService } from '../../providers/analytics.service';
 
 @Component({
   selector: 'page-profile-modal',
   templateUrl: 'profile-modal.html',
-  providers: [MyAccountService, NetworkService, SearchService]
+  providers: [
+    MyAccountService,
+    NetworkService,
+    SearchService,
+    AnalyticsService
+  ]
 })
 export class ProfileModalPage {
   invitationForm: FormGroup;
@@ -24,7 +30,20 @@ export class ProfileModalPage {
   public enabledInvitationButton = false;
   public showInvitationForm:any = false;
   
-  constructor( public modalCtrl: ModalController, public viewCtrl: ViewController, public searchService: SearchService, public toastCtrl: ToastController, public network: NetworkService, public loadingController: LoadingController, public storage: Storage, public navCtrl: NavController, public navParams: NavParams, public myAccount: MyAccountService, formBuilder: FormBuilder ) {
+  constructor(
+    public modalCtrl: ModalController,
+    public viewCtrl: ViewController,
+    public searchService: SearchService,
+    public toastCtrl: ToastController,
+    public network: NetworkService,
+    public loadingController: LoadingController,
+    public storage: Storage,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public myAccount: MyAccountService,
+    public formBuilder: FormBuilder,
+    public analytics: AnalyticsService
+  ){
     this.data = navParams.get('customer');
     this.invitationForm = formBuilder.group({
       'firtsname' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,100}$/i)])],
@@ -34,6 +53,7 @@ export class ProfileModalPage {
   }
 
   ionViewWillEnter(){
+    this.analytics.trackView('ProfileModalPage');
     setTimeout(()=>{
       this.getCustomerData();
       this.getInvitationData();

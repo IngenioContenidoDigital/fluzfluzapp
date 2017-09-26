@@ -8,17 +8,16 @@ import { TabsPage } from '../tabs/tabs';
 //import { HomePage } from '../home/home';
 import { SHOW_SAVINGS } from '../../providers/config';
 import { PersonalInformationService } from '../../providers/personalinformation.service';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the Cart page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-cart',
   templateUrl: 'cart.html',
-  providers: [CartService,PersonalInformationService],
+  providers: [
+    CartService,
+    PersonalInformationService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -47,7 +46,17 @@ export class CartPage {
   public phones:any = [];
   public phonesRecharged:any = {};
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public cartService: CartService, public tabsService: TabsService, public viewCtrl: ViewController, private alertCtrl: AlertController, public personalInformationService: PersonalInformationService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public storage: Storage,
+    public cartService: CartService,
+    public tabsService: TabsService,
+    public viewCtrl: ViewController,
+    private alertCtrl: AlertController,
+    public personalInformationService: PersonalInformationService,
+    public analytics: AnalyticsService
+  ) {
   }
 
   ionViewDidLoad() {
@@ -251,6 +260,7 @@ export class CartPage {
     }
   
   ionViewWillEnter(){
+    this.analytics.trackView('CartPage');
     this.updateDataView();
     this.tabsService.hide();
     this.getPhonesCustomer();

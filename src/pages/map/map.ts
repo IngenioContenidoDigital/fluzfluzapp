@@ -5,6 +5,7 @@ import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, MarkerOptions, Marker, 
 import { MapService } from '../../providers/map.service';
 import { ProductModalPage } from '../product-modal/product-modal';
 import { SearchService } from '../../providers/search.service';
+import { AnalyticsService } from '../../providers/analytics.service';
 
 @Component({
   selector: 'page-map',
@@ -12,16 +13,29 @@ import { SearchService } from '../../providers/search.service';
   providers: [
     SearchService,
     GoogleMaps,
-    MapService
+    MapService,
+    AnalyticsService
   ],
 })
 export class MapPage {
   public map: GoogleMap;
   
-  constructor( public platform: Platform, public modalCtrl: ModalController, private searchService: SearchService, public loadingController: LoadingController, public maps: MapService, public googleMaps: GoogleMaps, public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams) {
+  constructor( 
+    public platform: Platform,
+    public modalCtrl: ModalController,
+    private searchService: SearchService,
+    public loadingController: LoadingController,
+    public maps: MapService,
+    public googleMaps: GoogleMaps,
+    public geolocation: Geolocation,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public analytics: AnalyticsService
+  ) {
   }
 
   ionViewWillEnter(){
+    this.analytics.trackView('MapPage');
     this.getPosition();  
   } 
     

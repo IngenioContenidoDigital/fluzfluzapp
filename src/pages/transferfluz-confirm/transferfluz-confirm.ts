@@ -6,17 +6,16 @@ import { TabsPage } from '../tabs/tabs';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { TransferFluzService } from '../../providers/transferfluz.service';
 import { LoadingController } from 'ionic-angular';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the TransferFluzConfirm page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-transferfluz-confirm',
   templateUrl: 'transferfluz-confirm.html',
-  providers: [ MyAccountService,TransferFluzService ],
+  providers: [
+    MyAccountService,
+    TransferFluzService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -36,20 +35,31 @@ export class TransferFluzConfirmPage {
     
     public data:any = [];
   
-    constructor(public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, public storage: Storage, public myAccount: MyAccountService, public transferFluz: TransferFluzService, private alertCtrl: AlertController) {
+    constructor(
+      public loadingController: LoadingController,
+      public navCtrl: NavController,
+      public navParams: NavParams,
+      public tabsService: TabsService,
+      public storage: Storage,
+      public myAccount: MyAccountService,
+      public transferFluz: TransferFluzService,
+      private alertCtrl: AlertController,
+      public analytics: AnalyticsService
+    ){
         this.data = navParams.get("data");
     }
     
     ionViewWillEnter(){
-        this.tabsService.hide();
+      this.analytics.trackView('TransferFluzConfirmPage');
+      this.tabsService.hide();
     }
 
     ionViewWillLeave(){
-        this.tabsService.show();
+      this.tabsService.show();
     }
     
     goToHome() {
-        this.tabsService.changeTabInContainerPage(0);
-        this.navCtrl.setRoot(TabsPage);
+      this.tabsService.changeTabInContainerPage(0);
+      this.navCtrl.setRoot(TabsPage);
     }
 }

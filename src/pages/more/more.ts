@@ -21,13 +21,22 @@ import { Camera } from '@ionic-native/camera';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
+import { AnalyticsService } from '../../providers/analytics.service';
 
 declare var cordova: any;
 
 @Component({
   selector: 'page-more',
   templateUrl: 'more.html',
-  providers: [MyAccountService,LoginService,MessagesService,Camera,File,FileTransfer]
+  providers: [
+    MyAccountService,
+    LoginService,
+    MessagesService,
+    Camera,
+    File,
+    FileTransfer,
+    AnalyticsService
+  ]
 })
 export class MorePage {
 
@@ -38,11 +47,28 @@ export class MorePage {
   
   public lastImage: string = null;
   
-  constructor( public platform: Platform, public toastCtrl: ToastController, public actionSheetCtrl: ActionSheetController, private filePath: FilePath, private transfer: FileTransfer, private file: File, private camera: Camera, public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public myAccount: MyAccountService, private loginService:LoginService, public messagesService: MessagesService) {
+  constructor(
+    private filePath: FilePath,
+    private transfer: FileTransfer,
+    private file: File,
+    private camera: Camera,
+    private loginService:LoginService,
+    public platform: Platform,
+    public toastCtrl: ToastController,
+    public actionSheetCtrl: ActionSheetController,
+    public loadingController: LoadingController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public storage: Storage,
+    public myAccount: MyAccountService,
+    public messagesService: MessagesService,
+    public analytics: AnalyticsService
+  ) {
   }
   
 
   ionViewWillEnter(){
+    this.analytics.trackView('MorePage');
     this.getUserData();
   }
   

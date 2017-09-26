@@ -7,17 +7,17 @@ import { PaymentFluzService } from '../../providers/paymentfluz.service';
 import { CartService } from '../../providers/cart.service';
 import { Storage } from '@ionic/storage';
 import { LoadingController } from 'ionic-angular';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the Paymentfluz page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-paymentfluz',
   templateUrl: 'paymentfluz.html',
-  providers: [MyAccountService,PaymentFluzService,CartService],
+  providers: [
+    MyAccountService,
+    PaymentFluzService,
+    CartService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -46,11 +46,23 @@ export class PaymentFluzPage {
   
   paymentFluzForm: FormGroup;
   
-    constructor(private toastCtrl: ToastController, public loadingController: LoadingController, public cartService: CartService, private PaymentFluzService: PaymentFluzService, public navCtrl: NavController, public navParams: NavParams, public myAccount: MyAccountService, public storage: Storage, public tabsService: TabsService) {
+    constructor(
+      private toastCtrl: ToastController,
+      public loadingController: LoadingController,
+      public cartService: CartService,
+      private PaymentFluzService: PaymentFluzService,
+      public navCtrl: NavController,
+      public navParams: NavParams,
+      public myAccount: MyAccountService,
+      public storage: Storage,
+      public tabsService: TabsService,
+      public analytics: AnalyticsService
+    ) {
         
     }
 
   ionViewWillEnter(){
+    this.analytics.trackView('PaymentFluzPage');
     this.tabsService.hide();
     this.updateFluzTotals();
     this.updateDataView();

@@ -10,18 +10,16 @@ import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from '../register/register';
 import { BrowserTab } from '@ionic-native/browser-tab';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the Login page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-//@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [LoginService,PasscodeService]
+  providers: [
+    LoginService,
+    PasscodeService,
+    AnalyticsService
+  ]
 })
 export class LoginPage {
   public nextLoginButton:boolean;
@@ -37,7 +35,23 @@ export class LoginPage {
   public updateShowDataUser: EventEmitter<boolean> = new EventEmitter<boolean>();
   public showDataUser = true;
   
-  constructor( public modalCtrl: ModalController, public loadingController: LoadingController,  public passcodeService: PasscodeService, private iab: InAppBrowser, private browserTab: BrowserTab, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, private loginService:LoginService, public storage: Storage, public alertCtrl: AlertController, public tabsService: TabsService, public platform: Platform ) {
+  constructor( 
+    public modalCtrl: ModalController,
+    public loadingController: LoadingController,
+    public passcodeService: PasscodeService,
+    public toastCtrl: ToastController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public formBuilder: FormBuilder,
+    public storage: Storage,
+    public alertCtrl: AlertController,
+    public tabsService: TabsService,
+    public platform: Platform,
+    public analytics: AnalyticsService,
+    private browserTab: BrowserTab,
+    private loginService:LoginService,
+    private iab: InAppBrowser,
+  ) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
   	this.loginForm = formBuilder.group({
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
@@ -75,6 +89,7 @@ export class LoginPage {
   }
   
   ionViewWillEnter(){
+    this.analytics.trackView('LoginPage');
     this.tabsService.hide();
   }
 
@@ -118,6 +133,7 @@ export class LoginPage {
      	success => {
         loader.dismiss();
         if(success.status === 200) {
+          this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
           this.userData = JSON.parse(success._body);
           // Establece el passcode en true or false.
           this.passcodeService.getPasscode(this.userData.id).then((data:any)=>{
@@ -197,6 +213,7 @@ export class LoginPage {
   setUserId(value:any):any{
     this.userData = JSON.parse(value);
     this.storage.set('userId', this.userData.id );
+    this.analytics.setUserId(this.userData.id);
   }
     
   showConfirm() {

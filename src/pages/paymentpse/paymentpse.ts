@@ -9,17 +9,16 @@ import { LoadingController } from 'ionic-angular';
 import { BancoService } from '../../providers/banco.service';
 import { BrowserTab } from '@ionic-native/browser-tab';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the Paymentpse page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-paymentpse',
   templateUrl: 'paymentpse.html',
-  providers: [BancoService,PaymentPseService],
+  providers: [
+    BancoService,
+    PaymentPseService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -42,20 +41,32 @@ export class PaymentPsePage {
 
     pseForm: FormGroup;
   
-    constructor(private iab: InAppBrowser, private browserTab: BrowserTab, public loadingController: LoadingController, formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, private backService: BancoService, private PaymentPseService: PaymentPseService, public storage: Storage, private alertCtrl: AlertController) {
-        
-        this.pseForm = formBuilder.group({
-                'bank': [null, Validators.compose([Validators.required])],
-                'typecustomer': ["N", Validators.compose([Validators.required])],
-                'typedocument': ["CC", Validators.compose([Validators.required])],
-                'numberdocument': [null, Validators.compose([Validators.required])],
-            });
-        
+    constructor(
+      private iab: InAppBrowser,
+      private browserTab: BrowserTab,
+      public loadingController: LoadingController,
+      public formBuilder: FormBuilder,
+      public navCtrl: NavController,
+      public navParams: NavParams,
+      public tabsService: TabsService,
+      private backService: BancoService,
+      private PaymentPseService: PaymentPseService,
+      public storage: Storage,
+      private alertCtrl: AlertController,
+      public analytics: AnalyticsService
+    ) {
+      this.pseForm = formBuilder.group({
+        'bank': [null, Validators.compose([Validators.required])],
+        'typecustomer': ["N", Validators.compose([Validators.required])],
+        'typedocument': ["CC", Validators.compose([Validators.required])],
+        'numberdocument': [null, Validators.compose([Validators.required])],
+      });
     }
   
     ionViewWillEnter(){
-        this.tabsService.hide();
-        this.getDataBank();
+      this.analytics.trackView('PaymentPsePage');
+      this.tabsService.hide();
+      this.getDataBank();
     }
 
     ionViewWillLeave(){

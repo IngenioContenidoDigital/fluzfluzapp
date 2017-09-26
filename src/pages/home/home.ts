@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { HomeService } from '../../providers/home.service';
+import { AnalyticsService } from '../../providers/analytics.service';
 import { InvitationThirdModalPage } from '../invitation-third-modal/invitation-third-modal';
 import { CategoryService } from '../../providers/category.service';
 import { TabsService } from '../../providers/tabs.service';
@@ -16,8 +17,6 @@ import { SHOW_HOME_CATEGORY } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
 import { DEV_UBICATION } from '../../providers/config';
 import { SearchService } from '../../providers/search.service';
-//import { FirebaseAnalytics } from '@ionic-native/firebase-analytics';
-
 
 @Component({
   selector: 'page-home',
@@ -27,6 +26,7 @@ import { SearchService } from '../../providers/search.service';
     HomeService,
     CategoryService,
     SearchService,
+    AnalyticsService
   ],
   animations: [
     trigger('slideIn', [
@@ -72,6 +72,7 @@ export class HomePage {
     public tabsService: TabsService,
     public loadingController: LoadingController,
     public modalCtrl: ModalController,
+    public analytics: AnalyticsService
 //    private firebaseAnalytics: FirebaseAnalytics
     
     ) {
@@ -97,10 +98,7 @@ export class HomePage {
   }
    
   ionViewWillEnter(){
-//    this.firebaseAnalytics.logEvent('page_view', {page: "homepage"})
-//    .then((res: any) => console.log(res))
-//    .catch((error: any) => console.error(error));
-    
+    this.analytics.trackView('HomePage');
     this.notificationBar.setVisible = false;
     this.storage.get('userData').then((val) => {
       this.storage.get('userConfirm').then((userConfirm)=> {
@@ -115,6 +113,7 @@ export class HomePage {
         }
         else {
           this.updateShowDataUser(true);          
+          this.analytics.setUserId(val.id);
           setTimeout(()=>{
             this.getUserData();
             this.getBannerData();
@@ -204,6 +203,8 @@ export class HomePage {
     this.categoryService.getCategory( 1 ).then(
       (data:any) => {
         this.categoryFatherData = data.result;
+        console.log('this.categoryFatherData');
+        console.log(this.categoryFatherData);
       }
     );
   }

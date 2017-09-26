@@ -7,11 +7,15 @@ import { ConfirmatedPage } from '../confirmated/confirmated';
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs';
 import { CountryModalPage } from '../country-modal/country-modal'; 
+import { AnalyticsService } from '../../providers/analytics.service';
 
 @Component({
   selector: 'page-confirm',
   templateUrl: 'confirm.html',
-  providers: [ConfirmService],
+  providers: [
+    ConfirmService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -48,7 +52,20 @@ export class ConfirmPage {
   public phoneNumber:any;
   public showSendAgain:any = false;
   
-  constructor( public loadingController: LoadingController, public modalCtrl: ModalController, public platform: Platform, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService,  formBuilder: FormBuilder, private confirmService: ConfirmService, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(
+    public loadingController: LoadingController,
+    public modalCtrl: ModalController,
+    public platform: Platform,
+    public toastCtrl: ToastController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public tabsService: TabsService,
+    public formBuilder: FormBuilder,
+    private confirmService: ConfirmService,
+    public storage: Storage,
+    public alertCtrl: AlertController,
+    public analytics: AnalyticsService
+  ) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
     this.confirmForm = formBuilder.group({
       'confirmNumber': [null, Validators.compose([Validators.required, Validators.minLength(6),Validators.pattern('^[0-9]{1,6}$')])]
@@ -76,6 +93,7 @@ export class ConfirmPage {
   }
   
   ionViewWillEnter(){
+    this.analytics.trackView('ConfirmPage');
     this.tabsService.hide();
     this.getPhone();
   }

@@ -7,17 +7,16 @@ import { BancoService } from '../../providers/banco.service';
 import { Redemption } from '../../providers/redemption.service';
 import { RedemptionConfirmPage } from '../redemption-confirm/redemption-confirm';
 import { LoadingController } from 'ionic-angular';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the FormofredemptionPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-formofredemption',
   templateUrl: 'formofredemption.html',
-  providers: [BancoService, Redemption],
+  providers: [
+    BancoService,
+    Redemption,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -44,7 +43,16 @@ export class FormOfRedemptionPage {
   
   dataRedemption: FormGroup;
   
-  constructor(public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, formBuilder: FormBuilder, private backService: BancoService, private redemption: Redemption) {
+  constructor(
+    public loadingController: LoadingController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public tabsService: TabsService,
+    public formBuilder: FormBuilder,
+    private backService: BancoService,
+    private redemption: Redemption,
+    public analytics: AnalyticsService
+  ) {
     this.disponibleFluz = navParams.get("disponibleFluz");
     this.redemptionValue = navParams.get("redemptionValue");
     this.dataRedemption = formBuilder.group({
@@ -56,6 +64,7 @@ export class FormOfRedemptionPage {
   }
   
   ionViewWillEnter(){
+    this.analytics.trackView('FormOfRedemptionPage');
     this.tabsService.hide();
     this.dataUserRedemption.identification = this.dataUserRedemption.banco = this.dataUserRedemption.type_acount = 0;
     this.getDataBank();

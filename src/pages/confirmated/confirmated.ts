@@ -6,18 +6,15 @@ import { MyAccountService } from '../../providers/myAccount.service';
 import { TabsPage } from '../tabs/tabs';
 import { SHOW_SAVINGS } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
-
-/**
- * Generated class for the Confirmated page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { AnalyticsService } from '../../providers/analytics.service';
 
 @Component({
   selector: 'page-confirmated',
   templateUrl: 'confirmated.html',
-  providers: [MyAccountService]
+  providers: [
+    MyAccountService,
+    AnalyticsService
+  ]
 })
 export class ConfirmatedPage {
   
@@ -25,10 +22,18 @@ export class ConfirmatedPage {
   public showSavings:any = SHOW_SAVINGS;
   public lastedFluz:any = SHOW_LASTED_FLUZ;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService, public storage: Storage, public myAccount: MyAccountService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public tabsService: TabsService,
+    public storage: Storage,
+    public myAccount: MyAccountService,
+    public analytics: AnalyticsService
+  ) {
   }
 
   ionViewWillEnter(){
+    this.analytics.trackView('ConfirmatedPage');
     this.tabsService.hide();
     this.getUserData();
   }

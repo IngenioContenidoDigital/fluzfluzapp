@@ -2,16 +2,14 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ProductChildPage } from '../product-child/product-child';
 import { TabsService } from '../../providers/tabs.service';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the CategoryPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-category',
   templateUrl: 'category.html',
+  providers: [
+    AnalyticsService
+  ]
 })
 export class CategoryPage {
 
@@ -20,7 +18,12 @@ export class CategoryPage {
   
   public productChild:any = [];
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public tabsService: TabsService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public tabsService: TabsService,
+    public analytics: AnalyticsService
+  ){
     this.category = navParams.get("category");
     this.products = navParams.get("products");
   }
@@ -39,6 +42,7 @@ export class CategoryPage {
   }
   
   ionViewWillEnter(){
+    this.analytics.trackView('CategoryPage');
     this.tabsService.hide();
   }
 

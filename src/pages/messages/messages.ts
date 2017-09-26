@@ -4,20 +4,32 @@ import { Storage } from '@ionic/storage';
 import { MessagesService } from '../../providers/messages.service';
 import { MessagesModalPage } from '../messages-modal/messages-modal';
 import { MessageModalPage } from '../message-modal/message-modal';
+import { AnalyticsService } from '../../providers/analytics.service';
 
 @Component({
   selector: 'page-messages',
   templateUrl: 'messages.html',
-  providers: [MessagesService]
+  providers: [
+    MessagesService,
+    AnalyticsService
+  ]
 })
 export class MessagesPage {
 
   public conversations:any;
   
-  constructor(  public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public messages: MessagesService) {
+  constructor(
+    public modalCtrl: ModalController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public storage: Storage,
+    public messages: MessagesService,
+    public analytics: AnalyticsService
+  ) {
   }
 
   ionViewWillEnter(){
+    this.analytics.trackView('MessagesPage');
     this.getConversations();
   }
   

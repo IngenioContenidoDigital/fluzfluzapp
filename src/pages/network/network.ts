@@ -14,11 +14,17 @@ import { ProductChildPage } from '../product-child/product-child';
 import { ProductFatherPage } from '../product-father/product-father';
 import { ProfileModalPage } from '../profile-modal/profile-modal';
 import { SearchService } from '../../providers/search.service';
+import { AnalyticsService } from '../../providers/analytics.service';
 
 @Component({
   selector: 'page-network',
   templateUrl: 'network.html',
-  providers: [NetworkService, MyAccountService,SearchService],
+  providers: [
+    NetworkService, 
+    MyAccountService,
+    SearchService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -54,15 +60,27 @@ export class NetworkPage {
   public lastedFluz:any = SHOW_LASTED_FLUZ;
   invitationForm: FormGroup;
   
-  constructor(public searchService: SearchService, public loadingController: LoadingController, public modalCtrl: ModalController,public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder, public network: NetworkService, public storage: Storage, public myAccount: MyAccountService) {
-        this.invitationForm = formBuilder.group({
-            'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
-            'name': [null, Validators.required],
-            'lastname': [null, Validators.required]
-        });
+  constructor(
+    public searchService: SearchService,
+    public loadingController: LoadingController,
+    public modalCtrl: ModalController,
+    public toastCtrl: ToastController,
+    public navCtrl: NavController,
+    public navParams: NavParams, formBuilder: FormBuilder,
+    public network: NetworkService,
+    public storage: Storage,
+    public myAccount: MyAccountService,
+    public analytics: AnalyticsService
+  ) {
+    this.invitationForm = formBuilder.group({
+      'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
+      'name': [null, Validators.required],
+      'lastname': [null, Validators.required]
+    });
   }
   
   ionViewWillEnter(){
+    this.analytics.trackView('NetworkPage');
     this.storage.get('userData').then((val) => {
       if (val === null || val === undefined || val == false){
         this.updateShowDataUser(false);

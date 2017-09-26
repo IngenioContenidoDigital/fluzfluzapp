@@ -6,17 +6,15 @@ import { Storage } from '@ionic/storage';
 import { LoadingController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { PersonalInformationService } from '../../providers/personalinformation.service';
-
-/**
- * Generated class for the PersonalInformation page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { AnalyticsService } from '../../providers/analytics.service';
+  
 @Component({
   selector: 'page-personalinformation',
   templateUrl: 'personalinformation.html',
-  providers: [ PersonalInformationService ],
+  providers: [
+    PersonalInformationService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -42,7 +40,17 @@ export class PersonalInformationPage {
     public cities:any = [];
     public userData:any = [];
     
-    constructor(public loadingController: LoadingController, public navCtrl: NavController, formBuilder: FormBuilder, public navParams: NavParams, public tabsService: TabsService, public storage: Storage, private alertCtrl: AlertController, private personalInformationService: PersonalInformationService ) {
+    constructor(
+      public loadingController: LoadingController,
+      public navCtrl: NavController,
+      public formBuilder: FormBuilder,
+      public navParams: NavParams,
+      public tabsService: TabsService,
+      public storage: Storage,
+      private alertCtrl: AlertController,
+      private personalInformationService: PersonalInformationService,
+      public analytics: AnalyticsService
+    ) {
         this.userData = navParams.get("customer");
           this.personalInformationForm = formBuilder.group({
             'segmentselected': ["basic", Validators.compose([Validators.required])],
@@ -69,6 +77,7 @@ export class PersonalInformationPage {
     }
     
     ionViewWillEnter(){
+      this.analytics.trackView('PersonalInformationPage');
         this.tabsService.hide();
         this.getPhoneProviders();
         this.getCities();

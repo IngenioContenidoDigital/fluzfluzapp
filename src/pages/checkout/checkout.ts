@@ -10,17 +10,16 @@ import { LoadingController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { SHOW_SAVINGS } from '../../providers/config';
 import { PersonalInformationService } from '../../providers/personalinformation.service';
+import { AnalyticsService } from '../../providers/analytics.service';
 
-/**
- * Generated class for the Checkout page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-checkout',
   templateUrl: 'checkout.html',
-  providers: [PaymentFluzService,PersonalInformationService],
+  providers: [
+    PaymentFluzService,
+    PersonalInformationService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -47,7 +46,17 @@ export class CheckoutPage {
   
   public creditCardSaved:any = [];
   
- constructor(private alertCtrl: AlertController, public loadingController: LoadingController, private PaymentFluzService: PaymentFluzService, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public tabsService: TabsService, private personalInformationService: PersonalInformationService) {
+ constructor(
+    private alertCtrl: AlertController,
+    private PaymentFluzService: PaymentFluzService,
+    private personalInformationService: PersonalInformationService,
+    public loadingController: LoadingController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public storage: Storage,
+    public tabsService: TabsService,
+    public analytics: AnalyticsService
+  ){
     this.cart = navParams.get("cart");
   }
 
@@ -164,6 +173,7 @@ export class CheckoutPage {
   }
   
   ionViewWillEnter(){
+    this.analytics.trackView('CheckoutPage');
     this.updateDataView();
     this.tabsService.hide();
     this.getSevedCreditCard();

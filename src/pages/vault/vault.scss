@@ -50,4 +50,30 @@ page-vault {
       }
     }
   }
+  
+  .ctn-earnings {
+    .month{
+      padding: 5px;
+    }
+    .order-state {
+      white-space: normal;
+      margin: 0px;
+    }
+    .row {
+      align-items: center;
+      .ctn-img {
+        padding: 5px;
+        text-align: center;
+        img {
+          max-width: 85%;
+        }
+      }
+      .values {
+        margin: 5px;
+      }
+      .info {
+        margin: 0px 5px;
+      }
+    }
+  }
 }

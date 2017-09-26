@@ -4,18 +4,31 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PersonalInformationService } from '../../providers/personalinformation.service';
 import { LoginService } from '../../providers/login-service';
 import { AlertController } from 'ionic-angular';
+import { AnalyticsService } from '../../providers/analytics.service';
 
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',
-  providers: [ LoginService, PersonalInformationService ],
+  providers: [
+    LoginService,
+    PersonalInformationService,
+    AnalyticsService
+  ],
 })
 export class RegisterPage {
 
   registerForm: FormGroup;
   public enabledSaveButton = false;
   public cities:any;
-  constructor( private alertCtrl: AlertController, private loginService: LoginService, private personalInformationService: PersonalInformationService, public navCtrl: NavController, public navParams: NavParams, formBuilder: FormBuilder) {
+  constructor(
+    private alertCtrl: AlertController,
+    private loginService: LoginService,
+    private personalInformationService: PersonalInformationService,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public formBuilder: FormBuilder,
+    public analytics: AnalyticsService
+  ){
     this.registerForm = formBuilder.group({
       'firts_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,100}$/i)])],
       'user_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{5,100}$/i)])],
@@ -29,6 +42,7 @@ export class RegisterPage {
   }
 
   ionViewWillEnter() {
+    this.analytics.trackView('RegisterPage');
     this.getCities();
   }
   

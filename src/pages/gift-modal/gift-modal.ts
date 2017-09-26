@@ -3,11 +3,16 @@ import { ViewController, NavController, NavParams, LoadingController, ToastContr
 import { TransferFluzService } from '../../providers/transferfluz.service';
 import { BonusService } from '../../providers/bonus.service';
 import { Storage } from '@ionic/storage';
+import { AnalyticsService } from '../../providers/analytics.service';
 
 @Component({
   selector: 'page-gift-modal',
   templateUrl: 'gift-modal.html',
-  providers: [BonusService,TransferFluzService],
+  providers: [
+    BonusService,
+    TransferFluzService,
+    AnalyticsService
+  ],
   animations: [
     trigger('slideIn', [
       state('*', style({ 'overflow-y': 'hidden' })),
@@ -41,11 +46,16 @@ export class GiftModalPage {
     public navParams: NavParams,
     public transferFluz: TransferFluzService,
     public loadingController: LoadingController,
-    public viewCtrl: ViewController
+    public viewCtrl: ViewController,
+    public analytics: AnalyticsService
   ) {
     this.bonus = navParams.get('bonus');
   }
-
+  
+  ionViewWillEnter(){
+    this.analytics.trackView('GiftModalPage');
+  }
+  
   dismiss() {
     this.viewCtrl.dismiss();
   }
