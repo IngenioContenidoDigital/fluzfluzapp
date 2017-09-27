@@ -16,7 +16,6 @@ export class CategoryService {
     return new Promise(resolve => {
       let params = new URLSearchParams();
       params.set('option', option);
-      //console.log("Manda esta opcion desde el servicio: ", option );
       params.set('id_category', id_category);
       params.set('limit', limit);
       

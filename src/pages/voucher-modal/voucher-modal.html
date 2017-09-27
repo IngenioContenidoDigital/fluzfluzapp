@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only>
+        <i class='fluz-fluz-fluz'></i>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>DETALLE DE ORDEN</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="closeModal()">
+        <ion-icon name='ios-arrow-round-back'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding class="background-soft">
+  <div class="background-white">
+    <div class="background-primary ctn-img">
+      <img src="assets/img/document.png">
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-label class="margin-v text-dark font-more-small font-semi-bold">Orden No:</ion-label>
+          <ion-label class="margin-v text-gray-normal">{{order.id_order}}</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label class="margin-v text-dark font-more-small font-semi-bold" text-right>Fecha:</ion-label>
+          <ion-label class="margin-v text-gray-normal" text-right>{{order.date}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    <ion-grid (click)="toggleProducts()" class="background-soft border-b">
+      <ion-row>
+        <ion-col>
+          <ion-label class="margin-v text-dark font-small font-semi-bold">Detalle de la orden</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label class="margin-v text-primary" text-right>
+            Ver
+            <span *ngIf="displayProducts">menos</span>
+            <span *ngIf="!displayProducts">mas</span>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    <ion-grid class="description" *ngIf="displayProducts" [@slideIn]>
+      <div [@slideIn]>
+        <ion-row class="border-b">
+          <ion-col col-7>
+            <ion-label class="margin-v text-dark font-extra-small font-semi-bold" text-center>DESCRIPCIÓN</ion-label>
+          </ion-col>
+          <ion-col col-1>
+            <ion-label class="margin-v text-dark font-extra-small font-semi-bold" text-center>CANT.</ion-label>
+          </ion-col>
+          <ion-col col-2>
+            <ion-label class="margin-v text-dark font-extra-small font-semi-bold" text-center>VALOR</ion-label>
+          </ion-col>
+          <ion-col col-2>
+            <ion-label class="margin-v text-dark font-extra-small font-semi-bold" text-center>SUBTOTAL</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="border-b" *ngFor="let product of products">
+          <ion-col col-2>
+            <div class="ctn-image">
+              <img src="{{product.image}}">
+            </div>
+          </ion-col>
+          <ion-col col-5>
+            <ion-label class="margin-v text-dark font-small font-semi-bold">{{product.manufacturer}}</ion-label>
+            <ion-label class="margin-v text-dark font-more-small font-semi-bold">{{product.product_name}}</ion-label>
+          </ion-col>
+          <ion-col col-1>
+            <ion-label class="margin-v text-dark font-small font-semi-bold">{{product.product_quantity}}</ion-label>
+          </ion-col>
+          <ion-col col-2>
+            <ion-label class="margin-v text-dark font-more-small font-semi-bold" text-center>COP</ion-label>
+            <ion-label class="margin-v text-dark font-more-small font-semi-bold" text-center>${{product.product_price}}</ion-label>
+          </ion-col>
+          <ion-col col-2>
+            <ion-label class="margin-v text-dark font-more-small font-semi-bold" text-center>COP</ion-label>
+            <ion-label class="margin-v text-dark font-more-small font-semi-bold" text-center>${{product.product_total}}</ion-label>
+          </ion-col>
+
+        </ion-row>
+      </div>
+    </ion-grid>
+    
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-label class="margin-v text-dark font-more-small font-semi-bold">Pago con Fluz:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label class="margin-v text-dark font-more-small font-semi-bold" text-right>{{order.total_discounts_fluz}} Fluz / COP ${{order.total_discounts}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label class="margin-v text-dark font-more-small font-semi-bold">Pago otros medios:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label class="margin-v text-dark font-more-small font-semi-bold" text-right>COP ${{order.total_paid}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label class="margin-v text-dark font-more-small font-semi-bold">Total Orden:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label class="margin-v text-dark font-more-small font-semi-bold" text-right>COP ${{order.total_order}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label class="margin-v text-dark font-more-small font-semi-bold">Total Pagado:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label class="margin-v text-dark font-more-small font-semi-bold" text-right>COP ${{order.total_paid}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    
+  </div>
+</ion-content>

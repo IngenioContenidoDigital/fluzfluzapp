@@ -55,4 +55,25 @@ export class VaultService {
         );
     });
   }
+  
+  public getOrderDetail(id_order:any) {
+    return new Promise(resolve => {
+      let url = WS_BASE + '/getOrderDetail';
+      let params = new URLSearchParams();
+      params.set('id_order', id_order);
+      
+      this.http.get(url, { search: params })
+        .map(res => res.json())
+        .subscribe(
+        	data => {
+            this.data = data;
+            resolve(this.data);
+          },
+          (err:Response) => {
+            this.data = '{"Error": "Error al traer el historial de ordenes"}';
+            resolve(this.data);
+          }
+        );
+    });
+  }
 }

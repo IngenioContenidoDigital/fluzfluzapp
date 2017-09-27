@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { VaultService } from '../../providers/vault.service';
 import { BonusPage } from '../bonus/bonus';
+import { VoucherModalPage } from '../voucher-modal/voucher-modal';
 import { TabsPage } from '../tabs/tabs';
 import { TabsService } from '../../providers/tabs.service';
 import { SHOW_REFINE_BUTTONS } from '../../providers/config';
 import { AnalyticsService } from '../../providers/analytics.service';
-//import { PasscodePage } from '../passcode/passcode';
 
 @Component({
   selector: 'page-vault',
@@ -33,6 +33,7 @@ export class VaultPage {
     public storage: Storage,
     public vault: VaultService,
     private viewCtrl: ViewController,
+    public modalCtrl: ModalController,
     public analytics: AnalyticsService
   ){
     this.vaultOption = 'bonus';
@@ -70,8 +71,6 @@ export class VaultPage {
         this.vault.getOrderHistory(val.id).then(
           (data:any) => {
             this.historyData = data.result;
-            console.log('this.historyData');
-            console.log(this.historyData);
           }
         );
       }
@@ -113,4 +112,10 @@ export class VaultPage {
       }
     }
   }
+  
+  openOrderHistory(order:any){
+    let modal = this.modalCtrl.create( VoucherModalPage, { order: order } );
+    modal.present();
+  }
+  
 }
