@@ -1,8 +1,9 @@
 import { Component, trigger, style, animate, state, transition } from '@angular/core';
-import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController, ToastController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { AnalyticsService } from '../../providers/analytics.service';
 import { VaultService } from '../../providers/vault.service';
+import { ProductFatherPage } from '../product-father/product-father';
 import { FLUZ_VALUE } from '../../providers/config';
 
 @Component({
@@ -35,6 +36,7 @@ export class VoucherModalPage {
     public loadingController: LoadingController,
     public navCtrl: NavController,
     public vault: VaultService,
+    public toastCtrl: ToastController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
     public tabsService: TabsService,
@@ -70,6 +72,35 @@ export class VoucherModalPage {
       (data:any) => {
         loader.dismiss();
         this.products = data.result;
+        console.log(this.products);
+      }
+    );
+  }
+  
+  openProduct(product:any){
+    console.log(product);
+    let loader = this.loadingController.create({
+      content: "Cargando..."
+    });
+    loader.present();
+    this.vault.getStateManufacturer(product.m_id).then(
+      (data:any) => {
+        loader.dismiss();
+        if (data.result == true){
+          product.m_name = product.manufacturer;
+          product.image_manufacturer = product.image;
+          this.navCtrl.push(ProductFatherPage,{
+            manufacturer: product,
+          });
+        }
+        else {
+          let toast = this.toastCtrl.create({
+            message: "El producto no se encuentra disponble.",
+            duration: 2500,
+            position: 'middle'
+          });
+          toast.present();
+        }
       }
     );
   }

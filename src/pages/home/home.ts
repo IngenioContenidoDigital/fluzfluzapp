@@ -73,7 +73,6 @@ export class HomePage {
     public loadingController: LoadingController,
     public modalCtrl: ModalController,
     public analytics: AnalyticsService
-//    private firebaseAnalytics: FirebaseAnalytics
     
     ) {
       this.countbannerData = 0;
@@ -203,8 +202,6 @@ export class HomePage {
     this.categoryService.getCategory( 1 ).then(
       (data:any) => {
         this.categoryFatherData = data.result;
-        console.log('this.categoryFatherData');
-        console.log(this.categoryFatherData);
       }
     );
   }

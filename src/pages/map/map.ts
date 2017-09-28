@@ -149,12 +149,12 @@ export class MapPage {
         let lng = position.lng;
         this.searchService.searchByMap( lat, lng ).then((data:any) => {
           loader.dismiss();
-          let messageModal = this.modalCtrl.create( ProductModalPage, { productMap: data, result: data.result } );
+          let productModal = this.modalCtrl.create( ProductModalPage, { productMap: data, result: data.result } );
           this.map.setClickable(false);
-          messageModal.onDidDismiss(data => {
+          productModal.onDidDismiss(data => {
             this.map.setClickable(true);
           });
-          messageModal.present();
+          productModal.present();
         });
       });
     });

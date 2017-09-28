@@ -1,5 +1,5 @@
 import { Component, trigger, style, animate, state, transition  } from '@angular/core';
-import { ModalController, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { ModalController, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { NetworkService } from '../../providers/network.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
@@ -7,7 +7,6 @@ import { MyAccountService } from '../../providers/myAccount.service';
 import { MessageModalPage } from '../message-modal/message-modal';
 import { InvitationThirdModalPage } from '../invitation-third-modal/invitation-third-modal';
 import { NetworkTreePage } from '../network-tree/network-tree';
-import { ToastController } from 'ionic-angular';
 import { SHOW_REFINE_BUTTONS } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
 import { ProductChildPage } from '../product-child/product-child';
