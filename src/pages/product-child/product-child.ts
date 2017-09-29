@@ -1,14 +1,19 @@
 import { Component, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, LoadingController, Slides, Platform } from 'ionic-angular';
 import { SearchService } from '../../providers/search.service';
 import { CartService } from '../../providers/cart.service';
 import { Storage } from '@ionic/storage';
 import { TabsService } from '../../providers/tabs.service';
+import { InstagramService } from '../../providers/instagram.service';
 import { SHOW_SAVINGS } from '../../providers/config';
 import { SHOW_MAP_PRODUCT_PAGE } from '../../providers/config';
 import { BonusService } from '../../providers/bonus.service';
 import { Geolocation } from '@ionic-native/geolocation';
 import { AnalyticsService } from '../../providers/analytics.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { BrowserTab } from '@ionic-native/browser-tab';
+import { AppAvailability } from '@ionic-native/app-availability';
+import { Device } from '@ionic-native/device';
 
 declare var google;
 
@@ -19,12 +24,16 @@ declare var google;
     BonusService,
     SearchService,
     CartService,
+    InstagramService,
+    AppAvailability,
     AnalyticsService
   ]
 })
 export class ProductChildPage {
   // Maps
   @ViewChild('map') mapElement: ElementRef;
+  //Slides Instagram
+  @ViewChild(Slides) slides: Slides;
   public map: any;
   public markers: any = [];
   public ubication:any = '';
@@ -32,19 +41,25 @@ export class ProductChildPage {
   public longitude:any;
   
   public manufacturer:any = {};
+  public instragramData:any = [];
   public productFather:any = {};
   public productChild:any = {};
   public intructions:any = '';
+  public countInstagramData:any = 0;
   public terms:any = '';
   public inform:any;
   public idCart:any = 0;
   public showSavings = SHOW_SAVINGS;
   public showMapProductPage = SHOW_MAP_PRODUCT_PAGE;
+  public scheme:string = '';
   
   @Output('updateCountCart')
   public updateCountCart: EventEmitter<number> = new EventEmitter<number>();
   
   constructor(
+    public platform: Platform,
+    public appAvailability: AppAvailability,
+    private browserTab: BrowserTab,
     public toastCtrl: ToastController,
     public loadingController: LoadingController,
     public navCtrl: NavController,
@@ -55,6 +70,8 @@ export class ProductChildPage {
     public tabsService: TabsService,
     public geolocation: Geolocation,
     public bonusService: BonusService,
+    public instagramService: InstagramService,
+    private iab: InAppBrowser,
     public analytics: AnalyticsService
   ) {
     this.inform = "instructions";
@@ -121,12 +138,117 @@ export class ProductChildPage {
     if(this.showMapProductPage){
       this.inizializateMap();
     }
+    setTimeout(()=>{
+      this.getInstagramImages();
+    },500);
+  }
+  
+  getInstagramImages(){
+    this.instagramService.getInstagramData(this.manufacturer.m_id, 5).then(
+      (data:any) => {
+        this.instragramData = data.result;
+        console.log(this.instragramData);
+        this.countInstagramData = Object.keys(this.instragramData).length;
+      }
+    );
   }
 
+  openInstagram(profile:any) {
+    let url = "http://instagram.com/"+profile;
+    this.browserTab.isAvailable().then((
+      isAvailable: boolean) => {
+        if (isAvailable) {
+          this.browserTab.openUrl(url);
+        } else {
+          this.iab.create(url, '_blank', 'location=yes');
+          // open URL with InAppBrowser instead or SafariViewController
+        }
+      }
+    );
+  }
+  
+  openImageInstagram(url:any){
+    this.browserTab.isAvailable().then(
+      (isAvailable: boolean) => {
+        if (isAvailable) {
+          this.browserTab.openUrl(url);
+        } else {
+          this.iab.create(url, '_blank', 'location=yes');
+          // open URL with InAppBrowser instead or SafariViewController
+        }
+      }
+    );
+  }
+  
   ionViewWillLeave(){
     this.tabsService.show();
   }
   
+//  launchExternalApp(iosSchemaName: string, androidPackageName: string, appUrl: string, httpUrl: string, username: string) {
+//    this.appAvailability.check(this.findScheme()).then(
+//      () => { // success callback
+//        console.log("option 1");
+//        let browser = this.iab.create(appUrl+username, '_blank', 'location=yes');
+//      },
+//      () => { // error callback
+//        let browser = this.iab.create(httpUrl+username, '_blank', 'location=yes');
+//      }
+//    );
+//  }
+//
+//  openInstagramApp(username: string) {
+//    this.launchExternalApp('instagram://', 'com.instagram.android', 'instagram://user?username=', 'https://www.instagram.com/', username);
+//  }
+  
+//  
+//  openInstagramApp(){
+//    this.appAvailability.check(this.findScheme()).then(
+//      (isApp:any) => {
+//        if(isApp){
+//          console.log("si entro");
+//          console.log(isApp);
+//          window.open('instagram://user?screen_name=alinscorobete', '_system', 'location=no');
+////          console.log('Instagram application available and opened');
+//        }
+//        else {
+//          window.open('https://instagram.com/alinscorobete', '_system', 'location=no');
+////          console.log('Instagram application not available, opened website in native browser');
+//        }
+//      }
+//    )
+//  }
+//  
+//  findScheme(){
+//    if(this.isIOS()){
+//        this.scheme = 'instagram://';
+//        return this.scheme;
+//    } else if (this.isAndroid()){
+//        this.scheme = 'com.instagram.android';
+//        console.log('this.scheme');
+//        console.log(this.scheme);
+//        return this.scheme;
+//    }
+//  }
+//  
+//  isIOS(){
+//    if(this.platform.is('ios')){
+//      return true;
+//    } else {
+//      return false;
+//    }
+//  }
+//  
+//  isAndroid(){
+//    if(this.platform.is('android')){
+//      console.log("si es android");
+//      return true;
+//    } else {
+//      return false;
+//    }
+//  }
+//  
+  
+    
   inizializateMap(){
     this.getUbication();
     setTimeout(()=>{

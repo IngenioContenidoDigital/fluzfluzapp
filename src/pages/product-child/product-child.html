@@ -37,7 +37,7 @@
         <ion-col col-2 text-right>${{item.c_price}}</ion-col>
       </ion-row>
       <ion-row class="spacer-bottom padding-h-5">
-        <ion-label class="text-gray-normal details-product">Detalles +</ion-label>
+        <!--<ion-label class="text-gray-normal details-product">Detalles +</ion-label>-->
         <button ion-button item-right color="primary" class="font-extra-small" (click)="addToCart(item.c_id_product)">COMPRAR</button>
       </ion-row>
     </div>
@@ -50,6 +50,29 @@
     <br>
     <ion-label class="font-small font-semi-bold text-dark title-instruc">Instrucciones Bonos</ion-label>
   </div>
+  
+  <div *ngIf="instragramData.total > 0">
+    <ion-row class="border-b ctn-insta-title" (click)="openInstagram(instragramData.instagram_profile)">
+      <ion-col col-2>
+        <div class="ctn-image-social">
+          <img src="assets/icon/social/instagram.png">
+        </div>
+      </ion-col>
+      <ion-col col-10>
+        <ion-label class="font-small font-semi-bold text-dark title-instruc">@{{instragramData.instagram_profile}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-slides [autoplay]="4000" [loop]="true"  [speed]="300" *ngIf="countInstagramData > 1" [slidesPerView]="3" [spaceBetween]="10">
+      <ion-slide *ngFor="let slide of instragramData.imageData">
+        <ion-card (click)="openImageInstagram(slide.link)">
+          <img src="{{slide.imgsmall}}"/>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </div>
+<!--  <ion-row (click)="openInstagramApp(instragramData.instagram_profile)">
+    <h1>insta</h1>
+  </ion-row>-->
   
   <div no-padding>
     <ion-segment [(ngModel)]="inform">

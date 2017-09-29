@@ -23,6 +23,7 @@
         "@angular/platform-server": "^4.2.3",
         "@angular/router": "^4.2.3",
         "@angular/tsc-wrapped": "^4.2.5",
+        "@ionic-native/app-availability": "^4.3.0",
         "@ionic-native/browser-tab": "^3.13.1",
         "@ionic-native/camera": "^4.2.1",
         "@ionic-native/clipboard": "^4.1.0",
@@ -46,6 +47,7 @@
         "cordova-android": "^6.2.3",
         "cordova-clipboard": "^1.0.0",
         "cordova-ios": "^4.4.0",
+        "cordova-plugin-appavailability": "^0.4.2",
         "cordova-plugin-browsertab": "~0.2.0",
         "cordova-plugin-cache": "git+https://github.com/tiltshiftfocus/cordova-plugin-cache.git",
         "cordova-plugin-camera": "^2.4.1",
@@ -128,7 +130,8 @@
             "cordova-plugin-file": {},
             "cordova-plugin-filepath": {},
             "org.apache.cordova.plugin.cache": {},
-            "cordova-plugin-google-analytics": {}
+            "cordova-plugin-google-analytics": {},
+            "cordova-plugin-appavailability": {}
         },
         "dependencies": {
             "@angular/animations": "^4.2.3",
