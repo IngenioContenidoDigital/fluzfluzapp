@@ -1,8 +1,9 @@
 import { Component, trigger, style, animate, state, transition  } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TabsService } from '../../providers/tabs.service';
 import { Banco } from '../../models/banco';
+import { Storage } from '@ionic/storage';
 import { BancoService } from '../../providers/banco.service';
 import { Redemption } from '../../providers/redemption.service';
 import { RedemptionConfirmPage } from '../redemption-confirm/redemption-confirm';
@@ -49,8 +50,10 @@ export class FormOfRedemptionPage {
     public navParams: NavParams,
     public tabsService: TabsService,
     public formBuilder: FormBuilder,
+    private alertCtrl: AlertController,
     private backService: BancoService,
     private redemption: Redemption,
+    public storage: Storage,
     public analytics: AnalyticsService
   ) {
     this.disponibleFluz = navParams.get("disponibleFluz");
@@ -137,12 +140,24 @@ export class FormOfRedemptionPage {
     this.redemptionData = redemptionData.value;
     Object.assign(this.redemptionData, this.dataUserRedemption);
     Object.assign(this.redemptionData, this.redemptionValue);
-    this.redemption.setRedemption( this.redemptionData ).then(
-      (data:any) => {
-        loader.dismiss();
-        this.goTo("Continue");
-      }
-    );
+    this.storage.get('userData').then((val) => {
+      this.redemption.setRedemption( val.id, this.redemptionData ).then(
+        (data:any) => {
+          loader.dismiss();
+          if(data.result == "error"){
+            let alert = this.alertCtrl.create({
+              title: 'Error Generando Transferencia',
+              subTitle: 'Ha ocurrido un error en el proceso de transferencia de fluz.',
+              buttons: ['OK']
+            });
+            alert.present();
+          }
+          else {
+            this.goTo("Continue");
+          }
+        }
+      );
+    });
   }
   
   goTo(value:any) {

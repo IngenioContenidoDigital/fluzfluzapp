@@ -66,13 +66,16 @@ export class TransferFluzPage {
     }
 
     getUserData() {
+      this.userData.fluzTotal = 0;
       this.storage.get('userData').then((val) => {
         if( val != null && val != '' && val != undefined ){
           this.userData.userName = val.firstname;
           this.myAccount.getDataAccount(val.id).then(
             (data:any) => {
-              this.userData = Object.assign(this.userData, JSON.parse(data));
-              this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
+              setTimeout(()=>{
+                this.userData = Object.assign(this.userData, JSON.parse(data));
+                this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
+              }, 100);
             }
           );
         }
@@ -126,7 +129,7 @@ export class TransferFluzPage {
                 success => {
                     loader.dismiss();
                     let response = JSON.parse(success._body);
-                    if ( response.success ) {
+                    if ( success.status == 200 ) {
                         this.searchBox = "";
                         this.fluzzers = [];
                         this.fluzzerSelected = "";

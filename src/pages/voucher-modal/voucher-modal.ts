@@ -72,13 +72,11 @@ export class VoucherModalPage {
       (data:any) => {
         loader.dismiss();
         this.products = data.result;
-        console.log(this.products);
       }
     );
   }
   
   openProduct(product:any){
-    console.log(product);
     let loader = this.loadingController.create({
       content: "Cargando..."
     });

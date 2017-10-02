@@ -12,8 +12,9 @@ export class Redemption {
     
   constructor(public http: Http) {}
 
-  public setRedemption(value:any) {
+  public setRedemption(id_customer:any, value:any) {
     let params = new URLSearchParams();
+      params.set('id_customer', id_customer);
       params.set('identification', value.n_identification);
       params.set('firts_name', value.firts_name);
       params.set('last_name', value.last_name);
@@ -28,7 +29,7 @@ export class Redemption {
           .map(res => res.json())
           .subscribe(
             data => {
-              this.userData = JSON.stringify(data);
+              this.userData = data;
               resolve( this.userData );
             },
             (err:Response) => {
