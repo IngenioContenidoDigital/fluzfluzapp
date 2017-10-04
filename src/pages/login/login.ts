@@ -48,8 +48,8 @@ export class LoginPage {
     public tabsService: TabsService,
     public platform: Platform,
     public analytics: AnalyticsService,
-    private browserTab: BrowserTab,
     private loginService:LoginService,
+    private browserTab: BrowserTab,
     private iab: InAppBrowser,
   ) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');

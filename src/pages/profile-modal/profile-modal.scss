@@ -81,4 +81,17 @@ page-profile-modal {
     margin: 25px 0 0 0;
   }
   
+  .ctn-whatsapp {
+    text-align: center;
+    
+    .whatsapp-icon {
+      font-size: 4rem;
+      color: color($colors, green);
+    }
+  }
+  
+  .icon-country {
+    line-height: 33px;
+  }
+  
 }

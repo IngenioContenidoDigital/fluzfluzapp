@@ -39,4 +39,16 @@ page-invitation-third-modal {
       padding: 3px;
     }
   }
+  .ctn-whatsapp {
+    text-align: center;
+    
+    .whatsapp-icon {
+      font-size: 4rem;
+      color: color($colors, green);
+    }
+  }
+  
+  .icon-country {
+    line-height: 33px;
+  }
 }

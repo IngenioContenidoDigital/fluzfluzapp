@@ -7,6 +7,10 @@ import { MyAccountService } from '../../providers/myAccount.service';
 import { ToastController } from 'ionic-angular';
 import { MessageModalPage } from '../message-modal/message-modal';
 import { AnalyticsService } from '../../providers/analytics.service';
+import { CountryModalPage } from '../country-modal/country-modal';
+import { BrowserTab } from '@ionic-native/browser-tab';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { ProfileModalPage } from '../profile-modal/profile-modal';
 
 @Component({
   selector: 'page-invitation-third-modal',
@@ -36,11 +40,19 @@ export class InvitationThirdModalPage {
   public enabledLoginButton:boolean;
   public customer:any = [];
   public countMy:any;
+  public phoneWhatsapp:any;
   public enabledInvitationButton:any = false;
   public showInvitationForm:any = false;
+  public countries:any = {
+    name: 'Colombia',
+    callingCodes: '57',
+    flag: 'https://restcountries.eu/data/col.svg'
+  };
   invitationForm: FormGroup;  
 
   constructor(
+    private browserTab: BrowserTab,
+    private iab: InAppBrowser,
     public loadingController: LoadingController,
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
@@ -54,9 +66,12 @@ export class InvitationThirdModalPage {
     public analytics: AnalyticsService
   ) {
     this.invitationForm = formBuilder.group({
-      'firtsname' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,100}$/i)])],
-      'lastname' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,100}$/i)])],
-      'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
+      'firtsname' : [ null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,100}$/i)])],
+      'lastname'  : [ null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,100}$/i)])],
+      'email'     : [ null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
+      'whatsapp'  : [ false, Validators.compose([Validators.minLength(1),Validators.pattern('^[0-9]{1,4}$')]) ],
+      'country'   : [ this.countries.callingCodes ],
+      'telephone' : [ null, Validators.compose([Validators.minLength(6),Validators.pattern('^[0-9]{1,15}$')])] 
     });
   }
   
@@ -86,6 +101,16 @@ export class InvitationThirdModalPage {
     });
   }
   
+  openCustomer(item:any){
+    let messageModal = this.modalCtrl.create( ProfileModalPage, { customer: item } );
+    messageModal.onDidDismiss(data => {
+      if(data){
+        this.openCustomer(data.send);
+      }
+    });
+    messageModal.present();
+  }
+  
   sendMessage(item:any){
     let messageModal = this.modalCtrl.create( MessageModalPage, { destiny: item } );
     messageModal.onDidDismiss(data => {
@@ -102,8 +127,11 @@ export class InvitationThirdModalPage {
     if (
       this.invitationForm.controls['firtsname'].valid &&
       this.invitationForm.controls['lastname'].valid &&
-      this.invitationForm.controls['email'].valid
+      this.invitationForm.controls['email'].valid 
     ) {
+      if( this.invitationForm.value['whatsapp'] ){
+        this.invitationForm.controls['telephone'].valid ? this.enabledInvitationButton = true : this.enabledInvitationButton = false;
+      }
       this.enabledInvitationButton = true;
     } 
     else {
@@ -117,7 +145,12 @@ export class InvitationThirdModalPage {
     });
     loader.present();
     if (this.invitationForm.controls['email'].valid && this.invitationForm.controls['firtsname'].valid && this.invitationForm.controls['lastname'].valid) {
-      this.network.sendInvitation(item.id, formData).then(
+      if( this.invitationForm.value['whatsapp'] ){
+        if( this.invitationForm.controls['telephone'].valid ) {
+          this.phoneWhatsapp = this.countries.callingCodes + this.invitationForm.value['telephone'];
+        }
+      }
+      this.network.sendInvitation(item.id, formData, this.phoneWhatsapp).then(
         (data:any) => {
           loader.dismiss();
           let d = JSON.parse(data);
@@ -127,6 +160,7 @@ export class InvitationThirdModalPage {
             this.showInvitation(false);
           }
           if(d.error == '0'){
+            this.openUrl(d.url);
             errorMessage = 'Invitación enviada correctamente.';
           }
           else {
@@ -158,6 +192,40 @@ export class InvitationThirdModalPage {
         }
       );
     }
+    else {
+      let toast = this.toastCtrl.create({
+        message: 'Uno o más datos no son correctos',
+        position: 'middle',
+        duration: 2000,
+      });
+      toast.present();
+    }
   }
+  
+  openModalCountry(){
+    let countryModal = this.modalCtrl.create( CountryModalPage );
+    countryModal.onDidDismiss(data => {
+      if(data !== undefined && data !== null){
+        this.countries.name = data.name;
+        this.countries.flag = data.flag;
+        this.countries.callingCodes = data.callingCodes;
+      }
+      setTimeout(()=>{ this.validateInput(true); }, 500);
+    });
+    countryModal.present();
+  }
+  
+  openUrl(url:string){
+    this.browserTab.isAvailable().then((
+      isAvailable: boolean) => {
+        if (isAvailable) {
+          this.browserTab.openUrl(url);
+        } else {
+          this.iab.create(url, '_blank', 'location=no');
+          // open URL with InAppBrowser instead or SafariViewController
+        }
+    });
+  }
+  
 }
         

@@ -59,6 +59,44 @@
               </ion-item>
             </ion-row>
             <ion-row>
+              <ion-col col-2 class="ctn-whatsapp">
+                <ion-icon name="logo-whatsapp" class="whatsapp-icon"></ion-icon>
+              </ion-col>
+              <ion-col col-8>
+                <ion-label class="font-small text-dark font-semi-bold wrap">Enviar invitación a través de Whatsapp</ion-label>
+              </ion-col>
+              <ion-col col-2>
+                <ion-toggle color="green" checked="false" (ionChange)="validateInput($event)" [formControl]="invitationForm.controls['whatsapp']"></ion-toggle>
+              </ion-col>
+            </ion-row>
+            <div *ngIf="invitationForm.value['whatsapp']">
+              <ion-row>
+                <ion-col col-12>
+                  <ion-label class="font-small text-dark wrap">Selecciona el indicativo de pais, y escribe el número de tu invitado.</ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-row (click)="openModalCountry()">
+                <ion-col col-2>
+                  <div class="ctn-img">
+                    <img src="{{countries.flag}}">
+                  </div>
+                </ion-col>
+                <ion-col col-9>
+                  <ion-label class="font-semi-bold">{{countries.callingCodes}} {{countries.name}}</ion-label>
+                </ion-col>
+                <ion-col col-1 class="background-soft">
+                  <div text-center>
+                    <ion-icon name="ios-arrow-forward" class="icon-country"></ion-icon>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-item no-padding>
+                  <ion-input class="confimNumber" type="number" (keyup)="validateInput($event)" [formControl]="invitationForm.controls['telephone']"  placeholder="XXXXXXXXXX"></ion-input>
+                </ion-item>
+              </ion-row>
+            </div>
+            <ion-row>
               <ion-col>
                 <button ion-button color="primary" block (click)="showInvitation(item)">CANCELAR</button>
               </ion-col>

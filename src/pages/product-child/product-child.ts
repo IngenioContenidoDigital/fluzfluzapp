@@ -13,7 +13,6 @@ import { AnalyticsService } from '../../providers/analytics.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { BrowserTab } from '@ionic-native/browser-tab';
 import { AppAvailability } from '@ionic-native/app-availability';
-import { Device } from '@ionic-native/device';
 
 declare var google;
 
