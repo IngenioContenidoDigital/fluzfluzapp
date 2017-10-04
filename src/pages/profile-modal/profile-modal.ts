@@ -121,6 +121,10 @@ export class ProfileModalPage {
     setTimeout(()=>{ this.showInvitationForm = this.showInvitationForm ? false : true; }, 500);
   }
   
+  updateWhatsapp(){
+    this.invitationForm.get('whatsapp').setValue( this.invitationForm.value['whatsapp'] ? false : true );
+  }
+  
   validateInput(event:any) {
     if (
       this.invitationForm.controls['firtsname'].valid &&

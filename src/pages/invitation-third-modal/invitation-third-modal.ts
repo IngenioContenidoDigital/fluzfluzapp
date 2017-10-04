@@ -123,6 +123,10 @@ export class InvitationThirdModalPage {
     setTimeout(()=>{ this.showInvitationForm = this.showInvitationForm == item.id ? false : item.id;  }, 200);
   }
   
+  updateWhatsapp(){
+    this.invitationForm.get('whatsapp').setValue( this.invitationForm.value['whatsapp'] ? false : true );
+  }
+  
   validateInput(event:any) {
     if (
       this.invitationForm.controls['firtsname'].valid &&

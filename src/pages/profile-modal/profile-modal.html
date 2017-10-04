@@ -95,7 +95,7 @@
                   <ion-input type="email" required (keyup)="validateInput($event)" [formControl]="invitationForm.controls['email']"></ion-input>
                 </ion-item>
               </ion-row>
-              <ion-row>
+              <ion-row (click)="updateWhatsapp()">
                 <ion-col col-2 class="ctn-whatsapp">
                   <ion-icon name="logo-whatsapp" class="whatsapp-icon"></ion-icon>
                 </ion-col>
