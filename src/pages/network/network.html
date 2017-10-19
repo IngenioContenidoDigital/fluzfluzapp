@@ -13,6 +13,7 @@
 </ion-header>
 
 
+  
 <ion-content no-padding class="background-soft">
   <div class="ctn-user-data border-primary" *ngIf="showHomeUserData===true">
     <ion-grid>
@@ -52,6 +53,15 @@
       </ion-row>
     </ion-grid>
   </div> 
+  
+  <div class="GraphicNetwork">
+    <ion-scroll scrollX="true" scrollY="true" zoom="true" maxZoom="200" overflow-scroll="false">
+      <canvas #myCanvas (click)="clickCricle($event)">
+      </canvas>
+    </ion-scroll>
+    <img src="assets/user-red.png" hidden>
+  </div>
+  
   <ion-label class="float-label-gray">ACTIVIDAD RECIENTE</ion-label>
   <div class="ctn-background-white">
     <ion-grid>

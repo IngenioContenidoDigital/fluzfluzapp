@@ -14,6 +14,7 @@ export class NetworkService {
   constructor(public http: Http) {}
 
   public getDataAccount(id_customer, option, limit, last_total, obj_inv='') {
+    this._url = WS_BASE+'getNetwork';
     let params = new URLSearchParams();
       params.set('id_customer', id_customer);
       params.set('option', option);
@@ -107,7 +108,25 @@ export class NetworkService {
       });
   }
   
-  
+  public getNetworkGUser(id_customer:string) {
+    this._url = WS_BASE+'getNetworkGUser';
+    let params = new URLSearchParams();
+      params.set('id_customer', id_customer);
+    return new Promise(resolve => {
+      this.http.get(this._url, { search: params })
+        .map(res => res.json())
+        .subscribe(
+        	data => {
+            this.data = data;
+            resolve(this.data);
+          },
+          (err:Response) => {
+            this.data = '{"Error": "Error al traer la red del Gráfico"}';
+            resolve(this.data);
+          }
+        );
+    });
+  }
   
   
 }

@@ -1,4 +1,4 @@
-import { Component, trigger, style, animate, state, transition  } from '@angular/core';
+import { Component, trigger, style, animate, state, transition, ViewChild, ElementRef } from '@angular/core';
 import { ModalController, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { NetworkService } from '../../providers/network.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -11,6 +11,7 @@ import { SHOW_REFINE_BUTTONS } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
 import { ProductChildPage } from '../product-child/product-child';
 import { ProductFatherPage } from '../product-father/product-father';
+import { MorePage } from '../more/more';
 import { ProfileModalPage } from '../profile-modal/profile-modal';
 import { SearchService } from '../../providers/search.service';
 import { AnalyticsService } from '../../providers/analytics.service';
@@ -59,6 +60,27 @@ export class NetworkPage {
   public lastedFluz:any = SHOW_LASTED_FLUZ;
   invitationForm: FormGroup;
   
+  //Graphic Start
+  @ViewChild('myCanvas') canvasRef: ElementRef;
+  @ViewChild('content') content;
+  @ViewChild('myScroll') myScroll;
+  public center = 400;
+  public maxArea:any = 14;
+  public radius = 0;
+  public MinRadius:any = 40;
+  public MaxRadius:any = 0;
+  public lastItem:any;
+  public imgUrls:any = [];
+  public img:any = [];
+  public CanvasWidth:any = 320;
+  public CanvasHeight:any = 200;
+  public CanvasCenter:any = {
+    x: 160,
+    y: 100
+  };
+  public networkG:any;
+  //Graphic End
+  
   constructor(
     public searchService: SearchService,
     public loadingController: LoadingController,
@@ -76,6 +98,18 @@ export class NetworkPage {
       'name': [null, Validators.required],
       'lastname': [null, Validators.required]
     });
+    this.imgUrls[0] = "assets/img/user-red.png";
+    this.imgUrls[1] = "assets/img/quadrant-1.png";
+    this.imgUrls[2] = "assets/img/quadrant-2.png";
+    this.imgUrls[3] = "assets/img/quadrant-3.png";
+    this.imgUrls[4] = "assets/img/quadrant-4.png";
+        
+    for(var i=0; i<Object.keys(this.imgUrls).length; i++){
+      this.img[i] = new Image();
+      this.img[i].src = this.imgUrls[i];
+    }
+    
+//    setTimeout(()=>{ this.getNetworkGUsers() }, 200 );
   }
   
   ionViewWillEnter(){
@@ -108,7 +142,26 @@ export class NetworkPage {
       this.getActivityNetworkData( this.seeMoreActivityValue );
       this.getMyNetworkData( this.seeMoreMyValue );
       this.getMyInvitationData(this.countInvitation);
+      this.resetVariables();
+//      this.getNetworkGUsers();
     }, 200);
+  }
+  
+  resetVariables(){
+    this.center = 400;
+    this.maxArea= 14;
+    this.radius = 0;
+    this.MinRadius= 40;
+    this.MaxRadius= 0;
+    this.lastItem = [];
+    this.CanvasWidth= 320;
+    this.CanvasHeight= 200;
+    this.CanvasCenter= {
+      x: 160,
+      y: 100
+    };
+    this.networkG = [];
+    setTimeout(()=>{ this.getNetworkGUsers(); }, 200);
   }
   
   updateShowDataUser(value:any){
@@ -172,8 +225,8 @@ export class NetworkPage {
   getMyInvitationData(limit:any){
     this.storage.get('userData').then((val) => {
       if( val != null && val != '' && val != undefined ){
-          this.countMy = Object.keys(this.myInvitation).length;
-          this.network.getDataAccount(val.id, 3, limit, this.countMy).then(
+        this.countMy = Object.keys(this.myInvitation).length;
+        this.network.getDataAccount(val.id, 3, limit, this.countMy).then(
           (data:any) => {
             var data = JSON.parse(data);
             if(data == ''){
@@ -323,4 +376,154 @@ export class NetworkPage {
     });
     messageModal.present();
   }
+  
+  
+  // Graphic Start
+  getNetworkGUsers(){
+    this.storage.get('userData').then((val) => {
+      this.network.getNetworkGUser(val.id).then(
+        (data:any) => {
+          this.networkG = data.result;
+          setTimeout(()=>{ 
+            if(Object.keys(this.networkG).length > 0){
+              this.defineMaxRadius();
+            }
+          }, 100 );
+        }
+      );
+    });
+  }
+  
+  defineMaxRadius(){
+    this.lastItem = this.networkG[Object.keys(this.networkG).length-1];
+    for(var i=1; i < this.lastItem.level; i++){
+      this.MaxRadius = this.MaxRadius + this.MinRadius - 2 * i;
+    }
+    setTimeout(()=>{ this.defineSizeCanvas() }, 100 );
+  }
+  
+  defineSizeCanvas(){
+    this.CanvasWidth = ( this.CanvasWidth > (this.MaxRadius*2) + 50 ) ? this.CanvasWidth : (this.MaxRadius*2) + 50;
+    this.CanvasHeight = ( this.CanvasHeight > (this.MaxRadius*2) + 50 ) ? this.CanvasHeight : (this.MaxRadius*2) + 50;
+    setTimeout(()=>{ this.defineCenterCanvas() }, 100 );
+  }
+  
+  defineCenterCanvas(){
+    this.CanvasCenter.x = ( this.CanvasCenter.x > ( this.CanvasWidth/2 ) ) ? this.CanvasCenter.x : ( this.CanvasWidth/2 ); 
+    this.CanvasCenter.y = ( this.CanvasCenter.y > ( this.CanvasHeight/2 ) ) ? this.CanvasCenter.y : ( this.CanvasHeight/2 ); 
+    setTimeout(()=>{ this.startDrawCanvas() }, 100 );
+  }
+  
+  startDrawCanvas(){
+    let ctx : CanvasRenderingContext2D = this.canvasRef.nativeElement.getContext('2d');
+    ctx.canvas.width = this.CanvasWidth;
+    ctx.canvas.height = this.CanvasHeight;
+    setTimeout(()=>{ this.drawNetworkG(ctx) }, 100 );
+  }
+  
+  drawNetworkG(ctx:CanvasRenderingContext2D){
+    let radiusImage = 14;
+    this.drawImage(ctx, radiusImage, this.CanvasCenter.x, this.CanvasCenter.y, false);
+    let countPerson:any;
+    for( var i = 1; i <= this.lastItem.level; i++){
+      countPerson = 0;
+      radiusImage = (radiusImage <= 4) ? 4 : radiusImage - 2;
+      this.radius = this.radius + this.MinRadius - 2*i;
+      this.drawRadius(ctx, this.radius);
+      let points:number = this.countPointsByLevel(i);
+      let angulo:number = 360 / points;
+      
+      for( var j=0; j < Object.keys(this.networkG).length ; j++ ){
+        if(this.networkG[j].level == i){
+          this.networkG[j].coordenades = this.calculatePoint(this.radius, angulo*j);
+          this.networkG[j].radiusImage = radiusImage;
+          this.networkG[j].radius = this.radius;
+          this.drawImage(ctx, radiusImage, this.networkG[j].coordenades.x, this.networkG[j].coordenades.y, this.networkG[j].img)
+        }
+      }
+    }
+  }
+  
+  countPointsByLevel(level:any){
+    let countPerson = 0;
+    for( var j=0; j < Object.keys(this.networkG).length ; j++ ){
+      countPerson = ( this.networkG[j].level == level ) ? countPerson + 1 : countPerson;
+    }
+    return countPerson;
+  }
+  
+  calculatePoint(radio:number, pointAngle:number){
+    let result;
+    result = Object.assign(
+      { 
+        x: ((radio * (Math.round((Math.cos( pointAngle * Math.PI / 180))*1000)/1000))+this.CanvasCenter.x),
+        y: ((radio * (Math.round((Math.sin( pointAngle * Math.PI / 180))*1000)/1000))+this.CanvasCenter.y)
+      }
+    );
+    return result;
+  }
+  
+  drawImage(ctx:CanvasRenderingContext2D, radius:any, x:any, y:any, imgProfile:any) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.strokeStyle = "#FFF";
+    ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+    ctx.lineWidth = radius * 0.5;
+    ctx.stroke();
+    ctx.clip();
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+    if(imgProfile == false){
+      let quadrant = this.calculateQuadrantForImage(x, y);
+      ctx.drawImage(this.img[quadrant], 0, 0, this.img[quadrant].width, this.img[quadrant].height, x - radius, y - radius, radius*2, radius*2);
+    }
+    else {
+      let image = new Image();
+      image.src = imgProfile;
+      image.onload = function(){
+        ctx.drawImage(image, 0, 0, image.width, image.height, x - radius, y - radius, radius*2, radius*2);
+      }
+    }
+    ctx.restore();
+  }
+    
+  calculateQuadrantForImage(x:any, y:any){
+    return (x == this.CanvasCenter.x && y == this.CanvasCenter.y) ? 0 : (x > this.CanvasCenter.x) ? ((y > this.CanvasCenter.y) ? 1 : 4) : ((y > this.CanvasCenter.y) ? 2 : 3);
+  }  
+  
+  drawRadius(ctx:CanvasRenderingContext2D, radius:number){
+    ctx.beginPath();
+    ctx.arc(this.CanvasCenter.x, this.CanvasCenter.y, radius, 0, Math.PI*2, false);
+    ctx.strokeStyle = '#828282';
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+  }
+  
+  clickCricle(ev:any){
+    let distanceMin = 10;
+    let distance;
+    let point:any = false;
+    if(Math.sqrt( ((ev.layerX-this.CanvasCenter.x)*(ev.layerX-this.CanvasCenter.x))+((ev.layerY-this.CanvasCenter.y)*(ev.layerY-this.CanvasCenter.y)) ) < distanceMin){
+      this.navCtrl.push(MorePage);
+    }
+    else {
+      for (var i=0; i < Object.keys(this.networkG).length ; i++){
+        distance = Math.sqrt( ((ev.layerX-this.networkG[i].coordenades.x)*(ev.layerX-this.networkG[i].coordenades.x))+((ev.layerY-this.networkG[i].coordenades.y)*(ev.layerY-this.networkG[i].coordenades.y)) );
+        if( distanceMin > distance ){
+          distanceMin = distance;
+          point = this.networkG[i];
+        }
+        if(i == Object.keys(this.networkG).length-1 && point != false){
+          this.openCustomerGId(point);
+        }
+      }
+    }
+  }
+  
+  openCustomerGId(item:any){
+    let data = item;
+    setTimeout(()=>{ this.openCustomer(data); }, 100);
+  }
+  // Graphic End
+  
 }
