@@ -53,11 +53,11 @@ export class HeaderPage {
   }
     
   search( limit:any = 10, lastTotal:any = 0, seeMore:any = false ){
-    this.myInput.setFocus();
+//    this.myInput.setFocus();
     let loader = this.loadingController.create({
       content: "Buscando..."
     });
-    this.myInput.setFocus();
+//    this.myInput.setFocus();
     loader.present();
     setTimeout(() => {
       this.searchService.search( this.searchTerm, '1', limit, lastTotal ).then((data) => {

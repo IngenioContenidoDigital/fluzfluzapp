@@ -52,7 +52,7 @@ export class SearchModalPage {
     setTimeout(() => {
       let element = this.elementRef.nativeElement.querySelector('input');
       this.renderer.invokeElementMethod(element, 'focus', []);
-    },150);
+    },500);
   }
 
   
