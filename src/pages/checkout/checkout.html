@@ -33,8 +33,13 @@
     </div>
     <div class="row" (click)="selectedPayment(4)">
       <i class='fluz-tarjeta' item-start></i>
-      <ion-label class="text-dark">Pagar con transferencia bancaria</ion-label>
+      <ion-label class="text-dark">Pagar con Tarjeta débito PSE</ion-label>
       <ion-icon [name]="payment == 4 ? 'md-checkmark' : 'ios-arrow-forward'"></ion-icon>
+    </div>
+    <div class="row" (click)="selectedPayment(5)">
+      <i class='fluz-tarjeta' item-start></i>
+      <ion-label class="text-dark">Pagar con Bitcoin</ion-label>
+      <ion-icon [name]="payment == 5 ? 'md-checkmark' : 'ios-arrow-forward'"></ion-icon>
     </div>
     <div class="row">
       <ion-label class="text-gray-normal padding-h-8">Por favor seleccione un método de pago</ion-label>

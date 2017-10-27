@@ -72,6 +72,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     import { PaymentFluzPage } from '../pages/paymentfluz/paymentfluz';
     import { CreditCardPage } from '../pages/creditcard/creditcard';
     import { PaymentPsePage } from '../pages/paymentpse/paymentpse';
+    import { BitPayPage } from '../pages/bitpay/bitpay';
     
     import { FormOfRedemptionPage } from '../pages/formofredemption/formofredemption';
     import { RedemptionConfirmPage } from '../pages/redemption-confirm/redemption-confirm';
@@ -127,6 +128,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     PaymentFluzPage,
     CreditCardPage,
     PaymentPsePage,
+    BitPayPage,
     PasscodePage,
     BonusPage,
     CategoryPage,
@@ -185,6 +187,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     PaymentFluzPage,
     CreditCardPage,
     PaymentPsePage,
+    BitPayPage,
     PasscodePage,
     BonusPage,
     CategoryPage,

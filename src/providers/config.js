@@ -92,4 +92,5 @@ export const SHOW_LASTED_FLUZ = false;
 //  Redemption Value:
     export const REDEMPTION_MIN_VALUE = 100000;
 
-  
+// Login
+    export const URL_RECOVER_PASSWORD = URL_BASE+'es/recuperacion-contrasena';

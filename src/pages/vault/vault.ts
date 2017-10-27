@@ -85,8 +85,14 @@ export class VaultPage {
     this.item = item;
     this.storage.get('userData').then((val) => {
       if( val != null && val != '' && val != undefined ){
+        console.log('val.id');
+        console.log(val.id);
+        console.log('this.item');
+        console.log(this.item);
         this.vault.getVaultData(val.id, this.item.id_manufacturer).then(
           (data:any) => {
+            console.log('data');
+            console.log(data);
             loader.dismiss();
             this.navCtrl.push( BonusPage,{
               manufacturer: this.item,

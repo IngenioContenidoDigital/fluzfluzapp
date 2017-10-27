@@ -11,6 +11,7 @@ import { RegisterPage } from '../register/register';
 import { BrowserTab } from '@ionic-native/browser-tab';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AnalyticsService } from '../../providers/analytics.service';
+import { URL_RECOVER_PASSWORD } from '../../providers/config';
 
 @Component({
   selector: 'page-login',
@@ -251,6 +252,19 @@ export class LoginPage {
     
     });
     registerModal.present();
+  }
+  
+  openRecoverPassword(){
+    let url = URL_RECOVER_PASSWORD;
+    this.browserTab.isAvailable().then((
+      isAvailable: boolean) => {
+        if (isAvailable) {
+          this.browserTab.openUrl(url);
+        } else {
+          this.iab.create(url, '_blank', 'location=yes');
+          // open URL with InAppBrowser instead or SafariViewController
+        }
+    });
   }
 
 }

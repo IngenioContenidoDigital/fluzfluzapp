@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { PaymentFluzPage } from '../paymentfluz/paymentfluz';
 import { CreditCardPage } from '../creditcard/creditcard';
 import { PaymentPsePage } from '../paymentpse/paymentpse';
+import { BitPayPage } from '../bitpay/bitpay';
 import { TabsService } from '../../providers/tabs.service';
 import { PaymentFluzService } from '../../providers/paymentfluz.service';
 import { LoadingController } from 'ionic-angular';
@@ -143,6 +144,10 @@ export class CheckoutPage {
               }
               case 4:{
                 this.navCtrl.push( PaymentPsePage );
+                break            
+              }
+              case 5:{
+                this.navCtrl.push( BitPayPage );
                 break            
               }
             }

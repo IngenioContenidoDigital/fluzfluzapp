@@ -423,7 +423,7 @@ export class NetworkPage {
   
   drawNetworkG(ctx:CanvasRenderingContext2D){
     let radiusImage = 14;
-    this.drawImage(ctx, radiusImage, this.CanvasCenter.x, this.CanvasCenter.y, false);
+    this.drawImage(ctx, radiusImage, this.CanvasCenter.x, this.CanvasCenter.y, this.userData.image);
     let countPerson:any;
     for( var i = 1; i <= this.lastItem.level; i++){
       countPerson = 0;

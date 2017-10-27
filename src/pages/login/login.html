@@ -40,7 +40,7 @@
       <button ion-button color="primary" block [disabled]="!enabledLoginButton" (click)="login(loginForm.value)">LOGIN</button>
     </div>
     
-    <ion-label text-center margin-bottom class="text-gray-normal">
+    <ion-label text-center margin-bottom class="text-gray-normal" (click)="openRecoverPassword()">
       ¿Olvidaste tu contraseña?
     </ion-label>
     

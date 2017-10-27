@@ -23,6 +23,12 @@
     <ion-grid  [formGroup]="registerForm" >
       <ion-row>
         <ion-item>
+          <ion-label stacked>Código de Referido (Opcional)</ion-label>
+          <ion-input type="text" (keyup)="validateInput($event)" [formControl]="registerForm.controls['cod_refer']"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
           <ion-label stacked>Nombre (Necesario)</ion-label>
           <ion-input type="text" (keyup)="validateInput($event)" [formControl]="registerForm.controls['firts_name']"></ion-input>
         </ion-item>

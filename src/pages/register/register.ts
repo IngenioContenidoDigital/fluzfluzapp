@@ -37,7 +37,8 @@ export class RegisterPage {
       'address' : [null,  Validators.compose([Validators.required])],
       'city' : [null,  Validators.compose([Validators.required])],
       'type_identification' : [null,  Validators.compose([Validators.required])],
-      'number_identification' : [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{5,15}$/i)])]
+      'number_identification' : [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{5,15}$/i)])],
+      'cod_refer' : [null, Validators.compose([Validators.pattern(/^[a-zA-Z0-9\s]{5,50}$/i)])],
     });
   }
 
@@ -56,7 +57,8 @@ export class RegisterPage {
       this.registerForm.controls['address'].valid &&
       this.registerForm.controls['city'].valid &&
       this.registerForm.controls['type_identification'].valid &&
-      this.registerForm.controls['number_identification'].valid
+      this.registerForm.controls['number_identification'].valid &&
+      this.registerForm.controls['cod_refer'].valid 
     ) {
       this.enabledSaveButton = true;
     } 
