@@ -5,7 +5,7 @@
  */
 
 
-export const DEV_MODE = false;
+export const DEV_MODE = true;
 
 // Produccion:
 //
@@ -94,3 +94,15 @@ export const SHOW_LASTED_FLUZ = false;
 
 // Login
     export const URL_RECOVER_PASSWORD = URL_BASE+'es/recuperacion-contrasena';
+
+
+//// Facebook
+//    const provider = new Facebook({
+//      clientId: 143791919684903,
+//      appScope: ["email"],
+//      redirectUri: string,
+//      responseType: string,
+//      authType: string
+//    });
+
+// Google Plus

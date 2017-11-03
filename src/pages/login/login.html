@@ -40,6 +40,7 @@
       <button ion-button color="primary" block [disabled]="!enabledLoginButton" (click)="login(loginForm.value)">LOGIN</button>
     </div>
     
+    
     <ion-label text-center margin-bottom class="text-gray-normal" (click)="openRecoverPassword()">
       ¿Olvidaste tu contraseña?
     </ion-label>
@@ -50,14 +51,15 @@
     <span class="text-gray-normal">¿No tienes cuenta? </span><span class="text-primary" (click)="openRegister()">Solicitar una invitación</span>
   </ion-label>
   
+  
+  <div padding>
+    <button ion-button color="facebook" block (click)="facebook()">facebook</button><br>
+    <button ion-button color="primary" block (click)="google()">google</button>
+  </div>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar color="primary" (click)="openRegister()">
     <ion-title>¿No eres un miembro aún?. Regístrate aquí.</ion-title>
   </ion-toolbar>
-</ion-footer>
-
-
-
-<!--http://fluzfluz.com/solicitud-de-invitacion/-->
+</ion-footer>>

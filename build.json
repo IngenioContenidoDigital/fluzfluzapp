@@ -1,0 +1,18 @@
+{
+  "android": {
+      "debug": {
+          "keystore": "fluzfluzkey.keystore",
+          "storePassword": "ingeniocontenido",
+          "alias": "fluzfluz",
+          "password" : "ingeniocontenido",
+          "keystoreType": ""
+      },
+      "release": {
+          "keystore": "fluzfluzkey.keystore",
+          "storePassword": "ingeniocontenido",
+          "alias": "fluzfluz",
+          "password" : "ingeniocontenido",
+          "keystoreType": ""
+      }
+  }
+}

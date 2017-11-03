@@ -8,6 +8,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
+import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
+
 
 //import { FirebaseAnalytics } from '@ionic-native/firebase-analytics';
 
@@ -211,6 +214,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     Geolocation,
     GoogleMaps,
     GoogleAnalytics,
+    Facebook,
+    GooglePlus,
     Camera,
     File,
     FilePath, 

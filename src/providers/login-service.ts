@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response/*, URLSearchParams*/ } from '@angular/http';
+import { Headers, URLSearchParams, Http, Response/*, URLSearchParams*/ } from '@angular/http';
 import { WS_BASE } from './config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -68,6 +68,26 @@ export class LoginService {
     });
   }
   
-  
+  getEmailSocialMedia(email:any){
+    let url = WS_BASE+'/getEmailSocialMedia';
+    let params = new URLSearchParams();
+      params.set('email', email);
+      return new Promise(resolve => {
+        let result:any;
+        this.http.get(url, { search: params })
+          .map(res => res.json())
+          .subscribe(
+            (data:any) => {
+              result = data;
+              resolve( result );
+            },
+            (err:Response) => {
+              result  = err.json();
+              resolve(result);
+            }
+          );
+      });
+  }
+    
 }
 

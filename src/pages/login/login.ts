@@ -12,6 +12,8 @@ import { BrowserTab } from '@ionic-native/browser-tab';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AnalyticsService } from '../../providers/analytics.service';
 import { URL_RECOVER_PASSWORD } from '../../providers/config';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 @Component({
   selector: 'page-login',
@@ -52,6 +54,8 @@ export class LoginPage {
     private loginService:LoginService,
     private browserTab: BrowserTab,
     private iab: InAppBrowser,
+    private fb: Facebook,
+    private googlePlus: GooglePlus,
   ) {
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
   	this.loginForm = formBuilder.group({
@@ -266,5 +270,122 @@ export class LoginPage {
         }
     });
   }
-
+  
+  facebook(){
+    this.fb.login(['public_profile', 'user_friends', 'email'])
+    .then(
+      (res: FacebookLoginResponse) => {
+        this.fb.api(res.authResponse.userID+"/?fields=id,email,first_name,last_name", []).then((data) =>{
+          this.getEmailLoginSocialMedia(data.email)
+        });
+      }
+      
+    )
+    .catch(
+      e => console.log('Error logging into Facebook', e)
+    );
+  }
+  
+  google(){
+    this.googlePlus.login({})
+    .then(
+      (res) => {
+        this.getEmailLoginSocialMedia(res.email)
+      }
+    )
+    .catch(err => console.error("error: "+err));
+  }
+  
+  getEmailLoginSocialMedia(email:any){
+    this.loginService.getEmailSocialMedia(email).then(
+      (data:any) => {
+        console.log("Este es el resultado:");
+        console.log(data);
+        if(data.error == 0){
+          
+          this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
+          this.userData = data.result;
+          // Establece el passcode en true or false.
+          this.passcodeService.getPasscode(this.userData.id).then((data:any)=>{
+            this.storage.set('passcode', data);
+          });
+          
+          //Obtiene el id de algún antiguo usuario.
+          this.storage.get('userId').then((val) => {
+            //Valida si hay o no usuario antiguo.
+            if ( val != undefined && val != null ){
+              //Guarda el id antiguo y la respuesta del servidor.
+              this.userId = val;
+              this.userData = data.result;
+              
+              
+              //Valida si son el mismo usuario. (El id antiguo y el nuevo.)
+              if ( this.userId === this.userData.id ) {
+                this.storage.set('userData', data.result);
+                //Si aún no está confirmado, manda a confirmar la cuenta.
+                this.storage.get('userConfirm').then((val) => {
+                  if ( val !== true ){
+//                    this.goTo("confirmPage");
+                    setTimeout(()=>{
+                      this.storage.set('userConfirm', true);
+                      this.goTo("");
+                    }, 100 );
+                  }
+                  else {
+                    //manda a home.
+                    setTimeout(()=>{
+                      this.storage.set('userConfirm', true);
+                      this.goTo("");
+                    }, 100 );
+                  }
+                });
+              }
+              //Si no son iguales, manda a confirmar la cuenta.
+              else {
+                this.storage.set('userData', data.result);
+                this.storage.set('cart', '');
+//                this.goTo("confirmPage");
+                setTimeout(()=>{
+                  this.storage.set('userConfirm', true);
+                  this.goTo("");
+                }, 100 );
+                this.setUserId(data.result);
+              }
+            }
+            //si no hay antiguo, manda a confirmar la cuenta.
+            else {
+              this.storage.set('userData', data.result);
+//              this.goTo("confirmPage");
+              this.storage.set('userConfirm', true);
+              setTimeout(()=>{
+                this.storage.set('userConfirm', true);
+                this.goTo("");
+              }, 100 );
+              this.setUserId(data.result);
+            }
+          });
+          this.updateShowDataUser.emit(this.showDataUser);
+        }
+        else{
+          this.displayError('Error de autenticación', data.msg, 'OK');
+        }
+      }
+    );
+  }
+  
+  displayError(title:string, msg:string, button:string) {
+    let confirm = this.alertCtrl.create({
+      title: title,
+      message: msg,
+      buttons: [
+        {
+          text: button,
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
 }
