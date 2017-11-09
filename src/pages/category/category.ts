@@ -29,11 +29,11 @@ export class CategoryPage {
   }
   
   openProductChild( item:any ) {
-    
     this.productChild.image_manufacturer = item.image;
     this.productChild.id_parent = item.pf_id;
     this.productChild.p_name = item.pf_name;
     this.productChild.online_only = item.online_only;
+    this.productChild.m_id = item.m_id;
     
     this.navCtrl.push(ProductChildPage,{
       manufacturer: this.productChild,

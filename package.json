@@ -137,11 +137,11 @@
             "cordova-plugin-google-analytics": {},
             "cordova-plugin-appavailability": {},
             "cordova-plugin-facebook4": {
-                "APP_ID": "1445590895509452",
-                "APP_NAME": "prueba - Test1"
+                "APP_ID": "154186758658913",
+                "APP_NAME": "Fluz Fluz"
             },
             "cordova-plugin-googleplus": {
-                "REVERSED_CLIENT_ID": "913534174357-elbndmicupgddkfcdg68ujpvbg5cbn64.apps.googleusercontent.com"
+                "REVERSED_CLIENT_ID": "709389446483-tkhgns0uviccj7ecrhohcr5qji7ao49q.apps.googleusercontent.com"
             }
         },
         "dependencies": {

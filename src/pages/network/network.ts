@@ -67,7 +67,7 @@ export class NetworkPage {
   public center = 400;
   public maxArea:any = 14;
   public radius = 0;
-  public MinRadius:any = 40;
+  public MinRadius:any = 50;
   public MaxRadius:any = 0;
   public lastItem:any;
   public imgUrls:any = [];
@@ -151,7 +151,7 @@ export class NetworkPage {
     this.center = 400;
     this.maxArea= 14;
     this.radius = 0;
-    this.MinRadius= 40;
+    this.MinRadius= 50;
     this.MaxRadius= 0;
     this.lastItem = [];
     this.CanvasWidth= 320;
@@ -396,15 +396,15 @@ export class NetworkPage {
   
   defineMaxRadius(){
     this.lastItem = this.networkG[Object.keys(this.networkG).length-1];
-    for(var i=1; i < this.lastItem.level; i++){
+    for(var i=1; i < this.lastItem.level + 1; i++){
       this.MaxRadius = this.MaxRadius + this.MinRadius - 2 * i;
     }
     setTimeout(()=>{ this.defineSizeCanvas() }, 100 );
   }
   
   defineSizeCanvas(){
-    this.CanvasWidth = ( this.CanvasWidth > (this.MaxRadius*2) + 50 ) ? this.CanvasWidth : (this.MaxRadius*2) + 50;
-    this.CanvasHeight = ( this.CanvasHeight > (this.MaxRadius*2) + 50 ) ? this.CanvasHeight : (this.MaxRadius*2) + 50;
+    this.CanvasWidth = ( this.CanvasWidth > (this.MaxRadius*2) + 100 ) ? this.CanvasWidth : (this.MaxRadius*2) + 100;
+    this.CanvasHeight = ( this.CanvasHeight > (this.MaxRadius*2) + 100 ) ? this.CanvasHeight : (this.MaxRadius*2) + 100;
     setTimeout(()=>{ this.defineCenterCanvas() }, 100 );
   }
   
@@ -422,7 +422,7 @@ export class NetworkPage {
   }
   
   drawNetworkG(ctx:CanvasRenderingContext2D){
-    let radiusImage = 14;
+    let radiusImage = 18;
     this.drawImage(ctx, radiusImage, this.CanvasCenter.x, this.CanvasCenter.y, this.userData.image);
     let countPerson:any;
     for( var i = 1; i <= this.lastItem.level; i++){

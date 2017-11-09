@@ -72,7 +72,7 @@ export class PaymentPsePage {
     ionViewWillLeave(){
         this.tabsService.show();
     }
-  
+    
     getDataBank(){
         let loader = this.loadingController.create({
             content: "Cargando Lista de Bancos"
@@ -80,16 +80,36 @@ export class PaymentPsePage {
         loader.present();
         this.backService.getBanks().subscribe(
             success => {
-                if(success.status === 200) {
-                    let response = JSON.parse(success._body);
-                    this.bancos = response;
-                    loader.dismiss();
+              if(success.status === 200) {
+                let response:any = JSON.parse(success._body);
+//          console.log(response);
+                if(response.error == 1){
+                  let alert = this.alertCtrl.create({
+                    title: 'Error',
+                    subTitle: 'La plataforma de pagos no responde. Intente nuevamente más tarde.',
+                    buttons: [{
+                      text: 'Ok',
+                      handler: () => {
+                        let navTransition = alert.dismiss();
+                        navTransition.then(() => {
+                          this.navCtrl.pop();
+                        });
+                        return false;
+                      }
+                    }]
+                  });
+                  alert.present();
                 }
+                else{
+                  this.bancos = response;
+                }
+                loader.dismiss();
+              }
             },
             error => {
-                this.tabsService.changeTabInContainerPage(0);
-                this.navCtrl.setRoot(TabsPage);
-                console.log(error);
+              this.tabsService.changeTabInContainerPage(0);
+              this.navCtrl.setRoot(TabsPage);
+              console.log(error);
             }
         );
     }

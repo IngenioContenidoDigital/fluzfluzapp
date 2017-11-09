@@ -77,24 +77,44 @@ export class FormOfRedemptionPage {
     this.tabsService.show();
   }
   
-    getDataBank(){
-        let loader = this.loadingController.create({
-            content: "Cargando Lista de Bancos"
-        });
-        loader.present();
-        this.backService.getBanks().subscribe(
-            success => {
-                if(success.status === 200) {
-                    let response = JSON.parse(success._body);
-                    this.bancos = response;
-                    loader.dismiss();
+  getDataBank(){
+    let loader = this.loadingController.create({
+      content: "Cargando Lista de Bancos"
+    });
+    loader.present();
+    this.backService.getBanks().subscribe(
+      success => {
+        if(success.status === 200) {
+          let response:any = JSON.parse(success._body);
+//          console.log(response);
+          if(response.error == 1){
+            let alert = this.alertCtrl.create({
+              title: 'Error',
+              subTitle: 'La plataforma de pagos no responde. Intente nuevamente más tarde.',
+              buttons: [{
+                text: 'Ok',
+                handler: () => {
+                  let navTransition = alert.dismiss();
+                  navTransition.then(() => {
+                    this.navCtrl.pop();
+                  });
+                  return false;
                 }
-            },
-            error => { 
-                console.log(error)
-            }
-        );
-    }
+              }]
+            });
+            alert.present();
+          }
+          else{
+            this.bancos = response;
+          }
+          loader.dismiss();
+        }
+      },
+      error => { 
+        console.log(error)
+      }
+    );
+  }
   
   setIdentification(value:any){
     this.dataUserRedemption.identification = value;

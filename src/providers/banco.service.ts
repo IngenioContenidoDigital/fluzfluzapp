@@ -12,9 +12,9 @@ export class BancoService {
     constructor(public http: Http) {}
     
     public getBanks() {
-        return this.http.post(this._url, '', this.headers)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+      return this.http.post(this._url, '', this.headers)
+        .map(this.extractData)
+        .catch(this.handleError);
     }
     
     private extractData(res: Response) {

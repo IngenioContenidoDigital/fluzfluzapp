@@ -282,7 +282,12 @@ export class LoginPage {
       
     )
     .catch(
-      e => console.log('Error logging into Facebook', e)
+      (e) => {
+        let title = 'Facebook Error';
+        let msg = 'Ha ocurrio un error con la plataforma de Facebook. Intenta de nuevo más tarde.';
+        let button = 'Ok';
+        this.displayError(title, msg, button);
+      }
     );
   }
   
@@ -293,16 +298,25 @@ export class LoginPage {
         this.getEmailLoginSocialMedia(res.email)
       }
     )
-    .catch(err => console.error("error: "+err));
+    .catch(
+      (err) => {
+        console.error("error: "+err);
+        let title = 'Google Error';
+        let msg = 'Ha ocurrio un error con la plataforma de google. Intenta de nuevo más tarde.';
+        let button = 'Ok';
+        this.displayError(title, msg, button);
+      }
+    );
   }
   
   getEmailLoginSocialMedia(email:any){
+    let loader = this.loadingController.create({
+      content: "Autenticando..."
+    });
+    loader.present();
     this.loginService.getEmailSocialMedia(email).then(
       (data:any) => {
-        console.log("Este es el resultado:");
-        console.log(data);
         if(data.error == 0){
-          
           this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
           this.userData = data.result;
           // Establece el passcode en true or false.
@@ -318,13 +332,13 @@ export class LoginPage {
               this.userId = val;
               this.userData = data.result;
               
-              
               //Valida si son el mismo usuario. (El id antiguo y el nuevo.)
               if ( this.userId === this.userData.id ) {
                 this.storage.set('userData', data.result);
                 //Si aún no está confirmado, manda a confirmar la cuenta.
                 this.storage.get('userConfirm').then((val) => {
                   if ( val !== true ){
+                    loader.dismiss();
 //                    this.goTo("confirmPage");
                     setTimeout(()=>{
                       this.storage.set('userConfirm', true);
@@ -332,6 +346,7 @@ export class LoginPage {
                     }, 100 );
                   }
                   else {
+                    loader.dismiss();
                     //manda a home.
                     setTimeout(()=>{
                       this.storage.set('userConfirm', true);
@@ -346,6 +361,7 @@ export class LoginPage {
                 this.storage.set('cart', '');
 //                this.goTo("confirmPage");
                 setTimeout(()=>{
+                  loader.dismiss();
                   this.storage.set('userConfirm', true);
                   this.goTo("");
                 }, 100 );
@@ -358,6 +374,7 @@ export class LoginPage {
 //              this.goTo("confirmPage");
               this.storage.set('userConfirm', true);
               setTimeout(()=>{
+                loader.dismiss();
                 this.storage.set('userConfirm', true);
                 this.goTo("");
               }, 100 );

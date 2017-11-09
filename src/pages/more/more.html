@@ -86,6 +86,11 @@
           <i class='fluz-cellphone'></i>
           <ion-label class="text-dark">Fecha Agregada <span class="right">{{userData.dateAddFull}}</span></ion-label>
         </div>
+        <div class="row" (click)="copyToClipboard(userData.refer_code)">
+          <ion-icon name="ios-contacts" class="icon-more"></ion-icon>
+          <ion-label class="text-dark">Código Referidos<span class="right">{{userData.refer_code}}</span></ion-label>
+          <div class="ctn-toc"><ion-label class="tap-to-copy text-primary">Toca para copiar</ion-label></div>
+        </div>
       </div>
     </div>
     <div class="spacer-25"></div>

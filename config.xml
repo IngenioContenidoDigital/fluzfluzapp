@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.fluzfluz141172" version="1.1.15" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ionicframework.fluzfluz141172" version="1.2.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>FluzFluz</name>
     <description>Un club de compras.</description>
     <author email="contacto@ingeniocontenido.co" href="http://fluzfluz.co/">Ingenio Contenido</author>
@@ -97,8 +97,8 @@
     <plugin name="cordova-plugin-crosswalk-webview" spec="~2.3.0" />
     <plugin name="cordova-plugin-device" spec="1.1.4" />
     <plugin name="cordova-plugin-facebook4" spec="^1.7.4">
-        <variable name="APP_ID" value="1445590895509452" />
-        <variable name="APP_NAME" value="prueba - Test1" />
+        <variable name="APP_ID" value="154186758658913" />
+        <variable name="APP_NAME" value="Fluz Fluz" />
     </plugin>
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
@@ -114,7 +114,7 @@
         <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="Trace your location on the map" />
     </plugin>
     <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
-        <variable name="REVERSED_CLIENT_ID" value="913534174357-elbndmicupgddkfcdg68ujpvbg5cbn64.apps.googleusercontent.com" />
+        <variable name="REVERSED_CLIENT_ID" value="709389446483-tkhgns0uviccj7ecrhohcr5qji7ao49q.apps.googleusercontent.com" />
     </plugin>
     <plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />
     <plugin name="cordova-plugin-network-information" spec="^1.3.3" />

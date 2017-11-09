@@ -65,7 +65,7 @@
     <ion-slides [autoplay]="4000" [loop]="true"  [speed]="300" *ngIf="countInstagramData > 1" [slidesPerView]="3" [spaceBetween]="10">
       <ion-slide *ngFor="let slide of instragramData.imageData">
         <ion-card (click)="openImageInstagram(slide.link)">
-          <img src="{{slide.imgsmall}}"/>
+          <img src="{{slide.imgsmall.src}}"/>
         </ion-card>
       </ion-slide>
     </ion-slides>

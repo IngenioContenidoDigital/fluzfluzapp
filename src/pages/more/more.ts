@@ -14,9 +14,10 @@ import { SHOW_MORE_OPTIONS } from '../../providers/config';
 import { SHOW_SAVINGS } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
 import { RedemptionPage } from '../redemption/redemption';
-
+import { Clipboard } from '@ionic-native/clipboard';
 import { WS_BASE } from '../../providers/config';
-
+import { GooglePlus } from '@ionic-native/google-plus';
+import { Facebook } from '@ionic-native/facebook';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
@@ -33,6 +34,7 @@ declare var cordova: any;
     LoginService,
     MessagesService,
     Camera,
+    Clipboard,
     File,
     FileTransfer,
     AnalyticsService
@@ -49,6 +51,7 @@ export class MorePage {
   
   constructor(
     private filePath: FilePath,
+    private clipboard: Clipboard,
     private transfer: FileTransfer,
     private file: File,
     private camera: Camera,
@@ -62,6 +65,8 @@ export class MorePage {
     public storage: Storage,
     public myAccount: MyAccountService,
     public messagesService: MessagesService,
+    private fb: Facebook,
+    private googlePlus: GooglePlus,
     public analytics: AnalyticsService
   ) {
   }
@@ -77,6 +82,7 @@ export class MorePage {
       if( val != null && val != '' && val != undefined ){
         this.userData.userName = val.firstname;
         this.userData.id = val.id;
+        this.userData.refer_code = val.refer_code;
         this.myAccount.getDataAccount(val.id).then(
           (data:any) => {
 //            console.log(data);
@@ -99,6 +105,15 @@ export class MorePage {
         if ( data ){
           this.storage.set('userData', false);
         }
+        this.googlePlus.logout().then();
+        this.googlePlus.disconnect().then();
+        this.fb.getLoginStatus().then(
+          (data:any)=>{
+            if(data.status == 'connected'){
+              this.fb.logout();
+            }
+          }
+        );
       }
     );
     setTimeout(()=>{ this.goTo('LoginPage') }, 100);
@@ -286,6 +301,15 @@ export class MorePage {
     });
   }
   
-  
+  copyToClipboard(code:any) {
+    let toast = this.toastCtrl.create({
+          message:  'Copiado.',
+          duration: 1000,
+          position: 'middle',
+          cssClass: "toast"
+        });
+    this.clipboard.copy(code);
+    toast.present();
+  }
   
 }
