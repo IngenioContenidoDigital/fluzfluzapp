@@ -141,7 +141,7 @@
                 "APP_NAME": "Fluz Fluz"
             },
             "cordova-plugin-googleplus": {
-                "REVERSED_CLIENT_ID": "709389446483-tkhgns0uviccj7ecrhohcr5qji7ao49q.apps.googleusercontent.com"
+                "REVERSED_CLIENT_ID": "com.googleusercontent.apps.709389446483-6at869k84krbneu3fotto68evpq2dm72"
             }
         },
         "dependencies": {
