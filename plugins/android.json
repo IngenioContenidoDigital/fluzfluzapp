@@ -51,9 +51,6 @@
       "API_KEY_FOR_ANDROID": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8",
       "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
     },
-    "cordova-plugin-googleplus": {
-      "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
-    },
     "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
     },
@@ -76,6 +73,17 @@
       "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
     },
     "org.apache.cordova.plugin.cache": {
+      "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+    },
+    "cordova-plugin-googleplus": {
+      "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+    },
+    "phonegap-plugin-push": {
+      "FCM_VERSION": "11.0.1",
+      "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+    },
+    "cordova-google-api-version": {
+      "GOOGLE_API_VERSION": "11.0.1",
       "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
     }
   },

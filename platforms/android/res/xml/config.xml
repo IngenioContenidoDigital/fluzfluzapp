@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.fluzfluz141172" version="1.2.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ionicframework.fluzfluz141172" version="1.2.10" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="Clipboard">
         <param name="android-package" value="com.verso.cordova.clipboard.Clipboard" />
     </feature>
@@ -83,11 +83,6 @@
     <feature name="MarkerCluster">
         <param name="android-package" value="plugin.google.maps.PluginMarkerCluster" />
     </feature>
-    <feature name="GooglePlus">
-        <param name="android-package" value="nl.xservices.plugins.GooglePlus" />
-        <param name="onload" value="true" />
-    </feature>
-    <access origin="https://accounts.google.com/*" />
     <feature name="InAppBrowser">
         <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
@@ -115,6 +110,14 @@
     </feature>
     <feature name="Cache">
         <param name="android-package" value="org.apache.cordova.plugin.cache.Cache" />
+    </feature>
+    <feature name="GooglePlus">
+        <param name="android-package" value="nl.xservices.plugins.GooglePlus" />
+        <param name="onload" value="true" />
+    </feature>
+    <access origin="https://accounts.google.com/*" />
+    <feature name="PushNotification">
+        <param name="android-package" value="com.adobe.phonegap.push.PushPlugin" />
     </feature>
     <name>FluzFluz</name>
     <description>Un club de compras.</description>

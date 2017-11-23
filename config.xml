@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.fluzfluz141172" version="1.2.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ionicframework.fluzfluz141172" version="1.2.10" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>FluzFluz</name>
     <description>Un club de compras.</description>
     <author email="contacto@ingeniocontenido.co" href="http://fluzfluz.co/">Ingenio Contenido</author>
@@ -116,12 +116,19 @@
         <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="Show your location on the map" />
         <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="Trace your location on the map" />
     </plugin>
-    <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.709389446483-6at869k84krbneu3fotto68evpq2dm72" />
-    </plugin>
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="154186758658913" />
         <variable name="APP_NAME" value="Fluz Fluz App" />
     </plugin>
     <plugin name="cordova-plugin-compat" spec="^1.2.0" />
+    <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.709389446483-6at869k84krbneu3fotto68evpq2dm72" />
+    </plugin>
+    <plugin name="phonegap-plugin-push" spec="^2.1.0">
+        <variable name="SENDER_ID" value="762301892642" />
+        <variable name="FCM_VERSION" value="11.0.1" />
+    </plugin>
+    <plugin name="cordova-google-api-version" spec="0.0.1">
+        <variable name="GOOGLE_API_VERSION" value="11.0.1" />
+    </plugin>
 </widget>
