@@ -276,7 +276,7 @@ export class LoginPage {
     .then(
       (res: FacebookLoginResponse) => {
         this.fb.api(res.authResponse.userID+"/?fields=id,email,first_name,last_name", []).then((data) =>{
-          this.getEmailLoginSocialMedia(data.email)
+          this.getEmailLoginSocialMedia(data)
         });
       }
       
@@ -295,7 +295,11 @@ export class LoginPage {
     this.googlePlus.login({})
     .then(
       (res) => {
-        this.getEmailLoginSocialMedia(res.email)
+        let data:any={};
+        data.email = res.email;
+        data.first_name = res.givenName;
+        data.last_name = res.familyName;
+        this.getEmailLoginSocialMedia(data)
       }
     )
     .catch(
@@ -309,12 +313,12 @@ export class LoginPage {
     );
   }
   
-  getEmailLoginSocialMedia(email:any){
+  getEmailLoginSocialMedia(dataR:any){
     let loader = this.loadingController.create({
       content: "Autenticando..."
     });
     loader.present();
-    this.loginService.getEmailSocialMedia(email).then(
+    this.loginService.getEmailSocialMedia(dataR.email).then(
       (data:any) => {
         if(data.error == 0){
           this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
@@ -383,7 +387,34 @@ export class LoginPage {
           });
           this.updateShowDataUser.emit(this.showDataUser);
         }
+        else if (data.error == 1){
+          loader.dismiss();
+          let confirm = this.alertCtrl.create({
+            title: '¿Aún no estas en Fluz FLuz?',
+            message: 'Registrate y empieza a ganar por tus compras.',
+            buttons: [
+              {
+                text: 'Más tarde',
+                role: 'cancel',
+                handler: () => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'Ok',
+                handler: () => {
+                  let registerModal = this.modalCtrl.create( RegisterPage, { data: dataR } );
+                  registerModal.onDidDismiss(data => {
+                  });
+                  registerModal.present();
+                }
+              }
+            ]
+          });
+          confirm.present();
+        }
         else{
+          loader.dismiss();
           this.displayError('Error de autenticación', data.msg, 'OK');
         }
       }

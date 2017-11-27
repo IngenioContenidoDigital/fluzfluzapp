@@ -20,6 +20,8 @@ export class RegisterPage {
   registerForm: FormGroup;
   public enabledSaveButton = false;
   public cities:any;
+  public data:any = {};
+  
   constructor(
     private alertCtrl: AlertController,
     private loginService: LoginService,
@@ -29,22 +31,38 @@ export class RegisterPage {
     public formBuilder: FormBuilder,
     public analytics: AnalyticsService
   ){
-    this.registerForm = formBuilder.group({
-      'firts_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,100}$/i)])],
-      'user_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{5,100}$/i)])],
-      'last_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,100}$/i)])],
-      'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
-      'address' : [null,  Validators.compose([Validators.required])],
-      'city' : [null,  Validators.compose([Validators.required])],
-      'type_identification' : [null,  Validators.compose([Validators.required])],
-      'number_identification' : [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{5,15}$/i)])],
-      'cod_refer' : [null, Validators.compose([Validators.pattern(/^[a-zA-Z0-9\s]{5,50}$/i)])],
-    });
+    this.data.email = '';
+    setTimeout(()=>{ 
+      this.data = navParams.get('data');
+    }, 100);
+    setTimeout(()=>{ 
+      if(this.data.email != ''){
+        this.setValues();
+      }
+    }, 500);
+      console.log(this.data);
+      this.registerForm = formBuilder.group({
+        'firts_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,100}$/i)])],
+        'user_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{5,100}$/i)])],
+        'last_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,100}$/i)])],
+        'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
+        'address' : [null,  Validators.compose([Validators.required])],
+        'city' : [null,  Validators.compose([Validators.required])],
+        'type_identification' : [null,  Validators.compose([Validators.required])],
+        'number_identification' : [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{5,15}$/i)])],
+        'cod_refer' : [null, Validators.compose([Validators.pattern(/^[a-zA-Z0-9\s]{5,50}$/i)])],
+      });
   }
 
   ionViewWillEnter() {
     this.analytics.trackView('RegisterPage');
     this.getCities();
+  }
+  
+  setValues(){
+    this.registerForm.get('firts_name').setValue(this.data.firts_name);
+    this.registerForm.get('last_name').setValue(this.data.last_name);
+    this.registerForm.get('email').setValue(this.data.email);
   }
   
   

@@ -1,0 +1,15 @@
+page-support-modal {
+  @extend .font-family;
+  .ctn-background-white {
+    @extend .background-white;
+    border: 1px solid color($colors, gray-soft);
+    margin: 10px;
+  }
+  .text-area{
+    textarea{
+      min-height: 150px;
+      max-width: 100%;
+      min-width: 100%;
+    }
+  }
+}

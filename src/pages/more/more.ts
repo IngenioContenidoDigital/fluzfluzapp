@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, NavParams, LoadingController, ToastController, ActionSheetController } from 'ionic-angular';
+import { NavController, Platform, NavParams, LoadingController, ToastController, ActionSheetController, ModalController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { TransferFluzPage } from '../transferfluz/transferfluz';
 import { PersonalInformationPage } from '../personalinformation/personalinformation';
@@ -23,6 +23,8 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { AnalyticsService } from '../../providers/analytics.service';
+import { SupportModalPage } from '../support-modal/support-modal';
+import { TabsService } from '../../providers/tabs.service';
 
 declare var cordova: any;
 
@@ -50,6 +52,7 @@ export class MorePage {
   public lastImage: string = null;
   
   constructor(
+    public modalCtrl: ModalController,
     private filePath: FilePath,
     private clipboard: Clipboard,
     private transfer: FileTransfer,
@@ -67,12 +70,14 @@ export class MorePage {
     public messagesService: MessagesService,
     private fb: Facebook,
     private googlePlus: GooglePlus,
+    public tabsService: TabsService,
     public analytics: AnalyticsService
   ) {
   }
   
 
   ionViewWillEnter(){
+    this.tabsService.show();
     this.analytics.trackView('MorePage');
     this.getUserData();
   }
@@ -310,6 +315,14 @@ export class MorePage {
         });
     this.clipboard.copy(code);
     toast.present();
+  }
+  
+  openSupport(){
+    let messageModal = this.modalCtrl.create( SupportModalPage );
+    messageModal.onDidDismiss(data => {
+      this.tabsService.show();
+    });
+    messageModal.present();
   }
   
 }

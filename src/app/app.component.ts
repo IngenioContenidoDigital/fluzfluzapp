@@ -42,8 +42,10 @@ export class MyApp {
  
   pushObject.on('notification').subscribe((notification: any) => {
     if (notification.additionalData.foreground) {
+      console.log('notification');
+      console.log(notification);
       let youralert = this.alertCtrl.create({
-        title: (notification.title || notification.title == '' || notification.title == null) ? 'Mensaje de Fluz FLuz' : notification.title,
+        title: (!notification.title || notification.title == '' || notification.title == null) ? 'Mensaje de Fluz FLuz' : notification.title,
         message: notification.message,
         buttons: ['Ok']
       });

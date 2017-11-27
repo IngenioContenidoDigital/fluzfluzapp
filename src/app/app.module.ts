@@ -35,6 +35,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   import { ProfileModalPage } from '../pages/profile-modal/profile-modal';
   import { GiftModalPage } from '../pages/gift-modal/gift-modal';
   import { VoucherModalPage } from '../pages/voucher-modal/voucher-modal';
+  import { SupportModalPage } from '../pages/support-modal/support-modal';
   
   /* Basicas */
   import { StatusBar } from '@ionic-native/status-bar';
@@ -122,6 +123,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     ProfileModalPage,
     GiftModalPage,
     VoucherModalPage,
+    SupportModalPage,
     InvitationThirdModalPage,
     ProductFatherPage,
     ProductModalPage,
@@ -182,6 +184,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     ProfileModalPage,
     GiftModalPage,
     VoucherModalPage,
+    SupportModalPage,
     ProductFatherPage,
     ProductModalPage,
     ProductChildPage,
