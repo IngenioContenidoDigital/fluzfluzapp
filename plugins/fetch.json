@@ -156,6 +156,16 @@
     "is_top_level": true,
     "variables": {}
   },
+  "cordova-google-api-version": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-google-api-version@0.0.1"
+    },
+    "is_top_level": true,
+    "variables": {
+      "GOOGLE_API_VERSION": "11.0.1"
+    }
+  },
   "cordova-plugin-googlemaps": {
     "source": {
       "type": "registry",
@@ -165,6 +175,16 @@
     "variables": {
       "API_KEY_FOR_ANDROID": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8",
       "API_KEY_FOR_IOS": "AIzaSyByKrKqlAPTWg4v1b2GiTLYrq4tJ3uqyck"
+    }
+  },
+  "cordova-plugin-googleplus": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-googleplus"
+    },
+    "is_top_level": true,
+    "variables": {
+      "REVERSED_CLIENT_ID": "com.googleusercontent.apps.709389446483-6at869k84krbneu3fotto68evpq2dm72"
     }
   },
   "cordova-plugin-facebook4": {
@@ -185,35 +205,5 @@
     },
     "is_top_level": true,
     "variables": {}
-  },
-  "cordova-plugin-googleplus": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-googleplus"
-    },
-    "is_top_level": true,
-    "variables": {
-      "REVERSED_CLIENT_ID": "com.googleusercontent.apps.709389446483-6at869k84krbneu3fotto68evpq2dm72"
-    }
-  },
-  "phonegap-plugin-push": {
-    "source": {
-      "type": "registry",
-      "id": "phonegap-plugin-push@2.1.0"
-    },
-    "is_top_level": true,
-    "variables": {
-      "SENDER_ID": "762301892642"
-    }
-  },
-  "cordova-google-api-version": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-google-api-version"
-    },
-    "is_top_level": true,
-    "variables": {
-      "GOOGLE_API_VERSION": "11.0.1"
-    }
   }
 }

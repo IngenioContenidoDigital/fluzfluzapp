@@ -19,7 +19,7 @@ export class PaymentFluzService {
     public applyPoints(user,cart,points) {
         
         this.dataApplyPoints["option"] = 3;
-        this.dataApplyPoints["idCustomer"] = user;
+        this.dataApplyPoints["id_customer"] = user;
         this.dataApplyPoints["cart"] = cart;
         this.dataApplyPoints["points"] = points;
         

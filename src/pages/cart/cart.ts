@@ -94,36 +94,37 @@ export class CartPage {
     }
   }
   
-    removeProduct(id_product) {
-        delete this.phonesRecharged[id_product];
-        for (var i = 0; i < this.products.length; i++) {
-            if ( this.products[i]['id_product'] == id_product ){
-                this.products[i]['quantity'] = 0;
-            }
-        }
-        this.updateCart();
+  removeProduct(id_product) {
+    delete this.phonesRecharged[id_product];
+    for (var i = 0; i < this.products.length; i++) {
+      if ( this.products[i]['id_product'] == id_product ){
+        this.products[i]['quantity'] = 0;
+      }
     }
+    this.updateCart();
+  }
   
   updateCart(){
     this.cart.products = this.products;
-    this.cartService.updateCart( this.cart ).subscribe(
-      success => {
-        if(success.status === 200) {
-          this.storage.set('cart', JSON.parse(success._body));
-          setTimeout(()=>{ this.updateDataView() }, 100);
+    this.storage.get('userData').then((userData) => {
+     this.cartService.updateCart( this.cart, userData.id ).subscribe(
+        success => {
+          if(success.status === 200) {
+            this.storage.set('cart', JSON.parse(success._body));
+            setTimeout(()=>{ this.updateDataView() }, 100);
+          }
+          if(success.status === 204) {
+            this.storage.set('cart', 'null'); 
+           setTimeout(()=>{ this.updateDataView() }, 100);
+          }
+        },
+        error =>{
+          console.log(error);
         }
-        if(success.status === 204) {
-          this.storage.set('cart', 'null'); 
-         setTimeout(()=>{ this.updateDataView() }, 100);
-        }
-      },
-      error =>{
-        console.log(error);
-      }
-    );
+      );
+    });
   }
  
-  
   updateDataView () {
     this.storage.get('cart').then((val) => {
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
@@ -132,61 +133,63 @@ export class CartPage {
     });
   }
   
-    goTo(value) {
-        switch (value){
-            case "checkoutPage": {
-                let validatePhonesRecharged = this.validatePhonesRecharged();
-                if ( !validatePhonesRecharged ) {
-                    let alert = this.alertCtrl.create({
-                        title: "Faltan datos",
-                        subTitle: "Por favor indica los números de teléfono que deseas recargar.",
-                        buttons: ['OK']
-                    });
-                    alert.present();
-                } else {
-                    this.navCtrl.push( CheckoutPage,{
-                      cart: this.cart
-                    });
-                }
-                break;
-            }
-            default: {
-                this.navCtrl.popToRoot();
-                break;
-            }
-        }
-    }
-    
-    validatePhonesRecharged(){
-        let productsTelco = 0;
-        let phonesRecharged = Object.keys(this.phonesRecharged).length;
-        
-        for (var i = 0; i < this.products.length; i++) {
-            if ( this.products[i]['reference'].indexOf('MOV-') != -1 ){
-                productsTelco++;
-            }
-        }
-        
-        if ( productsTelco == phonesRecharged || productsTelco == 0 ) {
-            this.setPhonesRecharged();
-            return true;
+  goTo(value) {
+    switch (value){
+      case "checkoutPage": {
+        let validatePhonesRecharged = this.validatePhonesRecharged();
+        if ( !validatePhonesRecharged ) {
+          let alert = this.alertCtrl.create({
+            title: "Faltan datos",
+            subTitle: "Por favor indica los números de teléfono que deseas recargar.",
+            buttons: ['OK']
+          });
+          alert.present();
         } else {
-            return false;
+          this.navCtrl.push( CheckoutPage,{
+            cart: this.cart
+          });
         }
+        break;
+      }
+      default: {
+        this.navCtrl.popToRoot();
+        break;
+      }
     }
+  }
     
-    setPhonesRecharged() {
-        this.cartService.setPhonesRecharged(this.cart.id,this.phonesRecharged).subscribe(
-            success => {
-                if(success.status === 200) {
-                    return true;
-                }
-            },
-            error => {
-                console.log(error);
-            }
-        );
+  validatePhonesRecharged(){
+    let productsTelco = 0;
+    let phonesRecharged = Object.keys(this.phonesRecharged).length;
+        
+    for (var i = 0; i < this.products.length; i++) {
+      if ( this.products[i]['reference'].indexOf('MOV-') != -1 ){
+        productsTelco++;
+      }
     }
+        
+    if ( productsTelco == phonesRecharged || productsTelco == 0 ) {
+      this.setPhonesRecharged();
+      return true;
+    } else {
+      return false;
+    }
+  }
+    
+  setPhonesRecharged() {
+    this.storage.get('userData').then((userData) => {
+      this.cartService.setPhonesRecharged( this.cart.id, this.phonesRecharged, userData.id).subscribe(
+        success => {
+          if(success.status === 200) {
+            return true;
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    });
+  }
   
   updateShowTerms(item){
     this.showTerms = this.showTerms != item.id_product ? item.id_product : false;

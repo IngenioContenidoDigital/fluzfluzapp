@@ -78,6 +78,7 @@ export class ProductChildPage {
     this.productFather = navParams.get("productFather");
     this.searchService.search( this.productFather.id_parent, '3' ).then((data) => {
       this.productChild = data;
+      console.log(this.productChild);
       this.intructions = this.productChild.result['0'].instructions;
       this.terms = this.productChild.result['0'].terms;
     });
@@ -88,22 +89,24 @@ export class ProductChildPage {
       content: "Agregando..."
     });
     loader.present();
-    this.storage.get('cart').then((val) => {
-      this.idCart = ( val != undefined && val != null && val != '' ) ? val.id : 0;
-      this.cartService.addToCart( this.idCart, idProduct).subscribe(
-        success => {
-          loader.dismiss();
-          if(success.status === 200) {
-            this.storage.set('cart', JSON.parse(success._body));
-            this.updateCountCartEmit();
+    this.storage.get('userData').then((userData) => {
+      this.storage.get('cart').then((val) => {
+        this.idCart = ( val != undefined && val != null && val != '' ) ? val.id : 0;
+        this.cartService.addToCart( this.idCart, idProduct, userData.id ).subscribe(
+          success => {
+            loader.dismiss();
+            if(success.status === 200) {
+              this.storage.set('cart', JSON.parse(success._body));
+              this.updateCountCartEmit();
+            }
+          },
+          error =>{
+            loader.dismiss();
+            this.toast('Ah ocurrido un error agregando el producto al carrito.');
+            console.log(error);
           }
-        },
-        error =>{
-          loader.dismiss();
-          this.toast('Ah ocurrido un error agregando el producto al carrito.');
-          console.log(error);
-        }
-      ); 
+        ); 
+      });
     });
   }
   
@@ -146,7 +149,6 @@ export class ProductChildPage {
     this.instagramService.getInstagramData(this.manufacturer.m_id, 5).then(
       (data:any) => {
         this.instragramData = data.result;
-        console.log(this.instragramData);
         this.countInstagramData = Object.keys(this.instragramData).length;
       }
     );
@@ -182,71 +184,6 @@ export class ProductChildPage {
   ionViewWillLeave(){
     this.tabsService.show();
   }
-  
-//  launchExternalApp(iosSchemaName: string, androidPackageName: string, appUrl: string, httpUrl: string, username: string) {
-//    this.appAvailability.check(this.findScheme()).then(
-//      () => { // success callback
-//        console.log("option 1");
-//        let browser = this.iab.create(appUrl+username, '_blank', 'location=yes');
-//      },
-//      () => { // error callback
-//        let browser = this.iab.create(httpUrl+username, '_blank', 'location=yes');
-//      }
-//    );
-//  }
-//
-//  openInstagramApp(username: string) {
-//    this.launchExternalApp('instagram://', 'com.instagram.android', 'instagram://user?username=', 'https://www.instagram.com/', username);
-//  }
-  
-//  
-//  openInstagramApp(){
-//    this.appAvailability.check(this.findScheme()).then(
-//      (isApp:any) => {
-//        if(isApp){
-//          console.log("si entro");
-//          console.log(isApp);
-//          window.open('instagram://user?screen_name=alinscorobete', '_system', 'location=no');
-////          console.log('Instagram application available and opened');
-//        }
-//        else {
-//          window.open('https://instagram.com/alinscorobete', '_system', 'location=no');
-////          console.log('Instagram application not available, opened website in native browser');
-//        }
-//      }
-//    )
-//  }
-//  
-//  findScheme(){
-//    if(this.isIOS()){
-//        this.scheme = 'instagram://';
-//        return this.scheme;
-//    } else if (this.isAndroid()){
-//        this.scheme = 'com.instagram.android';
-//        console.log('this.scheme');
-//        console.log(this.scheme);
-//        return this.scheme;
-//    }
-//  }
-//  
-//  isIOS(){
-//    if(this.platform.is('ios')){
-//      return true;
-//    } else {
-//      return false;
-//    }
-//  }
-//  
-//  isAndroid(){
-//    if(this.platform.is('android')){
-//      console.log("si es android");
-//      return true;
-//    } else {
-//      return false;
-//    }
-//  }
-//  
-  
     
   inizializateMap(){
     this.getUbication();

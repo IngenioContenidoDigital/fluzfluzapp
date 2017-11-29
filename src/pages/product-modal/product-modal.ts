@@ -102,19 +102,21 @@ export class ProductModalPage {
   }
   
   addToCart(idProduct:any){
-    this.storage.get('cart').then((val) => {
-      this.idCart = ( val != undefined && val != null && val != '' ) ? val.id : 0;
-      this.cartService.addToCart( this.idCart, idProduct).subscribe(
-        success => {
-          if(success.status === 200) {
-            this.storage.set('cart', JSON.parse(success._body));
-            this.updateCountCartEmit();
+    this.storage.get('userData').then((userData) => {
+      this.storage.get('cart').then((val) => {
+        this.idCart = ( val != undefined && val != null && val != '' ) ? val.id : 0;
+        this.cartService.addToCart( this.idCart, idProduct, userData.id ).subscribe(
+          success => {
+            if(success.status === 200) {
+              this.storage.set('cart', JSON.parse(success._body));
+              this.updateCountCartEmit();
+            }
+          },
+          error =>{
+            console.log(error)
           }
-        },
-        error =>{
-          console.log(error)
-        }
-      ); 
+        ); 
+      });
     });
   }
   

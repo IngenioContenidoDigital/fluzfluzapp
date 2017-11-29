@@ -161,6 +161,14 @@
               "count": 1
             },
             {
+              "xml": "<feature name=\"GooglePlus\"><param name=\"android-package\" value=\"nl.xservices.plugins.GooglePlus\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<access origin=\"https://accounts.google.com/*\" />",
+              "count": 1
+            },
+            {
               "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
               "count": 1
             },
@@ -190,18 +198,6 @@
             },
             {
               "xml": "<feature name=\"Cache\"><param name=\"android-package\" value=\"org.apache.cordova.plugin.cache.Cache\" /></feature>",
-              "count": 1
-            },
-            {
-              "xml": "<feature name=\"GooglePlus\"><param name=\"android-package\" value=\"nl.xservices.plugins.GooglePlus\" /><param name=\"onload\" value=\"true\" /></feature>",
-              "count": 1
-            },
-            {
-              "xml": "<access origin=\"https://accounts.google.com/*\" />",
-              "count": 1
-            },
-            {
-              "xml": "<feature name=\"PushNotification\"><param name=\"android-package\" value=\"com.adobe.phonegap.push.PushPlugin\" /></feature>",
               "count": 1
             }
           ]
@@ -285,36 +281,16 @@
             {
               "xml": "<meta-data android:name=\"com.google.android.gms.version\" android:value=\"@integer/google_play_services_version\" />",
               "count": 1
-            },
-            {
-              "xml": "<activity android:exported=\"true\" android:name=\"com.adobe.phonegap.push.PushHandlerActivity\" android:permission=\"${applicationId}.permission.PushHandlerActivity\" />",
-              "count": 1
-            },
-            {
-              "xml": "<receiver android:name=\"com.adobe.phonegap.push.BackgroundActionButtonHandler\" />",
-              "count": 1
-            },
-            {
-              "xml": "<receiver android:name=\"com.adobe.phonegap.push.PushDismissedHandler\" />",
-              "count": 1
-            },
-            {
-              "xml": "<service android:name=\"com.adobe.phonegap.push.FCMService\"><intent-filter><action android:name=\"com.google.firebase.MESSAGING_EVENT\" /></intent-filter></service>",
-              "count": 1
-            },
-            {
-              "xml": "<service android:name=\"com.adobe.phonegap.push.PushInstanceIDListenerService\"><intent-filter><action android:name=\"com.google.firebase.INSTANCE_ID_EVENT\" /></intent-filter></service>",
-              "count": 1
             }
           ],
           "/manifest": [
             {
               "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
-              "count": 2
+              "count": 1
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
-              "count": 2
+              "count": 1
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
@@ -342,14 +318,6 @@
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
               "count": 1
             }
           ]
@@ -380,6 +348,10 @@
       "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
     },
     "cordova-clipboard": {
+      "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+    },
+    "cordova-google-api-version": {
+      "GOOGLE_API_VERSION": "11.0.1",
       "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
     },
     "cordova-plugin-appavailability": {
@@ -426,6 +398,9 @@
       "API_KEY_FOR_ANDROID": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8",
       "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
     },
+    "cordova-plugin-googleplus": {
+      "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
+    },
     "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
     },
@@ -448,17 +423,6 @@
       "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
     },
     "org.apache.cordova.plugin.cache": {
-      "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
-    },
-    "cordova-plugin-googleplus": {
-      "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
-    },
-    "phonegap-plugin-push": {
-      "FCM_VERSION": "11.0.1",
-      "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
-    },
-    "cordova-google-api-version": {
-      "GOOGLE_API_VERSION": "11.0.1",
       "PACKAGE_NAME": "com.ionicframework.fluzfluz141172"
     }
   },
@@ -927,6 +891,14 @@
       ]
     },
     {
+      "id": "cordova-plugin-googleplus.GooglePlus",
+      "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
+      "pluginId": "cordova-plugin-googleplus",
+      "clobbers": [
+        "window.plugins.googleplus"
+      ]
+    },
+    {
       "id": "cordova-plugin-inappbrowser.inappbrowser",
       "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
       "pluginId": "cordova-plugin-inappbrowser",
@@ -992,28 +964,13 @@
       "clobbers": [
         "cache"
       ]
-    },
-    {
-      "id": "cordova-plugin-googleplus.GooglePlus",
-      "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
-      "pluginId": "cordova-plugin-googleplus",
-      "clobbers": [
-        "window.plugins.googleplus"
-      ]
-    },
-    {
-      "id": "phonegap-plugin-push.PushNotification",
-      "file": "plugins/phonegap-plugin-push/www/push.js",
-      "pluginId": "phonegap-plugin-push",
-      "clobbers": [
-        "PushNotification"
-      ]
     }
   ],
   "plugin_metadata": {
     "com.googlemaps.ios": "2.3.0",
     "cordova-android-play-services-gradle-release": "1.1.4",
     "cordova-clipboard": "1.0.0",
+    "cordova-google-api-version": "0.0.1",
     "cordova-plugin-appavailability": "0.4.2",
     "cordova-plugin-browsertab": "0.2.0",
     "cordova-plugin-camera": "2.4.1",
@@ -1026,6 +983,7 @@
     "cordova-plugin-geolocation": "2.4.3",
     "cordova-plugin-google-analytics": "1.8.3",
     "cordova-plugin-googlemaps": "2.0.0-beta3-20170827-2151",
+    "cordova-plugin-googleplus": "5.1.1",
     "cordova-plugin-inappbrowser": "1.7.1",
     "cordova-plugin-network-information": "1.3.3",
     "cordova-plugin-splashscreen": "4.0.3",
@@ -1033,9 +991,6 @@
     "cordova-plugin-whitelist": "1.3.1",
     "cordova-sqlite-storage": "2.0.3",
     "ionic-plugin-keyboard": "2.2.1",
-    "org.apache.cordova.plugin.cache": "1.0.5",
-    "cordova-plugin-googleplus": "5.1.1",
-    "phonegap-plugin-push": "2.1.0",
-    "cordova-google-api-version": "0.0.1"
+    "org.apache.cordova.plugin.cache": "1.0.5"
   }
 }

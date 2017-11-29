@@ -14,11 +14,18 @@ import { AlertController } from 'ionic-angular';
 export class MyApp {
   rootPage:any = TabsPage;
 
-  constructor( private alertCtrl: AlertController, private push: Push, public analytics: AnalyticsService, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen ) {
+  constructor( 
+    private alertCtrl: AlertController,
+    private push: Push,
+    public analytics: AnalyticsService,
+    public platform: Platform,
+    statusBar: StatusBar,
+    splashScreen: SplashScreen
+  ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
+      statusBar.backgroundColorByHexString('#E1493A');
       splashScreen.hide();
       this.analytics.analytictsStart();
       this.pushsetup();

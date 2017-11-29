@@ -463,6 +463,14 @@ module.exports = [
     ]
   },
   {
+    "id": "cordova-plugin-googleplus.GooglePlus",
+    "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
+    "pluginId": "cordova-plugin-googleplus",
+    "clobbers": [
+      "window.plugins.googleplus"
+    ]
+  },
+  {
     "id": "cordova-plugin-inappbrowser.inappbrowser",
     "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
     "pluginId": "cordova-plugin-inappbrowser",
@@ -528,22 +536,6 @@ module.exports = [
     "clobbers": [
       "cache"
     ]
-  },
-  {
-    "id": "cordova-plugin-googleplus.GooglePlus",
-    "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
-    "pluginId": "cordova-plugin-googleplus",
-    "clobbers": [
-      "window.plugins.googleplus"
-    ]
-  },
-  {
-    "id": "phonegap-plugin-push.PushNotification",
-    "file": "plugins/phonegap-plugin-push/www/push.js",
-    "pluginId": "phonegap-plugin-push",
-    "clobbers": [
-      "PushNotification"
-    ]
   }
 ];
 module.exports.metadata = 
@@ -552,6 +544,7 @@ module.exports.metadata =
   "com.googlemaps.ios": "2.3.0",
   "cordova-android-play-services-gradle-release": "1.1.4",
   "cordova-clipboard": "1.0.0",
+  "cordova-google-api-version": "0.0.1",
   "cordova-plugin-appavailability": "0.4.2",
   "cordova-plugin-browsertab": "0.2.0",
   "cordova-plugin-camera": "2.4.1",
@@ -564,6 +557,7 @@ module.exports.metadata =
   "cordova-plugin-geolocation": "2.4.3",
   "cordova-plugin-google-analytics": "1.8.3",
   "cordova-plugin-googlemaps": "2.0.0-beta3-20170827-2151",
+  "cordova-plugin-googleplus": "5.1.1",
   "cordova-plugin-inappbrowser": "1.7.1",
   "cordova-plugin-network-information": "1.3.3",
   "cordova-plugin-splashscreen": "4.0.3",
@@ -571,10 +565,7 @@ module.exports.metadata =
   "cordova-plugin-whitelist": "1.3.1",
   "cordova-sqlite-storage": "2.0.3",
   "ionic-plugin-keyboard": "2.2.1",
-  "org.apache.cordova.plugin.cache": "1.0.5",
-  "cordova-plugin-googleplus": "5.1.1",
-  "phonegap-plugin-push": "2.1.0",
-  "cordova-google-api-version": "0.0.1"
+  "org.apache.cordova.plugin.cache": "1.0.5"
 };
 // BOTTOM OF METADATA
 });

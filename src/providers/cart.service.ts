@@ -17,8 +17,9 @@ export class CartService {
   // DeleteCart  option = 3
   // GetCart     option = 4
   
-  public addToCart( idCart, idProduct ): Observable<any> {
+  public addToCart( idCart, idProduct, id_customer ): Observable<any> {
     let params = JSON.stringify({
+      id_customer: id_customer,
       idCart: idCart,
       idProduct: idProduct,
       option: 1
@@ -29,8 +30,9 @@ export class CartService {
       .catch(this.handleError);
   }
   
-  public updateCart( cart ): Observable<any> {
+  public updateCart( cart, id_customer ): Observable<any> {
     let params = JSON.stringify({
+      id_customer: id_customer,
       cart: cart,
       option: 2
     });
@@ -40,19 +42,20 @@ export class CartService {
       .catch(this.handleError);
   }
 
-    public setPhonesRecharged(id_cart,phones): Observable<any> {
-        let _url = WS_BASE+'setPhonesRecharged';
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+  public setPhonesRecharged( id_cart, phones, id_customer ): Observable<any> {
+    let _url = WS_BASE+'setPhonesRecharged';
+    let headers = new Headers({ 'Content-Type': 'application/json' });
 
-        let params = JSON.stringify({
-            id_cart: id_cart,
-            phones: phones
-        });
+    let params = JSON.stringify({
+      id_customer: id_customer,
+      id_cart: id_cart,
+      phones: phones
+    });
 
-        return this.http.post(_url, params, headers)
-                    .map(this.extractData)
-                    .catch(this.handleError);
-    }
+    return this.http.post(_url, params, headers)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
     
   private extractData(res: Response) {
     return res || { };
