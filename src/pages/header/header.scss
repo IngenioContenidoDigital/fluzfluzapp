@@ -1,4 +1,11 @@
 page-header {
+  
+  ion-toolbar{
+    .toolbar-background-ios{
+      border-width: 0px !important;
+    }
+  }
+  
   .searchbar .searchbar-input {
     background-color: color($colors, background-soft);
     text-align: center;

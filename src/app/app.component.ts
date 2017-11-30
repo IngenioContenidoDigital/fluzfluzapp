@@ -19,13 +19,13 @@ export class MyApp {
     private push: Push,
     public analytics: AnalyticsService,
     public platform: Platform,
-    statusBar: StatusBar,
+    public statusBar: StatusBar,
     splashScreen: SplashScreen
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.backgroundColorByHexString('#E1493A');
+      this.statusBar.backgroundColorByHexString('#E1493A');
       splashScreen.hide();
       this.analytics.analytictsStart();
       this.pushsetup();

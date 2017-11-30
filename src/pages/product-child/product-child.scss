@@ -1,4 +1,20 @@
 page-product-child {
+  
+  .segment .segment-button.segment-activated{
+    border-color: #E1493A;
+    opacity: 1;
+    color: #E1493A;
+    border-width: 0 0 2px 0;
+    background-color: color($colors, background-soft);
+  }
+  .segment-ios .segment-button{
+    border-color: #f2f2f2;
+  }
+  
+  .segment-ios .segment-button:first-of-type{
+    border-radius: 0px;
+  }
+  
   .ctn-title-gray{
     padding-top: 20px;
     .name{
