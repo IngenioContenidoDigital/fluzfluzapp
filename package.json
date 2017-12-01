@@ -47,9 +47,9 @@
     "@ionic-native/status-bar": "3.4.2",
     "@ionic/storage": "^2.0.1",
     "angular": "^1.6.5",
-    "cordova-android": "^6.3.0",
     "cordova-clipboard": "^1.0.0",
     "cordova-google-api-version": "0.0.1",
+    "cordova-ios": "^4.5.4",
     "cordova-plugin-appavailability": "^0.4.2",
     "cordova-plugin-browsertab": "~0.2.0",
     "cordova-plugin-cache": "git+https://github.com/tiltshiftfocus/cordova-plugin-cache.git",
@@ -213,7 +213,7 @@
       ]
     },
     "platforms": [
-      "android"
+      "ios"
     ]
   }
 }
