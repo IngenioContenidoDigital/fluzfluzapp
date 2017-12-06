@@ -111,6 +111,7 @@
       <div [ngSwitch]="inform">
         <ion-list *ngSwitchCase="'instructions'">
           <ion-item>
+            <br>
             <div class="inner-html" [innerHTML] = "'<p>' + intructions + '</p>'"></div>
             <!--{{intructions}}-->       
           </ion-item>
@@ -118,6 +119,7 @@
 
         <ion-list *ngSwitchCase="'terms'">
           <ion-item>
+            <br>
             <div class="inner-html" [innerHTML] = "'<p>' + terms + '</p>'"></div>
           </ion-item>
         </ion-list>

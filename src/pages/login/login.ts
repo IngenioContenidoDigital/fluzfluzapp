@@ -14,6 +14,7 @@ import { AnalyticsService } from '../../providers/analytics.service';
 import { URL_RECOVER_PASSWORD } from '../../providers/config';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { StatusBar } from '@ionic-native/status-bar';
 
 @Component({
   selector: 'page-login',
@@ -21,6 +22,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
   providers: [
     LoginService,
     PasscodeService,
+    StatusBar,
     AnalyticsService
   ]
 })
@@ -56,7 +58,11 @@ export class LoginPage {
     private iab: InAppBrowser,
     private fb: Facebook,
     private googlePlus: GooglePlus,
+    public statusBar: StatusBar,
   ) {
+    setTimeout(()=>{
+      this.statusBar.backgroundColorByHexString('#E1493A');
+    }, 500 );
     this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
   	this.loginForm = formBuilder.group({
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],

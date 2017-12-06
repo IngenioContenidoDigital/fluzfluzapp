@@ -17,6 +17,7 @@ import { SHOW_HOME_CATEGORY } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
 import { DEV_UBICATION } from '../../providers/config';
 import { SearchService } from '../../providers/search.service';
+import { StatusBar } from '@ionic-native/status-bar';
 
 @Component({
   selector: 'page-home',
@@ -26,6 +27,7 @@ import { SearchService } from '../../providers/search.service';
     HomeService,
     CategoryService,
     SearchService,
+    StatusBar,
     AnalyticsService
   ],
   animations: [
@@ -59,7 +61,7 @@ export class HomePage {
   public lastedFluz:any = SHOW_LASTED_FLUZ;
   public notificationBar:any = [];
   public profileBar:any = true;
-    
+  
   @ViewChild(Slides) slides: Slides;
   
   constructor(
@@ -72,9 +74,13 @@ export class HomePage {
     public tabsService: TabsService,
     public loadingController: LoadingController,
     public modalCtrl: ModalController,
+    public statusBar: StatusBar,
     public analytics: AnalyticsService
     
     ) {
+      setTimeout(()=>{
+        this.statusBar.backgroundColorByHexString('#E1493A');
+      }, 500 );
       this.countbannerData = 0;
       this.tabsService.show();
     }

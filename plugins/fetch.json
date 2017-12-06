@@ -187,6 +187,14 @@
       "REVERSED_CLIENT_ID": "com.googleusercontent.apps.709389446483-6at869k84krbneu3fotto68evpq2dm72"
     }
   },
+  "cordova-plugin-compat": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-compat@1.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
   "cordova-plugin-facebook4": {
     "source": {
       "type": "registry",
@@ -197,13 +205,5 @@
       "APP_ID": "154186758658913",
       "APP_NAME": "Fluz Fluz App"
     }
-  },
-  "cordova-plugin-compat": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-compat@1.2"
-    },
-    "is_top_level": true,
-    "variables": {}
   }
 }
