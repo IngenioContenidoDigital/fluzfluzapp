@@ -1,7 +1,9 @@
 import { Component, trigger, style, animate, state, transition } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { PasscodeService } from '../../providers/passcode.service';
+import { SupportService } from '../../providers/support.service';
 import { VaultPage } from '../vault/vault';
+import { RenewPasscodeConfirmPage } from '../renew-passcode-confirm/renew-passcode-confirm';
 import { Storage } from '@ionic/storage';
 import { LoadingController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
@@ -12,6 +14,7 @@ import { AnalyticsService } from '../../providers/analytics.service';
   templateUrl: 'passcode.html',
   providers: [
     PasscodeService,
+    SupportService,
     AnalyticsService
   ],
   animations: [
@@ -46,6 +49,7 @@ export class PasscodePage {
     public storage: Storage,
     public toastCtrl: ToastController,
     public passcodeService: PasscodeService,
+    public supportService: SupportService,
     public navCtrl: NavController,
     public navParams: NavParams,
     public analytics: AnalyticsService
@@ -59,16 +63,22 @@ export class PasscodePage {
     });
     loader.present();
     this.resetPasscode();
-    this.storage.get('passcode').then((val) => {
-      loader.dismiss();
-      if( val == 'true' || val == true ){
-        this.setPasscode = false;
-        this.textHeader  = 'Ingresa tu contraseña';
-        this.textButton  = 'CONFIRMAR';
-      }
-      else {
-        this.setPasscode = true;
-      }
+    this.storage.get('userData').then((val) => {
+      this.passcodeService.getPasscode(val.id).then((data:any)=>{
+        this.storage.set('passcode', data).then(()=>{
+          this.storage.get('passcode').then((val) => {
+            loader.dismiss();
+            if( val == 'true' || val == true ){
+              this.setPasscode = false;
+              this.textHeader  = 'Ingresa tu contraseña';
+              this.textButton  = 'CONFIRMAR';
+            }
+            else {
+              this.setPasscode = true;
+            }
+          });
+        });
+      });
     });
   }
   
@@ -187,4 +197,63 @@ export class PasscodePage {
     });
     errorValidate.present();
 	}
+  
+  showAlertRenewPasscode(){
+    let loader = this.loadingController.create({
+      content: "Cargando..."
+    });
+    loader.present();
+    this.storage.get('userData').then((val) => {
+      loader.dismiss();
+      let alert = this.alertCtrl.create({
+        title: '¿Olvidaste tu contraseña?',
+        message: 'FluzFluz toma muy enserio la seguridad de tu bóveda, es por esto que nuestro equipo de servicio al cliente lo guiará para obtener una nueva clave.',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => {}
+          },
+          {
+            text: 'Aceptar',
+            handler: () => {
+              let loader = this.loadingController.create({
+                content: "Cargando..."
+              });
+              loader.present();
+              this.supportService.sendProblem(val.id, val.firstname+' '+val.lastname, val.email, 'Solicitud de restablecimiento de contraseña.').subscribe(
+                success => {
+                  if (success.status === 200){
+                    loader.dismiss();
+                    console.log('todo salió bien');
+                    this.navCtrl.push(RenewPasscodeConfirmPage);
+                  }
+                  else {
+                    loader.dismiss();
+                    if (success.status === 400){
+                      this.showAlert('Error en el servidor', 'Ha ocurrido un error en el servidor. Por favor intenta de nuevo.');
+                    }
+                  }
+                },
+                //Si hay algun error en el servidor.
+                error =>{
+                  this.showAlert('Error', 'Verifica tu conexión y por favor intenta de nuevo.');
+                }
+              );
+            }
+          }
+        ]
+      });
+      alert.present();
+    });
+  }
+  
+  showAlert(title:string, subTitle:string){
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 }

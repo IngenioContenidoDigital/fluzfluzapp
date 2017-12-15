@@ -6,6 +6,7 @@ import { MapService } from '../../providers/map.service';
 import { ProductModalPage } from '../product-modal/product-modal';
 import { SearchService } from '../../providers/search.service';
 import { AnalyticsService } from '../../providers/analytics.service';
+import { TabsService } from '../../providers/tabs.service';
 
 @Component({
   selector: 'page-map',
@@ -26,6 +27,7 @@ export class MapPage {
     private searchService: SearchService,
     public loadingController: LoadingController,
     public maps: MapService,
+    public tabsService: TabsService,
     public googleMaps: GoogleMaps,
     public geolocation: Geolocation,
     public navCtrl: NavController,
@@ -36,7 +38,10 @@ export class MapPage {
 
   ionViewWillEnter(){
     this.analytics.trackView('MapPage');
-    this.getPosition();  
+    this.tabsService.show();
+    setTimeout(()=>{
+      this.getPosition();
+    }, 500);
   } 
     
   getPosition():any {

@@ -81,9 +81,11 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     import { FormOfRedemptionPage } from '../pages/formofredemption/formofredemption';
     import { RedemptionConfirmPage } from '../pages/redemption-confirm/redemption-confirm';
     
-  /* Billetera */
+  /* Bóveda */
     import { PasscodePage } from '../pages/passcode/passcode';
     import { BonusPage } from '../pages/bonus/bonus';
+    import { ResetPasscodePage } from '../pages/reset-passcode/reset-passcode';
+    import { RenewPasscodeConfirmPage } from '../pages/renew-passcode-confirm/renew-passcode-confirm';
     
   /* Nuevos Usuarios */
     import { InvitationThirdModalPage } from '../pages/invitation-third-modal/invitation-third-modal';
@@ -136,6 +138,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     BitPayPage,
     PasscodePage,
     BonusPage,
+    ResetPasscodePage,
+    RenewPasscodeConfirmPage,
     CategoryPage,
     CategoriesPage,
     FormOfRedemptionPage,
@@ -196,6 +200,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     BitPayPage,
     PasscodePage,
     BonusPage,
+    ResetPasscodePage,
+    RenewPasscodeConfirmPage,
     CategoryPage,
     CategoriesPage,
     FormOfRedemptionPage,

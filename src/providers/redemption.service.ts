@@ -23,6 +23,9 @@ export class Redemption {
       params.set('bank', value.banco);
       params.set('points', value.fluzTotal);
       params.set('credits', value.totalSavings);
+      params.set('typeRedemption', value.typeRedemption);
+      params.set('cardVirtual', value.cardVirtual);
+      params.set('type_vitual', value.type_vitual);
 
       return new Promise(resolve => {
         this.http.get(this._url, { search: params })

@@ -22,6 +22,9 @@
 
 
 <ion-content no-padding class="background-soft">
+  <ion-card padding>
+    <ion-label class="text-dark wrap ">Nota: Puedes solicitar la redención de tus Fluz antes del día 23 del mes en curso. Ten presente que el pago de los Fluz a tu cuenta,será realizado el día 30 de cada mes o el primer día hábil siguiente.</ion-label>
+  </ion-card>
   <div class="ctn-background-white border-b-primary">
     <ion-grid class="ctn-padding">
       <ion-row>
@@ -37,6 +40,14 @@
   <ion-label class="label-tranfer">TRANSFERENCIA ELECTRONICA</ion-label>
   <div class="ctn-background-white">
     <ion-grid>
+      <ion-row class="border-b">
+        <ion-item>
+          <ion-select [(ngModel)]="dataUserRedemption.typeRedemption" okText="Ok" placeholder="Seleccione tipo de redención" (ionChange)="setTypeRedemption($event)">
+            <ion-option value="1">Pago en efectivo</ion-option>
+            <ion-option value="2">Pago en Moneda virtual</ion-option>
+          </ion-select>          
+        </ion-item>
+      </ion-row>
       <ion-row class="border-b">
         <ion-item>
           <ion-select [(ngModel)]="identification" okText="Ok" placeholder="Cédula o Nit" (ionChange)="setIdentification($event)">
@@ -64,28 +75,46 @@
             <ion-input type="text" placeholder="Ej: Fisher" [formControl]="dataRedemption.controls['last_name']"  (keyup)="validateString($event)"></ion-input>
           </ion-item>
         </ion-row>
-        <ion-row  class="border-b">
+        <ion-row  class="border-b" *ngIf="dataUserRedemption.typeRedemption == 1">
           <ion-item>
             <ion-label color="gray-soft" stacked>Número de Cuenta Bancaria</ion-label>
-            <ion-input type="number" placeholder="xxxx xxxx xxxx xxx" formControlName="card"></ion-input>
+            <ion-input type="number" placeholder="xxxx xxxx xxxx xxx" formControlName="card" (keyup)="validateString($event)"></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row  class="border-b" *ngIf="dataUserRedemption.typeRedemption == 2">
+          <ion-item>
+            <ion-label color="gray-soft" stacked>Número de Cuenta</ion-label>
+            <ion-input type="text" placeholder="xxxx xxxx xxxx xxx" formControlName="cardVirtual" (keyup)="validateString($event)"></ion-input>
           </ion-item>
         </ion-row>
       </form>
-      <ion-row  class="border-b">
-        <ion-item>
-          <ion-select [(ngModel)]="banco" okText="Ok" placeholder="Banco" (ionChange)="setBanco($event)">
-            <ion-option *ngFor="let banco of bancos" [value] = "banco.value">{{banco.name}}</ion-option>
-          </ion-select>
-        </ion-item>
-      </ion-row>
-      <ion-row>
-        <ion-item>
-          <ion-select [(ngModel)]="typeAccount" okText="Ok" placeholder="Seleccione tipo de cuenta" (ionChange)="setTypeAccount($event)">
-            <ion-option value="1">Ahorros</ion-option>
-            <ion-option value="2">Corriente</ion-option>
-          </ion-select>
-        </ion-item>
-      </ion-row>
+      <div *ngIf="dataUserRedemption.typeRedemption == 1">
+        <ion-row  class="border-b">
+          <ion-item>
+            <ion-select [(ngModel)]="banco" okText="Ok" placeholder="Banco" (ionChange)="setBanco($event)">
+              <ion-option *ngFor="let banco of bancos" [value] = "banco.value">{{banco.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-select [(ngModel)]="typeAccount" okText="Ok" placeholder="Seleccione tipo de cuenta" (ionChange)="setTypeAccount($event)">
+              <ion-option value="1">Ahorros</ion-option>
+              <ion-option value="2">Corriente</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-row>
+      </div>
+      <div *ngIf="dataUserRedemption.typeRedemption == 2">
+        <ion-row>
+          <ion-item>
+            <ion-select [(ngModel)]="dataUserRedemption.type_vitual" okText="Ok" placeholder="Seleccione tipo de cuenta" (ionChange)="setTypeVirtual($event)">
+              <ion-option value="1">BITCOIN</ion-option>
+              <ion-option value="2">ETHEREUM</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-row>
+      </div>
     </ion-grid>
   </div>
   <div class="spacer-25"></div>

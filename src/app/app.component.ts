@@ -37,6 +37,7 @@ export class MyApp {
   pushsetup() {
     const options: PushOptions = {
      android: {
+       senderID: '762301892642',
        clearNotifications: true
      },
      ios: {

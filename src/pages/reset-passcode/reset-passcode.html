@@ -1,24 +1,14 @@
 
 <ion-header>
-
-  
-  <ion-navbar hideBackButton="true" hide-tabs>
-    <ion-buttons left>
-      <button ion-button icon-only>
-        <i class='fluz-fluz-fluz'></i>
-      </button>
-    </ion-buttons>
-    <ion-title text-center>BÓVEDA<button ion-button clear class="invisibleButton"></button></ion-title>
+  <ion-navbar>
+    <ion-title text-center>CONTRASEÑA BÓVEDA<button ion-button clear class="invisibleButton"></button></ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content no-padding class="background-soft">
   <ion-card class="background-white">
     <ion-card-content class="font-small text-dark">
-      <div text-center *ngIf="setPasscode == true">Para acceder a tu bóveda, primero debes configurar una contraseña de 4 números.</div>
-      <div class="spacer-25" *ngIf="setPasscode !== true"></div>
-      <ion-label text-center class="font-small text-primary">{{textHeader}}</ion-label>
+      <ion-label text-center class="font-small text-primary">{{textInfo}}</ion-label>
       <div class="ctn-passcode">
         <i [ngClass]="(passcode.length >= 1) ? 'fluz-passcodeB' : 'fluz-select'"></i>
         <i [ngClass]="(passcode.length >= 2) ? 'fluz-passcodeB' : 'fluz-select'"></i>
@@ -82,10 +72,6 @@
         </ion-col>        
       </ion-row>
     </ion-grid>
-  </ion-card>
-  <ion-card class="background-white" (click)="showAlertRenewPasscode()">
-      <ion-label text-center class="text-dark">¿Olvidaste tu contraseña?</ion-label>
-      <ion-label text-center class="text-primary">Clic Aquí Para Restablecer</ion-label>
   </ion-card>
   <div class="spacer-25"></div>
   <div class="spacer-25"></div>

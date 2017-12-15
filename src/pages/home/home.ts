@@ -103,6 +103,7 @@ export class HomePage {
   }
    
   ionViewWillEnter(){
+    this.notificationBar.alert = 2;
     this.analytics.trackView('HomePage');
     this.notificationBar.setVisible = false;
     this.storage.get('userData').then((val) => {

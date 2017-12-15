@@ -1,0 +1,37 @@
+page-renew-passcode-confirm{
+  @extend .font-family;
+  .spacer {
+    height: 36px;
+  }
+  .ctn-float {
+    margin-top: -40px;
+    padding: 0px;
+  }
+  .ctn-float-img{
+    text-align: center;
+    height: 80px;
+    margin-top: 30px;
+    width: 100%;
+    img {
+      height: 100%;
+      border: 5px solid #fff;
+      border-radius: 50%;
+    }
+  }
+  .grid {
+    padding: 0px;
+    .row {
+      padding: 15px 13px;
+    }
+  }
+  .ctn-card-text{
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .line-separator{
+    @extend .border-b;
+    width: 100%;
+    height: 1px;
+    padding: 0 10%;
+  }
+}

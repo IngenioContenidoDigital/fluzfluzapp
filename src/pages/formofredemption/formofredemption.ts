@@ -61,7 +61,8 @@ export class FormOfRedemptionPage {
     this.dataRedemption = formBuilder.group({
         firts_name: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
         last_name: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-        card: ['', Validators.compose([Validators.maxLength(12), Validators.pattern('^[1-9][0-9]*$'), Validators.required ])],
+        card: ['', Validators.compose([Validators.maxLength(12), Validators.pattern('^[1-9][0-9]*$')])],
+        cardVirtual: ['', Validators.compose([Validators.maxLength(12), Validators.pattern('^[a-zA-Z0-9]*$')])],
         n_identification: ['', Validators.compose([Validators.maxLength(10), Validators.pattern('^[1-9][0-9]*$'), Validators.required ])]
     });
   }
@@ -69,7 +70,7 @@ export class FormOfRedemptionPage {
   ionViewWillEnter(){
     this.analytics.trackView('FormOfRedemptionPage');
     this.tabsService.hide();
-    this.dataUserRedemption.identification = this.dataUserRedemption.banco = this.dataUserRedemption.type_acount = 0;
+    this.dataUserRedemption.type_vitual = this.dataUserRedemption.typeRedemption = this.dataUserRedemption.identification = this.dataUserRedemption.banco = this.dataUserRedemption.type_acount = 0;
     this.getDataBank();
   }
 
@@ -85,33 +86,47 @@ export class FormOfRedemptionPage {
     this.backService.getBanks().subscribe(
       success => {
         if(success.status === 200) {
-          let response:any = JSON.parse(success._body);
-//          console.log(response);
-          if(response.error == 1){
-            let alert = this.alertCtrl.create({
-              title: 'Error',
-              subTitle: 'La plataforma de pagos no responde. Intente nuevamente más tarde.',
-              buttons: [{
-                text: 'Ok',
-                handler: () => {
-                  let navTransition = alert.dismiss();
-                  navTransition.then(() => {
-                    this.navCtrl.pop();
-                  });
-                  return false;
-                }
-              }]
-            });
-            alert.present();
+          let response:any;
+          try{
+            response = JSON.parse(success._body);
+            if(response.error == 1){
+              let alert = this.alertCtrl.create({
+                title: 'Error',
+                subTitle: 'La plataforma de pagos no responde. Intente nuevamente más tarde.',
+                buttons: [{
+                  text: 'Ok',
+                  handler: () => {
+                    let navTransition = alert.dismiss();
+                    navTransition.then(() => {
+                      this.navCtrl.pop();
+                    });
+                    return false;
+                  }
+                }]
+              });
+              alert.present();
+            }
+            else{
+              this.bancos = response;
+            }
           }
-          else{
-            this.bancos = response;
+          catch(e){
+            loader.dismissAll();
+            this.showAlert("Error", "No hemos podido cargar la lista de bancos, por favor revisa tu conexión e intenta de nuevo.");
+            this.navCtrl.pop();
           }
           loader.dismiss();
         }
+        else{
+          loader.dismissAll();
+          this.showAlert("Error", "No hemos podido cargar la lista de bancos, por favor revisa tu conexión e intenta de nuevo.");
+          this.navCtrl.pop();
+        }
       },
-      error => { 
-        console.log(error)
+      error => {
+        loader.dismissAll();
+        this.showAlert("Error", "No hemos podido cargar la lista de bancos, por favor revisa tu conexión e intenta de nuevo.");
+        this.navCtrl.pop();
       }
     );
   }
@@ -126,8 +141,18 @@ export class FormOfRedemptionPage {
     this.updateEnableContinue();
   }
   
+  setTypeRedemption(value:any){
+    this.dataUserRedemption.typeRedemption = value;
+    this.updateEnableContinue();
+  }
+  
   setTypeAccount(value:any){
     this.dataUserRedemption.type_acount = value;
+    this.updateEnableContinue();
+  }
+  
+  setTypeVirtual(value:any){
+    this.dataUserRedemption.type_vitual = value;
     this.updateEnableContinue();
   }
   
@@ -136,18 +161,33 @@ export class FormOfRedemptionPage {
   }
   
   updateEnableContinue(){
-    if ( 
-      this.dataUserRedemption.identification != 0 &&
-      this.dataUserRedemption.banco != 0 &&
-      this.dataUserRedemption.type_acount != 0 &&
-      (this.dataRedemption.controls['firts_name'].valid && 
-       this.dataRedemption.controls['last_name'].valid && 
-       this.dataRedemption.controls['card'].valid && 
-       this.dataRedemption.controls['n_identification'].valid) 
-     ){
-      this.enableContinue = true;
+    if ( ( this.dataRedemption.controls['firts_name'].valid && this.dataRedemption.controls['last_name'].valid) && this.dataUserRedemption.identification != 0 ){
+      if ( this.dataUserRedemption.typeRedemption == 1 ){
+        this.dataRedemption.get('cardVirtual').setValue(0);
+        this.dataUserRedemption.type_vitual = 0;
+        if (this.dataRedemption.controls['card'].valid && this.dataRedemption.get('card').value != 0 && ( this.dataUserRedemption.banco != 0 && this.dataUserRedemption.type_acount != 0 ) ){
+          this.enableContinue = true;
+        }
+        else{
+          this.enableContinue = false;
+        }
+      }
+      else if( this.dataUserRedemption.typeRedemption == 2 ){
+        this.dataRedemption.get('card').setValue(0);
+        this.dataUserRedemption.banco = 0;
+        this.dataUserRedemption.type_acount = 0;
+        if( this.dataRedemption.controls['cardVirtual'].valid && this.dataRedemption.get('cardVirtual').value != 0 && ( this.dataUserRedemption.type_vitual != 0 ) ){
+          this.enableContinue = true;
+        }
+        else{
+          this.enableContinue = false;
+        }
+      }
+      else{
+        this.enableContinue = false;
+      }
     }
-    else {
+    else{
       this.enableContinue = false;
     }
   }
@@ -160,6 +200,10 @@ export class FormOfRedemptionPage {
     this.redemptionData = redemptionData.value;
     Object.assign(this.redemptionData, this.dataUserRedemption);
     Object.assign(this.redemptionData, this.redemptionValue);
+    setTimeout(()=>{
+      console.log('this.redemptionData');
+      console.log(this.redemptionData);
+    }, 500);
     this.storage.get('userData').then((val) => {
       this.redemption.setRedemption( val.id, this.redemptionData ).then(
         (data:any) => {
@@ -193,5 +237,14 @@ export class FormOfRedemptionPage {
         break;
       }
     }
+  }
+  
+  showAlert(title:string, subTitle:string){
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

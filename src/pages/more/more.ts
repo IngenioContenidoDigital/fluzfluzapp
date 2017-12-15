@@ -4,6 +4,7 @@ import { LoginPage } from '../login/login';
 import { TransferFluzPage } from '../transferfluz/transferfluz';
 import { PersonalInformationPage } from '../personalinformation/personalinformation';
 import { MessagesPage } from '../messages/messages';
+import { ResetPasscodePage } from '../reset-passcode/reset-passcode';
 import { ConfirmPage } from '../confirm/confirm';
 import { ConfirmatedPage } from '../confirmated/confirmated';
 import { MyAccountService } from '../../providers/myAccount.service';
@@ -323,6 +324,10 @@ export class MorePage {
       this.tabsService.show();
     });
     messageModal.present();
+  }
+  
+  openChangePassVault(){
+    this.navCtrl.push( ResetPasscodePage );
   }
   
 }

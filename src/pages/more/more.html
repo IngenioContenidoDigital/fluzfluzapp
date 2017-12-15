@@ -1,5 +1,5 @@
 <ion-header>
-  <page-header (updateCountCart)='updateCountCart($event)'></page-header>
+  
 </ion-header>
 
 <ion-content no-padding>
@@ -63,36 +63,76 @@
       </div>
       <div class="ctn-options">
         <div class="row" *ngIf="showOptions">
-          <i class='fluz-estadistica'></i>
-          <ion-label class="text-dark">Estadística</ion-label>
+          <ion-col col-2>
+            <i class='fluz-estadistica'></i>
+          </ion-col>
+          <ion-col>
+            <ion-label class="text-dark">Estadística</ion-label>
+          </ion-col>
         </div>
-        <div class="row" (click)="goTo('PersonalInformationPage')">
-          <ion-icon name="person" class="icon-more"></ion-icon>
-          <ion-label class="text-dark">Mi Información Personal</ion-label>
+        <div class="row" (click)="goTo('PersonalInformationPage')" align-items-center>
+          <ion-col col-2>
+            <ion-icon name="person" class="icon-more"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-label class="text-dark">Mi Información Personal</ion-label>
+          </ion-col>
         </div>
-        <div class="row" (click)="goTo('MessagesPage')">
-          <i class='fluz-mesages'></i>
-          <ion-label class="text-dark">Mis Mensajes</ion-label>
+        <div class="row" (click)="goTo('MessagesPage')" align-items-center>
+          <ion-col col-2>
+            <i class='fluz-mesages'></i>
+          </ion-col>
+          <ion-col>
+            <ion-label class="text-dark">Mis Mensajes</ion-label>
+          </ion-col>
         </div>
-        <div class="row" (click)="goTo('RedemptionPage')">
-          <ion-icon name="fluz-redemption" class="icon-more-redemption"></ion-icon>
-          <ion-label class="text-dark">Redimir Fluz</ion-label>
+        <div class="row" (click)="goTo('RedemptionPage')" align-items-center>
+          <ion-col col-2>
+            <ion-icon name="fluz-redemption" class="icon-more-redemption"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-label class="text-dark">Redimir Fluz</ion-label>
+          </ion-col>
         </div>
-        <div class="row" (click)="goTo('TransferFluzPage')">
-          <ion-icon name="swap" class="icon-more"></ion-icon>
-          <ion-label class="text-dark">Transferencia Fluz</ion-label>
+        <div class="row" (click)="goTo('TransferFluzPage')" align-items-center>
+          <ion-col col-2>
+            <ion-icon name="swap" class="icon-more"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-label class="text-dark">Transferencia Fluz</ion-label>
+          </ion-col>
         </div>
-        <div class="row">
-          <i class='fluz-cellphone'></i>
-          <ion-label class="text-dark">Fecha Agregada <span class="right">{{userData.dateAddFull}}</span></ion-label>
+        <div class="row" align-items-center>
+          <ion-col col-2>
+            <i class='fluz-cellphone'></i>
+          </ion-col>
+          <ion-col>
+            <ion-label class="text-dark">Fecha Agregada <span class="right">{{userData.dateAddFull}}</span></ion-label>
+          </ion-col>
         </div>
-        <div class="row" (click)="openSupport()">
-          <ion-icon name="md-headset" class="icon-more"></ion-icon>
-          <ion-label class="text-dark">¿Necesitas Ayuda?</ion-label>
+        <div class="row" (click)="openChangePassVault()" align-items-center>
+          <ion-col col-2>
+            <ion-icon name="md-keypad" class="icon-more"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-label class="text-dark">Cambiar contraseña de Bóveda</ion-label>
+          </ion-col>
         </div>
-        <div class="row" (click)="copyToClipboard(userData.refer_code)">
-          <ion-icon name="ios-contacts" class="icon-more"></ion-icon>
-          <ion-label class="text-dark">Código Referidos<span class="right">{{userData.refer_code}}</span></ion-label>
+        <div class="row" (click)="openSupport()" align-items-center>
+          <ion-col col-2>
+            <ion-icon name="md-headset" class="icon-more"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-label class="text-dark">¿Necesitas Ayuda?</ion-label>
+          </ion-col>
+        </div>
+        <div class="row" (click)="copyToClipboard(userData.refer_code)" align-items-center>
+          <ion-col col-2>
+            <ion-icon name="ios-contacts" class="icon-more"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-label class="text-dark">Código Referidos<span class="right">{{userData.refer_code}}</span></ion-label>
+          </ion-col>
           <div class="ctn-toc"><ion-label class="tap-to-copy text-primary">Toca para copiar</ion-label></div>
         </div>
       </div>

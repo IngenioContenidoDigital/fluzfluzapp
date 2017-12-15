@@ -58,7 +58,14 @@ export class PasscodeService {
       .map(this.extractData)
       .catch(this.handleError);
   }
-
+  
+  public updatePasscode(variables): Observable<any> {
+    let passcodeInfo = JSON.stringify(variables);
+      return this.http.post(WS_BASE+'updatePasscode', passcodeInfo)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+  
   private extractData(res: Response) {
     return res || { };
   }

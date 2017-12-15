@@ -50,7 +50,7 @@ export class PersonalInformationService {
     }
     
     public getPersonalInformation(id_customer) {
-        let _url = WS_BASE+'personalinformation';
+        let _url = WS_BASE+'personalInformation';
         
         this.data["id_customer"] = id_customer;
         let data = JSON.stringify( this.data );
@@ -61,7 +61,7 @@ export class PersonalInformationService {
     }
     
     public save(id_customer, dataForm) {
-        let _url = WS_BASE+'savepersonalinformation';
+        let _url = WS_BASE+'savePersonalInformation';
         
         this.data["id_customer"] = id_customer;
         this.data["id_gender"] = dataForm.id_gender;

@@ -1,0 +1,38 @@
+page-reset-passcode {
+  .ctn-passcode{
+    text-align: center;
+    i {
+      margin: 0 5px;
+      color: color($colors, primary);
+    }
+  }
+  .label {
+    margin: 10px 0;
+  }
+  .ctn-numbers {
+    max-width: 90%;
+    .row {
+      margin-bottom: 0px;
+    }
+    .circle {
+      @extend .font-normal;
+      border: 2px solid color($colors, primary);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      display: inline-block;
+    }
+    .circle:active {
+      background: color($colors, primary);
+      color: color($colors, white);
+    }
+  }
+  .btn-cancel, .btn-confirm {
+    font-size: 1.2rem;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+}
