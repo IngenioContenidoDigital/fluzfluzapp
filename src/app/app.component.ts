@@ -4,19 +4,19 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AnalyticsService } from '../providers/analytics.service';
-import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { AlertController } from 'ionic-angular';
+import {FCM, NotificationData} from "@ionic-native/fcm";
 
 @Component({
   templateUrl: 'app.html',
-  providers: [AnalyticsService, Push]
+  providers: [AnalyticsService, FCM]
 })
 export class MyApp {
   rootPage:any = TabsPage;
 
   constructor( 
     private alertCtrl: AlertController,
-    private push: Push,
+    public fcm:FCM,
     public analytics: AnalyticsService,
     public platform: Platform,
     public statusBar: StatusBar,
@@ -30,44 +30,48 @@ export class MyApp {
       }, 500 );
       splashScreen.hide();
       this.analytics.analytictsStart();
-      this.pushsetup();
     });
   }
-
-  pushsetup() {
-    const options: PushOptions = {
-     android: {
-       senderID: '762301892642',
-       clearNotifications: true
-     },
-     ios: {
-         alert: 'true',
-         badge: true,
-         sound: 'false'
-     },
-     windows: {}
-  };
- 
-  const pushObject: PushObject = this.push.init(options);
- 
-  pushObject.on('notification').subscribe((notification: any) => {
-    if (notification.additionalData.foreground) {
-      console.log('notification');
-      console.log(notification);
-      let youralert = this.alertCtrl.create({
-        title: (!notification.title || notification.title == '' || notification.title == null) ? 'Mensaje de Fluz FLuz' : notification.title,
-        message: notification.message,
-        buttons: ['Ok']
-      });
-      youralert.present();
-    }
-  });
- 
-  pushObject.on('registration').subscribe((registration: any) => {
-     //do whatever you want with the registration ID
-  });
- 
-  pushObject.on('error').subscribe(error => alert('Error with Push plugin' + error));
-  }
   
+  fcmStart(){
+    this.platform.ready().then(() => {
+      this.fcm.getToken()
+        .then((token:string)=>{
+          //aquí se debe enviar el token al back-end para tenerlo registrado y de esta forma poder enviar mensajes
+          // a esta  aplicación
+          //o también copiar el token para usarlo con Postman :D
+          console.log("The token to use is: ",token);
+        })
+        .catch(error=>{
+          //ocurrió un error al procesar el token
+          console.error(error);
+        });
+
+      /**
+       * No suscribimos para obtener el nuevo token cuando se realice un refresh y poder seguir procesando las notificaciones
+       * */
+      this.fcm.onTokenRefresh().subscribe(
+        (token:string)=>console.log("Nuevo token",token),
+        error=>console.error(error)
+      );
+
+      /**
+       * cuando la configuración este lista, vamos a procesar los mensajes
+       * */
+      this.fcm.onNotification().subscribe(
+        (data:NotificationData)=>{
+          if(data.wasTapped){
+            //ocurre cuando nuestra app está en segundo plano y hacemos tap en la notificación que se muestra en el dispositivo
+            console.log("Received in background",JSON.stringify(data))
+          }else{
+            //ocurre cuando nuestra aplicación se encuentra en primer plano,
+            //puedes mostrar una alerta o un modal con los datos del mensaje
+            console.log("Received in foreground",JSON.stringify(data))
+          }
+         },error=>{
+          console.error("Error in notification",error)
+         }
+      );
+    });
+  }
 }

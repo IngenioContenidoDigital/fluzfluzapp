@@ -30,6 +30,7 @@
     "@ionic-native/core": "^3.12.1",
     "@ionic-native/device": "^3.12.1",
     "@ionic-native/facebook": "^4.3.2",
+    "@ionic-native/fcm": "^4.5.2",
     "@ionic-native/file": "^4.2.1",
     "@ionic-native/file-path": "^4.2.1",
     "@ionic-native/file-transfer": "^4.2.1",
@@ -47,9 +48,9 @@
     "@ionic-native/status-bar": "^3.4.2",
     "@ionic/storage": "^2.0.1",
     "angular": "^1.6.5",
-    "cordova-android": "^6.3.0",
     "cordova-clipboard": "^1.0.0",
     "cordova-google-api-version": "0.0.1",
+    "cordova-ios": "^4.5.4",
     "cordova-plugin-appavailability": "^0.4.2",
     "cordova-plugin-browsertab": "~0.2.0",
     "cordova-plugin-cache": "git+https://github.com/tiltshiftfocus/cordova-plugin-cache.git",
@@ -58,6 +59,7 @@
     "cordova-plugin-crosswalk-webview": "~2.3.0",
     "cordova-plugin-device": "1.1.4",
     "cordova-plugin-facebook4": "^1.9.1",
+    "cordova-plugin-fcm": "^2.1.2",
     "cordova-plugin-file": "^4.3.3",
     "cordova-plugin-file-transfer": "^1.6.3",
     "cordova-plugin-filepath": "^1.0.2",
@@ -81,7 +83,6 @@
     "ionicons": "3.0.0",
     "ng2-validation": "^4.2.0",
     "org.apache.cordova.plugin.cache": "https://github.com/tiltshiftfocus/cordova-plugin-cache.git",
-    "phonegap-plugin-push": "^2.1.2",
     "process-nextick-args": "^1.0.7",
     "reflect-metadata": "^0.1.10",
     "rxjs": "^5.1.1",
@@ -146,10 +147,7 @@
         "APP_ID": "154186758658913",
         "APP_NAME": "Fluz Fluz App"
       },
-      "phonegap-plugin-push": {
-        "SENDER_ID": "762301892642",
-        "FCM_VERSION": "11.0.1"
-      }
+      "cordova-plugin-fcm": {}
     },
     "dependencies": {
       "@angular/animations": "^4.2.3",
@@ -218,7 +216,7 @@
       ]
     },
     "platforms": [
-      "android"
+      "ios"
     ]
   }
 }

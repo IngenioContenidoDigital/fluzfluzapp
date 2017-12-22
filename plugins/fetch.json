@@ -206,14 +206,12 @@
       "APP_NAME": "Fluz Fluz App"
     }
   },
-  "phonegap-plugin-push": {
+  "cordova-plugin-fcm": {
     "source": {
       "type": "registry",
-      "id": "phonegap-plugin-push@2.1.2"
+      "id": "cordova-plugin-fcm"
     },
     "is_top_level": true,
-    "variables": {
-      "SENDER_ID": "762301892642"
-    }
+    "variables": {}
   }
 }

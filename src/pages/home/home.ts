@@ -78,6 +78,7 @@ export class HomePage {
     public analytics: AnalyticsService
     
     ) {
+      this.notificationBar.alert = 2;
       setTimeout(()=>{
         this.statusBar.backgroundColorByHexString('#E1493A');
       }, 500 );

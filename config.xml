@@ -87,7 +87,6 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
     </platform>
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
-    <engine name="android" spec="^6.3.0" />
     <plugin name="cordova-plugin-device" spec="1.1.4" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="2.2.1" />
@@ -127,8 +126,6 @@
         <variable name="APP_ID" value="154186758658913" />
         <variable name="APP_NAME" value="Fluz Fluz App" />
     </plugin>
-    <plugin name="phonegap-plugin-push" spec="^2.1.2">
-        <variable name="SENDER_ID" value="762301892642" />
-        <variable name="FCM_VERSION" value="11.0.1" />
-    </plugin>
+    <plugin name="cordova-plugin-fcm" spec="^2.1.2" />
+    <engine name="ios" spec="~4.5.4" />
 </widget>

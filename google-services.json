@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "762301892642",
+    "firebase_url": "https://fluz-fluz-1500907367698.firebaseio.com",
+    "project_id": "fluz-fluz-1500907367698",
+    "storage_bucket": "fluz-fluz-1500907367698.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762301892642:android:8d8a18e912f7a29a",
+        "android_client_info": {
+          "package_name": "com.ionicframework.fluzfluz141172"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762301892642-aosh9d5n3ptcu3551228ls5tp01l305t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATKYspWWwUfrdcknLk5VWpyWYvNLwI_iU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

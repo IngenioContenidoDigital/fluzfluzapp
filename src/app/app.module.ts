@@ -10,7 +10,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
-import { Push } from '@ionic-native/push';
+import { FCM } from '@ionic-native/fcm';
 
 //import { FirebaseAnalytics } from '@ionic-native/firebase-analytics';
 
@@ -225,11 +225,11 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     GoogleAnalytics,
     Facebook,
     GooglePlus,
+    FCM,
     Camera,
     File,
     FilePath, 
     FileTransfer,
-    Push,
 //    FirebaseAnalytics,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
 //    Storage
