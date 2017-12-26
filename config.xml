@@ -111,21 +111,20 @@
     <plugin name="org.apache.cordova.plugin.cache" spec="https://github.com/tiltshiftfocus/cordova-plugin-cache.git" />
     <plugin name="cordova-plugin-appavailability" spec="^0.4.2" />
     <plugin name="cordova-plugin-google-analytics" spec="^1.8.3" />
-    <plugin name="cordova-google-api-version" spec="0.0.1">
-        <variable name="GOOGLE_API_VERSION" value="11.0.1" />
-    </plugin>
-    <plugin name="cordova-plugin-compat" spec="^1.2.0" />
-    <plugin name="cordova-plugin-googlemaps" spec="git+https://github.com/Motoralfa/cordova-plugin-googlemaps.git#multiple_maps">
-        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8" />
-        <variable name="API_KEY_FOR_IOS" value="AIzaSyByKrKqlAPTWg4v1b2GiTLYrq4tJ3uqyck" />
-    </plugin>
-    <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.709389446483-6at869k84krbneu3fotto68evpq2dm72" />
-    </plugin>
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="154186758658913" />
         <variable name="APP_NAME" value="Fluz Fluz App" />
     </plugin>
+    <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.709389446483-6at869k84krbneu3fotto68evpq2dm72" />
+    </plugin>
+    <plugin name="cordova-google-api-version" spec="0.0.1">
+        <variable name="GOOGLE_API_VERSION" value="11.0.1" />
+    </plugin>
+    <plugin name="cordova-plugin-compat" spec="^1.2.0" />
+    <plugin name="cordova-plugin-googlemaps" spec="^2.1.1">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8" />
+    </plugin>
     <plugin name="cordova-plugin-fcm" spec="^2.1.2" />
-    <engine name="ios" spec="~4.5.4" />
 </widget>

@@ -38,8 +38,8 @@
     "@ionic-native/firebase-analytics": "^4.2.1",
     "@ionic-native/geolocation": "^4.1.0",
     "@ionic-native/google-analytics": "^4.2.1",
-    "@ionic-native/google-maps": "^4.2.1",
-    "@ionic-native/google-plus": "^4.3.3",
+    "@ionic-native/google-maps": "^4.5.2",
+    "@ionic-native/google-plus": "^4.5.2",
     "@ionic-native/in-app-browser": "^3.13.1",
     "@ionic-native/keyboard": "^3.12.1",
     "@ionic-native/network": "^4.0.1",
@@ -50,7 +50,6 @@
     "angular": "^1.6.5",
     "cordova-clipboard": "^1.0.0",
     "cordova-google-api-version": "0.0.1",
-    "cordova-ios": "^4.5.4",
     "cordova-plugin-appavailability": "^0.4.2",
     "cordova-plugin-browsertab": "~0.2.0",
     "cordova-plugin-cache": "git+https://github.com/tiltshiftfocus/cordova-plugin-cache.git",
@@ -66,7 +65,7 @@
     "cordova-plugin-firebase-analytics": "^0.11.0",
     "cordova-plugin-geolocation": "^2.4.3",
     "cordova-plugin-google-analytics": "^1.8.3",
-    "cordova-plugin-googlemaps": "git+https://github.com/Motoralfa/cordova-plugin-googlemaps.git#multiple_maps",
+    "cordova-plugin-googlemaps": "^2.1.1",
     "cordova-plugin-googlemaps-sdk": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps-sdk.git",
     "cordova-plugin-googleplus": "^5.1.1",
     "cordova-plugin-inappbrowser": "~1.7.1",
@@ -132,20 +131,20 @@
       "org.apache.cordova.plugin.cache": {},
       "cordova-plugin-appavailability": {},
       "cordova-plugin-google-analytics": {},
+      "cordova-plugin-facebook4": {
+        "APP_ID": "154186758658913",
+        "APP_NAME": "Fluz Fluz App"
+      },
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.709389446483-6at869k84krbneu3fotto68evpq2dm72"
+      },
       "cordova-google-api-version": {
         "GOOGLE_API_VERSION": "11.0.1"
       },
       "cordova-plugin-compat": {},
       "cordova-plugin-googlemaps": {
         "API_KEY_FOR_ANDROID": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8",
-        "API_KEY_FOR_IOS": "AIzaSyByKrKqlAPTWg4v1b2GiTLYrq4tJ3uqyck"
-      },
-      "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.709389446483-6at869k84krbneu3fotto68evpq2dm72"
-      },
-      "cordova-plugin-facebook4": {
-        "APP_ID": "154186758658913",
-        "APP_NAME": "Fluz Fluz App"
+        "API_KEY_FOR_IOS": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8"
       },
       "cordova-plugin-fcm": {}
     },
@@ -215,8 +214,6 @@
         "ios"
       ]
     },
-    "platforms": [
-      "ios"
-    ]
+    "platforms": []
   }
 }

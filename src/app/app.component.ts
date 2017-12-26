@@ -22,6 +22,7 @@ export class MyApp {
     public statusBar: StatusBar,
     splashScreen: SplashScreen
   ) {
+    this.fcmStart();
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -40,7 +41,13 @@ export class MyApp {
           //aquí se debe enviar el token al back-end para tenerlo registrado y de esta forma poder enviar mensajes
           // a esta  aplicación
           //o también copiar el token para usarlo con Postman :D
-          console.log("The token to use is: ",token);
+          let alert = this.alertCtrl.create({
+            title: 'Token',
+            subTitle: 'Este es el Token '+token,
+            buttons: ['Ok']
+          });
+          alert.present();
+//          console.log("The token to use is: ",token);
         })
         .catch(error=>{
           //ocurrió un error al procesar el token
