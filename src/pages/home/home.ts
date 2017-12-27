@@ -16,6 +16,7 @@ import { ProductChildPage } from '../product-child/product-child';
 import { SHOW_HOME_CATEGORY } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
 import { DEV_UBICATION } from '../../providers/config';
+import { LoginService } from '../../providers/login-service';
 import { SearchService } from '../../providers/search.service';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -75,6 +76,7 @@ export class HomePage {
     public loadingController: LoadingController,
     public modalCtrl: ModalController,
     public statusBar: StatusBar,
+    private loginService:LoginService,
     public analytics: AnalyticsService
     
     ) {
@@ -119,6 +121,7 @@ export class HomePage {
           this.updateShowDataUser(false);
         }
         else {
+          
           this.updateShowDataUser(true);          
           this.analytics.setUserId(val.id);
           setTimeout(()=>{
@@ -191,6 +194,13 @@ export class HomePage {
           }
         );
       }
+      this.storage.get('tokenFCM').then(
+        (token:any) =>{
+          this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
+            console.log( (result) ? 'Si se actualizo': 'No funciono');
+          });
+        }
+      );
     });
   }
   

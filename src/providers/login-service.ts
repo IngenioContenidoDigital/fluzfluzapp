@@ -88,6 +88,28 @@ export class LoginService {
           );
       });
   }
+  
+  setTokenFCM(id_customer:any, token:any){
+    let url = WS_BASE+'/setTokenFCM';
+    let params = new URLSearchParams();
+      params.set('id_customer', id_customer);
+      params.set('token', token);
+      return new Promise(resolve => {
+        let result:any;
+        this.http.get(url, { search: params })
+          .map(res => res.json())
+          .subscribe(
+            (data:any) => {
+              result = data;
+              resolve( result );
+            },
+            (err:Response) => {
+              result  = err.json();
+              resolve(result);
+            }
+          );
+      });
+  }
     
 }
 
