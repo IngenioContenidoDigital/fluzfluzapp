@@ -81,6 +81,11 @@ export class TransferFluzPage {
         }
       });
     }
+    
+    validateInputFluz(){
+      this.valueTransfer = this.valueTransfer > this.userData.fluzTotal ? this.userData.fluzTotal : this.valueTransfer;
+      this.enableTransfer();
+    }
 
     enableTransfer() {
         if ( this.valueTransfer > 0 && this.fluzzerSelected != "" ) {

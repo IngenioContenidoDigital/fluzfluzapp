@@ -13,6 +13,8 @@ import { InvitationThirdModalPage } from '../invitation-third-modal/invitation-t
 import { CategoryService } from '../../providers/category.service';
 import { TabsService } from '../../providers/tabs.service';
 import { ProductChildPage } from '../product-child/product-child';
+import { TutorialPage } from '../tutorial/tutorial';
+import { ReactiveAccountPage } from '../reactive-account/reactive-account';
 import { SHOW_HOME_CATEGORY } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
 import { DEV_UBICATION } from '../../providers/config';
@@ -98,6 +100,14 @@ export class HomePage {
         this.navCtrl.push( LoginPage );
         break;
       }
+      case "ReactiveAccountPage": {
+        this.navCtrl.push( ReactiveAccountPage );
+        break;
+      }
+      case "TutorialPage": {
+        this.navCtrl.push( TutorialPage );
+        break;
+      }
       default: {
         this.navCtrl.pop();        
         break;
@@ -109,65 +119,72 @@ export class HomePage {
     this.notificationBar.alert = 2;
     this.analytics.trackView('HomePage');
     this.notificationBar.setVisible = false;
-    this.storage.get('userData').then((val) => {
-      this.storage.get('userConfirm').then((userConfirm)=> {
-        if (val === null || val === undefined || val === false){
-          this.goTo("LoginPage");
-        }
-        else if( userConfirm !== true ){
-          this.goTo("ConfirmPage");            
-        }
-        if (val === null || val === undefined || val == false){
-          this.updateShowDataUser(false);
-        }
-        else {
-          
-          this.updateShowDataUser(true);          
-          this.analytics.setUserId(val.id);
-          setTimeout(()=>{
-            this.getUserData();
-            this.getBannerData();
-            this.getCategoryWithFatherData();
-            this.getCategoryWithOutFatherData();
-          }, 100 );
-          setTimeout(()=>{
-            this.home.getNotificationBarOrders(val.id).then((data:any)=>{
-              let notificationData = data.result;
-              this.notificationBar = data.result;
-              if(this.notificationBar.profile_complete<100){
-                this.profileBar = true;
-              }
-              switch (notificationData.alert){
-                case 4: {
-                  this.notificationBar.setVisible = true;
-                  this.notificationBar.text = "Tu cuenta se encuentra actualmente cancelada.";
-                  break;
-                }
-                case 3: {
-                  this.notificationBar.setVisible = true;
-                  this.notificationBar.text = "Has hecho "+notificationData.orden+" de "+notificationData.quantity_max+" compras y te estas pasando de la fecha de vencimiento. Si no haces "+notificationData.quantity+" compras más hasta el ("+notificationData.dateCancel+") tu cuenta será cancelada!";
-                  break;
-                }
-                case 2: {
-                  this.notificationBar.setVisible = true;
-                  this.notificationBar.text = "Increíble! Tu compra mensual mínima se ha cumplido.";
-                  break;
-                }
-                case 1: {
-                  this.notificationBar.setVisible = true;
-                  this.notificationBar.text = "Has hecho "+notificationData.orden+" de "+notificationData.total+" compras. Necesitaras hacer "+notificationData.quantity+" compras más hasta el ("+notificationData.date+") para cubrir tu requisito mensual";
-                  break;
-                }
-                default: {
-                  this.notificationBar.setVisible = false;
-                  break;
-                }
-              }
-            });
-            this.countbannerData = Object.keys(this.bannerData).length;
-          }, 500 );
-        }
-      });
+    this.storage.get('tutorial').then((tutorial)=> {
+      if(tutorial || tutorial == 'true'){
+        this.storage.get('userData').then((val) => {
+          this.storage.get('userConfirm').then((userConfirm)=> {
+            if (val === null || val === undefined || val === false){
+              this.goTo("LoginPage");
+            }
+            else if( userConfirm !== true ){
+              this.goTo("ConfirmPage");            
+            }
+            if (val === null || val === undefined || val == false){
+              this.updateShowDataUser(false);
+            }
+            else {
+
+              this.updateShowDataUser(true);          
+              this.analytics.setUserId(val.id);
+              setTimeout(()=>{
+                this.getUserData();
+                this.getBannerData();
+                this.getCategoryWithFatherData();
+                this.getCategoryWithOutFatherData();
+              }, 100 );
+              setTimeout(()=>{
+                this.home.getNotificationBarOrders(val.id).then((data:any)=>{
+                  let notificationData = data.result;
+                  this.notificationBar = data.result;
+                  if(this.notificationBar.profile_complete<100){
+                    this.profileBar = true;
+                  }
+                  switch (notificationData.alert){
+                    case 4: {
+                      this.notificationBar.setVisible = true;
+                      this.notificationBar.text = "¡Tu cuenta ha sido desactivada temporalmente!";
+                      break;
+                    }
+                    case 3: {
+                      this.notificationBar.setVisible = true;
+                      this.notificationBar.text = "Has hecho "+notificationData.orden+" de "+notificationData.quantity_max+" compras y te estas pasando de la fecha de vencimiento. Si no haces "+notificationData.quantity+" compras más hasta el ("+notificationData.dateCancel+") tu cuenta será cancelada!";
+                      break;
+                    }
+                    case 2: {
+                      this.notificationBar.setVisible = true;
+                      this.notificationBar.text = "Increíble! Tu compra mensual mínima se ha cumplido.";
+                      break;
+                    }
+                    case 1: {
+                      this.notificationBar.setVisible = true;
+                      this.notificationBar.text = "Has hecho "+notificationData.orden+" de "+notificationData.total+" compras. Necesitaras hacer "+notificationData.quantity+" compras más hasta el ("+notificationData.date+") para cubrir tu requisito mensual";
+                      break;
+                    }
+                    default: {
+                      this.notificationBar.setVisible = false;
+                      break;
+                    }
+                  }
+                });
+                this.countbannerData = Object.keys(this.bannerData).length;
+              }, 500 );
+            }
+          });
+        });
+      }
+      else{
+        this.goTo("TutorialPage");
+      }
     });
   }
   
@@ -264,5 +281,11 @@ export class HomePage {
       manufacturer: this.productChild,
       productFather: this.productChild
     });
+  }
+  
+  openReactiveAccount(item:any){
+    if ( item == 4 ) {
+      this.goTo("ReactiveAccountPage");
+    }
   }
 }

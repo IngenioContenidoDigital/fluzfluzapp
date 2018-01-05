@@ -1,0 +1,33 @@
+page-tutorial {
+  .grid {
+    padding: 5px 15px;
+    .label {
+      margin: 5px;
+    }
+  }
+  .scroll-content .card-background-page, .slide-zoom{
+    height: 100%;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background: color($colors, primary);
+  }
+  
+  .ctn-btn {
+    width: 100%;
+    .btn {
+      width: 90%;
+    }
+  }
+  
+  .ctn-omitir {
+    text-align: right;
+    width: 100%;
+    position: absolute;
+    margin-top: 10px;
+    .omitir {
+      margin: 15px;
+      color: color($colors, white);
+    }
+  }
+}

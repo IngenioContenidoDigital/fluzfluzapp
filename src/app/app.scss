@@ -126,7 +126,7 @@
   
 //Logo fluzfluz Header
 .fluz-fluz-fluz {
-  @extend .font-extra-big;
+  @extend .font-big;
   color: color($colors, dorado);
   margin-left: 5px;
 }
@@ -290,4 +290,14 @@ ion-title {
 
 .bar-button-md[icon-only] ion-icon {
   font-size: 2.8em;
+}
+
+.toolbar-ios ion-title {
+  padding: 0px;
+  .toolbar-title-ios {
+    font-size: 1.4rem;
+  }
+  .invisibleButton {
+    display: none;
+  }
 }

@@ -58,10 +58,12 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   import { MorePage } from '../pages/more/more';
   
   /* Login */
+    import { TutorialPage } from '../pages/tutorial/tutorial';
     import { LoginPage } from '../pages/login/login';
     import { RegisterPage } from '../pages/register/register';
     import { ConfirmPage } from '../pages/confirm/confirm';
     import { ConfirmatedPage } from '../pages/confirmated/confirmated';
+    import { ReactiveAccountPage } from '../pages/reactive-account/reactive-account';
 
   /* Product */
     import { ProductModalPage } from '../pages/product-modal/product-modal';
@@ -115,10 +117,12 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     NetworkPage,
     NetworkTreePage,
     MorePage,
+    TutorialPage,
     LoginPage,
     RegisterPage,
     ConfirmPage,
     ConfirmatedPage,
+    ReactiveAccountPage,
     SearchModalPage,
     CountryModalPage,
     MessageModalPage,
@@ -156,6 +160,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     BrowserAnimationsModule,
     HttpModule,
     IonicModule.forRoot(MyApp, {
+      backButtonText: '',
+      iconMode: 'md',
       tabsHideOnSubPages: false,
       tabsPlacement: 'bottom',
       modalEnter: 'modal-slide-in',
@@ -178,10 +184,12 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     NetworkPage,
     NetworkTreePage,
     MorePage,
+    TutorialPage,
     LoginPage,
     RegisterPage,
     ConfirmPage,
     ConfirmatedPage,
+    ReactiveAccountPage,
     SearchModalPage,
     CountryModalPage,
     MessageModalPage,

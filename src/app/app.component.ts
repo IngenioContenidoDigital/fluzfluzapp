@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AnalyticsService } from '../providers/analytics.service';
 import { AlertController } from 'ionic-angular';
-import { FCM, NotificationData } from "@ionic-native/fcm";
+import { FCM } from "@ionic-native/fcm";
 import { LoginService } from '../providers/login-service';
 import { Storage } from '@ionic/storage';
 

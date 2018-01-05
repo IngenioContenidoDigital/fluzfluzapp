@@ -91,4 +91,24 @@ export class MyAccountService {
           );
       });
   }
+  
+  reactivateAccount(id_customer) {
+    let _url = WS_BASE+'reactiveAccount';
+    let params = new URLSearchParams();
+      params.set('id_customer', id_customer);
+      return new Promise(resolve => {
+        this.http.get(_url, { search: params })
+          .map(res => res.json())
+          .subscribe(
+            data => {
+              this.userData = data;
+              resolve( this.userData );
+            },
+            (err:Response) => {
+              this.userData  = err.json();
+              resolve(this.userData );
+            }
+          );
+      });
+  }
 }

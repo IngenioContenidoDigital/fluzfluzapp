@@ -7,8 +7,11 @@
     <div [ngClass]="( notificationBar.alert >= 3 ) ? 'ctn-notification background-primary' : ( notificationBar.alert == 2 ) ?  'ctn-notification background-green' : 'ctn-notification background-dorado' " *ngIf="notificationBar.setVisible===true" [@slideIn]>
       <ion-row>
         <ion-col col-1></ion-col>
-        <ion-col col-10>
-          <ion-label text-wrap text-center class="font-more-small">{{notificationBar.text}}</ion-label>
+        <ion-col col-10 (click)="openReactiveAccount(notificationBar.alert)">
+          <ion-label text-wrap text-center class="font-more-small">
+            {{notificationBar.text}}
+            <strong *ngIf="notificationBar.alert == 4">¿Cómo la Reactivo?</strong>
+          </ion-label>
         </ion-col>
         <ion-col col-1 (click)="closeNotification()">
           <ion-icon name="md-close-circle" ></ion-icon>
