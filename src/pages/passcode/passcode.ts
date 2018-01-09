@@ -103,8 +103,8 @@ export class PasscodePage {
     if ( this.setPasscode == true ) {
       if( this.enableConfirmPasscode == true ){
         if ( this.passcode == this.passcodeConfirm ){
-          this.storage.get('userId').then((val) => {
-            this.passcodeService.setPasscode( val, this.passcode ).then((data:boolean)=>{
+          this.storage.get('userData').then((val) => {
+            this.passcodeService.setPasscode( val.id, this.passcode ).then((data:boolean)=>{
               this.setPasscode = data;
               this.storage.set('passcode', data );
               let msg = data ? "S" : "No s" ; 
@@ -142,8 +142,8 @@ export class PasscodePage {
         content: "Confirmando..."
       });
       loader.present();
-      this.storage.get('userId').then((val) => {
-        let valor = {'id_customer': val, 'passcode': this.passcode };
+      this.storage.get('userData').then((val) => {
+        let valor = {'id_customer': val.id, 'passcode': this.passcode };
         this.passcodeService.validatePasscode(valor).subscribe(
           success => {
             if (success.status === 200){
