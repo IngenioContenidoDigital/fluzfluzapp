@@ -11,7 +11,7 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { FCM } from '@ionic-native/fcm';
-
+import { Badge } from '@ionic-native/badge';
 //import { FirebaseAnalytics } from '@ionic-native/firebase-analytics';
 
 import { FileTransfer } from '@ionic-native/file-transfer';
@@ -234,6 +234,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     Facebook,
     GooglePlus,
     FCM,
+    Badge,
     Camera,
     File,
     FilePath, 

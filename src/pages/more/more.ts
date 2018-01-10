@@ -26,6 +26,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { AnalyticsService } from '../../providers/analytics.service';
 import { SupportModalPage } from '../support-modal/support-modal';
 import { TabsService } from '../../providers/tabs.service';
+import { Badge } from '@ionic-native/badge';
 
 declare var cordova: any;
 
@@ -46,6 +47,7 @@ declare var cordova: any;
 export class MorePage {
 
   public userData:any = {};
+  public messagesUnread: number = 0;
   public showOptions:any = SHOW_MORE_OPTIONS;
   public showSavings:any = SHOW_SAVINGS;
   public lastedFluz:any = SHOW_LASTED_FLUZ;
@@ -53,6 +55,7 @@ export class MorePage {
   public lastImage: string = null;
   
   constructor(
+    private badge: Badge,
     public modalCtrl: ModalController,
     private filePath: FilePath,
     private clipboard: Clipboard,
@@ -85,19 +88,35 @@ export class MorePage {
   
   getUserData() {
     this.storage.get('userData').then((val) => {
+      this.badge.clear().then(()=>{
+        this.getMessagesData(val.id);
+      });
       if( val != null && val != '' && val != undefined ){
         this.userData.userName = val.firstname;
         this.userData.id = val.id;
         this.userData.refer_code = val.refer_code;
         this.myAccount.getDataAccount(val.id).then(
           (data:any) => {
-//            console.log(data);
             this.userData = Object.assign(this.userData, JSON.parse(data));
             this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
           }
         );
       }
     });
+  }
+  
+  getMessagesData(id: number) {
+    this.messagesService.getMessagesData(id).then(
+      (data:any)=>{
+        this.messagesUnread = data;
+        if(this.messagesUnread > 0){
+          this.badge.increase(this.messagesUnread);
+        }
+        else {
+          this.badge.clear();
+        }
+      }
+    );
   }
   
   logout(){

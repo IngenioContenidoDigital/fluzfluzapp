@@ -8,10 +8,12 @@ import { AlertController } from 'ionic-angular';
 import { FCM } from "@ionic-native/fcm";
 import { LoginService } from '../providers/login-service';
 import { Storage } from '@ionic/storage';
+import { Badge } from '@ionic-native/badge';
+import { MessagesService } from '../providers/messages.service';
 
 @Component({
   templateUrl: 'app.html',
-  providers: [AnalyticsService, LoginService, FCM]
+  providers: [AnalyticsService, LoginService, FCM, MessagesService,]
 })
 export class MyApp {
   rootPage:any = TabsPage;
@@ -19,10 +21,12 @@ export class MyApp {
   constructor( 
     private alertCtrl: AlertController,
     public fcm:FCM,
+    private badge: Badge,
     public analytics: AnalyticsService,
     public platform: Platform,
     public statusBar: StatusBar,
     public storage: Storage,
+    public messagesService: MessagesService,
     private loginService:LoginService,
     splashScreen: SplashScreen
   ) {
@@ -33,6 +37,7 @@ export class MyApp {
       setTimeout(()=>{
         this.statusBar.backgroundColorByHexString('#E1493A');
       }, 500 );
+      this.badge.clear();
       splashScreen.hide();
       this.analytics.analytictsStart();
     });
@@ -52,6 +57,7 @@ export class MyApp {
                 this.storage.set('tokenFCM', token);
               }
               else {
+                this.getMessagesData(val.id);
                 this.storage.set('tokenFCM', token).then(()=>{
                   this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
                     console.log( (result) ? 'Si se actualizo': 'No funciono');
@@ -89,24 +95,31 @@ export class MyApp {
        * */
       this.fcm.onNotification().subscribe(
         (data:any)=>{
+          this.badge.increase(1);
           if(data.wasTapped){
             //ocurre cuando nuestra app está en segundo plano y hacemos tap en la notificación que se muestra en el dispositivo
-            console.log("Received in background",JSON.stringify(data))
+            this.badge.clear();
           }else{
+            this.badge.clear();
             //ocurre cuando nuestra aplicación se encuentra en primer plano,
             //puedes mostrar una alerta o un modal con los datos del mensaje
-//            let alert = this.alertCtrl.create({
-//              title: 'Token',
-//              subTitle: 'Este es el data: '+data,
-//              buttons: ['Ok']
-//            });
-//            alert.present();
-            console.log("Received in foreground",JSON.stringify(data));
           }
          },error=>{
-          console.error("Error in notification",error)
          }
       );
     });
+  }
+  
+  getMessagesData(id: number) {
+    this.messagesService.getMessagesData(id).then(
+      (data:any)=>{
+        if(data > 0){
+          this.badge.increase(data);
+        }
+        else {
+          this.badge.clear();
+        }
+      }
+    );
   }
 }

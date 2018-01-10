@@ -82,8 +82,11 @@
           <ion-col col-2>
             <i class='fluz-mesages'></i>
           </ion-col>
-          <ion-col>
+          <ion-col col-8>
             <ion-label class="text-dark">Mis Mensajes</ion-label>
+          </ion-col>
+          <ion-col col-1>
+            <ion-badge item-end *ngIf="messagesUnread > 0">{{messagesUnread}}</ion-badge>
           </ion-col>
         </div>
         <div class="row" (click)="goTo('RedemptionPage')" align-items-center>

@@ -24,6 +24,7 @@
     "@angular/router": "^4.2.3",
     "@angular/tsc-wrapped": "^4.2.5",
     "@ionic-native/app-availability": "^4.3.0",
+    "@ionic-native/badge": "^4.5.2",
     "@ionic-native/browser-tab": "^3.13.1",
     "@ionic-native/camera": "^4.2.1",
     "@ionic-native/clipboard": "^4.1.0",
@@ -48,9 +49,11 @@
     "@ionic-native/status-bar": "^3.4.2",
     "@ionic/storage": "^2.0.1",
     "angular": "^1.6.5",
+    "cordova-android": "^6.3.0",
     "cordova-clipboard": "^1.0.0",
     "cordova-google-api-version": "0.0.1",
     "cordova-plugin-appavailability": "^0.4.2",
+    "cordova-plugin-badge": "^0.8.6",
     "cordova-plugin-browsertab": "~0.2.0",
     "cordova-plugin-cache": "git+https://github.com/tiltshiftfocus/cordova-plugin-cache.git",
     "cordova-plugin-camera": "^2.4.1",
@@ -214,6 +217,8 @@
         "ios"
       ]
     },
-    "platforms": []
+    "platforms": [
+      "android"
+    ]
   }
 }

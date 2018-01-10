@@ -48,13 +48,16 @@ export class MessagesPage {
       this.messages.getConversation(val.id, item.customer).then(
         (data:any) => {
           let messagesModal = this.modalCtrl.create( MessagesModalPage, { userId: val.id, conversation: data, userData: item } );
+          this.messages.readConversation(val.id, item.customer).then(()=>{});
           messagesModal.onDidDismiss((data:any) => {
             if(data.send == true){
               item.img = item.image;
               item.id = item.customer;
               let messageModal = this.modalCtrl.create( MessageModalPage, { destiny: item } );
               messageModal.present();
+              this.getConversations();
             }
+            this.getConversations();
           });
           messagesModal.present();
         }

@@ -39,7 +39,10 @@
             </ion-row>
             <ion-row no-padding>
               <ion-col class="font-more-small text-gray-dark overflow">{{item.message}}</ion-col>
-              <!--<ion-col col-2 item-right class="font-more-small text-gray-normal text-right">Leido</ion-col>-->
+              <ion-col col-2 item-right class="font-more-small text-gray-normal text-right">
+                <ion-badge item-end *ngIf="item.unread_messages > 0">{{item.unread_messages}}</ion-badge>
+                <span *ngIf="item.unread_messages == 0">Leido</span>
+              </ion-col>
             </ion-row>
           </ion-col>
         </ion-row>
