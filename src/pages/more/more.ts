@@ -88,9 +88,7 @@ export class MorePage {
   
   getUserData() {
     this.storage.get('userData').then((val) => {
-      this.badge.clear().then(()=>{
-        this.getMessagesData(val.id);
-      });
+      this.getMessagesData(val.id);
       if( val != null && val != '' && val != undefined ){
         this.userData.userName = val.firstname;
         this.userData.id = val.id;
@@ -110,7 +108,7 @@ export class MorePage {
       (data:any)=>{
         this.messagesUnread = data;
         if(this.messagesUnread > 0){
-          this.badge.increase(this.messagesUnread);
+          this.badge.set(this.messagesUnread);
         }
         else {
           this.badge.clear();

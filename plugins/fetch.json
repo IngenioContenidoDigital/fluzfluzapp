@@ -217,7 +217,7 @@
   "cordova-plugin-badge": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-badge"
+      "id": "cordova-plugin-badge@^0.8.6"
     },
     "is_top_level": true,
     "variables": {}

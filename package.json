@@ -52,6 +52,7 @@
     "cordova-android": "^6.3.0",
     "cordova-clipboard": "^1.0.0",
     "cordova-google-api-version": "0.0.1",
+    "cordova-ios": "^4.5.4",
     "cordova-plugin-appavailability": "^0.4.2",
     "cordova-plugin-badge": "^0.8.6",
     "cordova-plugin-browsertab": "~0.2.0",
@@ -79,6 +80,7 @@
     "cordova-sqlite-storage": "~2.0.3",
     "d3": "^4.10.2",
     "file-exists": "^4.0.0",
+    "ionic": "^3.19.0",
     "ionic-angular": "3.1.1",
     "ionic-native": "^2.9.0",
     "ionic-plugin-keyboard": "~2.2.1",
@@ -149,7 +151,8 @@
         "API_KEY_FOR_ANDROID": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8",
         "API_KEY_FOR_IOS": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8"
       },
-      "cordova-plugin-fcm": {}
+      "cordova-plugin-fcm": {},
+      "cordova-plugin-badge": {}
     },
     "dependencies": {
       "@angular/animations": "^4.2.3",
@@ -218,7 +221,8 @@
       ]
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }
