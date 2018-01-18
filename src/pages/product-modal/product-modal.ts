@@ -67,12 +67,18 @@ export class ProductModalPage {
             this.productChild = data;
             this.intructions = this.productChild.result[0].instructions;
             this.terms = this.productChild.result[0].terms;
+          })
+          .catch(error =>{
+            console.log(error);
           });
         }
         else {
           loader.dismiss();
           this.productFather = data;
         }
+      })
+      .catch(error =>{
+        console.log(error);
       });
     }, 500 );    
   }
@@ -105,8 +111,8 @@ export class ProductModalPage {
     this.storage.get('userData').then((userData) => {
       this.storage.get('cart').then((val) => {
         this.idCart = ( val != undefined && val != null && val != '' ) ? val.id : 0;
-        this.cartService.addToCart( this.idCart, idProduct, userData.id ).subscribe(
-          success => {
+        this.cartService.addToCart( this.idCart, idProduct, userData.id ).then(
+          (success:any) => {
             if(success.status === 200) {
               this.storage.set('cart', JSON.parse(success._body));
               this.updateCountCartEmit();
@@ -116,7 +122,13 @@ export class ProductModalPage {
             console.log(error)
           }
         ); 
+      })
+      .catch(error =>{
+        console.log(error);
       });
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -124,6 +136,9 @@ export class ProductModalPage {
     setTimeout(() => {
       this.storage.get('cart').then((val) => {
         this.updateCountCart.emit( val.quantity );
+      })
+      .catch(error =>{
+        console.log(error);
       });
     },500);
   }

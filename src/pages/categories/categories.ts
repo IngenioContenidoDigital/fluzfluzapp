@@ -32,8 +32,11 @@ export class CategoriesPage {
           category: item,
           products: data.products
         });
-      }  
-    );
+      }
+    )
+    .catch(function () {
+      console.log("Error");
+    });
   }
   
   ionViewWillEnter(){

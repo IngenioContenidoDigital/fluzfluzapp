@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, Response } from '@angular/http';
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { WS_BASE } from './config';
 
 
@@ -9,22 +9,21 @@ export class InstagramService {
   private _url: string = WS_BASE + '/getMediaInstagram';
   public data: any;
 
-  constructor(public http: Http) {}
+  constructor(public http: HttpClient) {}
   
   public getInstagramData( id_manufacturer:any, count:any ) {
-    let params = new URLSearchParams();
+    let params = new HttpParams();
     params.set('id_manufacturer', id_manufacturer);
     params.set('count', count);
     
     return new Promise(resolve => {
-      this.http.get(this._url, { search: params })
-        .map(res => res.json())
+      this.http.get(this._url, { params: params })
         .subscribe(
         	data => {
             this.data = data;
             resolve(this.data);
           },
-          (err:Response) => {
+          (err) => {
             this.data = '{"Error": "Error al traer los datos de instagram"}';
             resolve(this.data);
           }

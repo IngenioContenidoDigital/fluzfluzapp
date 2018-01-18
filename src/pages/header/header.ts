@@ -48,7 +48,10 @@ export class HeaderPage {
         if (val != null || val != undefined ){
           this.countCart = val.quantity;
         }
-      });      
+      })
+      .catch(function () {
+        console.log("Error");
+      });
     });
   }
     
@@ -70,6 +73,9 @@ export class HeaderPage {
         else {
           this.updateSearchData.emit( this.searchData );
         }
+      })
+      .catch(function () {
+        console.log("Error");
       });
     },100);
   }

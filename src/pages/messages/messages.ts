@@ -39,7 +39,13 @@ export class MessagesPage {
         (data:any) => {
           this.conversations = data;
         }
-      );
+      )
+      .catch(error =>{
+        console.log(error);
+      });
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -48,7 +54,7 @@ export class MessagesPage {
       this.messages.getConversation(val.id, item.customer).then(
         (data:any) => {
           let messagesModal = this.modalCtrl.create( MessagesModalPage, { userId: val.id, conversation: data, userData: item } );
-          this.messages.readConversation(val.id, item.customer).then(()=>{});
+          this.messages.readConversation(val.id, item.customer);
           messagesModal.onDidDismiss((data:any) => {
             if(data.send == true){
               item.img = item.image;
@@ -61,7 +67,13 @@ export class MessagesPage {
           });
           messagesModal.present();
         }
-      );
+      )
+      .catch(error =>{
+        console.log(error);
+      });
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
 }

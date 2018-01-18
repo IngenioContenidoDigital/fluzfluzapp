@@ -98,8 +98,8 @@ export class CreditCardPage {
                 });
                 loader.present();
                 this.enabledPayButton = false;
-                this.CreditCardService.sendPayment(dataForm, userData, cart).subscribe(
-                    success => {
+                this.CreditCardService.sendPayment(dataForm, userData, cart).then(
+                    (success:any) => {
                         if(success.status === 200) {
                             loader.dismiss();
                             let response = JSON.parse(success._body);
@@ -134,6 +134,9 @@ export class CreditCardPage {
                                         ]
                                     });
                                     alert.present();
+                                })
+                                .catch(function () {
+                                  console.log("Error");
                                 });
                             } else {
                                 this.enabledPayButton = true;
@@ -150,8 +153,14 @@ export class CreditCardPage {
                         console.log(error)
                     }
                 );
+            })
+            .catch(function () {
+              console.log("Error");
             });
-        });
+        })
+      .catch(function () {
+        console.log("Error");
+      });
     }
     
     viewCard() {

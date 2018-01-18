@@ -87,8 +87,8 @@ export class RegisterPage {
 
 
   getCities(){
-    this.personalInformationService.getCities().subscribe(
-      success => {
+    this.personalInformationService.getCities().then(
+      (success:any) => {
         if(success.status === 200) {
           let response = JSON.parse(success._body);
           this.cities = response;
@@ -103,46 +103,46 @@ export class RegisterPage {
     );
   }
   
-    send(valor) {
-        this.enabledSaveButton = false;
-        this.loginService.register(valor).subscribe(
-            success => {
-                if(success.status === 200) {
-                    let response = JSON.parse(success._body);
-                    if (response.success) {
-                        this.enabledSaveButton = true;
-                        let alert = this.alertCtrl.create({
-                            title: 'Registro completo',
-                            subTitle: 'Tu contraseña es tu número de identificación.',
-                            buttons: [{
-                                text: 'Ok',
-                                handler: () => {
-                                    setTimeout(()=>{ this.navCtrl.pop() }, 500);
-                                }
-                            }]
-                        });
-                        alert.present();
-                    } else {
-                        this.enabledSaveButton = true;
-                        let alert = this.alertCtrl.create({
-                            title: 'Registro incompleto',
-                            subTitle: response.error['0'],
-                            buttons: ['OK']
-                        });
-                        alert.present();
-                    }
+  send(valor) {
+    this.enabledSaveButton = false;
+    this.loginService.register(valor).then(
+      (success:any) => {
+        if(success.status === 200) {
+          let response = JSON.parse(success._body);
+          if (response.success) {
+            this.enabledSaveButton = true;
+            let alert = this.alertCtrl.create({
+              title: 'Registro completo',
+              subTitle: 'Tu contraseña es tu número de identificación.',
+              buttons: [{
+                text: 'Ok',
+                handler: () => {
+                  setTimeout(()=>{ this.navCtrl.pop() }, 500);
                 }
-            },
-            error => {
-                this.enabledSaveButton = true;
-                let alert = this.alertCtrl.create({
-                    title: 'Registro incompleto',
-                    subTitle: 'Se ha producido un error en el registro. Por favor verifica tus datos he intenta de nuevo.',
-                    buttons: ['OK']
-                });
-                alert.present();
-            }
-        );
-    }
+              }]
+            });
+            alert.present();
+          } else {
+            this.enabledSaveButton = true;
+            let alert = this.alertCtrl.create({
+              title: 'Registro incompleto',
+              subTitle: response.error['0'],
+              buttons: ['OK']
+            });
+            alert.present();
+          }
+        }
+      },
+      error => {
+        this.enabledSaveButton = true;
+        let alert = this.alertCtrl.create({
+          title: 'Registro incompleto',
+          subTitle: 'Se ha producido un error en el registro. Por favor verifica tus datos he intenta de nuevo.',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+    );
+  }
  
 }

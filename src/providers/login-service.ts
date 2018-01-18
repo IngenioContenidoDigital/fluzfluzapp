@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Headers, URLSearchParams, Http, Response/*, URLSearchParams*/ } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { WS_BASE } from './config';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
@@ -13,102 +12,77 @@ export class LoginService {
   public response:any;
   public data:any;
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-  postLogin(variables): Observable<any> {
+  postLogin(variables) {
     let bodyString = JSON.stringify(variables);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.post(WS_BASE+'login', bodyString, headers)
-      .map(this.extractData)
-      .catch(this.handleError);
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return new Promise((resolve, reject) => {
+      this.http.post(WS_BASE + 'login', {
+        headers: headers,
+        params: bodyString,
+      })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+    });
+    
   }
 
   public register(value) {
     let bodyString = JSON.stringify(value);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.post(WS_BASE+'createCustomer', bodyString, headers)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-  
-  private extractData(res: Response) {
-    return res || { };
-  }
-  
-  private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    return Observable.throw(errMsg);
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return new Promise((resolve, reject) => {
+      this.http.post(WS_BASE+'createCustomer', {
+        headers: headers,
+        params: bodyString,
+      })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+    });
   }
   
   public logout() {
     // No tiene los datos todavía
     return new Promise(resolve => {
-      // Estamos utilizando el proveedor Angular HTTP para solicitar los datos,
-      // Luego en la respuesta, mapeará los datos JSON a un objeto JS analizado.
-      // A continuación, procesamos los datos y resolvemos la promesa con los nuevos datos.
-      this.http.get(WS_BASE+'logout')
-        .map(res => res.json())
-        .subscribe(
-          data => {
-            resolve( data );
-          },
-          (err:Response) => {
-            this.response  = err.json();
-            resolve(this.response );
-          }
-        );
+      this.http.get(WS_BASE+'logout').subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
     });
   }
   
   getEmailSocialMedia(email:any){
     let url = WS_BASE+'/getEmailSocialMedia';
-    let params = new URLSearchParams();
-      params.set('email', email);
-      return new Promise(resolve => {
-        let result:any;
-        this.http.get(url, { search: params })
-          .map(res => res.json())
-          .subscribe(
-            (data:any) => {
-              result = data;
-              resolve( result );
-            },
-            (err:Response) => {
-              result  = err.json();
-              resolve(result);
-            }
-          );
+    let params = new HttpParams();
+    params.set('email', email);
+    return new Promise(resolve => {
+      this.http.get(url, { params: params }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
       });
+    });
   }
   
   setTokenFCM(id_customer:any, token:any){
     let url = WS_BASE+'/setTokenFCM';
-    let params = new URLSearchParams();
-      params.set('id_customer', id_customer);
-      params.set('token', token);
-      return new Promise(resolve => {
-        let result:any;
-        this.http.get(url, { search: params })
-          .map(res => res.json())
-          .subscribe(
-            (data:any) => {
-              result = data;
-              resolve( result );
-            },
-            (err:Response) => {
-              result  = err.json();
-              resolve(result);
-            }
-          );
+    let params = new HttpParams();
+    params.set('id_customer', id_customer);
+    params.set('token', token);
+    return new Promise(resolve => {
+      this.http.get(url, { params: params }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
       });
+    });
   }
     
 }

@@ -55,6 +55,9 @@ export class MapPage {
           loader.dismiss();
           this.loadMap(response);
         }, 1000);
+      })
+      .catch(error =>{
+        console.log(error);
       });
     })
     .catch(error =>{
@@ -117,6 +120,9 @@ export class MapPage {
       this.map.moveCamera(position);
       // Obtiene las ubicaciones de los comercios
       this.getLocations(latitude, longitud);
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -127,6 +133,9 @@ export class MapPage {
         // Genera un marcador en el mapa.
         this.setMarker(position);
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
 
@@ -160,8 +169,14 @@ export class MapPage {
             this.map.setClickable(true);
           });
           productModal.present();
+        })
+        .catch(error =>{
+          console.log(error);
         });
       });
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
 }

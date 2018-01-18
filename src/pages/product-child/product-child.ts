@@ -81,6 +81,9 @@ export class ProductChildPage {
       console.log(this.productChild);
       this.intructions = this.productChild.result['0'].instructions;
       this.terms = this.productChild.result['0'].terms;
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
 
@@ -92,8 +95,8 @@ export class ProductChildPage {
     this.storage.get('userData').then((userData) => {
       this.storage.get('cart').then((val) => {
         this.idCart = ( val != undefined && val != null && val != '' ) ? val.id : 0;
-        this.cartService.addToCart( this.idCart, idProduct, userData.id ).subscribe(
-          success => {
+        this.cartService.addToCart( this.idCart, idProduct, userData.id ).then(
+          (success:any) => {
             loader.dismiss();
             if(success.status === 200) {
               this.storage.set('cart', JSON.parse(success._body));
@@ -106,7 +109,13 @@ export class ProductChildPage {
             console.log(error);
           }
         ); 
+      })
+      .catch(error =>{
+        console.log(error);
       });
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -120,6 +129,9 @@ export class ProductChildPage {
         this.updateCountCart.emit( val.quantity );
         loader.dismiss();
         this.toast('Agregado al carrito.');
+      })
+      .catch(error =>{
+        console.log(error);
       });
     },500);
   }
@@ -151,7 +163,10 @@ export class ProductChildPage {
         this.instragramData = data.result;
         this.countInstagramData = Object.keys(this.instragramData).length;
       }
-    );
+    )
+    .catch(error =>{
+      console.log(error);
+    });
   }
 
   openInstagram(profile:any) {
@@ -165,7 +180,10 @@ export class ProductChildPage {
           // open URL with InAppBrowser instead or SafariViewController
         }
       }
-    );
+    )
+    .catch(error =>{
+      console.log(error);
+    });
   }
   
   openImageInstagram(url:any){
@@ -178,7 +196,10 @@ export class ProductChildPage {
           // open URL with InAppBrowser instead or SafariViewController
         }
       }
-    );
+    )
+    .catch(error =>{
+      console.log(error);
+    });
   }
   
   ionViewWillLeave(){
@@ -199,6 +220,9 @@ export class ProductChildPage {
         this.longitude = position.coords.longitude;
       }, (err) => {
 //      console.log(err);
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -224,6 +248,9 @@ export class ProductChildPage {
       for(let pos of data.result){
         this.addMarker(pos.latitude, pos.longitude);
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   

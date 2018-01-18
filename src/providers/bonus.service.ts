@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, Response } from '@angular/http';
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { WS_BASE } from './config';
 import 'rxjs/add/operator/map';
 
@@ -10,32 +10,32 @@ export class BonusService {
   private _url: string = WS_BASE+'updateBonus';
   public data: any = {};
     
-  constructor(public http: Http) {}
+  constructor(public http: HttpClient) {}
 
   public updateBonus( card:any, used:any, price_card_used:any = 0) {
-    let params = new URLSearchParams();
-      params.set('card', card);
-      params.set('used', used);
-      params.set('price_card_used', price_card_used);
-      return new Promise(resolve => {
-        this.http.get(this._url, { search: params })
-          .map(res => res.json())
-          .subscribe(
-            data => {
-              this.data = JSON.stringify(data.result);
-              resolve( this.data );
-            },
-            (err:Response) => {
-              this.data  = err.json();
-              resolve( this.data );
-            }
-          );
-      });
+    let params = new HttpParams();
+    params.set('card', card);
+    params.set('used', used);
+    params.set('price_card_used', price_card_used);
+    return new Promise(resolve => {
+      this.http.get(this._url, { params: params })
+        .subscribe(
+          (data:any) => {
+            this.data = JSON.stringify(data.result);
+            resolve( this.data );
+          },
+          (err) => {
+            this.data  = err.json();
+            resolve( this.data );
+          }
+        );
+      }
+    );
   }
   
   public sendGift( id_customer:any, id_customer_receive:any, code:any, id_product_code:any, message:any, customer_send:any) {
     let url = WS_BASE + '/sendGiftCard';
-    let params = new URLSearchParams();
+    let params = new HttpParams();
     params.set('id_customer', id_customer);
     params.set('id_customer_receive', id_customer_receive);
     params.set('code', code);
@@ -43,14 +43,13 @@ export class BonusService {
     params.set('message', message);
     params.set('customer_send', customer_send);
     return new Promise(resolve => {
-      this.http.get(url, { search: params })
-        .map(res => res.json())
+      this.http.get(url, { params: params })
         .subscribe(
           data => {
             this.data = data;
             resolve( this.data );
           },
-          (err:Response) => {
+          (err) => {
             this.data  = err.json();
             resolve( this.data );
           }
@@ -60,17 +59,16 @@ export class BonusService {
   
   public getAddressManufacturer(manufacturer:any){
     let url = WS_BASE + '/getAddressManufacturer';
-    let params = new URLSearchParams();
+    let params = new HttpParams();
       params.set('id_manufacturer', manufacturer);
     return new Promise(resolve => {
-      this.http.get(url, { search: params })
-        .map(res => res.json())
+      this.http.get(url, { params: params })
         .subscribe(
         	data => {
             this.data = data;
             resolve(this.data);
           },
-          (err:Response) => {
+          (err) => {
             this.data = '{"Error": "Error al traer los banners"}';
             resolve(this.data);
           }
@@ -80,20 +78,19 @@ export class BonusService {
   
   public getMapData(latitude:any, longitude:any, manufacturer:any, option:any){
     let url = WS_BASE + '/getAddressMaps';
-    let params = new URLSearchParams();
+    let params = new HttpParams();
       params.set('latitude', latitude);
       params.set('longitude', longitude);
       params.set('id_manufacturer', manufacturer);
       params.set('option', option);
     return new Promise(resolve => {
-      this.http.get(url, { search: params })
-        .map(res => res.json())
+      this.http.get(url, { params: params })
         .subscribe(
         	data => {
             this.data = data;
             resolve(this.data);
           },
-          (err:Response) => {
+          (err) => {
             this.data = '{"Error": "Error al traer los banners"}';
             resolve(this.data);
           }

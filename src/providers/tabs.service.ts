@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Platform} from 'ionic-angular/index';
 import {Observable} from 'rxjs/Observable';
 
 // Declare TabsService as a provider in app.module.ts
@@ -11,7 +10,7 @@ export class TabsService {
   private tabChangeObserver: any;
   public tabChange: any;
 
-  constructor(private platform: Platform){
+  constructor(){
     this.tabChangeObserver = null;
     this.tabChange = Observable.create(observer => {
         this.tabChangeObserver = observer;

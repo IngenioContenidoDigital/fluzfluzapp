@@ -85,13 +85,22 @@ export class PaymentFluzPage {
           this.userData.fluzTotal = this.userData.fluzTotal == null ? 0 : this.userData.fluzTotal;
           setTimeout(()=>{ this.maxPayFluz = ( this.cart.total_price_in_points >= this.userData.fluzTotal ) ? this.userData.fluzTotal : this.cart.total_price_in_points; }, 200);
         }
-      );
+      )
+      .catch(error =>{
+        console.log(error);
+      });
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
   updateDataView () {
     this.storage.get('cart').then((val) => {
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -146,14 +155,17 @@ export class PaymentFluzPage {
                     content: "Aplicando Puntos..."
                 });
                 loader.present();
-                this.PaymentFluzService.applyPoints(userData.id,cartData,this.singleValue).subscribe(
-                    success => {
+                this.PaymentFluzService.applyPoints(userData.id,cartData,this.singleValue).then(
+                    (success:any) => {
                         loader.dismiss();
                         if(success.status === 200) {
                             this.storage.set('cart', JSON.parse(success._body)).then((cartData) => {
                                 this.sendNotification("Fluz aplicados");
                                 this.navCtrl.pop();
-                            });;
+                            })
+                            .catch(error =>{
+                              console.log(error);
+                            });
                         } else {
                             this.sendNotification("Error aplicando fluz.");
                         }
@@ -163,8 +175,14 @@ export class PaymentFluzPage {
                         console.log(error)
                     }
                 );
+            })
+            .catch(error =>{
+              console.log(error);
             });
-        });
+        })
+      .catch(error =>{
+        console.log(error);
+      });
     }
     
     sendNotification(message:string):void {

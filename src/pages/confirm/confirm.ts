@@ -125,7 +125,13 @@ export class ConfirmPage {
             this.textButton = "CONFIRMAR";
             this.textContact = "¿Tienes algún problema? ";
           }
-        );
+        )
+        .catch(function () {
+          console.log("Error");
+        });
+      })
+      .catch(function () {
+        console.log("Error");
       });
     }
     else {
@@ -152,7 +158,13 @@ export class ConfirmPage {
         });
         toast.present();
       }
-      );
+      )
+      .catch(function () {
+        console.log("Error");
+      });
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }  
   
@@ -173,7 +185,13 @@ export class ConfirmPage {
             setTimeout(()=>{ this.getPhone(); }, 500);
           }
         }
-      );
+      )
+      .catch(function () {
+        console.log("Error");
+      });
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   
@@ -192,8 +210,8 @@ export class ConfirmPage {
         confirmNumber: valor.confirmNumber,
         id_customer: val.id
       }      
-      this.confirmService.confirm(data).subscribe(
-        success => {
+      this.confirmService.confirm(data).then(
+        (success:any) => {
           loader.dismiss();
           if (success.status === 200){
             this.storage.set('userConfirm', true);
@@ -208,6 +226,9 @@ export class ConfirmPage {
           console.log(error)
         }
       );
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
 
@@ -231,7 +252,13 @@ export class ConfirmPage {
           this.phoneNumber = data.formatPhone;
           this.showFormPhone = false;
         }
+      })
+      .catch(function () {
+        console.log("Error");
       });
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
     

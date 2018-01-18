@@ -40,6 +40,9 @@ export class MyApp {
       this.badge.clear();
       splashScreen.hide();
       this.analytics.analytictsStart();
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -61,11 +64,20 @@ export class MyApp {
                 this.storage.set('tokenFCM', token).then(()=>{
                   this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
                     console.log( (result) ? 'Si se actualizo': 'No funciono');
+                  })
+                  .catch(error =>{
+                    console.log(error);
                   });
+                })
+                .catch(error =>{
+                  console.log(error);
                 });
               }
             }
-          );
+          )
+        .catch(error =>{
+          console.log(error);
+        });
         })
         .catch(error=>{
           //ocurrió un error al procesar el token
@@ -83,10 +95,19 @@ export class MyApp {
               this.storage.set('tokenFCM', token).then(()=>{
                 this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
                   console.log( (result) ? 'Si se actualizo': 'No funciono');
+                })
+                .catch(error =>{
+                  console.log(error);
                 });
+              })
+              .catch(error =>{
+                console.log(error);
               });
             }
-          );
+          )
+          .catch(error =>{
+            console.log(error);
+          });
         }
       );
 
@@ -107,6 +128,9 @@ export class MyApp {
          },error=>{
          }
       );
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -120,6 +144,9 @@ export class MyApp {
           this.badge.clear();
         }
       }
-    );
+    )
+    .catch(error =>{
+      console.log(error);
+    });
   }
 }

@@ -121,6 +121,9 @@ export class NetworkPage {
       else {
         this.updateShowDataUser(true);
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
     this.getUserData();
     this.seeMoreActivityValue = 5;
@@ -177,8 +180,14 @@ export class NetworkPage {
             this.userData = Object.assign(this.userData, JSON.parse(data));
             this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
           }
-        );
+        )
+        .catch(error =>{
+          console.log(error);
+        });
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -196,8 +205,14 @@ export class NetworkPage {
             }
             setTimeout(()=>{ this.countActivity = Object.keys(this.activityNetwork).length; }, 100);
           }
-        );
+        )
+        .catch(error =>{
+          console.log(error);
+        });
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -217,8 +232,14 @@ export class NetworkPage {
               this.myNetwork.push(data[i]);
             }
           }
-        );
+        )
+        .catch(error =>{
+          console.log(error);
+        });
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -244,8 +265,14 @@ export class NetworkPage {
                 }
             }
           }
-        );
+        )
+        .catch(error =>{
+          console.log(error);
+        });
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -291,8 +318,14 @@ export class NetworkPage {
                   }
                   
                 }
-              );
+              )
+              .catch(error =>{
+                console.log(error);
+              });
             }
+          })
+          .catch(error =>{
+            console.log(error);
           });
         }
   }
@@ -334,8 +367,14 @@ export class NetworkPage {
               tree: data
             });
           }
-        );
+        )
+        .catch(error =>{
+          console.log(error);
+        });
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -358,6 +397,9 @@ export class NetworkPage {
           manufacturer: manufacturer
         });        
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -390,7 +432,13 @@ export class NetworkPage {
             }
           }, 100 );
         }
-      );
+      )
+      .catch(error =>{
+        console.log(error);
+      });
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   

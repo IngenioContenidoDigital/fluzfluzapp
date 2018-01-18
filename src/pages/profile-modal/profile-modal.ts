@@ -86,7 +86,13 @@ export class ProfileModalPage {
           loader.dismiss();
           this.customer = JSON.parse(data);
         }
-      );
+      )
+      .catch(error =>{
+        console.log(error);
+      });
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -100,7 +106,10 @@ export class ProfileModalPage {
         loader.dismiss();
         this.invitated = JSON.parse(data);
       }
-    );
+    )
+    .catch(error =>{
+      console.log(error);
+    });
   }
   
   getActivityNetwork(){
@@ -113,7 +122,10 @@ export class ProfileModalPage {
         loader.dismiss();
         this.activity = JSON.parse(data);
       }
-    );
+    )
+    .catch(error =>{
+      console.log(error);
+    });
   }
   
   toggleInvitation() {
@@ -192,7 +204,10 @@ export class ProfileModalPage {
           });
           toast.present();
         }
-      );   
+      )
+      .catch(error =>{
+        console.log(error);
+      });
     } 
   }
   
@@ -205,6 +220,9 @@ export class ProfileModalPage {
           this.iab.create(url, '_blank', 'location=no');
           // open URL with InAppBrowser instead or SafariViewController
         }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -227,6 +245,9 @@ export class ProfileModalPage {
           manufacturer: manufacturer
         });        
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   

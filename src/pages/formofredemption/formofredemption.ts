@@ -83,8 +83,8 @@ export class FormOfRedemptionPage {
       content: "Cargando Lista de Bancos"
     });
     loader.present();
-    this.backService.getBanks().subscribe(
-      success => {
+    this.backService.getBanks().then(
+      (success:any) => {
         if(success.status === 200) {
           let response:any;
           try{
@@ -99,6 +99,9 @@ export class FormOfRedemptionPage {
                     let navTransition = alert.dismiss();
                     navTransition.then(() => {
                       this.navCtrl.pop();
+                    })
+                    .catch(function () {
+                      console.log("Error");
                     });
                     return false;
                   }
@@ -220,7 +223,13 @@ export class FormOfRedemptionPage {
             this.goTo("Continue");
           }
         }
-      );
+      )
+      .catch(function () {
+        console.log("Error");
+      });
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   

@@ -74,6 +74,9 @@ export class CheckoutPage {
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
       this.products = ( val != undefined && val != null && val != '' ) ? val.products : [];
       this.discounts = ( val != undefined && val != null && val != '' ) ? val.discounts : [];
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   
@@ -87,8 +90,8 @@ export class CheckoutPage {
                             content: "Pagando..."
                         });
                         loader.present();
-                        this.PaymentFluzService.sendPayment(userData,cart).subscribe(
-                            success => {
+                        this.PaymentFluzService.sendPayment(userData,cart).then(
+                            (success:any) => {
                                 loader.dismiss();
                                 let response = JSON.parse(success._body);
                                 if ( response.success ) {
@@ -117,15 +120,24 @@ export class CheckoutPage {
                                             ]
                                         });
                                         alert.present();
-                                    });
+                                    })
+                                  .catch(function () {
+                                    console.log("Error");
+                                  });
                                 }
                             },
                             error => {
                                 console.log(error)
                             }
                         );
-                    });
-                });
+                    })
+                  .catch(function () {
+                    console.log("Error");
+                  });
+                })
+              .catch(function () {
+                console.log("Error");
+              });
           } else {
             switch (this.payment){
               case 1:{
@@ -163,13 +175,16 @@ export class CheckoutPage {
   
     getSevedCreditCard(){
         this.storage.get('userData').then((userData) => {
-            this.personalInformationService.getSevedCreditCard(userData.id).subscribe(
-                success => {
+            this.personalInformationService.getSevedCreditCard(userData.id).then(
+                (success:any) => {
                     if(success.status === 200) {
                         this.creditCardSaved = JSON.parse(success._body);
                     }
                 }
             );
+        })
+        .catch(function () {
+          console.log("Error");
         });
     }
   

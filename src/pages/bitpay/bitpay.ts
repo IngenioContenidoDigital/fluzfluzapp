@@ -33,8 +33,8 @@ export class BitPayPage {
 
   ionViewWillEnter(){
     this.storage.get('cart').then((cart) => {
-      this.paymentbitcoin.getBitPay(cart.id).subscribe(
-        success => {
+      this.paymentbitcoin.getBitPay(cart.id).then(
+        (success:any) => {
           if( success.status === 200 ) {
             this.bitpayData = JSON.parse(success._body);
             let url = this.bitpayData.url;
@@ -66,14 +66,23 @@ export class BitPayPage {
                       });
                       alert.present();
                     }, 1500);
+                  })
+                  .catch(function () {
+                    console.log("Error");
                   });
                 } else {
                   this.iab.create(url, '_blank', 'location=yes');
                 }
+            })
+            .catch(function () {
+              console.log("Error");
             });
           }
         }
       );
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
 

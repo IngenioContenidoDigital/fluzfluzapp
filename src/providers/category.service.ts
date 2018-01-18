@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, Response } from '@angular/http';
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { WS_BASE } from './config';
 import 'rxjs/add/operator/map';
 
@@ -10,23 +10,22 @@ export class CategoryService {
   private _url: string = WS_BASE + '/getCategory';
   public data: any;
 
-  constructor(public http: Http) {}
+  constructor(public http: HttpClient) {}
   
   public getCategory( option:any, id_category:any = 0, limit:any = 0 ) {
     return new Promise(resolve => {
-      let params = new URLSearchParams();
+      let params = new HttpParams();
       params.set('option', option);
       params.set('id_category', id_category);
       params.set('limit', limit);
       
-      this.http.get(this._url, { search: params })
-        .map(res => res.json())
+      this.http.get(this._url, { params: params })
         .subscribe(
         	data => {
             this.data = data;
             resolve(this.data);
           },
-          (err:Response) => {
+          (err) => {
             this.data = '{"Error": "Error al traer las categorias."}';
             resolve(this.data);
           }

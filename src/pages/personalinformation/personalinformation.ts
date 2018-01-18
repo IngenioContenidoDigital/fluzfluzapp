@@ -89,8 +89,8 @@ export class PersonalInformationPage {
     }
     
     getPhoneProviders(){
-        this.personalInformationService.getPhoneProviders().subscribe(
-            success => {
+        this.personalInformationService.getPhoneProviders().then(
+            (success:any) => {
                 if(success.status === 200) {
                     let response = JSON.parse(success._body);
                     this.phoneProviders = response;
@@ -105,8 +105,8 @@ export class PersonalInformationPage {
     }
 
     getCities(){
-        this.personalInformationService.getCities().subscribe(
-            success => {
+        this.personalInformationService.getCities().then(
+            (success:any) => {
                 if(success.status === 200) {
                     let response = JSON.parse(success._body);
                     this.cities = response;
@@ -126,8 +126,8 @@ export class PersonalInformationPage {
         });
         loader.present();
         this.storage.get('userData').then((userData) => {
-            this.personalInformationService.getPersonalInformation(userData.id).subscribe(
-                success => {
+            this.personalInformationService.getPersonalInformation(userData.id).then(
+                (success:any) => {
                     if(success.status === 200) {
                         let response = JSON.parse(success._body);
                         this.personalInformationForm.get('id_gender').setValue(response.id_gender);
@@ -156,6 +156,9 @@ export class PersonalInformationPage {
                     console.log(error);
                 }
             );
+        })
+        .catch(error =>{
+          console.log(error);
         });
         loader.dismiss();
     }
@@ -236,8 +239,8 @@ export class PersonalInformationPage {
             });
             loader.present();
             this.enabledSaveButton = false;
-            this.personalInformationService.save(userData.id, dataForm).subscribe(
-                success => {
+            this.personalInformationService.save(userData.id, dataForm).then(
+                (success:any) => {
                     if(success.status === 200) {
                         loader.dismiss();
                         let response = JSON.parse(success._body);
@@ -260,6 +263,9 @@ export class PersonalInformationPage {
                     }
                 }
             );
+        })
+        .catch(error =>{
+          console.log(error);
         });
     }
     

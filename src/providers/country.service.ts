@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, Response } from '@angular/http';
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { URL_BASE_COUNTRY_CODE } from './config';
 import 'rxjs/add/operator/map';
 
@@ -10,20 +10,19 @@ export class CountryService {
   private _url: string = URL_BASE_COUNTRY_CODE+'/all';
   public userData: any = {};
     
-  constructor(public http: Http) {}
+  constructor(public http: HttpClient) {}
 
   public getCountries() {
-    let params = new URLSearchParams();
+    let params = new HttpParams();
       params.set('fields', 'name;callingCodes;flag');
       return new Promise(resolve => {
-        this.http.get(this._url, { search: params })
-          .map(res => res.json())
+        this.http.get(this._url, { params: params })
           .subscribe(
             data => {
               this.userData = JSON.stringify(data);
               resolve( this.userData );
             },
-            (err:Response) => {
+            (err) => {
               this.userData  = err.json();
               resolve(this.userData );
             }

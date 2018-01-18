@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
-import { HttpModule } from '@angular/http';
+//import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps } from '@ionic-native/google-maps';
@@ -158,7 +159,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpModule,
+//    HttpModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: '',
       iconMode: 'md',

@@ -76,9 +76,21 @@ export class PasscodePage {
             else {
               this.setPasscode = true;
             }
+          })
+          .catch(error =>{
+            console.log(error);
           });
+        })
+        .catch(error =>{
+          console.log(error);
         });
+      })
+      .catch(error =>{
+        console.log(error);
       });
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -115,7 +127,13 @@ export class PasscodePage {
               });
               toast.present();
               data ? this.goTo('VaultPage') : this.resetPasscode();
+            })
+            .catch(error =>{
+              console.log(error);
             });
+          })
+          .catch(error =>{
+            console.log(error);
           });
         }
         else {
@@ -144,8 +162,8 @@ export class PasscodePage {
       loader.present();
       this.storage.get('userData').then((val) => {
         let valor = {'id_customer': val.id, 'passcode': this.passcode };
-        this.passcodeService.validatePasscode(valor).subscribe(
-          success => {
+        this.passcodeService.validatePasscode(valor).then(
+          (success:any) => {
             if (success.status === 200){
               loader.dismiss();
               this.goTo("VaultPage");
@@ -162,6 +180,9 @@ export class PasscodePage {
             console.log(error)
           }
         );
+      })
+      .catch(error =>{
+        console.log(error);
       });
     }
   }
@@ -221,8 +242,8 @@ export class PasscodePage {
                 content: "Cargando..."
               });
               loader.present();
-              this.supportService.sendProblem(val.id, val.firstname+' '+val.lastname, val.email, 'Solicitud de restablecimiento de contraseña.').subscribe(
-                success => {
+              this.supportService.sendProblem(val.id, val.firstname+' '+val.lastname, val.email, 'Solicitud de restablecimiento de contraseña.').then(
+                (success:any) => {
                   if (success.status === 200){
                     loader.dismiss();
                     console.log('todo salió bien');
@@ -245,6 +266,9 @@ export class PasscodePage {
         ]
       });
       alert.present();
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   

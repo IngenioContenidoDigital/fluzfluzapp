@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, Response } from '@angular/http';
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { WS_BASE } from './config';
 import 'rxjs/add/operator/map';
 
@@ -10,18 +10,17 @@ export class HomeService {
   private _url: string = WS_BASE + '/getBanner';
   public data: any;
 
-  constructor(public http: Http) {}
+  constructor(public http: HttpClient) {}
   
   public getBanner() {
     return new Promise(resolve => {
       this.http.get(this._url)
-        .map(res => res.json())
         .subscribe(
         	data => {
             this.data = data;
             resolve(this.data);
           },
-          (err:Response) => {
+          (err) => {
             this.data = '{"Error": "Error al traer los banners"}';
             resolve(this.data);
           }
@@ -31,19 +30,18 @@ export class HomeService {
   
   public getMapData(latitude:any, longitude:any, option:any){
     let url = WS_BASE + '/getAddressMaps';
-    let params = new URLSearchParams();
+    let params = new HttpParams();
       params.set('latitude', latitude);
       params.set('longitude', longitude);
       params.set('option', option);
     return new Promise(resolve => {
-      this.http.get(url, { search: params })
-        .map(res => res.json())
+      this.http.get(url, { params: params })
         .subscribe(
         	data => {
             this.data = data;
             resolve(this.data);
           },
-          (err:Response) => {
+          (err) => {
             this.data = '{"Error": "Error al traer los banners"}';
             resolve(this.data);
           }
@@ -53,17 +51,16 @@ export class HomeService {
   
   public getNotificationBarOrders(id_customer:any){
     let url = WS_BASE + '/getNotificationBarOrders';
-    let params = new URLSearchParams();
+    let params = new HttpParams();
       params.set('id_customer', id_customer);
     return new Promise(resolve => {
-      this.http.get(url, { search: params })
-        .map(res => res.json())
+      this.http.get(url, { params: params })
         .subscribe(
         	data => {
             this.data = data;
             resolve(this.data);
           },
-          (err:Response) => {
+          (err) => {
             this.data = '{"Error": "Error al traer el estado de ordenes."}';
             resolve(this.data);
           }

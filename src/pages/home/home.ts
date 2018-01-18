@@ -175,16 +175,28 @@ export class HomePage {
                       break;
                     }
                   }
+                })
+                .catch(function () {
+                  console.log("Error");
                 });
                 this.countbannerData = Object.keys(this.bannerData).length;
               }, 500 );
             }
+          })
+          .catch(function () {
+            console.log("Error");
           });
+        })
+        .catch(function () {
+          console.log("Error");
         });
       }
       else{
         this.goTo("TutorialPage");
       }
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   
@@ -209,15 +221,27 @@ export class HomePage {
             this.userData = Object.assign(this.userData, JSON.parse(data));
             this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
           }
-        );
+        )
+        .catch(function () {
+          console.log("Error");
+        });
       }
       this.storage.get('tokenFCM').then(
         (token:any) =>{
           this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
             console.log( (result) ? 'Si se actualizo': 'No funciono');
+          })
+          .catch(function () {
+            console.log("Error");
           });
         }
-      );
+      )
+      .catch(function () {
+        console.log("Error");
+      });
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   
@@ -226,7 +250,10 @@ export class HomePage {
       (data:any) => {
         this.bannerData = data.result;
       }
-    );
+    )
+    .catch(function () {
+      console.log("Error");
+    });
   }
   
   updateShowDataUser(value:any){
@@ -238,7 +265,10 @@ export class HomePage {
       (data:any) => {
         this.categoryFatherData = data.result;
       }
-    );
+    )
+    .catch(function () {
+      console.log("Error");
+    });
   }
   
   getCategoryWithOutFatherData(){
@@ -246,7 +276,10 @@ export class HomePage {
       (data:any) => {
         this.categoryWithOutFatherData = data.result;
       }
-    );
+    )
+    .catch(function () {
+      console.log("Error");
+    });
   }
   
   openCategoryById( item:any ){
@@ -257,7 +290,10 @@ export class HomePage {
           products: data.products
         });
       }  
-    );
+    )
+    .catch(function () {
+      console.log("Error");
+    });
   }
   
   openViewAllCategories(){
@@ -267,7 +303,10 @@ export class HomePage {
           categories: data.result
         });
       }
-    );
+    )
+    .catch(function () {
+      console.log("Error");
+    });
   }
   
   openProductChild( item:any ) {

@@ -103,8 +103,14 @@ export class RedemptionPage {
               this.validateMinValue(); 
             }, 500);
           }
-        );
+        )
+        .catch(error =>{
+          console.log(error);
+        });
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   

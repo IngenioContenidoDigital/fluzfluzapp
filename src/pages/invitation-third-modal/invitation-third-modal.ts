@@ -96,8 +96,14 @@ export class InvitationThirdModalPage {
             var data = JSON.parse(data);
             this.customer = data;
           }
-        );
+        )
+        .catch(function () {
+          console.log("Error");
+        });
       }
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   
@@ -194,7 +200,10 @@ export class InvitationThirdModalPage {
           });
           toast.present();
         }
-      );
+      )
+      .catch(function () {
+        console.log("Error");
+      });
     }
     else {
       let toast = this.toastCtrl.create({
@@ -228,6 +237,9 @@ export class InvitationThirdModalPage {
           this.iab.create(url, '_blank', 'location=no');
           // open URL with InAppBrowser instead or SafariViewController
         }
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   

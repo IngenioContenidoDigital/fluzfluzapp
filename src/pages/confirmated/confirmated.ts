@@ -56,8 +56,14 @@ export class ConfirmatedPage {
             this.userData = Object.assign(this.userData, JSON.parse(data));
             this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
           }
-        );
+        )
+        .catch(function () {
+          console.log("Error");
+        });
       }
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
 }

@@ -73,7 +73,10 @@ export class VoucherModalPage {
         loader.dismiss();
         this.products = data.result;
       }
-    );
+    )
+    .catch(error =>{
+      console.log(error);
+    });
   }
   
   openProduct(product:any){
@@ -100,7 +103,10 @@ export class VoucherModalPage {
           toast.present();
         }
       }
-    );
+    )
+    .catch(error =>{
+      console.log(error);
+    });
   }
   
 }

@@ -42,7 +42,10 @@ export class CountryModalPage {
       (countries:any) => {
         this.countries = JSON.parse(countries);
       }
-    );
+    )
+    .catch(function () {
+      console.log("Error");
+    });
   }
   
   dismiss( item:any, cod:any ) {

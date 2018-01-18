@@ -72,7 +72,13 @@ export class MessageModalPage {
             this.viewCtrl.dismiss();
           }
         }
-      );
+      )
+      .catch(error =>{
+        console.log(error);
+      });
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
 }

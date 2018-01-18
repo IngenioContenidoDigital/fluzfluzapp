@@ -78,8 +78,8 @@ export class PaymentPsePage {
             content: "Cargando Lista de Bancos"
         });
         loader.present();
-        this.backService.getBanks().subscribe(
-            success => {
+        this.backService.getBanks().then(
+            (success:any) => {
               if(success.status === 200) {
                 let response:any = JSON.parse(success._body);
 //          console.log(response);
@@ -93,6 +93,9 @@ export class PaymentPsePage {
                         let navTransition = alert.dismiss();
                         navTransition.then(() => {
                           this.navCtrl.pop();
+                        })
+                        .catch(error =>{
+                          console.log(error);
                         });
                         return false;
                       }
@@ -134,6 +137,9 @@ export class PaymentPsePage {
             } else {
                 this.iab.create(url, '_blank', 'location=yes');
             }
+        })
+        .catch(error =>{
+          console.log(error);
         });
     }
     
@@ -145,8 +151,8 @@ export class PaymentPsePage {
                 });
                 loader.present();
                 this.enabledPayButton = false;
-                this.PaymentPseService.sendPayment(dataForm, this.bankname, userData, cart).subscribe(
-                    success => {
+                this.PaymentPseService.sendPayment(dataForm, this.bankname, userData, cart).then(
+                    (success:any) => {
                         if(success.status === 200) {
                             loader.dismiss();
                             let response = JSON.parse(success._body);
@@ -184,6 +190,9 @@ export class PaymentPsePage {
                                         ]
                                     });
                                     alert.present();
+                                })
+                                .catch(error =>{
+                                  console.log(error);
                                 });
                             } else {
                                 this.enabledPayButton = true;
@@ -200,7 +209,13 @@ export class PaymentPsePage {
                         console.log(error)
                     }
                 );
+            })
+            .catch(error =>{
+              console.log(error);
             });
+        })
+        .catch(error =>{
+          console.log(error);
         });
     }
 }

@@ -51,7 +51,13 @@ export class ReactiveAccountPage {
           this.showAlert('Error:','Ha ocurrido un error al Reactivar tu cuenta, por favor intenta de nuevo más tarde.');
           this.navCtrl.pop();
         }
-      );
+      )
+      .catch(error =>{
+        console.log(error);
+      });
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   

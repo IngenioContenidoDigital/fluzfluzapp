@@ -77,8 +77,14 @@ export class TransferFluzPage {
                 this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
               }, 100);
             }
-          );
+          )
+          .catch(error =>{
+            console.log(error);
+          });
         }
+      })
+      .catch(error =>{
+        console.log(error);
       });
     }
     
@@ -103,8 +109,8 @@ export class TransferFluzPage {
           this.storage.get('userData').then(
             (userData:any) => {
               if ( this.searchBox != "" ) {
-                  this.transferFluz.searchFluzzers(this.searchBox, userData.id).subscribe(
-                      success => {
+                  this.transferFluz.searchFluzzers(this.searchBox, userData.id).then(
+                      (success:any) => {
                           let response = JSON.parse(success._body);
                           if ( response.success ) {
                               this.fluzzers = response.fluzzers;
@@ -118,7 +124,10 @@ export class TransferFluzPage {
                   );
               }
             }
-          );
+          )
+          .catch(error =>{
+            console.log(error);
+          });
         }, 500);
         this.enableTransfer();
     }
@@ -130,8 +139,8 @@ export class TransferFluzPage {
                 content: "Transfiriendo Fluz..."
             });
             loader.present();
-            this.transferFluz.transferFluz(userData.id, this.fluzzerSelected, this.valueTransfer).subscribe(
-                success => {
+            this.transferFluz.transferFluz(userData.id, this.fluzzerSelected, this.valueTransfer).then(
+                (success:any) => {
                     loader.dismiss();
                     let response = JSON.parse(success._body);
                     if ( success.status == 200 ) {
@@ -158,6 +167,9 @@ export class TransferFluzPage {
                     console.log(error)
                 }
             );
+        })
+        .catch(error =>{
+          console.log(error);
         });
     }
 }

@@ -96,6 +96,9 @@ export class LoginPage {
               this.navCtrl.pop({});
             }
         });
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   
@@ -119,6 +122,9 @@ export class LoginPage {
         if (val === null || val === undefined ){
           this.storage.set('userData', false);
         }
+      })
+      .catch(function () {
+        console.log("Error");
       });
       setTimeout(()=>{ this.navCtrl.setRoot(TabsPage); }, 100);
     }
@@ -140,8 +146,8 @@ export class LoginPage {
       content: "Autenticando..."
     });
     loader.present();
-  	this.loginService.postLogin(valor).subscribe(
-     	success => {
+  	this.loginService.postLogin(valor).then(
+     	(success:any) => {
         loader.dismiss();
         if(success.status === 200) {
           this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
@@ -149,6 +155,9 @@ export class LoginPage {
           // Establece el passcode en true or false.
           this.passcodeService.getPasscode(this.userData.id).then((data:any)=>{
             this.storage.set('passcode', data);
+          })
+          .catch(function () {
+            console.log("Error");
           });
           
           //Obtiene el id de algún antiguo usuario.
@@ -179,6 +188,9 @@ export class LoginPage {
                       this.goTo("");
                     }, 100 );
                   }
+                })
+                .catch(function () {
+                  console.log("Error");
                 });
               }
               //Si no son iguales, manda a confirmar la cuenta.
@@ -204,6 +216,9 @@ export class LoginPage {
               }, 100 );
               this.setUserId(success._body);
             }
+          })
+          .catch(function () {
+            console.log("Error");
           });
           this.updateShowDataUser.emit(this.showDataUser);
         }
@@ -253,6 +268,9 @@ export class LoginPage {
           this.iab.create(url, '_blank', 'location=yes');
           // open URL with InAppBrowser instead or SafariViewController
         }
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   
@@ -274,6 +292,9 @@ export class LoginPage {
           this.iab.create(url, '_blank', 'location=yes');
           // open URL with InAppBrowser instead or SafariViewController
         }
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   
@@ -283,6 +304,9 @@ export class LoginPage {
       (res: FacebookLoginResponse) => {
         this.fb.api(res.authResponse.userID+"/?fields=id,email,first_name,last_name", []).then((data) =>{
           this.getEmailLoginSocialMedia(data)
+        })
+        .catch(function () {
+          console.log("Error");
         });
       }
       
@@ -332,6 +356,9 @@ export class LoginPage {
           // Establece el passcode en true or false.
           this.passcodeService.getPasscode(this.userData.id).then((data:any)=>{
             this.storage.set('passcode', data);
+          })
+          .catch(function () {
+            console.log("Error");
           });
           
           //Obtiene el id de algún antiguo usuario.
@@ -363,6 +390,9 @@ export class LoginPage {
                       this.goTo("");
                     }, 100 );
                   }
+                })
+                .catch(function () {
+                  console.log("Error");
                 });
               }
               //Si no son iguales, manda a confirmar la cuenta.
@@ -390,6 +420,9 @@ export class LoginPage {
               }, 100 );
               this.setUserId(data.result);
             }
+          })
+          .catch(function () {
+            console.log("Error");
           });
           this.updateShowDataUser.emit(this.showDataUser);
         }
@@ -424,7 +457,10 @@ export class LoginPage {
           this.displayError('Error de autenticación', data.msg, 'OK');
         }
       }
-    );
+    )
+    .catch(function () {
+      console.log("Error");
+    });
   }
   
   displayError(title:string, msg:string, button:string) {

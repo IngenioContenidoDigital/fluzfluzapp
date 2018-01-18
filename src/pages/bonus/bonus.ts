@@ -177,7 +177,10 @@ export class BonusPage {
           }
         }
       }
-    );    
+    )
+    .catch(function () {
+      console.log("Error");
+    });
   }
   
   copyToClipboard(code:any) {
@@ -196,7 +199,10 @@ export class BonusPage {
       (data:any)=>{
         this.directions = data.result;
       }
-    );
+    )
+    .catch(function () {
+      console.log("Error");
+    });
     
   }
   
@@ -209,11 +215,12 @@ export class BonusPage {
   
   getUbication(){
     this.geolocation.getCurrentPosition().then((position) => {
-        this.ubication = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-      }, (err) => {
-//      console.log(err);
+      this.ubication = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   
@@ -239,6 +246,9 @@ export class BonusPage {
       for(let pos of data.result){
         this.addMarker(pos.latitude, pos.longitude);
       }
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   
@@ -280,7 +290,10 @@ export class BonusPage {
               );
             }
           }
-        );
+        )
+        .catch(function () {
+          console.log("Error");
+        });
       }
     );
     giftModal.present();

@@ -60,8 +60,14 @@ export class VaultPage {
           (data:any) => {
             this.vaultData = data.result;
           }
-        );
+        )
+        .catch(error =>{
+          console.log(error);
+        });
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   
@@ -72,9 +78,15 @@ export class VaultPage {
           (data:any) => {
             this.historyData = data.result;
           }
-        );
+        )
+        .catch(error =>{
+          console.log(error);
+        });
       }
-    );
+    )
+    .catch(error =>{
+      console.log(error);
+    });
   }
   
   openItem(item){
@@ -100,8 +112,14 @@ export class VaultPage {
               bonusT: data.total
             });
           }
-        );
+        )
+        .catch(error =>{
+          console.log(error);
+        });
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   

@@ -69,8 +69,8 @@ export class SupportModalPage {
     loader.present();
     this.storage.get('userData').then((val) => {
       let name = val.firstname+' '+val.lastname;
-      this.supportService.sendProblem(val.id, name, val.email, valor).subscribe(
-        success => {
+      this.supportService.sendProblem(val.id, name, val.email, valor).then(
+        (success:any) => {
           loader.dismiss();
           if(success.status === 200) {
             let response = JSON.parse(success._body);

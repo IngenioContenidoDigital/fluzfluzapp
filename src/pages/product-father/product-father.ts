@@ -28,6 +28,9 @@ export class ProductFatherPage {
       if( this.productFather.total == 1 ){
         setTimeout(()=>{ this.openItem( this.productFather.result['0'] ); }, 300 );
       }
+    })
+    .catch(error =>{
+      console.log(error);
     });
   }
   

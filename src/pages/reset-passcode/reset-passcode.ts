@@ -109,8 +109,8 @@ export class ResetPasscodePage {
         this.storage.get('userData').then(
           (userData:any) => {
             let validateData = {'id_customer': userData.id, 'passcode': this.passcodeActual };
-            this.passcodeService.validatePasscode(validateData).subscribe(
-              success => {
+            this.passcodeService.validatePasscode(validateData).then(
+              (success:any) => {
                 loader.dismiss();
                 setTimeout(()=>{ this.passcode = '' }, 100 );
                 this.enableKeyboard = true;
@@ -159,8 +159,8 @@ export class ResetPasscodePage {
                     this.storage.get('userData').then(
                     (userData:any) => {
                       let validateData = {'id_customer': userData.id, 'passcode': this.passcodeChange };
-                      this.passcodeService.updatePasscode(validateData).subscribe(
-                        success => {
+                      this.passcodeService.updatePasscode(validateData).then(
+                        (success:any) => {
                           if( success.status === 200 ){
                             this.showAlert("Actualización Exitosa!", "Se actualizó la contraseña de la bóveda de códigos correctamente.");
                             this.navCtrl.pop();

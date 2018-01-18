@@ -107,8 +107,8 @@ export class CartPage {
   updateCart(){
     this.cart.products = this.products;
     this.storage.get('userData').then((userData) => {
-     this.cartService.updateCart( this.cart, userData.id ).subscribe(
-        success => {
+     this.cartService.updateCart( this.cart, userData.id ).then(
+        (success:any) => {
           if(success.status === 200) {
             this.storage.set('cart', JSON.parse(success._body));
             setTimeout(()=>{ this.updateDataView() }, 100);
@@ -122,6 +122,9 @@ export class CartPage {
           console.log(error);
         }
       );
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
  
@@ -130,6 +133,9 @@ export class CartPage {
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
       this.products = ( val != undefined && val != null && val != '' ) ? val.products : [];
       this.discounts = ( val != undefined && val != null && val != '' ) ? val.discounts : [];
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   
@@ -178,8 +184,8 @@ export class CartPage {
     
   setPhonesRecharged() {
     this.storage.get('userData').then((userData) => {
-      this.cartService.setPhonesRecharged( this.cart.id, this.phonesRecharged, userData.id).subscribe(
-        success => {
+      this.cartService.setPhonesRecharged( this.cart.id, this.phonesRecharged, userData.id).then(
+        (success:any) => {
           if(success.status === 200) {
             return true;
           }
@@ -188,6 +194,9 @@ export class CartPage {
           console.log(error);
         }
       );
+    })
+    .catch(function () {
+      console.log("Error");
     });
   }
   
@@ -195,23 +204,26 @@ export class CartPage {
     this.showTerms = this.showTerms != item.id_product ? item.id_product : false;
   }
   
-    getPhonesCustomer(){
-        this.storage.get('userData').then((userData) => {
-            this.personalInformationService.getPhonesCustomer(userData.id).subscribe(
-                success => {
-                    if(success.status === 200) {
-                        let response = JSON.parse(success._body);
-                        this.phones = response;
-                    }
-                },
-                error => {
-                    this.tabsService.changeTabInContainerPage(0);
-                    this.navCtrl.setRoot(TabsPage);
-                    console.log(error);
-                }
-            );
-        });
-    }
+  getPhonesCustomer(){
+    this.storage.get('userData').then((userData) => {
+      this.personalInformationService.getPhonesCustomer(userData.id).then(
+        (success:any) => {
+          if(success.status === 200) {
+            let response = JSON.parse(success._body);
+            this.phones = response;
+          }
+        },
+        error => {
+          this.tabsService.changeTabInContainerPage(0);
+          this.navCtrl.setRoot(TabsPage);
+          console.log(error);
+        }
+      );
+    })
+    .catch(function () {
+      console.log("Error");
+    });
+  }
     
     addNewPhone(id_product){
         let alert = this.alertCtrl.create({
@@ -233,8 +245,8 @@ export class CartPage {
                     handler: confirm => {
                         if ( confirm.phone != "" && confirm.phone.length == 10 ) {
                             this.storage.get('userData').then((userData) => {
-                                this.personalInformationService.addPhone(userData.id,confirm.phone).subscribe(
-                                    success => {
+                                this.personalInformationService.addPhone(userData.id,confirm.phone).then(
+                                    (success:any) => {
                                         if(success.status === 200) {
                                             this.getPhonesCustomer();
                                             this.phonesRecharged[id_product] = confirm.phone;
@@ -246,7 +258,10 @@ export class CartPage {
                                         console.log(error);
                                     }
                                 );
-                            });
+                            })
+                          .catch(function () {
+                            console.log("Error");
+                          });
                         } else {
                             let alert = this.alertCtrl.create({
                                 title: "Teléfono Incorrecto",

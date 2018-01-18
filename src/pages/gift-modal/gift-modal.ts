@@ -68,8 +68,8 @@ export class GiftModalPage {
       if ( this.searchBox != "" ) {
         this.storage.get('userData').then(
           (userData:any) => {
-            this.transferFluz.searchFluzzers(this.searchBox, userData.id).subscribe(
-              success => {
+            this.transferFluz.searchFluzzers(this.searchBox, userData.id).then(
+              (success:any) => {
                 let response = JSON.parse(success._body);
                 if ( response.success ) {
                   this.fluzzers = response.fluzzers;
@@ -82,7 +82,10 @@ export class GiftModalPage {
               }
             );
           }
-        );
+        )
+        .catch(function () {
+          console.log("Error");
+        });
       }
     }, 500);
     this.enableSendGift();
@@ -118,9 +121,15 @@ export class GiftModalPage {
               this.dismiss();
             }
           }
-        );
+        )
+        .catch(function () {
+          console.log("Error");
+        });
       }
-    );
+    )
+    .catch(function () {
+      console.log("Error");
+    });
     
     
   }

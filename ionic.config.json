@@ -1,6 +1,8 @@
 {
   "name": "fluzfluz",
-  "app_id": "",
+  "app_id": "com.ionicframework.fluzfluz141172",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }
