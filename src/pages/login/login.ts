@@ -147,65 +147,82 @@ export class LoginPage {
           this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
           this.userData = JSON.parse(success._body);
           // Establece el passcode en true or false.
-          this.passcodeService.getPasscode(this.userData.id).then((data:any)=>{
-            this.storage.set('passcode', data);
-          });
-          
-          //Obtiene el id de algún antiguo usuario.
-          this.storage.get('userId').then((val) => {
-            //Valida si hay o no usuario antiguo.
-            if ( val != undefined && val != null ){
-              //Guarda el id antiguo y la respuesta del servidor.
-              this.userId = val;
-              this.userData = JSON.parse(success._body);
-              
-              
-              //Valida si son el mismo usuario. (El id antiguo y el nuevo.)
-              if ( this.userId === this.userData.id ) {
-                this.storage.set('userData', JSON.parse(success._body));
-                //Si aún no está confirmado, manda a confirmar la cuenta.
-                this.storage.get('userConfirm').then((val) => {
-                  if ( val !== true ){
-//                    this.goTo("confirmPage");
-                    setTimeout(()=>{
-                      this.storage.set('userConfirm', true);
-                      this.goTo("");
-                    }, 100 );
-                  }
-                  else {
-                    //manda a home.
-                    setTimeout(()=>{
-                      this.storage.set('userConfirm', true);
-                      this.goTo("");
-                    }, 100 );
-                  }
-                });
+          if(this.userData.active == 1){
+            
+            this.passcodeService.getPasscode(this.userData.id).then((data:any)=>{
+              this.storage.set('passcode', data);
+            });
+
+            //Obtiene el id de algún antiguo usuario.
+            this.storage.get('userId').then((val) => {
+              //Valida si hay o no usuario antiguo.
+              if ( val != undefined && val != null ){
+                //Guarda el id antiguo y la respuesta del servidor.
+                this.userId = val;
+                this.userData = JSON.parse(success._body);
+
+                //Valida si son el mismo usuario. (El id antiguo y el nuevo.)
+                if ( this.userId === this.userData.id ) {
+                  this.storage.set('userData', JSON.parse(success._body));
+                  //Si aún no está confirmado, manda a confirmar la cuenta.
+                  this.storage.get('userConfirm').then((val) => {
+                    if ( val !== true ){
+  //                    this.goTo("confirmPage");
+                      setTimeout(()=>{
+                        this.storage.set('userConfirm', true);
+                        this.goTo("");
+                      }, 100 );
+                    }
+                    else {
+                      //manda a home.
+                      setTimeout(()=>{
+                        this.storage.set('userConfirm', true);
+                        this.goTo("");
+                      }, 100 );
+                    }
+                  });
+                }
+                //Si no son iguales, manda a confirmar la cuenta.
+                else {
+                  this.storage.set('userData', JSON.parse(success._body));
+                  this.storage.set('cart', '');
+  //                this.goTo("confirmPage");
+                  setTimeout(()=>{
+                    this.storage.set('userConfirm', true);
+                    this.goTo("");
+                  }, 100 );
+                  this.setUserId(success._body);
+                }
               }
-              //Si no son iguales, manda a confirmar la cuenta.
+              //si no hay antiguo, manda a confirmar la cuenta.
               else {
                 this.storage.set('userData', JSON.parse(success._body));
-                this.storage.set('cart', '');
-//                this.goTo("confirmPage");
+  //              this.goTo("confirmPage");
+                this.storage.set('userConfirm', true);
                 setTimeout(()=>{
                   this.storage.set('userConfirm', true);
                   this.goTo("");
                 }, 100 );
                 this.setUserId(success._body);
               }
-            }
-            //si no hay antiguo, manda a confirmar la cuenta.
-            else {
-              this.storage.set('userData', JSON.parse(success._body));
-//              this.goTo("confirmPage");
-              this.storage.set('userConfirm', true);
-              setTimeout(()=>{
-                this.storage.set('userConfirm', true);
-                this.goTo("");
-              }, 100 );
-              this.setUserId(success._body);
-            }
-          });
-          this.updateShowDataUser.emit(this.showDataUser);
+            });
+            this.updateShowDataUser.emit(this.showDataUser);
+          }
+          else{
+            let confirm = this.alertCtrl.create({
+              title: 'Usuario inactivo',
+              message: 'Tus datos están siendo validados, por favor contáctanos',
+              buttons: [
+                {
+                  text: 'Aceptar',
+                  handler: () => {
+                    console.log('Disagree clicked');
+                  }
+                }
+              ]
+            });
+            confirm.present();
+          }
         }
         //Si no están bien los datos le muestra una alerta
         else {
@@ -327,49 +344,64 @@ export class LoginPage {
     this.loginService.getEmailSocialMedia(dataR.email).then(
       (data:any) => {
         if(data.error == 0){
-          this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
-          this.userData = data.result;
-          // Establece el passcode en true or false.
-          this.passcodeService.getPasscode(this.userData.id).then((data:any)=>{
-            this.storage.set('passcode', data);
-          });
-          
-          //Obtiene el id de algún antiguo usuario.
-          this.storage.get('userId').then((val) => {
-            //Valida si hay o no usuario antiguo.
-            if ( val != undefined && val != null ){
-              //Guarda el id antiguo y la respuesta del servidor.
-              this.userId = val;
-              this.userData = data.result;
-              
-              //Valida si son el mismo usuario. (El id antiguo y el nuevo.)
-              if ( this.userId === this.userData.id ) {
-                this.storage.set('userData', data.result);
-                //Si aún no está confirmado, manda a confirmar la cuenta.
-                this.storage.get('userConfirm').then((val) => {
-                  if ( val !== true ){
+          if(this.userData.active == 1){
+            
+            this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
+            this.userData = data.result;
+            // Establece el passcode en true or false.
+            this.passcodeService.getPasscode(this.userData.id).then((data:any)=>{
+              this.storage.set('passcode', data);
+            });
+
+            //Obtiene el id de algún antiguo usuario.
+            this.storage.get('userId').then((val) => {
+              //Valida si hay o no usuario antiguo.
+              if ( val != undefined && val != null ){
+                //Guarda el id antiguo y la respuesta del servidor.
+                this.userId = val;
+                this.userData = data.result;
+
+                //Valida si son el mismo usuario. (El id antiguo y el nuevo.)
+                if ( this.userId === this.userData.id ) {
+                  this.storage.set('userData', data.result);
+                  //Si aún no está confirmado, manda a confirmar la cuenta.
+                  this.storage.get('userConfirm').then((val) => {
+                    if ( val !== true ){
+                      loader.dismiss();
+  //                    this.goTo("confirmPage");
+                      setTimeout(()=>{
+                        this.storage.set('userConfirm', true);
+                        this.goTo("");
+                      }, 100 );
+                    }
+                    else {
+                      loader.dismiss();
+                      //manda a home.
+                      setTimeout(()=>{
+                        this.storage.set('userConfirm', true);
+                        this.goTo("");
+                      }, 100 );
+                    }
+                  });
+                }
+                //Si no son iguales, manda a confirmar la cuenta.
+                else {
+                  this.storage.set('userData', data.result);
+                  this.storage.set('cart', '');
+  //                this.goTo("confirmPage");
+                  setTimeout(()=>{
                     loader.dismiss();
-//                    this.goTo("confirmPage");
-                    setTimeout(()=>{
-                      this.storage.set('userConfirm', true);
-                      this.goTo("");
-                    }, 100 );
-                  }
-                  else {
-                    loader.dismiss();
-                    //manda a home.
-                    setTimeout(()=>{
-                      this.storage.set('userConfirm', true);
-                      this.goTo("");
-                    }, 100 );
-                  }
-                });
+                    this.storage.set('userConfirm', true);
+                    this.goTo("");
+                  }, 100 );
+                  this.setUserId(data.result);
+                }
               }
-              //Si no son iguales, manda a confirmar la cuenta.
+              //si no hay antiguo, manda a confirmar la cuenta.
               else {
                 this.storage.set('userData', data.result);
-                this.storage.set('cart', '');
-//                this.goTo("confirmPage");
+  //              this.goTo("confirmPage");
+                this.storage.set('userConfirm', true);
                 setTimeout(()=>{
                   loader.dismiss();
                   this.storage.set('userConfirm', true);
@@ -377,21 +409,24 @@ export class LoginPage {
                 }, 100 );
                 this.setUserId(data.result);
               }
-            }
-            //si no hay antiguo, manda a confirmar la cuenta.
-            else {
-              this.storage.set('userData', data.result);
-//              this.goTo("confirmPage");
-              this.storage.set('userConfirm', true);
-              setTimeout(()=>{
-                loader.dismiss();
-                this.storage.set('userConfirm', true);
-                this.goTo("");
-              }, 100 );
-              this.setUserId(data.result);
-            }
-          });
-          this.updateShowDataUser.emit(this.showDataUser);
+            });
+            this.updateShowDataUser.emit(this.showDataUser);
+          }
+          else {
+            let confirm = this.alertCtrl.create({
+              title: 'Usuario inactivo',
+              message: 'Tus datos están siendo validados, por favor contáctanos',
+              buttons: [
+                {
+                  text: 'Aceptar',
+                  handler: () => {
+                    console.log('Disagree clicked');
+                  }
+                }
+              ]
+            });
+            confirm.present();
+          }
         }
         else if (data.error == 1){
           loader.dismiss();

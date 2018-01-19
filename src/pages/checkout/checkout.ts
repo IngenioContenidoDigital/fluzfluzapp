@@ -12,6 +12,7 @@ import { TabsPage } from '../tabs/tabs';
 import { SHOW_SAVINGS } from '../../providers/config';
 import { PersonalInformationService } from '../../providers/personalinformation.service';
 import { AnalyticsService } from '../../providers/analytics.service';
+import { VaultService } from '../../providers/vault.service';
 
 @Component({
   selector: 'page-checkout',
@@ -19,6 +20,7 @@ import { AnalyticsService } from '../../providers/analytics.service';
   providers: [
     PaymentFluzService,
     PersonalInformationService,
+    VaultService,
     AnalyticsService
   ],
   animations: [
@@ -44,6 +46,8 @@ export class CheckoutPage {
   public discounts:any = [];
   public showTerms:any = false;
   public showSavings = SHOW_SAVINGS;
+  public historyData:any;
+  public enablePayMethods:boolean = false;
   
   public creditCardSaved:any = [];
   
@@ -55,6 +59,7 @@ export class CheckoutPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public storage: Storage,
+    public vault: VaultService,
     public tabsService: TabsService,
     public analytics: AnalyticsService
   ){
@@ -75,6 +80,30 @@ export class CheckoutPage {
       this.products = ( val != undefined && val != null && val != '' ) ? val.products : [];
       this.discounts = ( val != undefined && val != null && val != '' ) ? val.discounts : [];
     });
+  }
+  
+  updateHistory(){
+    let loader = this.loadingController.create({
+      content: "Cargando Métodos de pago..."
+    });
+    loader.present();
+    this.storage.get('userData').then(
+      (val) => {
+        this.vault.getOrderHistory(val.id).then(
+          (data:any) => {
+            loader.dismiss();
+            this.historyData = data.result;
+            if(this.historyData.length > 0) {
+              this.getSevedCreditCard();
+              this.enablePayMethods = true;
+            }
+            else {
+              this.enablePayMethods = false;
+            }
+          }
+        );
+      }
+    );
   }
   
   goTo(value) {
@@ -181,7 +210,7 @@ export class CheckoutPage {
     this.analytics.trackView('CheckoutPage');
     this.updateDataView();
     this.tabsService.hide();
-    this.getSevedCreditCard();
+    this.updateHistory();
   }
 
   ionViewWillLeave(){

@@ -53,7 +53,13 @@
       "id": "cordova-plugin-crosswalk-webview@2.3.0"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "XWALK_VERSION": "23+",
+      "XWALK_LITEVERSION": "xwalk_core_library_canary:17+",
+      "XWALK_COMMANDLINE": "--disable-pull-to-refresh-effect",
+      "XWALK_MODE": "embedded",
+      "XWALK_MULTIPLEAPK": "true"
+    }
   },
   "cordova-plugin-inappbrowser": {
     "source": {
@@ -98,7 +104,9 @@
       "id": "cordova-plugin-geolocation@^2.4.3"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "GEOLOCATION_USAGE_DESCRIPTION": " "
+    }
   },
   "com.googlemaps.ios": {
     "source": {
@@ -111,15 +119,18 @@
   "cordova-plugin-camera": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-camera"
+      "id": "cordova-plugin-camera@^2.4.1"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "CAMERA_USAGE_DESCRIPTION": " ",
+      "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+    }
   },
   "cordova-plugin-file-transfer": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-file-transfer@^1.6.3"
+      "id": "cordova-plugin-file-transfer@^1.7.0"
     },
     "is_top_level": true,
     "variables": {}
@@ -127,9 +138,9 @@
   "cordova-plugin-file": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-file@^4.3.3"
+      "id": "cordova-plugin-file"
     },
-    "is_top_level": true,
+    "is_top_level": false,
     "variables": {}
   },
   "cordova-plugin-filepath": {
@@ -156,21 +167,10 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-facebook4": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-facebook4"
-    },
-    "is_top_level": true,
-    "variables": {
-      "APP_ID": "154186758658913",
-      "APP_NAME": "Fluz Fluz App"
-    }
-  },
   "cordova-plugin-googleplus": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-googleplus"
+      "id": "cordova-plugin-googleplus@^5.1.1"
     },
     "is_top_level": true,
     "variables": {
@@ -198,7 +198,7 @@
   "cordova-plugin-googlemaps": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-googlemaps"
+      "id": "cordova-plugin-googlemaps@^2.1.1"
     },
     "is_top_level": true,
     "variables": {
@@ -209,7 +209,7 @@
   "cordova-plugin-fcm": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-fcm"
+      "id": "cordova-plugin-fcm@^2.1.2"
     },
     "is_top_level": true,
     "variables": {}
@@ -221,5 +221,16 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-facebook4": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-facebook4@^1.9.1"
+    },
+    "is_top_level": true,
+    "variables": {
+      "APP_ID": "154186758658913",
+      "APP_NAME": "Fluz Fluz App"
+    }
   }
 }

@@ -26,7 +26,7 @@
       <ion-label class="text-dark">Pagar con Fluz</ion-label>
       <ion-icon [name]="payment == 2 ? 'md-checkmark' : 'ios-arrow-forward'"></ion-icon>
     </div>
-    <div class="row" (click)="selectedPayment(3)">
+    <div class="row" (click)="selectedPayment(3)" *ngIf="enablePayMethods">
       <i class='fluz-tarjeta' item-start></i>
       <ion-label class="text-dark">Pagar con tarjeta de crédito nueva</ion-label>
       <ion-icon [name]="payment == 3 ? 'md-checkmark' : 'ios-arrow-forward'"></ion-icon>

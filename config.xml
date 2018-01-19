@@ -106,7 +106,7 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-filepath" spec="^1.0.2" />
     <plugin name="org.apache.cordova.plugin.cache" spec="https://github.com/tiltshiftfocus/cordova-plugin-cache.git" />
