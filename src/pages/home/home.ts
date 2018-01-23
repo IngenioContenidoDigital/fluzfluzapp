@@ -21,6 +21,9 @@ import { DEV_UBICATION } from '../../providers/config';
 import { LoginService } from '../../providers/login-service';
 import { SearchService } from '../../providers/search.service';
 import { StatusBar } from '@ionic-native/status-bar';
+import { ProductFatherPage } from '../product-father/product-father';
+import { BrowserTab } from '@ionic-native/browser-tab';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @Component({
   selector: 'page-home',
@@ -78,6 +81,8 @@ export class HomePage {
     public loadingController: LoadingController,
     public modalCtrl: ModalController,
     public statusBar: StatusBar,
+    private browserTab: BrowserTab,
+    private iab: InAppBrowser,
     private loginService:LoginService,
     public analytics: AnalyticsService
     
@@ -114,7 +119,14 @@ export class HomePage {
       }
     }
   }
-   
+  
+  ionViewDidLoad() {
+    this.getUserData();
+    this.getBannerData();
+    this.getCategoryWithFatherData();
+    this.getCategoryWithOutFatherData();
+  }
+  
   ionViewWillEnter(){
     this.notificationBar.alert = 2;
     this.analytics.trackView('HomePage');
@@ -136,12 +148,12 @@ export class HomePage {
 
               this.updateShowDataUser(true);          
               this.analytics.setUserId(val.id);
-              setTimeout(()=>{
-                this.getUserData();
-                this.getBannerData();
-                this.getCategoryWithFatherData();
-                this.getCategoryWithOutFatherData();
-              }, 100 );
+//              setTimeout(()=>{
+//                this.getUserData();
+//                this.getBannerData();
+//                this.getCategoryWithFatherData();
+//                this.getCategoryWithOutFatherData();
+//              }, 100 );
               setTimeout(()=>{
                 this.home.getNotificationBarOrders(val.id).then((data:any)=>{
                   let notificationData = data.result;
@@ -188,6 +200,47 @@ export class HomePage {
     });
   }
   
+  openBanner(banner:any){
+    // type_route:
+    //   0 producto
+    //   1 categoria
+    //   2 url
+    if(banner.b_link_app != null && banner.b_link_app != 'null' && banner.b_link_app != ''){
+      if(banner.type_route == "0"){
+        let manufacturer:any = [];
+        manufacturer.m_id = banner.b_link_app;
+        this.navCtrl.push(ProductFatherPage,{
+          manufacturer: manufacturer
+        });
+      }
+      else if(banner.type_route == "1"){
+        let category:any = [];
+        category.id_category = banner.b_link_app;
+        this.categoryService.getNameOneCategoryById(category.id_category).then(
+          (data:any) => {
+            this.openCategoryById(data);
+          }  
+        );
+      }
+      else if(banner.type_route == "2"){
+        this.openUrl(banner.b_link_app);
+      }
+      else {}
+    }
+  }
+  
+  openUrl(url:string){
+    this.browserTab.isAvailable().then((
+      isAvailable: boolean) => {
+        if (isAvailable) {
+          this.browserTab.openUrl(url);
+        } else {
+          this.iab.create(url, '_blank', 'location=yes');
+          // open URL with InAppBrowser instead or SafariViewController
+        }
+    });
+  }
+  
   pushNewUser(){
     this.navCtrl.push(InvitationThirdModalPage);
   }
@@ -214,7 +267,7 @@ export class HomePage {
       this.storage.get('tokenFCM').then(
         (token:any) =>{
           this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
-            console.log( (result) ? 'Si se actualizo': 'No funciono');
+//            console.log( (result) ? 'Si se actualizo': 'No funciono');
           });
         }
       );

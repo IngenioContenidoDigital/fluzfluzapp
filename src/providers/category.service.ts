@@ -33,4 +33,24 @@ export class CategoryService {
         );
     });
   }
+  
+  public getNameOneCategoryById(id_category){
+    return new Promise(resolve => {
+      let params = new URLSearchParams();
+      params.set('id_category', id_category);
+      
+      this.http.get(WS_BASE+'getNameOneCategoryById', { search: params })
+        .map(res => res.json())
+        .subscribe(
+        	data => {
+            this.data = data;
+            resolve(this.data);
+          },
+          (err:Response) => {
+            this.data = '{"Error": "Error al traer las categorias."}';
+            resolve(this.data);
+          }
+        );
+    });
+  }
 }
