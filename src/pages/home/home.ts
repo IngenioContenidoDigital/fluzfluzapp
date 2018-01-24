@@ -148,12 +148,6 @@ export class HomePage {
 
               this.updateShowDataUser(true);          
               this.analytics.setUserId(val.id);
-//              setTimeout(()=>{
-//                this.getUserData();
-//                this.getBannerData();
-//                this.getCategoryWithFatherData();
-//                this.getCategoryWithOutFatherData();
-//              }, 100 );
               setTimeout(()=>{
                 this.home.getNotificationBarOrders(val.id).then((data:any)=>{
                   let notificationData = data.result;
@@ -188,7 +182,6 @@ export class HomePage {
                     }
                   }
                 });
-                this.countbannerData = Object.keys(this.bannerData).length;
               }, 500 );
             }
           });
@@ -209,6 +202,7 @@ export class HomePage {
       if(banner.type_route == "0"){
         let manufacturer:any = [];
         manufacturer.m_id = banner.b_link_app;
+        manufacturer.image_manufacturer = banner.image_manufacturer;
         this.navCtrl.push(ProductFatherPage,{
           manufacturer: manufacturer
         });
@@ -236,7 +230,6 @@ export class HomePage {
           this.browserTab.openUrl(url);
         } else {
           this.iab.create(url, '_blank', 'location=yes');
-          // open URL with InAppBrowser instead or SafariViewController
         }
     });
   }
@@ -267,7 +260,6 @@ export class HomePage {
       this.storage.get('tokenFCM').then(
         (token:any) =>{
           this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
-//            console.log( (result) ? 'Si se actualizo': 'No funciono');
           });
         }
       );
@@ -278,6 +270,7 @@ export class HomePage {
     this.home.getBanner().then(
       (data:any) => {
         this.bannerData = data.result;
+        this.countbannerData = Object.keys(this.bannerData).length;
       }
     );
   }

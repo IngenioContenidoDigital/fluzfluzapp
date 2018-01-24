@@ -78,7 +78,6 @@ export class ProductChildPage {
     this.productFather = navParams.get("productFather");
     this.searchService.search( this.productFather.id_parent, '3' ).then((data) => {
       this.productChild = data;
-      console.log(this.productChild);
       this.intructions = this.productChild.result['0'].instructions;
       this.terms = this.productChild.result['0'].terms;
     });
