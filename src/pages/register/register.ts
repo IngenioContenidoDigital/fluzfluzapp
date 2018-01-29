@@ -40,7 +40,6 @@ export class RegisterPage {
         this.setValues();
       }
     }, 500);
-      console.log(this.data);
       this.registerForm = formBuilder.group({
         'firts_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,100}$/i)])],
         'user_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{5,100}$/i)])],
@@ -113,7 +112,7 @@ export class RegisterPage {
             this.enabledSaveButton = true;
             let alert = this.alertCtrl.create({
               title: 'Registro completo',
-              subTitle: 'Tus datos están siendo validados, por favor contáctanos, recuerda que tu contraseña es tu número de identificación.',
+              subTitle: 'Hemos enviado un correo de verificación de tu cuenta.',
               buttons: [{
                 text: 'Ok',
                 handler: () => {

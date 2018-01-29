@@ -144,10 +144,10 @@ export class LoginPage {
      	success => {
         loader.dismiss();
         if(success.status === 200) {
-          this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
           this.userData = JSON.parse(success._body);
           // Establece el passcode en true or false.
-          if(this.userData.active == 1){
+          if(this.userData.active == 1 || this.userData.active == "1"){
+            this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
             
             this.passcodeService.getPasscode(this.userData.id).then((data:any)=>{
               this.storage.set('passcode', data);
@@ -343,9 +343,9 @@ export class LoginPage {
     loader.present();
     this.loginService.getEmailSocialMedia(dataR.email).then(
       (data:any) => {
+        this.userData = data.result;
         if(data.error == 0){
-          if(this.userData.active == 1){
-            
+          if(this.userData.active == 1 || this.userData.active == "1"){
             this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
             this.userData = data.result;
             // Establece el passcode en true or false.

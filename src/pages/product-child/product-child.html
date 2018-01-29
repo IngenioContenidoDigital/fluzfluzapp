@@ -41,7 +41,7 @@
         <ion-col col-3 text-center class="text-green">+{{item.c_win_fluz}}</ion-col>
         <ion-col col-3 text-center>-{{item.c_price_fluz}}</ion-col>
         <ion-col col-3 class="ctn-btn-buy">
-          <button ion-button item-right  color="primary" class="font-extra-small" (click)="addToCart(item.c_id_product)">COMPRAR</button>
+          <button ion-button item-right  color="primary" class="font-extra-small" *ngIf="showBuyBtn" (click)="addToCart(item.c_id_product)">COMPRAR</button>
         </ion-col>
       </ion-row>
     </div>

@@ -51,6 +51,7 @@ export class ProductChildPage {
   public showSavings = SHOW_SAVINGS;
   public showMapProductPage = SHOW_MAP_PRODUCT_PAGE;
   public scheme:string = '';
+  public showBuyBtn:boolean = true;
   
   @Output('updateCountCart')
   public updateCountCart: EventEmitter<number> = new EventEmitter<number>();
@@ -134,6 +135,9 @@ export class ProductChildPage {
   }
   
   ionViewWillEnter(){
+    this.storage.get('userData').then((val) => {
+      this.showBuyBtn = (val.kick_out == 1) ? false : true;
+    });
     this.analytics.trackView('ProductChildPage');
     this.tabsService.hide();
     if(this.showMapProductPage){
