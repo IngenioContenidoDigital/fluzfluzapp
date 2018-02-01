@@ -71,7 +71,22 @@ export class CheckoutPage {
   }
 
   selectedPayment(value){
-    this.payment = value;
+    if( value = 5 && this.cart.order_total < 300000 ){
+      let alert = this.alertCtrl.create({
+        title: "Medio de pago no disponible",
+        message: "BitPay solo está disponible en compras superiores a $300.000 COP ó $100 USD",
+        buttons: [
+          {
+            text: 'Ok',
+            role: 'cancel'
+          }
+        ]
+      });
+      alert.present();
+    }
+    else{
+      this.payment = value;
+    }
   }
   
   updateDataView () {

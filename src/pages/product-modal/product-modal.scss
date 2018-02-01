@@ -1,4 +1,18 @@
 page-product-modal {
+  .ctn-btn-footer {
+    @extend .text-white;
+    @extend .font-small;
+    text-align: center;
+    display: inline-block;
+    width: 90%;
+    border: 1px solid;
+    padding: 3px;
+    min-height: 35px;
+    line-height: 35px;
+  }
+  .margin-2{
+    margin: 2px;
+  }
   .segment .segment-button.segment-activated{
     border-color: #E1493A;
     opacity: 1;

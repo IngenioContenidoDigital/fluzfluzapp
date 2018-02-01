@@ -14,7 +14,7 @@
     <ion-title text-center>EN ESTA UBICACIÓN<button ion-button clear class="invisibleButton"></button></ion-title>
   </ion-navbar>-->
   
-  <page-header (updateCountCart)='updateCountCart($event)'></page-header>
+  <page-header (updateCountCart)='updateCountCart($event)' [showProductChildBtn]="true" #header></page-header>
 </ion-header>
 
 <ion-content no-padding>
@@ -126,7 +126,8 @@
       </div>
     </div>
     <!--Cierro caso 3-->
-    
+    <div class="spacer-25"></div>
+    <div class="spacer-25"></div>
   </div>
   
   
@@ -155,3 +156,22 @@
   <div class="spacer-25"></div>
   <div class="spacer-25"></div>
 </ion-content>
+
+<ion-footer *ngIf="infoFooter.number > 0 && showChild == true" [@slideIn]>
+  <ion-toolbar color="primary" (click)="openCart()">
+    <ion-row align-items-center>
+      <ion-col col-3>
+        <div class="image-product">
+          <img src="{{infoFooter.img}}">
+        </div>
+      </ion-col>
+      <ion-col col-5>
+        <ion-label class="font-small text-white font-semi-bold margin-2">{{infoFooter.number}} Códigos</ion-label>
+        <ion-label class="font-more-small text-white font-semi-bold margin-2 wrap">Subtotal: {{infoFooter.subtotal}}</ion-label>
+      </ion-col>
+      <ion-col col-4>
+        <div class="ctn-btn-footer text-right">CHECKOUT</div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
