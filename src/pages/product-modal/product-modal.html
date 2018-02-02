@@ -23,7 +23,7 @@
   <div *ngIf="productMap.total == 1">
     
     
-    <!--Caso 2-->
+    <!--Caso 2 Product father-->
     <div *ngIf="productFather.total > 1" class="product-father-page">
       <div text-center>
         <br>
@@ -54,7 +54,7 @@
     </div>
     <!--Cierro caso 2-->
     
-    <!--Caso 3-->
+    <!--Caso 3 Product child-->
     <div *ngIf="showChild == true" class="product-child-page">
       <div text-center class="ctn-title-gray">
         <ion-label class="font-small text-dark font-semi-bold name">{{productFather.p_name}}</ion-label>
@@ -132,7 +132,7 @@
   
   
   
-  <!--Caso 1-->
+  <!--Caso 1 Search page-->
   <div *ngIf="productMap.total > 1" class="search-page">
     <ion-grid>
       <ion-row  *ngFor="let item of productMap.result" (click)="openItem(item)">

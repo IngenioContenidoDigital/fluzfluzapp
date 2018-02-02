@@ -106,7 +106,8 @@ export class ProductModalPage {
   openItem(item:any) {
     this.showBackButton.emit(this.backButtom);
     this.navCtrl.push(ProductFatherPage,{
-      manufacturer: item
+      manufacturer: item,
+      productMap: true
     });
   }
   

@@ -67,6 +67,7 @@ export class ProductChildPage {
   public showMapProductPage = SHOW_MAP_PRODUCT_PAGE;
   public scheme:string = '';
   public showBuyBtn:boolean = true;
+  public productMap:boolean = false;
   public infoFooter:any = [];
   
   @Output('updateCountCart')
@@ -95,10 +96,9 @@ export class ProductChildPage {
     this.inform = "instructions";
     this.manufacturer = navParams.get("manufacturer");
     this.productFather = navParams.get("productFather");
+    this.productMap = navParams.get("productMap");
     this.searchService.search( this.productFather.id_parent, '3' ).then((data) => {
       this.productChild = data;
-      console.log('this.productChild');
-      console.log(this.productChild);
       this.intructions = this.productChild.result['0'].instructions;
       this.terms = this.productChild.result['0'].terms;
     });
@@ -188,7 +188,9 @@ export class ProductChildPage {
       this.showBuyBtn = (val.kick_out == 1) ? false : true;
     });
     this.analytics.trackView('ProductChildPage');
-    this.tabsService.hide();
+    if(!this.productMap){
+      this.tabsService.hide();  
+    }
     if(this.showMapProductPage){
       this.inizializateMap();
     }
@@ -235,7 +237,9 @@ export class ProductChildPage {
   }
   
   ionViewWillLeave(){
-    this.tabsService.show();
+    if(!this.productMap){
+      this.tabsService.show();
+    }
   }
     
   inizializateMap(){
