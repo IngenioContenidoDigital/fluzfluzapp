@@ -145,10 +145,11 @@ export class LoginPage {
         loader.dismiss();
         if(success.status === 200) {
           this.userData = JSON.parse(success._body);
-          // Establece el passcode en true or false.
+          //Verifica si el usuario esta activo.
           if(this.userData.active == 1 || this.userData.active == "1"){
             this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
             
+            // Establece el passcode de la bóveda en true or false.
             this.passcodeService.getPasscode(this.userData.id).then((data:any)=>{
               this.storage.set('passcode', data);
             });
@@ -167,11 +168,11 @@ export class LoginPage {
                   //Si aún no está confirmado, manda a confirmar la cuenta.
                   this.storage.get('userConfirm').then((val) => {
                     if ( val !== true ){
-  //                    this.goTo("confirmPage");
-                      setTimeout(()=>{
-                        this.storage.set('userConfirm', true);
-                        this.goTo("");
-                      }, 100 );
+                      this.goTo("confirmPage");
+//                      setTimeout(()=>{
+//                        this.storage.set('userConfirm', true);
+//                        this.goTo("");
+//                      }, 100 );
                     }
                     else {
                       //manda a home.
@@ -186,23 +187,23 @@ export class LoginPage {
                 else {
                   this.storage.set('userData', JSON.parse(success._body));
                   this.storage.set('cart', '');
-  //                this.goTo("confirmPage");
-                  setTimeout(()=>{
-                    this.storage.set('userConfirm', true);
-                    this.goTo("");
-                  }, 100 );
+                  this.goTo("confirmPage");
+//                  setTimeout(()=>{
+//                    this.storage.set('userConfirm', true);
+//                    this.goTo("");
+//                  }, 100 );
                   this.setUserId(success._body);
                 }
               }
               //si no hay antiguo, manda a confirmar la cuenta.
               else {
                 this.storage.set('userData', JSON.parse(success._body));
-  //              this.goTo("confirmPage");
+                this.goTo("confirmPage");
                 this.storage.set('userConfirm', true);
-                setTimeout(()=>{
-                  this.storage.set('userConfirm', true);
-                  this.goTo("");
-                }, 100 );
+//                setTimeout(()=>{
+//                  this.storage.set('userConfirm', true);
+//                  this.goTo("");
+//                }, 100 );
                 this.setUserId(success._body);
               }
             });
@@ -368,7 +369,7 @@ export class LoginPage {
                   this.storage.get('userConfirm').then((val) => {
                     if ( val !== true ){
                       loader.dismiss();
-  //                    this.goTo("confirmPage");
+                      this.goTo("confirmPage");
                       setTimeout(()=>{
                         this.storage.set('userConfirm', true);
                         this.goTo("");
@@ -388,7 +389,7 @@ export class LoginPage {
                 else {
                   this.storage.set('userData', data.result);
                   this.storage.set('cart', '');
-  //                this.goTo("confirmPage");
+                  this.goTo("confirmPage");
                   setTimeout(()=>{
                     loader.dismiss();
                     this.storage.set('userConfirm', true);
@@ -400,7 +401,7 @@ export class LoginPage {
               //si no hay antiguo, manda a confirmar la cuenta.
               else {
                 this.storage.set('userData', data.result);
-  //              this.goTo("confirmPage");
+                this.goTo("confirmPage");
                 this.storage.set('userConfirm', true);
                 setTimeout(()=>{
                   loader.dismiss();

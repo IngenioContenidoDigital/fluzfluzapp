@@ -90,7 +90,11 @@ export class MorePage {
     this.storage.get('userData').then((val) => {
       this.badge.clear().then(()=>{
         this.getMessagesData(val.id);
-      });
+      })
+      .catch(error=>{
+        //ocurrió un error al procesar el token
+        console.error(error);
+      });;
       if( val != null && val != '' && val != undefined ){
         this.userData.userName = val.firstname;
         this.userData.id = val.id;
@@ -130,15 +134,24 @@ export class MorePage {
         if ( data ){
           this.storage.set('userData', false);
         }
-        this.googlePlus.logout().then();
-        this.googlePlus.disconnect().then();
+        this.googlePlus.logout().then()
+        .catch(error=>{
+          console.error(error);
+        });
+        this.googlePlus.disconnect().then()
+        .catch(error=>{
+          console.error(error);
+        });
         this.fb.getLoginStatus().then(
           (data:any)=>{
             if(data.status == 'connected'){
               this.fb.logout();
             }
           }
-        );
+        )
+        .catch(error=>{
+          console.error(error);
+        });
       }
     );
     setTimeout(()=>{ this.goTo('LoginPage') }, 100);

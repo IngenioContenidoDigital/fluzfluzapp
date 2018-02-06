@@ -259,8 +259,10 @@ export class HomePage {
       }
       this.storage.get('tokenFCM').then(
         (token:any) =>{
-          this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
-          });
+          if(val != null && val != ''){
+            this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
+            });
+          }
         }
       );
     });

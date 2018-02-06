@@ -147,8 +147,6 @@ export class CartPage {
       loader.dismiss();
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
       this.products = ( val != undefined && val != null && val != '' ) ? val.products : [];
-      console.log('productos');
-      console.log(this.products);
       this.discounts = ( val != undefined && val != null && val != '' ) ? val.discounts : [];
     }),
     () => {

@@ -45,8 +45,8 @@ export class MyApp {
   
   fcmStart(){
     this.platform.ready().then(() => {
-      this.fcm.getToken()
-        .then((token:string)=>{
+      if (this.platform.is('cordova')) {
+        this.fcm.getToken().then((token:string)=>{
           console.log('token  '+token);
           //aquí se debe enviar el token al back-end para tenerlo registrado y de esta forma poder enviar mensajes
           // a esta  aplicación
@@ -71,42 +71,46 @@ export class MyApp {
           //ocurrió un error al procesar el token
           console.error(error);
         });
-
-      /**
-       * No suscribimos para obtener el nuevo token cuando se realice un refresh y poder seguir procesando las notificaciones
-       * */
-      this.fcm.onTokenRefresh().subscribe(
-        (token:string)=>{
-          console.log("Nuevo token",token),
-          this.storage.get('userData').then(
-            (val) => {
-              this.storage.set('tokenFCM', token).then(()=>{
-                this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
-                  console.log( (result) ? 'Si se actualizo': 'No funciono');
+        
+        /**
+         * No suscribimos para obtener el nuevo token cuando se realice un refresh y poder seguir procesando las notificaciones
+         * */
+        this.fcm.onTokenRefresh().subscribe(
+          (token:string)=>{
+            console.log("Nuevo token",token),
+            this.storage.get('userData').then(
+              (val) => {
+                this.storage.set('tokenFCM', token).then(()=>{
+                  this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
+                    console.log( (result) ? 'Si se actualizo': 'No funciono');
+                  });
                 });
-              });
-            }
-          );
-        }
-      );
-
-      /**
-       * cuando la configuración este lista, vamos a procesar los mensajes
-       * */
-      this.fcm.onNotification().subscribe(
-        (data:any)=>{
-          this.badge.increase(1);
-          if(data.wasTapped){
-            //ocurre cuando nuestra app está en segundo plano y hacemos tap en la notificación que se muestra en el dispositivo
-            this.badge.clear();
-          }else{
-            this.badge.clear();
-            //ocurre cuando nuestra aplicación se encuentra en primer plano,
-            //puedes mostrar una alerta o un modal con los datos del mensaje
+              }
+            );
           }
-         },error=>{
-         }
-      );
+        );
+        
+        /**
+         * cuando la configuración este lista, vamos a procesar los mensajes
+        * */
+        this.fcm.onNotification().subscribe(
+          (data:any)=>{
+            this.badge.increase(1);
+            if(data.wasTapped){
+              //ocurre cuando nuestra app está en segundo plano y hacemos tap en la notificación que se muestra en el dispositivo
+              this.badge.clear();
+            }else{
+              this.badge.clear();
+              //ocurre cuando nuestra aplicación se encuentra en primer plano,
+              //puedes mostrar una alerta o un modal con los datos del mensaje
+            }
+           },error=>{
+           }
+        );
+      }
+      else {
+        console.log('Alerta: \n No es posible iniciar cordova para usar FCM. \n');
+      }
     });
   }
   
