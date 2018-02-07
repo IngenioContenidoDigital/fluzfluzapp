@@ -102,23 +102,23 @@ export class CheckoutPage {
       content: "Cargando Métodos de pago..."
     });
     loader.present();
-    this.storage.get('userData').then(
-      (val) => {
-        this.vault.getOrderHistory(val.id).then(
-          (data:any) => {
-            loader.dismiss();
-            this.historyData = data.result;
-            if(this.historyData.length > 0) {
-              this.getSevedCreditCard();
-              this.enablePayMethods = true;
-            }
-            else {
-              this.enablePayMethods = false;
-            }
-          }
-        );
-      }
-    );
+    this.getSevedCreditCard(loader);
+//    this.storage.get('userData').then(
+//      (val) => {
+//        this.vault.getOrderHistory(val.id).then(
+//          (data:any) => {
+//            loader.dismiss();
+//            this.historyData = data.result;
+//            if(this.historyData.length > 0) {
+//              this.enablePayMethods = true;
+//            }
+//            else {
+//              this.enablePayMethods = false;
+//            }
+//          }
+//        );
+//      }
+//    );
   }
   
   goTo(value) {
@@ -205,17 +205,25 @@ export class CheckoutPage {
     }
   }
   
-    getSevedCreditCard(){
-        this.storage.get('userData').then((userData) => {
-            this.personalInformationService.getSevedCreditCard(userData.id).subscribe(
-                success => {
-                    if(success.status === 200) {
-                        this.creditCardSaved = JSON.parse(success._body);
-                    }
-                }
-            );
-        });
-    }
+  getSevedCreditCard(loader){
+    this.storage.get('userData').then((userData) => {
+      this.personalInformationService.getSevedCreditCard(userData.id).subscribe(
+        success => {
+          loader.dismiss();
+          if(success.status === 200) {
+            this.creditCardSaved = JSON.parse(success._body);
+          }
+        },
+        ()=>{
+          loader.dismiss();
+        }
+      ),
+      (error=>{
+        loader.dismiss();
+        console.error(error);
+      });
+    });
+  }
   
   updateShowTerms(item){
     this.showTerms = this.showTerms != item.id_product ? item.id_product : false;

@@ -304,3 +304,12 @@ ion-title {
     display: none;
   }
 }
+
+.ios ion-tab .ion-page ion-header .toolbar.statusbar-padding:first-child,
+.ios ion-tab .ion-page ion-header .toolbar.statusbar-padding:first-child ion-title {
+  padding-top: 2px;
+}
+
+.bar-button-ios{
+  height: 40px;
+}
