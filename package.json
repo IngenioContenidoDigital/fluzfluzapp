@@ -49,10 +49,9 @@
     "@ionic-native/status-bar": "^3.4.2",
     "@ionic/storage": "^2.0.1",
     "angular": "^1.6.5",
-    "cordova-android": "^6.3.0",
+    "cordova-check-plugins": "^4.0.2",
     "cordova-clipboard": "^1.0.0",
     "cordova-google-api-version": "0.0.1",
-    "cordova-plugin-appavailability": "^0.4.2",
     "cordova-plugin-badge": "^0.8.6",
     "cordova-plugin-browsertab": "~0.2.0",
     "cordova-plugin-cache": "git+https://github.com/tiltshiftfocus/cordova-plugin-cache.git",
@@ -89,7 +88,9 @@
     "reflect-metadata": "^0.1.10",
     "rxjs": "^5.1.1",
     "sw-toolbox": "3.4.0",
-    "zone.js": "^0.8.5"
+    "zone.js": "^0.8.5",
+    "cordova-plugin-ionic-webview": "^1.1.16",
+    "cordova-plugin-ionic-keyboard": "^2.0.5"
   },
   "devDependencies": {
     "@ionic/app-scripts": "^1.3.6",
@@ -124,21 +125,17 @@
         "GEOLOCATION_USAGE_DESCRIPTION": " "
       },
       "cordova-plugin-crosswalk-webview": {},
-      "cordova-plugin-camera": {
-        "CAMERA_USAGE_DESCRIPTION": " ",
-        "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
-      },
+      "cordova-plugin-camera": {},
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-file": {},
       "cordova-plugin-filepath": {},
       "org.apache.cordova.plugin.cache": {},
-      "cordova-plugin-appavailability": {},
       "cordova-plugin-google-analytics": {},
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.709389446483-6at869k84krbneu3fotto68evpq2dm72"
       },
       "cordova-google-api-version": {
-        "GOOGLE_API_VERSION": "11.0.1"
+        "GOOGLE_API_VERSION": "11.2.0"
       },
       "cordova-plugin-compat": {},
       "cordova-plugin-googlemaps": {
@@ -149,7 +146,9 @@
       "cordova-plugin-facebook4": {
         "APP_ID": "154186758658913",
         "APP_NAME": "Fluz Fluz App"
-      }
+      },
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-keyboard": {}
     },
     "dependencies": {
       "@angular/animations": "^4.2.3",
@@ -217,8 +216,6 @@
         "ios"
       ]
     },
-    "platforms": [
-      "android"
-    ]
+    "platforms": []
   }
 }

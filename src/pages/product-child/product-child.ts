@@ -12,7 +12,6 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { AnalyticsService } from '../../providers/analytics.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { BrowserTab } from '@ionic-native/browser-tab';
-import { AppAvailability } from '@ionic-native/app-availability';
 import { CartPage } from '../cart/cart';
 
 declare var google;
@@ -25,7 +24,6 @@ declare var google;
     SearchService,
     CartService,
     InstagramService,
-    AppAvailability,
     AnalyticsService
   ],
   animations: [
@@ -77,7 +75,6 @@ export class ProductChildPage {
   
   constructor(
     public platform: Platform,
-    public appAvailability: AppAvailability,
     private browserTab: BrowserTab,
     public toastCtrl: ToastController,
     public loadingController: LoadingController,
