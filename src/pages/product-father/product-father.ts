@@ -16,6 +16,7 @@ export class ProductFatherPage {
   
   public manufacturer:any = {};
   public productFather:any = {};
+  public productMap:boolean = false;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -23,6 +24,7 @@ export class ProductFatherPage {
     public analytics: AnalyticsService
   ){
     this.manufacturer = navParams.get("manufacturer");
+    this.productMap = navParams.get("productMap");
     this.searchService.search( this.manufacturer.m_id, '2' ).then((data) => {
       this.productFather = data;
       if( this.productFather.total == 1 ){
@@ -41,7 +43,8 @@ export class ProductFatherPage {
   openItem(item:any) {
     this.navCtrl.push(ProductChildPage,{
       manufacturer: this.manufacturer,
-      productFather: item
+      productFather: item,
+      productMap : this.productMap
     });
   }
   

@@ -1,5 +1,5 @@
 import { Component, trigger, style, animate, state, transition } from '@angular/core';
-import { NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ToastController, LoadingController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { CartService } from '../../providers/cart.service';
 import { CheckoutPage } from '../checkout/checkout';
@@ -51,16 +51,14 @@ export class CartPage {
     public navParams: NavParams,
     public storage: Storage,
     public cartService: CartService,
+    public loadingController: LoadingController,
     public tabsService: TabsService,
     public viewCtrl: ViewController,
     private alertCtrl: AlertController,
+    public toastCtrl: ToastController,
     public personalInformationService: PersonalInformationService,
     public analytics: AnalyticsService
   ) {
-  }
-
-  ionViewDidLoad() {
-    this.updateDataView();
   }
   
   edit(){
@@ -77,6 +75,16 @@ export class CartPage {
     }
   }
  
+  toast(msg){
+    let toast = this.toastCtrl.create({
+          message:  msg,
+          duration: 1000,
+          position: 'middle',
+          cssClass: "toast"
+        });
+    toast.present();
+  }
+
   updateQuantity(value, id_product){
     if ( value == 0 ){
       for (var i = 0; i < this.products.length; i++) {
@@ -95,20 +103,25 @@ export class CartPage {
   }
   
   removeProduct(id_product) {
+    let loader = this.loadingController.create({
+      content: "Eliminando..."
+    });
+    loader.present();
     delete this.phonesRecharged[id_product];
     for (var i = 0; i < this.products.length; i++) {
       if ( this.products[i]['id_product'] == id_product ){
         this.products[i]['quantity'] = 0;
       }
     }
-    this.updateCart();
+    this.updateCart(loader);
   }
   
-  updateCart(){
+  updateCart(loader = null){
     this.cart.products = this.products;
     this.storage.get('userData').then((userData) => {
      this.cartService.updateCart( this.cart, userData.id ).then(
         (success:any) => {
+          if(loader!=null)loader.dismiss();
           if(success.status === 200) {
             this.storage.set('cart', JSON.parse(success._body));
             setTimeout(()=>{ this.updateDataView() }, 100);
@@ -129,12 +142,20 @@ export class CartPage {
   }
  
   updateDataView () {
+    let loader = this.loadingController.create({
+      content: "Cargando carrito..."
+    });
+    loader.present();
     this.storage.get('cart').then((val) => {
+      loader.dismiss();
       this.cart = ( val != undefined && val != null && val != '' ) ? val : {};
       this.products = ( val != undefined && val != null && val != '' ) ? val.products : [];
       this.discounts = ( val != undefined && val != null && val != '' ) ? val.discounts : [];
     })
     .catch(function () {
+      loader.dismiss();
+      this.toast('Ha ocurrido un error.');
+      this.navCtrl.pop();
       console.log("Error");
     });
   }
@@ -282,6 +303,8 @@ export class CartPage {
     this.updateDataView();
     this.tabsService.hide();
     this.getPhonesCustomer();
+    this.tabsService.hide();
+    this.updateDataView();
   }
 
   ionViewWillLeave(){

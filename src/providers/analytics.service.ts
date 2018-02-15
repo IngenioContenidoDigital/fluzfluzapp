@@ -22,25 +22,40 @@ export class AnalyticsService {
       .then(() => {
       }
     )
-    .catch(e => console.log('Error starting GoogleAnalytics', e));
+    .catch(e => console.log('Error: \n iniciando GoogleAnalytics \n', e));
   }
   
   public trackEvent(category:string = 'FluzFluzApp', action:string = '', label:string = '', value:number = 0, newSession:boolean = false){
-    this.ga.trackEvent(category, action, label, value, newSession);
+    this.ga.trackEvent(category, action, label, value, newSession)
+    .catch(error=>{
+      console.error(error);
+    });
   }
   
   public trackView(title:string = '', campaignUrl:string = '', newSession:boolean = false){
     this.ga.trackView(title, campaignUrl, newSession)
+    .catch(error=>{
+      console.error(error);
+    });
   }
   
   public setUserId(id:string){
-    this.ga.setUserId(id);
+    this.ga.setUserId(id)
+    .catch(error=>{
+      console.error(error);
+    });
   }
   
   public debugMode(debug:boolean){
     if(debug){
-      this.ga.debugMode();
-      this.ga.enableUncaughtExceptionReporting(true);
+      this.ga.debugMode()
+      .catch(error=>{
+        console.error(error);
+      });
+      this.ga.enableUncaughtExceptionReporting(true)
+      .catch(error=>{
+        console.error(error);
+      });
     }
   }
   

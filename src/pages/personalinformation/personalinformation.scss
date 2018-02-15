@@ -5,6 +5,9 @@ page-personalinformation {
     border-bottom-color: 1px solid #dedede !important;
     box-shadow: none !important;
   }
+  .input-disabled {
+    color: color($colors, gray-soft);
+  }
   .ctn-background-white {
     @extend .background-white;
     border: 1px solid color($colors, gray-soft);

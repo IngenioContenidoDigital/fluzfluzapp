@@ -79,10 +79,13 @@
   "cordova-plugin-camera": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-camera"
+      "id": "cordova-plugin-camera@^2.4.1"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "CAMERA_USAGE_DESCRIPTION": " ",
+      "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+    }
   },
   "cordova-plugin-file-transfer": {
     "source": {
@@ -104,14 +107,6 @@
     "source": {
       "type": "registry",
       "id": "https://github.com/tiltshiftfocus/cordova-plugin-cache.git"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
-  "cordova-plugin-google-analytics": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-google-analytics@^1.8.3"
     },
     "is_top_level": true,
     "variables": {}
@@ -155,5 +150,21 @@
       "APP_ID": "154186758658913",
       "APP_NAME": "Fluz Fluz App"
     }
+  },
+  "cordova-plugin-compat": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-compat@^1.1.0"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-appavailability": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-appavailability@^0.4.2"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

@@ -38,10 +38,13 @@ export class MapPage {
 
   ionViewWillEnter(){
     this.analytics.trackView('MapPage');
-    this.tabsService.show();
-    setTimeout(()=>{
-      this.getPosition();
-    }, 500);
+//    this.tabsService.show();
+  }
+  
+  ionViewDidLoad() {
+     setTimeout(()=>{
+       this.getPosition();
+     }, 500);
   } 
     
   getPosition():any {

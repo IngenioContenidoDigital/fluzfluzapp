@@ -15,13 +15,9 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   postLogin(variables) {
-    let bodyString = JSON.stringify(variables);
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return new Promise((resolve, reject) => {
-      this.http.post(WS_BASE + 'login', {
-        headers: headers,
-        params: bodyString,
-      })
+      this.http.post(WS_BASE + 'login', JSON.stringify(variables))
       .subscribe(res => {
         resolve(res);
       }, (err) => {

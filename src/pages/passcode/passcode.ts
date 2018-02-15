@@ -242,11 +242,13 @@ export class PasscodePage {
                 content: "Cargando..."
               });
               loader.present();
-              this.supportService.sendProblem(val.id, val.firstname+' '+val.lastname, val.email, 'Solicitud de restablecimiento de contraseña.').then(
+              let value:any = [];
+              value.issue = 'Solicitud de restablecimiento de contraseña.';
+              value.problem = 'Solicitud de restablecimiento de contraseña.';
+              this.supportService.sendProblem(val.id, val.firstname+' '+val.lastname, val.email, value).then(
                 (success:any) => {
                   if (success.status === 200){
                     loader.dismiss();
-                    console.log('todo salió bien');
                     this.navCtrl.push(RenewPasscodeConfirmPage);
                   }
                   else {
@@ -258,6 +260,7 @@ export class PasscodePage {
                 },
                 //Si hay algun error en el servidor.
                 error =>{
+                  loader.dismiss();
                   this.showAlert('Error', 'Verifica tu conexión y por favor intenta de nuevo.');
                 }
               );
@@ -268,6 +271,7 @@ export class PasscodePage {
       alert.present();
     })
     .catch(error =>{
+      loader.dismiss();
       console.log(error);
     });
   }

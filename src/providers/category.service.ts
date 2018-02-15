@@ -32,4 +32,23 @@ export class CategoryService {
         );
     });
   }
+  
+  public getNameOneCategoryById(id_category){
+    return new Promise(resolve => {
+      let params = new HttpParams();
+      params.set('id_category', id_category);
+      
+      this.http.get(WS_BASE+'getNameOneCategoryById', { params: params })
+        .subscribe(
+        	(data:any) => {
+            this.data = data;
+            resolve(this.data);
+          },
+          (err) => {
+            this.data = '{"Error": "Error al traer las categorias."}';
+            resolve(this.data);
+          }
+        );
+    });
+  }
 }

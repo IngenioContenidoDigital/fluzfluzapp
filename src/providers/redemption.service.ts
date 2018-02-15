@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, Response } from '@angular/http';
+//import { Http, URLSearchParams, Response } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { WS_BASE } from './config';
 import 'rxjs/add/operator/map';
 
@@ -10,10 +11,10 @@ export class Redemption {
   private _url: string = WS_BASE+'redemption';
   public userData: any;
     
-  constructor(public http: Http) {}
+  constructor(public http: HttpClient) {}
 
   public setRedemption(id_customer:any, value:any) {
-    let params = new URLSearchParams();
+    let params = new HttpParams();
       params.set('id_customer', id_customer);
       params.set('identification', value.n_identification);
       params.set('firts_name', value.firts_name);
@@ -28,14 +29,13 @@ export class Redemption {
       params.set('type_vitual', value.type_vitual);
 
       return new Promise(resolve => {
-        this.http.get(this._url, { search: params })
-          .map(res => res.json())
+        this.http.get(this._url, { params: params })
           .subscribe(
-            data => {
+            (data:any) => {
               this.userData = data;
               resolve( this.userData );
             },
-            (err:Response) => {
+            (err) => {
               this.userData  = err.json();
               resolve(this.userData );
             }

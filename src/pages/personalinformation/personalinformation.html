@@ -54,11 +54,11 @@
                         </ion-item>
                         <ion-item>
                             <ion-label stacked>Correo electrónico</ion-label>
-                            <ion-input type="email" readonly (keyup)="validateInput($event)" [formControl]="personalInformationForm.controls['email']"></ion-input>
+                            <ion-input type="email" class="input-disabled" readonly (keyup)="validateInput($event)" [formControl]="personalInformationForm.controls['email']"></ion-input>
                         </ion-item>
                         <ion-item>
                             <ion-label stacked>Identificación</ion-label>
-                            <ion-input type="number" readonly (keyup)="validateInput($event)" [formControl]="personalInformationForm.controls['dni']"></ion-input>
+                            <ion-input type="number" class="input-disabled" readonly (keyup)="validateInput($event)" [formControl]="personalInformationForm.controls['dni']"></ion-input>
                         </ion-item>
                         <ion-item>
                             <ion-label stacked>Fecha de nacimiento</ion-label>

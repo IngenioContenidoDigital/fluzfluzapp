@@ -49,5 +49,15 @@ export class TabsService {
         tabs[key].style.transform = 'translateY(0px)';
       });
     }
+    let footer = document.querySelectorAll('.footer');
+      let scrollContent = document.querySelectorAll('.scroll-content');
+      setTimeout(() =>{
+        Object.keys(scrollContent).map((key) => {
+          scrollContent[key].style.marginBottom = '56px';
+        });
+        Object.keys(footer).map((key) => {
+          footer[key].style.bottom = '56px';
+        });
+      })
   }
 }

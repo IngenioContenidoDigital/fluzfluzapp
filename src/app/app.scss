@@ -39,6 +39,7 @@
     .text-primary     {@extend .font-family; @extend .primary;}
     .text-secondary   {@extend .font-family; @extend .secondary;}
     .text-green       {@extend .font-family; @extend .green;}
+    .text-white       {@extend .font-family; @extend .white;}
     
   /* Mixin word-wrap */
     @mixin word-wrap() {
@@ -154,7 +155,9 @@
   text-transform: capitalize;
 }
 
-
+.strike {
+  text-decoration:line-through;
+}
 
 // Custom icons
 // Overriding the ion-icon behavior
@@ -301,3 +304,12 @@ ion-title {
     display: none;
   }
 }
+
+.ios ion-tab .ion-page ion-header .toolbar.statusbar-padding:first-child,
+.ios ion-tab .ion-page ion-header .toolbar.statusbar-padding:first-child ion-title {
+  padding-top: 2px;
+}
+
+.bar-button-ios{
+  height: 40px;
+} 

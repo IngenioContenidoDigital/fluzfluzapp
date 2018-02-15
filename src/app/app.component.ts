@@ -48,19 +48,51 @@ export class MyApp {
   
   fcmStart(){
     this.platform.ready().then(() => {
-      this.fcm.getToken()
-        .then((token:string)=>{
-          console.log('token  '+token);
-          //aquí se debe enviar el token al back-end para tenerlo registrado y de esta forma poder enviar mensajes
-          // a esta  aplicación
-          //o también copiar el token para usarlo con Postman :D
-          this.storage.get('userData').then(
-            (val) => {
-              if ( val === null || val === undefined || val === false || val === '' ){
-                this.storage.set('tokenFCM', token);
+      if (this.platform.is('cordova')) {
+        this.fcm.getToken()
+          .then((token:string)=>{
+            console.log('token  '+token);
+            //aquí se debe enviar el token al back-end para tenerlo registrado y de esta forma poder enviar mensajes
+            // a esta  aplicación
+            //o también copiar el token para usarlo con Postman :D
+            this.storage.get('userData').then(
+              (val) => {
+                if ( val === null || val === undefined || val === false || val === '' ){
+                  this.storage.set('tokenFCM', token);
+                }
+                else {
+                  this.getMessagesData(val.id);
+                  this.storage.set('tokenFCM', token).then(()=>{
+                    this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
+                      console.log( (result) ? 'Si se actualizo': 'No funciono');
+                    })
+                    .catch(error =>{
+                      console.log(error);
+                    });
+                  })
+                  .catch(error =>{
+                    console.log(error);
+                  });
+                }
               }
-              else {
-                this.getMessagesData(val.id);
+            )
+          .catch(error =>{
+            console.log(error);
+          });
+          })
+          .catch(error=>{
+            //ocurrió un error al procesar el token
+            console.error(error);
+          });
+
+        /**
+         * No suscribimos para obtener el nuevo token cuando se realice un refresh y poder seguir procesando las notificaciones
+         * */
+        this.fcm.onTokenRefresh().subscribe(
+          (token:string)=>{
+            console.log("Nuevo token",token),
+            this.storage.get('userData').then(
+              (val) => {
                 this.storage.set('tokenFCM', token).then(()=>{
                   this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
                     console.log( (result) ? 'Si se actualizo': 'No funciono');
@@ -73,65 +105,38 @@ export class MyApp {
                   console.log(error);
                 });
               }
-            }
-          )
-        .catch(error =>{
-          console.log(error);
-        });
-        })
-        .catch(error=>{
-          //ocurrió un error al procesar el token
-          console.error(error);
-        });
-
-      /**
-       * No suscribimos para obtener el nuevo token cuando se realice un refresh y poder seguir procesando las notificaciones
-       * */
-      this.fcm.onTokenRefresh().subscribe(
-        (token:string)=>{
-          console.log("Nuevo token",token),
-          this.storage.get('userData').then(
-            (val) => {
-              this.storage.set('tokenFCM', token).then(()=>{
-                this.loginService.setTokenFCM(val.id, token).then((result:any)=>{
-                  console.log( (result) ? 'Si se actualizo': 'No funciono');
-                })
-                .catch(error =>{
-                  console.log(error);
-                });
-              })
-              .catch(error =>{
-                console.log(error);
-              });
-            }
-          )
-          .catch(error =>{
-            console.log(error);
-          });
-        }
-      );
-
-      /**
-       * cuando la configuración este lista, vamos a procesar los mensajes
-       * */
-      this.fcm.onNotification().subscribe(
-        (data:any)=>{
-          this.badge.increase(1);
-          if(data.wasTapped){
-            //ocurre cuando nuestra app está en segundo plano y hacemos tap en la notificación que se muestra en el dispositivo
-            this.badge.clear();
-          }else{
-            this.badge.clear();
-            //ocurre cuando nuestra aplicación se encuentra en primer plano,
-            //puedes mostrar una alerta o un modal con los datos del mensaje
+            )
+            .catch(error =>{
+              console.log(error);
+            });
           }
-         },error=>{
-         }
-      );
+        );
+
+        /**
+         * cuando la configuración este lista, vamos a procesar los mensajes
+         * */
+        this.fcm.onNotification().subscribe(
+          (data:any)=>{
+            this.badge.increase(1);
+            if(data.wasTapped){
+              //ocurre cuando nuestra app está en segundo plano y hacemos tap en la notificación que se muestra en el dispositivo
+              this.badge.clear();
+            }else{
+              this.badge.clear();
+              //ocurre cuando nuestra aplicación se encuentra en primer plano,
+              //puedes mostrar una alerta o un modal con los datos del mensaje
+            }
+           },error=>{
+           }
+        );
+      }
+      else {
+        console.log('Alerta: \n No es posible iniciar cordova para usar FCM. \n');
+      }
     })
     .catch(error =>{
       console.log(error);
-    });
+    }); 
   }
   
   getMessagesData(id: number) {

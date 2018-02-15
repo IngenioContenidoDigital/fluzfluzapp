@@ -5,7 +5,7 @@
  */
 
 
-export const DEV_MODE = false;
+export const DEV_MODE = true;
 
 // Produccion:
 //

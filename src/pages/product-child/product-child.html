@@ -1,5 +1,5 @@
 <ion-header>
-  <page-header (updateCountCart)='updateCountCart($event)'></page-header>
+  <page-header (updateCountCart)='updateCountCart($event)' [showProductChildBtn]="true" #header></page-header>
 </ion-header>
 
 
@@ -34,17 +34,17 @@
           <div *ngIf="item.c_price_shop_format != item.c_price">
             <ion-label class="ctn-price-in-shop text-primary font-extra-small text-discount">COP PRECIO</ion-label>
             <!--<ion-label class="ctn-price-in-shop text-primary margin-v">${{item.c_price_shop_format}} <span style='text-decoration:line-through'>${{item.c_price}}</span></ion-label>-->  
-            <ion-label class="ctn-price-in-shop text-primary margin-v" *ngIf="item.type_currency != 'USD'">${{item.c_price_shop_format}}</ion-label>  
+            <ion-label class="ctn-price-in-shop text-primary margin-v" *ngIf="item.type_currency != 'USD'">${{item.c_price}} <span class="strike wrap">${{item.c_price_shop_format}}</span></ion-label>
             <ion-label class="ctn-price-in-shop text-primary margin-v" *ngIf="item.type_currency == 'USD'">${{item.c_price}}</ion-label>  
           </div>
         </ion-col>
         <ion-col col-3 text-center class="text-green">+{{item.c_win_fluz}}</ion-col>
         <ion-col col-3 text-center>-{{item.c_price_fluz}}</ion-col>
         <ion-col col-3 class="ctn-btn-buy">
-          <button ion-button item-right  color="primary" class="font-extra-small" (click)="addToCart(item.c_id_product)">COMPRAR</button>
-        </ion-col>
-      </ion-row>
-    </div>
+          <button ion-button item-right  color="primary" class="font-extra-small" *ngIf="showBuyBtn" (click)="addToCart(item.c_id_product)">COMPRAR</button>
+         </ion-col>
+       </ion-row>
+     </div>
   </ion-grid>
   <div *ngIf="showMapProductPage">
     
@@ -105,6 +105,26 @@
       </ion-item>
     </ion-list>
   </div>
-  
+  <div class="spacer-25"></div>
+  <div class="spacer-25"></div>
   
 </ion-content>
+
+<ion-footer *ngIf="infoFooter.number > 0" [@slideIn]>
+  <ion-toolbar color="primary" (click)="openCart()">
+    <ion-row align-items-center>
+      <ion-col col-3>
+        <div class="image-product">
+          <img src="{{infoFooter.img}}">
+        </div>
+      </ion-col>
+      <ion-col col-5>
+        <ion-label class="font-small text-white font-semi-bold margin-2">{{infoFooter.number}} Códigos</ion-label>
+        <ion-label class="font-more-small text-white font-semi-bold margin-2 wrap">Subtotal: {{infoFooter.subtotal}}</ion-label>
+      </ion-col>
+      <ion-col col-4>
+        <div class="ctn-btn-footer text-right">CHECKOUT</div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

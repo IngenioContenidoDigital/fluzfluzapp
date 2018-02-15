@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
+import { Component, trigger, style, animate, state, transition,  EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams, ToastController, LoadingController, Slides, Platform } from 'ionic-angular';
 import { SearchService } from '../../providers/search.service';
 import { CartService } from '../../providers/cart.service';
@@ -13,6 +13,7 @@ import { AnalyticsService } from '../../providers/analytics.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { BrowserTab } from '@ionic-native/browser-tab';
 import { AppAvailability } from '@ionic-native/app-availability';
+import { CartPage } from '../cart/cart';
 
 declare var google;
 
@@ -26,6 +27,20 @@ declare var google;
     InstagramService,
     AppAvailability,
     AnalyticsService
+  ],
+  animations: [
+    trigger('slideIn', [
+      state('*', style({ 'overflow-y': 'hidden' })),
+      state('void', style({ 'overflow-y': 'hidden' })),
+      transition('* => void', [
+          style({ height: '*' }),
+          animate(250, style({ height: 0 }))
+      ]),
+      transition('void => *', [
+          style({ height: '0' }),
+          animate(250, style({ height: '*' }))
+      ])
+    ])
   ]
 })
 export class ProductChildPage {
@@ -51,9 +66,15 @@ export class ProductChildPage {
   public showSavings = SHOW_SAVINGS;
   public showMapProductPage = SHOW_MAP_PRODUCT_PAGE;
   public scheme:string = '';
+  public showBuyBtn:boolean = true;
+  public productMap:boolean = false;
+
+  public infoFooter:any = [];
   
   @Output('updateCountCart')
   public updateCountCart: EventEmitter<number> = new EventEmitter<number>();
+  
+  @ViewChild('header') header;
   
   constructor(
     public platform: Platform,
@@ -76,9 +97,9 @@ export class ProductChildPage {
     this.inform = "instructions";
     this.manufacturer = navParams.get("manufacturer");
     this.productFather = navParams.get("productFather");
+    this.productMap = navParams.get("productMap");
     this.searchService.search( this.productFather.id_parent, '3' ).then((data) => {
       this.productChild = data;
-      console.log(this.productChild);
       this.intructions = this.productChild.result['0'].instructions;
       this.terms = this.productChild.result['0'].terms;
     })
@@ -119,6 +140,18 @@ export class ProductChildPage {
     });
   }
   
+  openCart(){
+    let loader = this.loadingController.create({
+      content: "Cargando Carrito..."
+    });
+    loader.present();
+    this.navCtrl.push( CartPage ).then(()=>{
+      setTimeout(() => {
+        loader.dismiss();
+      },200);
+    });
+  }
+  
   updateCountCartEmit(){
     let loader = this.loadingController.create({
       content: "Actualizando Carrito..."
@@ -129,11 +162,27 @@ export class ProductChildPage {
         this.updateCountCart.emit( val.quantity );
         loader.dismiss();
         this.toast('Agregado al carrito.');
+        setTimeout(() => {
+          this.updateFooter();
+        },200);
       })
       .catch(error =>{
         console.log(error);
       });
     },500);
+  }
+  
+  updateFooter(){
+    this.storage.get('cart').then((val) => {
+      if(val != null && val != "null" && val != "" ){
+        this.infoFooter.img = val.products[0].image_manufacturer;
+        this.infoFooter.number = val.quantity;
+        this.infoFooter.subtotal = val.format_order_total;
+      }
+      else {
+        this.infoFooter.number = 0;
+      }
+    });
   }
   
   toast(msg){
@@ -147,13 +196,20 @@ export class ProductChildPage {
   }
   
   ionViewWillEnter(){
+    this.header.showProductChildPageBtn(true);
+    this.storage.get('userData').then((val) => {
+      this.showBuyBtn = (val.kick_out == 1) ? false : true;
+    });
     this.analytics.trackView('ProductChildPage');
-    this.tabsService.hide();
+    if(!this.productMap){
+      this.tabsService.hide();  
+    }
     if(this.showMapProductPage){
       this.inizializateMap();
     }
     setTimeout(()=>{
       this.getInstagramImages();
+      this.updateFooter();
     },500);
   }
   
@@ -203,7 +259,9 @@ export class ProductChildPage {
   }
   
   ionViewWillLeave(){
-    this.tabsService.show();
+    if(!this.productMap){
+      this.tabsService.show();
+    }
   }
     
   inizializateMap(){

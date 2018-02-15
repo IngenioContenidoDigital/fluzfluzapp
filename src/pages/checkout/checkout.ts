@@ -12,6 +12,7 @@ import { TabsPage } from '../tabs/tabs';
 import { SHOW_SAVINGS } from '../../providers/config';
 import { PersonalInformationService } from '../../providers/personalinformation.service';
 import { AnalyticsService } from '../../providers/analytics.service';
+import { VaultService } from '../../providers/vault.service';
 
 @Component({
   selector: 'page-checkout',
@@ -19,6 +20,7 @@ import { AnalyticsService } from '../../providers/analytics.service';
   providers: [
     PaymentFluzService,
     PersonalInformationService,
+    VaultService,
     AnalyticsService
   ],
   animations: [
@@ -44,6 +46,8 @@ export class CheckoutPage {
   public discounts:any = [];
   public showTerms:any = false;
   public showSavings = SHOW_SAVINGS;
+  public historyData:any;
+  public enablePayMethods:boolean = false;
   
   public creditCardSaved:any = [];
   
@@ -55,6 +59,7 @@ export class CheckoutPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public storage: Storage,
+    public vault: VaultService,
     public tabsService: TabsService,
     public analytics: AnalyticsService
   ){
@@ -66,7 +71,22 @@ export class CheckoutPage {
   }
 
   selectedPayment(value){
-    this.payment = value;
+    if( value == 5 && this.cart.order_total < 300000 ){
+      let alert = this.alertCtrl.create({
+        title: "Medio de pago no disponible",
+        message: "BitPay solo está disponible en compras superiores a $300.000 COP ó $100 USD",
+        buttons: [
+          {
+            text: 'Ok',
+            role: 'cancel'
+          }
+        ]
+      });
+      alert.present();
+    }
+    else{
+      this.payment = value;
+    }
   }
   
   updateDataView () {
@@ -78,6 +98,30 @@ export class CheckoutPage {
     .catch(function () {
       console.log("Error");
     });
+  }
+  
+  updateHistory(){
+    let loader = this.loadingController.create({
+      content: "Cargando Métodos de pago..."
+    });
+    loader.present();
+    this.getSevedCreditCard(loader);
+//    this.storage.get('userData').then(
+//      (val) => {
+//        this.vault.getOrderHistory(val.id).then(
+//          (data:any) => {
+//            loader.dismiss();
+//            this.historyData = data.result;
+//            if(this.historyData.length > 0) {
+//              this.enablePayMethods = true;
+//            }
+//            else {
+//              this.enablePayMethods = false;
+//            }
+//          }
+//        );
+//      }
+//    );
   }
   
   goTo(value) {
@@ -173,20 +217,29 @@ export class CheckoutPage {
     }
   }
   
-    getSevedCreditCard(){
-        this.storage.get('userData').then((userData) => {
-            this.personalInformationService.getSevedCreditCard(userData.id).then(
-                (success:any) => {
-                    if(success.status === 200) {
-                        this.creditCardSaved = JSON.parse(success._body);
-                    }
-                }
-            );
-        })
-        .catch(function () {
-          console.log("Error");
-        });
-    }
+  getSevedCreditCard(loader){
+    this.storage.get('userData').then((userData) => {
+      this.personalInformationService.getSevedCreditCard(userData.id).then(
+        (success:any) => {
+          loader.dismiss();
+          if(success.status === 200) {
+            this.creditCardSaved = JSON.parse(success._body);
+          }
+        },
+        ()=>{
+          loader.dismiss();
+        }
+      )
+      .catch(function () {
+        loader.dismiss();
+        console.log("Error");
+      })
+    })
+    .catch(function () {
+        loader.dismiss();
+        console.log("Error");
+    });
+  }
   
   updateShowTerms(item){
     this.showTerms = this.showTerms != item.id_product ? item.id_product : false;
@@ -196,7 +249,7 @@ export class CheckoutPage {
     this.analytics.trackView('CheckoutPage');
     this.updateDataView();
     this.tabsService.hide();
-    this.getSevedCreditCard();
+    this.updateHistory();
   }
 
   ionViewWillLeave(){

@@ -27,6 +27,7 @@ export class HeaderPage {
   
   public searchData:any;
   public backButtonShow:any = false;
+  public productChildPageBtn:boolean = false;
   
   @Output()
   public updateSearchData: EventEmitter<string> = new EventEmitter<string>();
@@ -35,6 +36,7 @@ export class HeaderPage {
   public updateSeeMoreSearchData: EventEmitter<string> = new EventEmitter<string>();
   
   @Input('lastTotalSearch') lastTotalSearch:number;
+  @Input('showProductChildBtn') showProductChildBtn:boolean;
   
   @ViewChild('input') myInput;
   
@@ -42,7 +44,8 @@ export class HeaderPage {
   
   constructor( public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService, public viewCtrl: ViewController, public storage: Storage, private renderer: Renderer, private elementRef: ElementRef) {
     this.modalShow = navParams.get('modalShow') ? navParams.get('modalShow') : this.modalShow;
-    this.backButtonShow = this.backButtonShow ? this.backButtonShow : false
+    this.backButtonShow = this.backButtonShow ? this.backButtonShow : false;
+    this.productChildPageBtn = this.productChildPageBtn ? this.productChildPageBtn : false;
     IntervalObservable.create(500).subscribe( n => {
       this.storage.get('cart').then((val) => {
         if (val != null || val != undefined ){
@@ -80,8 +83,12 @@ export class HeaderPage {
     },100);
   }
   
-  showBackButton(value:any){
+  showBackButton(value:boolean){
     this.backButtonShow = value;
+  }
+  
+  showProductChildPageBtn(value:boolean){
+    this.productChildPageBtn = value;
   }
   
   goTo(value:any){

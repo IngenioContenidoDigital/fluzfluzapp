@@ -102,10 +102,6 @@
     <plugin name="cordova-plugin-filepath" spec="^1.0.2" />
     <plugin name="org.apache.cordova.plugin.cache" spec="https://github.com/tiltshiftfocus/cordova-plugin-cache.git" />
     <plugin name="cordova-plugin-appavailability" spec="^0.4.2" />
-    <plugin name="cordova-plugin-google-analytics" spec="^1.8.3" />
-    <plugin name="cordova-google-api-version" spec="0.0.1">
-        <variable name="GOOGLE_API_VERSION" value="11.0.1" />
-    </plugin>
     <plugin name="cordova-plugin-googlemaps" spec="^2.1.1">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8" />
@@ -116,5 +112,8 @@
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="154186758658913" />
         <variable name="APP_NAME" value="Fluz Fluz App" />
+    </plugin>
+    <plugin name="cordova-google-api-version" spec="0.0.1">
+        <variable name="GOOGLE_API_VERSION" value="11.0.1" />
     </plugin>
 </widget>
