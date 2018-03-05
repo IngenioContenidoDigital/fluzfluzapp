@@ -84,41 +84,32 @@ export class FormOfRedemptionPage {
     });
     loader.present();
     this.backService.getBanks().then(
-      (success:any) => {
-        if(success.status === 200) {
-          let response:any;
-          try{
-            response = JSON.parse(success._body);
-            if(response.error == 1){
-              let alert = this.alertCtrl.create({
-                title: 'Error',
-                subTitle: 'La plataforma de pagos no responde. Intente nuevamente más tarde.',
-                buttons: [{
-                  text: 'Ok',
-                  handler: () => {
-                    let navTransition = alert.dismiss();
-                    navTransition.then(() => {
-                      this.navCtrl.pop();
-                    })
-                    .catch(function () {
-                      console.log("Error");
-                    });
-                    return false;
-                  }
-                }]
-              });
-              alert.present();
-            }
-            else{
-              this.bancos = response;
-            }
+      (response:any) => {
+        loader.dismiss();
+        if(response.success === true) {
+          if(response.error){
+            let alert = this.alertCtrl.create({
+              title: 'Error',
+              subTitle: 'La plataforma de pagos no responde. Intente nuevamente más tarde.',
+              buttons: [{
+                text: 'Ok',
+                handler: () => {
+                  let navTransition = alert.dismiss();
+                  navTransition.then(() => {
+                    this.navCtrl.pop();
+                  })
+                  .catch(function () {
+                    console.log("Error");
+                  });
+                  return false;
+                }
+              }]
+            });
+            alert.present();
           }
-          catch(e){
-            loader.dismissAll();
-            this.showAlert("Error", "No hemos podido cargar la lista de bancos, por favor revisa tu conexión e intenta de nuevo.");
-            this.navCtrl.pop();
+          else {
+            this.bancos = response.banks;
           }
-          loader.dismiss();
         }
         else{
           loader.dismissAll();
@@ -203,10 +194,6 @@ export class FormOfRedemptionPage {
     this.redemptionData = redemptionData.value;
     Object.assign(this.redemptionData, this.dataUserRedemption);
     Object.assign(this.redemptionData, this.redemptionValue);
-    setTimeout(()=>{
-      console.log('this.redemptionData');
-      console.log(this.redemptionData);
-    }, 500);
     this.storage.get('userData').then((val) => {
       this.redemption.setRedemption( val.id, this.redemptionData ).then(
         (data:any) => {

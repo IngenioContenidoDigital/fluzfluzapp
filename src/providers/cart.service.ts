@@ -22,12 +22,8 @@ export class CartService {
       idProduct: idProduct,
       option: 1
     });
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return new Promise((resolve, reject) => {
-      this.http.post(this._url, {
-        headers: headers,
-        params: params,
-      })
+      this.http.post(this._url, params)
       .subscribe(res => {
         resolve(res);
       }, (err) => {
@@ -42,13 +38,9 @@ export class CartService {
       cart: cart,
       option: 2
     });
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return new Promise((resolve, reject) => {
-      this.http.post(this._url, {
-        headers: headers,
-        params: params,
-      })
-      .subscribe(res => {
+      this.http.post(this._url, params)
+      .subscribe((res:any) => {
         resolve(res);
       }, (err) => {
         reject(err);
@@ -58,7 +50,6 @@ export class CartService {
 
   public setPhonesRecharged( id_cart, phones, id_customer ) {
     let _url = WS_BASE+'setPhonesRecharged';
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' }) ;
     let params = JSON.stringify({
       id_customer: id_customer,
       id_cart: id_cart,
@@ -66,10 +57,7 @@ export class CartService {
     });
     
     return new Promise((resolve, reject) => {
-      this.http.post(_url, {
-        headers: headers,
-        params: params,
-      })
+      this.http.post(_url, params)
       .subscribe(res => {
         resolve(res);
       }, (err) => {

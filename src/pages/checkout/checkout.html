@@ -36,7 +36,7 @@
       <ion-label class="text-dark">Pagar con Tarjeta débito PSE</ion-label>
       <ion-icon [name]="payment == 4 ? 'md-checkmark' : 'ios-arrow-forward'"></ion-icon>
     </div>
-    <div class="row" (click)="selectedPayment(5)">
+    <div class="row" (click)="selectedPayment(5)" *ngIf="false">
       <i class='fluz-tarjeta' item-start></i>
       <ion-label class="text-dark">Pagar con Bitcoin</ion-label>
       <ion-icon [name]="payment == 5 ? 'md-checkmark' : 'ios-arrow-forward'"></ion-icon>

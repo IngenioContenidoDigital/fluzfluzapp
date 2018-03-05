@@ -13,97 +13,95 @@ export class MyAccountService {
   constructor(public http: HttpClient) {}
 
   public getDataAccount(value) {
-    let params = new HttpParams();
-      params.set('userId', value);
-      return new Promise(resolve => {
-        this.http.get(this._url, { params: params })
-          .subscribe(
-            data => {
-              this.userData = JSON.stringify(data);
-              resolve( this.userData );
-            },
-            (err) => {
-              this.userData  = err.json();
-              resolve(this.userData );
-            }
-          );
-      });
+    let params = new HttpParams().set('userId', value);
+    return new Promise(resolve => {
+      this.http.get(this._url, { params: params })
+        .subscribe(
+          data => {
+            this.userData = JSON.stringify(data);
+            resolve( this.userData );
+          },
+          (err) => {
+            this.userData  = err.json();
+            resolve(this.userData );
+          }
+        );
+    });
   }
   
   public getProfile(id_customer:any, id_profile:any) {
     let _url = WS_BASE+'getProfile';
-    let params = new HttpParams();
-      params.set('id_customer', id_customer);
-      params.set('id_profile', id_profile);
-      return new Promise(resolve => {
-        this.http.get(_url, { params: params })
-          .subscribe(
-            (data:any) => {
-              this.userData = JSON.stringify(data.result);
-              resolve( this.userData );
-            },
-            (err) => {
-              this.userData  = err.json();
-              resolve(this.userData );
-            }
-          );
-      });
+    let Params = new HttpParams();
+    Params = Params.append('id_customer', id_customer);
+    Params = Params.append('id_profile', id_profile);
+    return new Promise(resolve => {
+      this.http.get(_url, { params: Params })
+        .subscribe(
+          (data:any) => {
+            this.userData = JSON.stringify(data.result);
+            resolve( this.userData );
+          },
+          (err) => {
+            this.userData  = err.json();
+            resolve(this.userData );
+          }
+        );
+    });
   }
   
   public getInviteduserForProfile(id_customer:any) {
     let _url = WS_BASE+'getInviteduserForProfile';
-    let params = new HttpParams();
-      params.set('id_customer', id_customer);
-      return new Promise(resolve => {
-        this.http.get(_url, { params: params })
-          .subscribe(
-            data => {
-              this.userData = JSON.stringify(data);
-              resolve( this.userData );
-            },
-            (err) => {
-              this.userData  = err.json();
-              resolve(this.userData );
-            }
-          );
-      });
+    let params = new HttpParams().set('id_customer', id_customer);
+    return new Promise(resolve => {
+      this.http.get(_url, { params: params })
+        .subscribe(
+          data => {
+            this.userData = JSON.stringify(data);
+            resolve( this.userData );
+          },
+          (err) => {
+            this.userData  = err.json();
+            resolve(this.userData );
+          }
+        );
+    });
   }
   
-  public getActivityNetworkProfile(id_customer:any) {
+  public getActivityNetworkProfile(id_customer:any, id_customer_consult:any) {
     let _url = WS_BASE+'getActivityNetworkProfile';
-    let params = new HttpParams();
-      params.set('id_customer', id_customer);
-      return new Promise(resolve => {
-        this.http.get(_url, { params: params })
-          .subscribe(
-            data => {
-              this.userData = JSON.stringify(data);
-              resolve( this.userData );
-            },
-            (err) => {
-              this.userData  = err.json();
-              resolve(this.userData );
-            }
-          );
-      });
+    let Params = new HttpParams();
+    Params = Params.append('id_customer', id_customer);
+    Params = Params.append('id_customer_consult', id_customer_consult);
+    return new Promise(resolve => {
+      this.http.get(_url, { params: Params })
+        .subscribe(
+          data => {
+            this.userData = JSON.stringify(data);
+            resolve( this.userData );
+          },
+          (err) => {
+            this.userData  = err.json();
+            resolve(this.userData );
+          }
+        );
+    });
   }
   
   reactivateAccount(id_customer) {
     let _url = WS_BASE+'reactiveAccount';
-    let params = new HttpParams();
-      params.set('id_customer', id_customer);
-      return new Promise(resolve => {
-        this.http.get(_url, { params: params })
-          .subscribe(
-            data => {
-              this.userData = data;
-              resolve( this.userData );
-            },
-            (err) => {
-              this.userData  = err.json();
-              resolve(this.userData );
-            }
-          );
-      });
+    let params = new HttpParams().set('id_customer', id_customer);
+    return new Promise(resolve => {
+      this.http.get(_url, { params: params })
+        .subscribe(
+          data => {
+            this.userData = data;
+            resolve( this.userData );
+          },
+          (err) => {
+            this.userData  = err.json();
+            resolve(this.userData );
+          }
+        );
+    });
   }
 }

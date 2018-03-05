@@ -65,7 +65,7 @@ export class PasscodePage {
     this.resetPasscode();
     this.storage.get('userData').then((val) => {
       this.passcodeService.getPasscode(val.id).then((data:any)=>{
-        this.storage.set('passcode', data).then(()=>{
+        this.storage.set('passcode', data.result).then(()=>{
           this.storage.get('passcode').then((val) => {
             loader.dismiss();
             if( val == 'true' || val == true ){
@@ -163,14 +163,14 @@ export class PasscodePage {
       this.storage.get('userData').then((val) => {
         let valor = {'id_customer': val.id, 'passcode': this.passcode };
         this.passcodeService.validatePasscode(valor).then(
-          (success:any) => {
-            if (success.status === 200){
+          (response:any) => {
+            if (response.success === true){
               loader.dismiss();
               this.goTo("VaultPage");
             }
             else {
               loader.dismiss();
-              if (success.status === 204){
+              if (response.success === false){
                 this.showErrorValidate();
               }
             }
@@ -246,14 +246,16 @@ export class PasscodePage {
               value.issue = 'Solicitud de restablecimiento de contraseña.';
               value.problem = 'Solicitud de restablecimiento de contraseña.';
               this.supportService.sendProblem(val.id, val.firstname+' '+val.lastname, val.email, value).then(
-                (success:any) => {
-                  if (success.status === 200){
+                (response:any) => {
+                  console.log('success');
+                  console.log(response);
+                  if (response.success === true){
                     loader.dismiss();
                     this.navCtrl.push(RenewPasscodeConfirmPage);
                   }
                   else {
                     loader.dismiss();
-                    if (success.status === 400){
+                    if (response.success === false){
                       this.showAlert('Error en el servidor', 'Ha ocurrido un error en el servidor. Por favor intenta de nuevo.');
                     }
                   }

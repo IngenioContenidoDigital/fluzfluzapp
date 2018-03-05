@@ -1,7 +1,8 @@
 import { Component, ViewChild, trigger, style, animate, state, transition } from '@angular/core';
-import { NavController, Slides, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, Slides, LoadingController, ModalController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { ConfirmPage } from '../confirm/confirm';
+import { ConfirmService } from '../../providers/confirm.service';
 import { CategoryPage } from '../category/category';
 import { CategoriesPage } from '../categories/categories';
 import { Storage } from '@ionic/storage';
@@ -30,6 +31,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   templateUrl: 'home.html',
   providers: [
     MyAccountService,
+    ConfirmService,
+    LoginService,
     HomeService,
     CategoryService,
     SearchService,
@@ -72,6 +75,8 @@ export class HomePage {
   
   constructor(
     public navCtrl: NavController,
+    private alertCtrl: AlertController,
+    private confirmService: ConfirmService,
     public storage: Storage,
     public splashScreen: SplashScreen,
     public myAccount: MyAccountService,
@@ -98,7 +103,11 @@ export class HomePage {
   goTo(value:any) {
     switch (value){
       case "ConfirmPage": {
-        this.navCtrl.push( ConfirmPage );
+        this.confirmService.getRequestSMS().then((data:any)=>{
+          if(data.requestSMS){
+            this.navCtrl.push( ConfirmPage ); 
+          }
+        });
         break;
       }
       case "LoginPage": {
@@ -128,28 +137,29 @@ export class HomePage {
   }
   
   ionViewWillEnter(){
+    this.storage.set('userConfirm', true);
     this.notificationBar.alert = 2;
     this.analytics.trackView('HomePage');
     this.notificationBar.setVisible = false;
     this.storage.get('tutorial').then((tutorial)=> {
       if(tutorial || tutorial == 'true'){
-        this.storage.get('userData').then((val) => {
+        this.storage.get('userData').then((userData) => {
           this.storage.get('userConfirm').then((userConfirm)=> {
-            if (val === null || val === undefined || val === false){
+            if (userData === null || userData === undefined || userData === false){
               this.goTo("LoginPage");
             }
             else if( userConfirm !== true ){
               this.goTo("ConfirmPage");            
             }
-            if (val === null || val === undefined || val == false){
+            if (userData === null || userData === undefined || userData == false){
               this.updateShowDataUser(false);
             }
             else {
 
               this.updateShowDataUser(true);          
-              this.analytics.setUserId(val.id);
+              this.analytics.setUserId(userData.id);
               setTimeout(()=>{
-                this.home.getNotificationBarOrders(val.id).then((data:any)=>{
+                this.home.getNotificationBarOrders(userData.id).then((data:any)=>{
                   let notificationData = data.result;
                   this.notificationBar = data.result;
                   if(this.notificationBar.profile_complete<100){
@@ -374,5 +384,14 @@ export class HomePage {
     if ( item == 4 ) {
       this.goTo("ReactiveAccountPage");
     }
+  }
+  
+  showAlert(title:string, msg:string){
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: msg,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

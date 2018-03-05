@@ -14,10 +14,9 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  postLogin(variables) {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  postLogin(variables:any) {
     return new Promise((resolve, reject) => {
-      this.http.post(WS_BASE + 'login', JSON.stringify(variables))
+      this.http.post(WS_BASE + '/login', JSON.stringify(variables))
       .subscribe(res => {
         resolve(res);
       }, (err) => {
@@ -27,14 +26,11 @@ export class LoginService {
     
   }
 
-  public register(value) {
+  public register(value:any) {
     let bodyString = JSON.stringify(value);
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    console.log(value);
     return new Promise((resolve, reject) => {
-      this.http.post(WS_BASE+'createCustomer', {
-        headers: headers,
-        params: bodyString,
-      })
+      this.http.post(WS_BASE+'createCustomer', bodyString)
       .subscribe(res => {
         resolve(res);
       }, (err) => {
@@ -56,8 +52,7 @@ export class LoginService {
   
   getEmailSocialMedia(email:any){
     let url = WS_BASE+'/getEmailSocialMedia';
-    let params = new HttpParams();
-    params.set('email', email);
+    let params = new HttpParams().set('email', email);
     return new Promise(resolve => {
       this.http.get(url, { params: params }).subscribe(data => {
         resolve(data);
@@ -69,11 +64,11 @@ export class LoginService {
   
   setTokenFCM(id_customer:any, token:any){
     let url = WS_BASE+'/setTokenFCM';
-    let params = new HttpParams();
-    params.set('id_customer', id_customer);
-    params.set('token', token);
+    let Params = new HttpParams();
+    Params = Params.append('id_customer', id_customer);
+    Params = Params.append('token', token);
     return new Promise(resolve => {
-      this.http.get(url, { params: params }).subscribe(data => {
+      this.http.get(url, { params: Params }).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);

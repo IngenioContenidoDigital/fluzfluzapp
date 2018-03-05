@@ -13,12 +13,13 @@ export class BonusService {
   constructor(public http: HttpClient) {}
 
   public updateBonus( card:any, used:any, price_card_used:any = 0) {
-    let params = new HttpParams();
-    params.set('card', card);
-    params.set('used', used);
-    params.set('price_card_used', price_card_used);
+    
+    let Params = new HttpParams();
+    Params = Params.append('card', card);
+    Params = Params.append('used', used);
+    Params = Params.append('price_card_used', price_card_used);
     return new Promise(resolve => {
-      this.http.get(this._url, { params: params })
+      this.http.get(this._url, { params: Params })
         .subscribe(
           (data:any) => {
             this.data = JSON.stringify(data.result);
@@ -35,15 +36,15 @@ export class BonusService {
   
   public sendGift( id_customer:any, id_customer_receive:any, code:any, id_product_code:any, message:any, customer_send:any) {
     let url = WS_BASE + '/sendGiftCard';
-    let params = new HttpParams();
-    params.set('id_customer', id_customer);
-    params.set('id_customer_receive', id_customer_receive);
-    params.set('code', code);
-    params.set('id_product_code', id_product_code);
-    params.set('message', message);
-    params.set('customer_send', customer_send);
+    let Params = new HttpParams();
+    Params = Params.append('id_customer', id_customer);
+    Params = Params.append('id_customer_receive', id_customer_receive);
+    Params = Params.append('code', code);
+    Params = Params.append('id_product_code', id_product_code);
+    Params = Params.append('message', message);
+    Params = Params.append('customer_send', customer_send);
     return new Promise(resolve => {
-      this.http.get(url, { params: params })
+      this.http.get(url, { params: Params })
         .subscribe(
           data => {
             this.data = data;
@@ -59,10 +60,10 @@ export class BonusService {
   
   public getAddressManufacturer(manufacturer:any){
     let url = WS_BASE + '/getAddressManufacturer';
-    let params = new HttpParams();
-      params.set('id_manufacturer', manufacturer);
+    let Params = new HttpParams();
+    Params = Params.append('id_manufacturer', manufacturer);
     return new Promise(resolve => {
-      this.http.get(url, { params: params })
+      this.http.get(url, { params: Params })
         .subscribe(
         	data => {
             this.data = data;
@@ -78,13 +79,13 @@ export class BonusService {
   
   public getMapData(latitude:any, longitude:any, manufacturer:any, option:any){
     let url = WS_BASE + '/getAddressMaps';
-    let params = new HttpParams();
-      params.set('latitude', latitude);
-      params.set('longitude', longitude);
-      params.set('id_manufacturer', manufacturer);
-      params.set('option', option);
+    let Params = new HttpParams();
+    Params = Params.append('latitude', latitude);
+    Params = Params.append('longitude', longitude);
+    Params = Params.append('id_manufacturer', manufacturer);
+    Params = Params.append('option', option);
     return new Promise(resolve => {
-      this.http.get(url, { params: params })
+      this.http.get(url, { params: Params })
         .subscribe(
         	data => {
             this.data = data;

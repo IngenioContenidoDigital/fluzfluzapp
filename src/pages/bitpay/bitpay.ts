@@ -34,9 +34,9 @@ export class BitPayPage {
   ionViewWillEnter(){
     this.storage.get('cart').then((cart) => {
       this.paymentbitcoin.getBitPay(cart.id).then(
-        (success:any) => {
-          if( success.status === 200 ) {
-            this.bitpayData = JSON.parse(success._body);
+        (response:any) => {
+          if( response.success === true ) {
+            this.bitpayData = response;
             let url = this.bitpayData.url;
             this.browserTab.isAvailable().then((
               isAvailable: boolean) => {
@@ -78,6 +78,9 @@ export class BitPayPage {
               console.log("Error");
             });
           }
+          else {
+            this.showAlert("Ha ocurrido un error","Ocurrió un error inesperado, por favor intenta nuevamente.");
+          }
         }
       );
     })
@@ -85,5 +88,13 @@ export class BitPayPage {
       console.log("Error");
     });
   }
-
+  
+  showAlert(title:string, msg:string){
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: msg,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 }

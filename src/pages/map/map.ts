@@ -52,7 +52,7 @@ export class MapPage {
       content: "Obteniendo posición..."
     });
     loader.present();
-    this.geolocation.getCurrentPosition().then(response => {
+    this.geolocation.getCurrentPosition({timeout:15000}).then(response => {
       this.platform.ready().then(() => {
         setTimeout(()=>{
           loader.dismiss();

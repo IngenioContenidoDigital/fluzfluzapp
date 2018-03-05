@@ -9,9 +9,10 @@ export class BancoService {
     private _url: string = WS_BASE+'bankPse';
     
     constructor(public http: HttpClient) {}
+    
     public getBanks() {
       return new Promise((resolve, reject) => {
-        this.http.post(this._url+'/users', JSON.stringify({}), {
+        this.http.post(this._url, {
           headers: new HttpHeaders().set('Authorization', 'my-auth-token'),
           params: new HttpParams().set('id', '3'),
         })

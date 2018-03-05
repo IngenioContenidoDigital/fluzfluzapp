@@ -19,10 +19,7 @@ export class TransferFluzService {
     let dataSearch = JSON.stringify( this.dataSearch );
     let _url = WS_BASE+'searchFluzzer';
     return new Promise((resolve, reject) => {
-      this.http.post(_url, {
-        headers: this.headers,
-        params: dataSearch,
-      })
+      this.http.post(_url, dataSearch)
       .subscribe(res => {
         resolve(res);
       }, (err) => {
@@ -40,10 +37,7 @@ export class TransferFluzService {
     let _url = WS_BASE+'transferFluz';
     
     return new Promise((resolve, reject) => {
-      this.http.post(_url, {
-        headers: this.headers,
-        params: dataTransfer,
-      })
+      this.http.post(_url, dataTransfer)
       .subscribe(res => {
         resolve(res);
       }, (err) => {

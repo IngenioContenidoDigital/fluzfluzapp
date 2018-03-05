@@ -14,13 +14,13 @@ export class MapService {
   constructor(public http: HttpClient) {}
   
   public getMapData(latitude:any, longitude:any, option:any) {
-    let params = new HttpParams();
-    params.set('latitude', latitude);
-    params.set('longitude', longitude);
-    params.set('option', option);
+    let Params = new HttpParams();
+    Params = Params.append('latitude', latitude);
+    Params = Params.append('longitude', longitude);
+    Params = Params.append('option', option);
     
     return new Promise(resolve => {
-      this.http.get(this._url, { params: params })
+      this.http.get(this._url, { params: Params })
         .subscribe(
         	data => {
             this.data = data;

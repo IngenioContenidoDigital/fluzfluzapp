@@ -69,8 +69,7 @@ export class GiftModalPage {
         this.storage.get('userData').then(
           (userData:any) => {
             this.transferFluz.searchFluzzers(this.searchBox, userData.id).then(
-              (success:any) => {
-                let response = JSON.parse(success._body);
+              (response:any) => {
                 if ( response.success ) {
                   this.fluzzers = response.fluzzers;
                 } else {

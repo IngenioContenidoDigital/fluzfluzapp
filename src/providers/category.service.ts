@@ -14,12 +14,12 @@ export class CategoryService {
   
   public getCategory( option:any, id_category:any = 0, limit:any = 0 ) {
     return new Promise(resolve => {
-      let params = new HttpParams();
-      params.set('option', option);
-      params.set('id_category', id_category);
-      params.set('limit', limit);
+      let Params = new HttpParams();
+      Params = Params.append('option', option);
+      Params = Params.append('id_category', id_category);
+      Params = Params.append('limit', limit);
       
-      this.http.get(this._url, { params: params })
+      this.http.get(this._url, { params: Params })
         .subscribe(
         	data => {
             this.data = data;
@@ -35,10 +35,8 @@ export class CategoryService {
   
   public getNameOneCategoryById(id_category){
     return new Promise(resolve => {
-      let params = new HttpParams();
-      params.set('id_category', id_category);
-      
-      this.http.get(WS_BASE+'getNameOneCategoryById', { params: params })
+      let Params = new HttpParams().set('id_category', ""+id_category);
+      this.http.get(WS_BASE+'getNameOneCategoryById', { params: Params })
         .subscribe(
         	(data:any) => {
             this.data = data;

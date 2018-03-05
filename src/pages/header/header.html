@@ -19,10 +19,12 @@
   </ion-toolbar>
 
   <ion-buttons right >
-    <div class="countCart" (click)="goTo('CartPage')" *ngIf='countCart > 0 && !productChildPageBtn'>{{countCart}}</div>
-    <button ion-button icon-only *ngIf="!productChildPageBtn">
-      <i class='fluz-tienda'></i>
-    </button>
+    <div (click)="goTo('CartPage')">
+      <div class="countCart" *ngIf='countCart > 0 && !productChildPageBtn'>{{countCart}}</div>
+      <button ion-button icon-only *ngIf="!productChildPageBtn">
+        <i class='fluz-tienda'></i>
+      </button>
+    </div>
     <button ion-button icon-only navPop *ngIf="productChildPageBtn">
       <i class='fluz-left-arrow'></i>
     </button>

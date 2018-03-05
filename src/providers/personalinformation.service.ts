@@ -13,10 +13,7 @@ export class PersonalInformationService {
   public getPhoneProviders() {
     let _url = WS_BASE+'phoneProviders';
     return new Promise((resolve, reject) => {
-      this.http.post(_url, {
-        headers: this.headers,
-        params: '',
-      })
+      this.http.post(_url, '')
       .subscribe(res => {
         resolve(res);
       }, (err) => {
@@ -28,10 +25,7 @@ export class PersonalInformationService {
   public getCities() {
     let _url = WS_BASE+'cities';
     return new Promise((resolve, reject) => {
-      this.http.post(_url, {
-        headers: this.headers,
-        params: '',
-      })
+      this.http.post(_url, '')
       .subscribe(res => {
         resolve(res);
       }, (err) => {
@@ -45,10 +39,7 @@ export class PersonalInformationService {
     this.data["id_customer"] = id_customer;
     let data = JSON.stringify( this.data );
     return new Promise((resolve, reject) => {
-      this.http.post(_url, {
-        headers: this.headers,
-        params: data,
-      })
+      this.http.post(_url, data)
       .subscribe(res => {
         resolve(res);
       }, (err) => {
@@ -63,11 +54,10 @@ export class PersonalInformationService {
     this.data["phone"] = phone;
     let data = JSON.stringify( this.data );
     return new Promise((resolve, reject) => {
-      this.http.post(_url, {
-        headers: this.headers,
-        params: data,
-      })
+      this.http.post(_url, data)
       .subscribe(res => {
+        console.log("addPhone");
+        console.log(res);
         resolve(res);
       }, (err) => {
         reject(err);
@@ -80,10 +70,7 @@ export class PersonalInformationService {
     this.data["id_customer"] = id_customer;
     let data = JSON.stringify( this.data );
     return new Promise((resolve, reject) => {
-      this.http.post(_url, {
-        headers: this.headers,
-        params: data,
-      })
+      this.http.post(_url, data)
       .subscribe(res => {
         resolve(res);
       }, (err) => {
@@ -117,10 +104,7 @@ export class PersonalInformationService {
     this.data["city"] = dataForm.city;
     let data = JSON.stringify( this.data );
     return new Promise((resolve, reject) => {
-      this.http.post(_url, {
-        headers: this.headers,
-        params: data,
-      })
+      this.http.post(_url,data)
       .subscribe(res => {
         resolve(res);
       }, (err) => {
@@ -134,10 +118,7 @@ export class PersonalInformationService {
     this.data["id_customer"] = id_customer;
     let data = JSON.stringify( this.data );
     return new Promise((resolve, reject) => {
-      this.http.post(_url, {
-        headers: this.headers,
-        params: data,
-      })
+      this.http.post(_url, data)
       .subscribe(res => {
         resolve(res);
       }, (err) => {

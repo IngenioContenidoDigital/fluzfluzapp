@@ -20,10 +20,7 @@ export class PaymentFluzService {
     this.dataApplyPoints["points"] = points;
     let dataApplyPoints = JSON.stringify( this.dataApplyPoints );
     return new Promise((resolve, reject) => {
-      this.http.post(this._url, {
-        headers: this.headers,
-        params: dataApplyPoints,
-      })
+      this.http.post(this._url, dataApplyPoints)
       .subscribe(res => {
         resolve(res);
       }, (err) => {
@@ -38,10 +35,7 @@ export class PaymentFluzService {
     let dataPayment = JSON.stringify( this.dataPayment );
     let url = WS_BASE+'payFreeOrder';
     return new Promise((resolve, reject) => {
-      this.http.post(url, {
-        headers: this.headers,
-        params: dataPayment,
-      })
+      this.http.post(url, dataPayment)
       .subscribe(res => {
         resolve(res);
       }, (err) => {

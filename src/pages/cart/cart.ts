@@ -45,6 +45,8 @@ export class CartPage {
   public showSavings = SHOW_SAVINGS;
   public phones:any = [];
   public phonesRecharged:any = {};
+  public showPhones:boolean = false;
+  public goToCheck:boolean = false;
   
   constructor(
     public navCtrl: NavController,
@@ -120,13 +122,13 @@ export class CartPage {
     this.cart.products = this.products;
     this.storage.get('userData').then((userData) => {
      this.cartService.updateCart( this.cart, userData.id ).then(
-        (success:any) => {
+        (response:any) => {
           if(loader!=null)loader.dismiss();
-          if(success.status === 200) {
-            this.storage.set('cart', JSON.parse(success._body));
+          if(response.success === true) {
+            this.storage.set('cart', response);
             setTimeout(()=>{ this.updateDataView() }, 100);
           }
-          if(success.status === 204) {
+          if(response.error === 1) {
             this.storage.set('cart', 'null'); 
            setTimeout(()=>{ this.updateDataView() }, 100);
           }
@@ -164,14 +166,7 @@ export class CartPage {
     switch (value){
       case "checkoutPage": {
         let validatePhonesRecharged = this.validatePhonesRecharged();
-        if ( !validatePhonesRecharged ) {
-          let alert = this.alertCtrl.create({
-            title: "Faltan datos",
-            subTitle: "Por favor indica los números de teléfono que deseas recargar.",
-            buttons: ['OK']
-          });
-          alert.present();
-        } else {
+        if ( validatePhonesRecharged && this.goToCheck) {
           this.navCtrl.push( CheckoutPage,{
             cart: this.cart
           });
@@ -197,27 +192,59 @@ export class CartPage {
         
     if ( productsTelco == phonesRecharged || productsTelco == 0 ) {
       this.setPhonesRecharged();
-      return true;
+      return true
     } else {
+      this.showAlert("Faltan datos","Por favor indica los números de teléfono que deseas recargar.");
       return false;
     }
   }
     
   setPhonesRecharged() {
-    this.storage.get('userData').then((userData) => {
+    this.storage.get('userData').then((userData:any) => {
       this.cartService.setPhonesRecharged( this.cart.id, this.phonesRecharged, userData.id).then(
-        (success:any) => {
-          if(success.status === 200) {
-            return true;
+        (response:any) => {
+          if(response.success === true) {
+            if(response.error === 0) {
+              this.goToCheck = true;
+              return true;
+            }
+            else if(response.error === 1){
+              this.goToCheck = false;
+              this.showAlert("Ha ocurrido un error:","Los datos enviados no son correctos, por favor intenta nuevamente.");
+            }
+            else if(response.error === 2){
+              this.goToCheck = false;
+              this.showAlert("Ha ocurrido un error:","Hace falta asignar números de teléfono a algunos productos, por favor intenta nuevamente.");
+            }
+            else if(response.error === 3){
+              this.goToCheck = false;
+              this.showAlert("Ha ocurrido un error:","No se ha completado la asignacion de números de teléfono a los productos, por favor intenta nuevamente.");
+              return false;
+            }
+            else {
+              this.goToCheck = false;
+              this.showAlert("Ha ocurrido un error:","Ocurrió un error inesperado, por favor intenta nuevamente.");
+              return false;
+            }
+          }
+          else{
+            this.goToCheck = false;
+            this.showAlert("Ha ocurrido un error:","Ocurrió un error mientras se agregaba el número de telefono a el producto, por favor intenta nuevamente.");
+            return false;
           }
         },
         error => {
+          this.goToCheck = false;
+          this.showAlert("Ha ocurrido un error:","Ocurrió un error el la respuesta del servidor.");
           console.log(error);
+          return false;
         }
       );
     })
     .catch(function () {
-      console.log("Error");
+      this.goToCheck = false;
+      this.showAlert("Ha ocurrido un error:","Ocurrió un error el la lectura de los datos locales.");
+      return false;
     });
   }
   
@@ -228,75 +255,100 @@ export class CartPage {
   getPhonesCustomer(){
     this.storage.get('userData').then((userData) => {
       this.personalInformationService.getPhonesCustomer(userData.id).then(
-        (success:any) => {
-          if(success.status === 200) {
-            let response = JSON.parse(success._body);
-            this.phones = response;
+        (response:any) => {
+          if(response.success){
+            if(response.error == 0){
+              this.showPhones = true;
+              this.phones = response.result;
+            }
+            else {
+              this.showPhones = false;
+            }
           }
         },
         error => {
-          this.tabsService.changeTabInContainerPage(0);
-          this.navCtrl.setRoot(TabsPage);
+          this.showAlert("Ha ocurrido un error:","Ocurrió un error al intentar obtener los números de teléfono, por favor intenta nuevamente.");
           console.log(error);
         }
       );
     })
     .catch(function () {
-      console.log("Error");
+      this.showAlert("Ha ocurrido un error:","Ocurrió un error al intentar obtener los números de teléfono, por favor intenta nuevamente.");
     });
   }
     
-    addNewPhone(id_product){
-        let alert = this.alertCtrl.create({
-            title: 'Número a recargar',
-            subTitle: "Ingresa tu nuevo número teléfonico",
-            inputs: [{
-                name: 'phone',
-                placeholder: 'Teléfono',
-                type: 'number',
-                min: 10
-            }],
-            buttons: [
-                {
-                    text: 'Cancelar',
-                    role: 'cancel'
-                },
-                {
-                    text: 'Continuar',
-                    handler: confirm => {
-                        if ( confirm.phone != "" && confirm.phone.length == 10 ) {
-                            this.storage.get('userData').then((userData) => {
-                                this.personalInformationService.addPhone(userData.id,confirm.phone).then(
-                                    (success:any) => {
-                                        if(success.status === 200) {
-                                            this.getPhonesCustomer();
-                                            this.phonesRecharged[id_product] = confirm.phone;
-                                        }
-                                    },
-                                    error => {
-                                        this.tabsService.changeTabInContainerPage(0);
-                                        this.navCtrl.setRoot(TabsPage);
-                                        console.log(error);
-                                    }
-                                );
-                            })
-                          .catch(function () {
-                            console.log("Error");
-                          });
-                        } else {
-                            let alert = this.alertCtrl.create({
-                                title: "Teléfono Incorrecto",
-                                subTitle: "Por favor indica un número de teléfono valido.",
-                                buttons: ['OK']
-                            });
-                            alert.present();
-                        }
+  addNewPhone(id_product){
+    let alert = this.alertCtrl.create({
+      title: 'Número a recargar',
+      subTitle: "Ingresa tu nuevo número teléfonico",
+      inputs: [{
+        name: 'phone',
+        placeholder: 'Teléfono',
+        type: 'number',
+        min: 10
+      }],
+      buttons: [
+        {
+            text: 'Cancelar',
+            role: 'cancel'
+        },
+        {
+          text: 'Continuar',
+          handler: confirm => {
+            if ( confirm.phone != "" && confirm.phone.length == 10 ) {
+              this.storage.get('userData').then((userData) => {
+                this.personalInformationService.addPhone(userData.id,confirm.phone).then(
+                  (response:any) => {
+                    if(response.success === true && response.error !== 2 ) {
+                      if(response.error == 0){
+                        this.getPhonesCustomer();
+                        this.phonesRecharged[id_product] = confirm.phone;
+                      }
+                      else if(response.error == 1){
+                        this.showAlert("Error:", "Ya tienes esté número agregado.");
+                      }
                     }
-                }
-            ]
-        });
-        alert.present();
-    }
+                    else {
+                      this.showAlert("Ha ocurrido un error:", "No se ha agregado el número correctamente, por favor intenta nuevamente.");
+                    }
+                  },
+                  error => {
+                    this.showAlert("Ha ocurrido un error:", "Error al obtener la respuesta del servidor, por favor intenta nuevamente.");
+                  }
+                );
+              })
+              .catch(function () {
+                this.showAlert("Ha ocurrido un error:", "Error en el servidor, por favor intenta nuevamente.");
+                console.log("Error");
+              });
+            } else {
+              this.showAlert("Teléfono Incorrecto", "Por favor indica un número de teléfono valido.");
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  
+  showAlert(title:string, msg:string){
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: msg,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  
+//  showToast(msg:string, duration:number){
+//    let toast = this.toastCtrl.create({
+//        message:  msg,
+//        duration: duration*1000,
+//        position: 'middle',
+//        cssClass: "toast"
+//    });
+//    toast.present();
+//  }
   
   ionViewWillEnter(){
     this.analytics.trackView('CartPage');

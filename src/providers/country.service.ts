@@ -13,20 +13,19 @@ export class CountryService {
   constructor(public http: HttpClient) {}
 
   public getCountries() {
-    let params = new HttpParams();
-      params.set('fields', 'name;callingCodes;flag');
-      return new Promise(resolve => {
-        this.http.get(this._url, { params: params })
-          .subscribe(
-            data => {
-              this.userData = JSON.stringify(data);
-              resolve( this.userData );
-            },
-            (err) => {
-              this.userData  = err.json();
-              resolve(this.userData );
-            }
-          );
-      });
+    let params = new HttpParams().set('fields', 'name;callingCodes;flag');
+    return new Promise(resolve => {
+      this.http.get(this._url, { params: params })
+        .subscribe(
+          data => {
+            this.userData = JSON.stringify(data);
+            resolve( this.userData );
+          },
+          (err) => {
+            this.userData  = err.json();
+            resolve(this.userData );
+          }
+        );
+    });
   }
 }

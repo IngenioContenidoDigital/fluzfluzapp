@@ -13,17 +13,17 @@ export class SearchService {
   constructor(public http: HttpClient) {}
   
   public search( q:string, option:any, limit:any = 0, lastTotal:any = 0 ) {
-    let params = new HttpParams();
-    params.set('param', q);
-    params.set('option', option);
-    params.set('limit', limit);
-    params.set('lastTotal', lastTotal);
+    let Params = new HttpParams();
+    Params = Params.append('param', q);
+    Params = Params.append('option', option);
+    Params = Params.append('limit', limit);
+    Params = Params.append('lastTotal', lastTotal);
     
     return new Promise(resolve => {
       // Estamos utilizando el proveedor Angular HTTP para solicitar los datos,
       // Luego en la respuesta, mapeará los datos JSON a un objeto JS analizado.
       // A continuación, procesamos los datos y resolvemos la promesa con los nuevos datos.
-      this.http.get(this._url, { params: params })
+      this.http.get(this._url, { params: Params })
         .subscribe(
         	data => {
             this.data = data;
@@ -38,12 +38,12 @@ export class SearchService {
   }
   
   public searchByMap( lat:any, lng:any ) {
-    let params = new HttpParams();
-    params.set('lat', lat);
-    params.set('lng', lng);
+    let Params = new HttpParams();
+    Params = Params.append('lat', lat);
+    Params = Params.append('lng', lng);
     let url = WS_BASE + '/searchByMap';
     return new Promise(resolve => {
-      this.http.get(url, { params: params })
+      this.http.get(url, { params: Params })
         .subscribe(
         	data => {
             this.data = data;

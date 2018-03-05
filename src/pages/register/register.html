@@ -82,6 +82,27 @@
           <ion-input type="number" (keyup)="validateInput($event)" [formControl]="registerForm.controls['number_identification']"></ion-input>
         </ion-item>
       </ion-row>
+      <ion-row class="border-b" (click)="openModalCountry()">
+        <ion-col col-2>
+          <div class="ctn-img">
+            <img src="{{countries.flag}}">
+          </div>
+        </ion-col>
+        <ion-col col-9>
+          <ion-label class="font-semi-bold">{{countries.callingCodes}}  {{countries.name}}</ion-label>
+        </ion-col>
+        <ion-col col-1 class="background-soft">
+          <div text-center>
+            <ion-icon name="ios-arrow-forward"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Número de teléfono (Necesario)</ion-label>
+          <ion-input type="number" (keyup)="validateInput($event)" [formControl]="registerForm.controls['phoneNumber']"></ion-input>
+        </ion-item>
+      </ion-row>
     </ion-grid>
   </div>
     
@@ -94,7 +115,7 @@
 
 
 <ion-footer>
-  <ion-toolbar color="primary" *ngIf="enabledSaveButton" (click)="send(registerForm.value)">
+  <ion-toolbar color="primary" *ngIf="enabledSaveButton" (click)="sendRandom(registerForm.value)">
     <ion-title>ENVIAR</ion-title>
   </ion-toolbar>
 </ion-footer>

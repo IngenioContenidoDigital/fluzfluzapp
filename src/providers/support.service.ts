@@ -22,10 +22,7 @@ export class SupportService {
     let bodyString = JSON.stringify(this.bodyString);
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return new Promise((resolve, reject) => {
-      this.http.post(WS_BASE+'sendSupport', {
-        headers: headers,
-        params: bodyString,
-      })
+      this.http.post(WS_BASE+'sendSupport', bodyString)
       .subscribe(res => {
         resolve(res);
       }, (err) => {

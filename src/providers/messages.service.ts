@@ -15,8 +15,7 @@ export class MessagesService {
 
   public getConversations(id_customer:any) {
     let url = WS_BASE+'/getConversations';
-    let params = new HttpParams();
-    params.set('id_customer', id_customer);
+    let params = new HttpParams().set('id_customer', id_customer);
     return new Promise(resolve => {
       this.http.get(url, { params: params })
         .subscribe(
@@ -34,11 +33,11 @@ export class MessagesService {
   
   public getConversation(id_customer:any, id_customer_conversation:any) {
     let url = WS_BASE+'/getConversation';
-    let params = new HttpParams();
-      params.set('id_customer', id_customer);
-      params.set('id_customer_conversation', id_customer_conversation);
+    let Params = new HttpParams();
+      Params = Params.append('id_customer', id_customer);
+      Params = Params.append('id_customer_conversation', id_customer_conversation);
       return new Promise(resolve => {
-        this.http.get(url, { params: params })
+        this.http.get(url, { params: Params })
           .subscribe(
             (data:any) => {
               this.userData = data.result;
@@ -54,8 +53,7 @@ export class MessagesService {
   
   public getMessagesData(id_customer:any) {
     let url = WS_BASE+'/getMessagesData';
-    let params = new HttpParams();
-      params.set('id_customer', id_customer);
+    let params = new HttpParams().set('id_customer', id_customer);
       return new Promise(resolve => {
         this.http.get(url, { params: params })
           .subscribe(
@@ -73,45 +71,45 @@ export class MessagesService {
   
   public readConversation(id_customer:any, id_customer_conversation:any) {
     let url = WS_BASE+'/readConversation';
-    let params = new HttpParams();
-      params.set('id_customer', id_customer);
-      params.set('id_customer_conversation', id_customer_conversation);
-      return new Promise(resolve => {
-        this.http.get(url, { params: params })
-          .subscribe(
-            (data:any) => {
-              this.userData = data.result;
-              resolve( this.userData );
-            },
-            (err) => {
-              this.userData  = err.json();
-              resolve(this.userData );
-            }
-          );
-      });
+    let Params = new HttpParams();
+    Params = Params.append('id_customer', id_customer);
+    Params = Params.append('id_customer_conversation', id_customer_conversation);
+    return new Promise(resolve => {
+      this.http.get(url, { params: Params })
+        .subscribe(
+          (data:any) => {
+            this.userData = data.result;
+            resolve( this.userData );
+          },
+          (err) => {
+            this.userData  = err.json();
+            resolve(this.userData );
+          }
+        );
+    });
   }
   
   
   
   public sendMessage(id_customer_send, id_customer_receive, message) {
     let url = WS_BASE+'sendMessage';
-    let params = new HttpParams();
-      params.set('id_customer_send', id_customer_send);
-      params.set('id_customer_receive', id_customer_receive);
-      params.set('message', message);
-      return new Promise(resolve => {
-        this.http.get(url, { params: params })
-          .subscribe(
-            (data:any) => {
-              this.userData = JSON.stringify(data.result);
-              resolve( this.userData );
-            },
-            (err) => {
-              this.userData  = err.json();
-              resolve(this.userData );
-            }
-          );
-      });
+    let Params = new HttpParams();
+    Params = Params.append('id_customer_send', id_customer_send);
+    Params = Params.append('id_customer_receive', id_customer_receive);
+    Params = Params.append('message', message);
+    return new Promise(resolve => {
+      this.http.get(url, { params: Params })
+        .subscribe(
+          (data:any) => {
+            this.userData = JSON.stringify(data.result);
+            resolve( this.userData );
+          },
+          (err) => {
+            this.userData  = err.json();
+            resolve(this.userData );
+          }
+        );
+    });
   }
   
   

@@ -23,14 +23,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "ionic-plugin-keyboard": {
-    "source": {
-      "type": "registry",
-      "id": "ionic-plugin-keyboard@~2.2.1"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-sqlite-storage": {
     "source": {
       "type": "registry",
@@ -129,7 +121,9 @@
     "is_top_level": true,
     "variables": {
       "API_KEY_FOR_ANDROID": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8",
-      "API_KEY_FOR_IOS": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8"
+      "API_KEY_FOR_IOS": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8",
+      "LOCATION_WHEN_IN_USE_DESCRIPTION": "Show your location on the map",
+      "LOCATION_ALWAYS_USAGE_DESCRIPTION": "Trace your location on the map"
     }
   },
   "cordova-plugin-badge": {
@@ -163,6 +157,30 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-appavailability@^0.4.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-google-analytics": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-google-analytics"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-whitelist": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-whitelist@1.3.3"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-geolocation": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-geolocation@^4.0.1"
     },
     "is_top_level": true,
     "variables": {}

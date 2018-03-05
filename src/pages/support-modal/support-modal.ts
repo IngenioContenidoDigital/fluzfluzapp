@@ -59,7 +59,6 @@ export class SupportModalPage {
       this.supportForm.controls['issue'].valid &&
       this.supportForm.controls['problem'].valid
     ) ? true : false;
-    console.log(this.enabledSendButton);
   }
   
   sendProblem(valor){
@@ -70,32 +69,29 @@ export class SupportModalPage {
     this.storage.get('userData').then((val) => {
       let name = val.firstname+' '+val.lastname;
       this.supportService.sendProblem(val.id, name, val.email, valor).then(
-        (success:any) => {
+        (response:any) => {
           loader.dismiss();
-          if(success.status === 200) {
-            let response = JSON.parse(success._body);
-            if (response.success) {
-              this.enabledSendButton = false;
-              let alert = this.alertCtrl.create({
-                title: 'Enviado',
-                subTitle: 'Se ha enviado tu problema, nos contactaremos contigo en breve.',
-                buttons: [{
-                  text: 'Ok',
-                  handler: () => {
-                    setTimeout(()=>{ this.navCtrl.pop() }, 500);
-                  }
-                }]
-              });
-              alert.present();
-            } else {
-              this.enabledSendButton = true;
-              let alert = this.alertCtrl.create({
-                title: 'No se ha enviado tu problema',
-                subTitle: response.error['0'],
-                buttons: ['OK']
-              });
-              alert.present();
-            }
+          if(response.success === true) {
+            this.enabledSendButton = false;
+            let alert = this.alertCtrl.create({
+              title: 'Enviado',
+              subTitle: 'Se ha enviado tu problema, nos contactaremos contigo en breve.',
+              buttons: [{
+                text: 'Ok',
+                handler: () => {
+                  setTimeout(()=>{ this.navCtrl.pop() }, 500);
+                }
+              }]
+            });
+            alert.present();
+          } else {
+            this.enabledSendButton = true;
+            let alert = this.alertCtrl.create({
+              title: 'No se ha enviado tu problema',
+              subTitle: response.error['0'],
+              buttons: ['OK']
+            });
+            alert.present();
           }
         },
         error => {

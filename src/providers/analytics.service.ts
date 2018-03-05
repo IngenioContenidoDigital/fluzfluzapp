@@ -28,7 +28,7 @@ export class AnalyticsService {
   public trackEvent(category:string = 'FluzFluzApp', action:string = '', label:string = '', value:number = 0, newSession:boolean = false){
     this.ga.trackEvent(category, action, label, value, newSession)
     .catch(error=>{
-      console.error(error);
+      console.error("Analytics Error: \n"+error);
     });
   }
   

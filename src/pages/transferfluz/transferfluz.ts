@@ -32,144 +32,143 @@ import { AnalyticsService } from '../../providers/analytics.service';
   ]
 })
 export class TransferFluzPage {
+  public userData:any = {};
+  public searchBox:string = "";
+  public fluzzers:any = [];
+  public fluzzerSelected:string = "";
+  public valueTransfer:any = 0;
+  public displayTransferFluz:any = false;
+  public notFound:any = false;
 
-    public userData:any = {};
-    public searchBox:string = "";
-    public fluzzers:any = [];
-    public fluzzerSelected:string = "";
-    public valueTransfer:any = 0;
-    public displayTransferFluz:any = false;
-    public notFound:any = false;
+  constructor(
+    public loadingController: LoadingController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public tabsService: TabsService,
+    public storage: Storage,
+    public myAccount: MyAccountService,
+    public transferFluz: TransferFluzService,
+    private alertCtrl: AlertController,
+    public analytics: AnalyticsService
+  ){
+  }
+
+  ionViewWillEnter(){
+    this.analytics.trackView('TransferFluzPage');
+    this.getUserData();
+    this.tabsService.hide();
+  }
   
-  
-    constructor(
-      public loadingController: LoadingController,
-      public navCtrl: NavController,
-      public navParams: NavParams,
-      public tabsService: TabsService,
-      public storage: Storage,
-      public myAccount: MyAccountService,
-      public transferFluz: TransferFluzService,
-      private alertCtrl: AlertController,
-      public analytics: AnalyticsService
-    ){
-    }
+  ionViewWillLeave(){
+    this.tabsService.show();
+  }
     
-    ionViewWillEnter(){
-      this.analytics.trackView('TransferFluzPage');
-      this.getUserData();
-      this.tabsService.hide();
-    }
-
-    ionViewWillLeave(){
-      this.tabsService.show();
-    }
-
-    getUserData() {
-      this.userData.fluzTotal = 0;
-      this.storage.get('userData').then((val) => {
-        if( val != null && val != '' && val != undefined ){
-          this.userData.userName = val.firstname;
-          this.myAccount.getDataAccount(val.id).then(
-            (data:any) => {
-              setTimeout(()=>{
-                this.userData = Object.assign(this.userData, JSON.parse(data));
-                this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
-              }, 100);
-            }
-          )
-          .catch(error =>{
-            console.log(error);
-          });
-        }
-      })
-      .catch(error =>{
-        console.log(error);
-      });
-    }
-    
-    validateInputFluz(){
-      this.valueTransfer = this.valueTransfer > this.userData.fluzTotal ? this.userData.fluzTotal : this.valueTransfer;
-      this.enableTransfer();
-    }
-
-    enableTransfer() {
-        if ( this.valueTransfer > 0 && this.fluzzerSelected != "" ) {
-            this.displayTransferFluz = true;
-        } else {
-            this.displayTransferFluz = false;
-        }
-    }
-
-    searchFluzzer() {
-        this.fluzzers = [];
-        this.fluzzerSelected = "";
-        this.notFound = false;
-        setTimeout(()=>{
-          this.storage.get('userData').then(
-            (userData:any) => {
-              if ( this.searchBox != "" ) {
-                  this.transferFluz.searchFluzzers(this.searchBox, userData.id).then(
-                      (success:any) => {
-                          let response = JSON.parse(success._body);
-                          if ( response.success ) {
-                              this.fluzzers = response.fluzzers;
-                          } else {
-                              this.notFound = true;
-                          }
-                      },
-                      error => {
-                          console.log(error)
-                      }
-                  );
-              }
-            }
-          )
-          .catch(error =>{
-            console.log(error);
-          });
-        }, 500);
-        this.enableTransfer();
-    }
-
-    transfer() {
-        this.storage.get('userData').then((userData) => {
-            this.displayTransferFluz = false;
-            let loader = this.loadingController.create({
-                content: "Transfiriendo Fluz..."
-            });
-            loader.present();
-            this.transferFluz.transferFluz(userData.id, this.fluzzerSelected, this.valueTransfer).then(
-                (success:any) => {
-                    loader.dismiss();
-                    let response = JSON.parse(success._body);
-                    if ( success.status == 200 ) {
-                        this.searchBox = "";
-                        this.fluzzers = [];
-                        this.fluzzerSelected = "";
-                        this.valueTransfer = 0;
-                        this.displayTransferFluz = false;
-                        this.notFound = false;
-                        this.getUserData();
-                        this.enableTransfer();
-                        this.navCtrl.push(TransferFluzConfirmPage,{data: response.data});
-                    } else {
-                        this.displayTransferFluz = true;
-                        let alert = this.alertCtrl.create({
-                            title: 'Error Generando Transferencia',
-                            subTitle: 'Ha ocurrido un error en el proceso de transferencia de fluz.',
-                            buttons: ['OK']
-                        });
-                        alert.present();
-                    }
-                },
-                error => {
-                    console.log(error)
-                }
-            );
-        })
+  getUserData() {
+    this.userData.fluzTotal = 0;
+    this.storage.get('userData').then((val) => {
+      if( val != null && val != '' && val != undefined ){
+        this.userData.userName = val.firstname;
+        this.myAccount.getDataAccount(val.id).then(
+          (data:any) => {
+            setTimeout(()=>{
+              this.userData = Object.assign(this.userData, JSON.parse(data));
+              this.userData.fluzLasted === null ? this.userData.fluzLasted = 0 : this.userData.fluzLasted = this.userData.fluzLasted;
+            }, 100);
+          }
+        )
         .catch(error =>{
           console.log(error);
         });
+      }
+    })
+    .catch(error =>{
+      console.log(error);
+    });
+  }
+
+  validateInputFluz(){
+    this.valueTransfer = this.valueTransfer > this.userData.fluzTotal ? this.userData.fluzTotal : this.valueTransfer;
+    this.enableTransfer();
+  }
+
+  enableTransfer() {
+    if ( this.valueTransfer > 0 && this.fluzzerSelected != "" ) {
+      this.displayTransferFluz = true;
+    } else {
+      this.displayTransferFluz = false;
     }
+  }
+ 
+  searchFluzzer() {
+    this.fluzzers = [];
+    this.fluzzerSelected = "";
+    this.notFound = false;
+    setTimeout(()=>{
+      this.storage.get('userData').then(
+        (userData:any) => {
+          if ( this.searchBox != "" ) {
+            this.transferFluz.searchFluzzers(this.searchBox, userData.id).then(
+              (response:any) => {
+                if ( response.success ) {
+                  this.fluzzers = response.fluzzers;
+                } else {
+                  this.notFound = true;
+                }
+              },
+              error => {
+                console.log(error)
+              }
+            );
+          }
+        }
+      )
+      .catch(error =>{
+        console.log(error);
+      });
+    }, 500);
+    this.enableTransfer();
+  }
+
+  transfer() {
+    this.storage.get('userData').then((userData) => {
+      this.displayTransferFluz = false;
+      let loader = this.loadingController.create({
+          content: "Transfiriendo Fluz..."
+      });
+      loader.present();
+      this.transferFluz.transferFluz(userData.id, this.fluzzerSelected, this.valueTransfer).then(
+        (response:any) => {
+          loader.dismiss();
+          console.log('response');
+          console.log(response);
+          
+          if ( response.success ) {
+            this.searchBox = "";
+            this.fluzzers = [];
+            this.fluzzerSelected = "";
+            this.valueTransfer = 0;
+            this.displayTransferFluz = false;
+            this.notFound = false;
+            this.getUserData();
+            this.enableTransfer();
+            this.navCtrl.push(TransferFluzConfirmPage,{data: response.data});
+          } else {
+            this.displayTransferFluz = true;
+            let alert = this.alertCtrl.create({
+              title: 'Error Generando Transferencia',
+              subTitle: 'Ha ocurrido un error en el proceso de transferencia de fluz.',
+              buttons: ['OK']
+            });
+            alert.present();
+          }
+        },
+        error => {
+            console.log(error)
+        }
+      );
+    })
+    .catch(error =>{
+      console.log(error);
+    });
+  }
 }

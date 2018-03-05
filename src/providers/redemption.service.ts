@@ -14,22 +14,22 @@ export class Redemption {
   constructor(public http: HttpClient) {}
 
   public setRedemption(id_customer:any, value:any) {
-    let params = new HttpParams();
-      params.set('id_customer', id_customer);
-      params.set('identification', value.n_identification);
-      params.set('firts_name', value.firts_name);
-      params.set('last_name', value.last_name);
-      params.set('card', value.card);
-      params.set('account', value.type_acount);
-      params.set('bank', value.banco);
-      params.set('points', value.fluzTotal);
-      params.set('credits', value.totalSavings);
-      params.set('typeRedemption', value.typeRedemption);
-      params.set('cardVirtual', value.cardVirtual);
-      params.set('type_vitual', value.type_vitual);
+    let Params = new HttpParams();
+      Params = Params.append('id_customer', id_customer);
+      Params = Params.append('identification', value.n_identification);
+      Params = Params.append('firts_name', value.firts_name);
+      Params = Params.append('last_name', value.last_name);
+      Params = Params.append('card', value.card);
+      Params = Params.append('account', value.type_acount);
+      Params = Params.append('bank', value.banco);
+      Params = Params.append('points', value.fluzTotal);
+      Params = Params.append('credits', value.totalSavings);
+      Params = Params.append('typeRedemption', value.typeRedemption);
+      Params = Params.append('cardVirtual', value.cardVirtual);
+      Params = Params.append('type_vitual', value.type_vitual);
 
       return new Promise(resolve => {
-        this.http.get(this._url, { params: params })
+        this.http.get(this._url, { params: Params })
           .subscribe(
             (data:any) => {
               this.userData = data;

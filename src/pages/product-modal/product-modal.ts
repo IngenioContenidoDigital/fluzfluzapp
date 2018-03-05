@@ -134,9 +134,9 @@ export class ProductModalPage {
       this.storage.get('cart').then((val) => {
         this.idCart = ( val != undefined && val != null && val != '' ) ? val.id : 0;
         this.cartService.addToCart( this.idCart, idProduct, userData.id ).then(
-          (success:any) => {
-            if(success.status === 200) {
-              this.storage.set('cart', JSON.parse(success._body));
+          (response:any) => {
+            if(response.status == true) {
+              this.storage.set('cart', JSON.parse(response));
               this.updateCountCartEmit();
             }
           },

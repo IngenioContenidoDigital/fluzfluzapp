@@ -64,12 +64,17 @@ export class MessageModalPage {
       content: "Enviando..."
     });
     loader.present();
-    this.storage.get('userId').then((val) => {
-      this.network.sendMessage(val, this.destiny.id, this.message).then(
+    this.storage.get('userData').then((val) => {
+      this.network.sendMessage(val.id, this.destiny.id, this.message).then(
         (data:any) => {
+          console.log('data');
+          console.log(data);
           if ( data == 'true' ){
             loader.dismiss();
             this.viewCtrl.dismiss();
+          }
+          else {
+            loader.dismiss();
           }
         }
       )

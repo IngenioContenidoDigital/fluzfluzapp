@@ -12,12 +12,12 @@ export class InstagramService {
   constructor(public http: HttpClient) {}
   
   public getInstagramData( id_manufacturer:any, count:any ) {
-    let params = new HttpParams();
-    params.set('id_manufacturer', id_manufacturer);
-    params.set('count', count);
+    let Params = new HttpParams();
+    Params = Params.append('id_manufacturer', id_manufacturer);
+    Params = Params.append('count', count);
     
     return new Promise(resolve => {
-      this.http.get(this._url, { params: params })
+      this.http.get(this._url, { params: Params })
         .subscribe(
         	data => {
             this.data = data;

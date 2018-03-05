@@ -79,9 +79,9 @@ export class PaymentPsePage {
     });
     loader.present();
     this.backService.getBanks().then(
-      (success:any) => {
-        if(success.status === 200) {
-          let response:any = JSON.parse(success._body);
+      (response:any) => {
+        if(response.success === true) {
+          loader.dismiss();
           if(response.error == 1){
             let alert = this.alertCtrl.create({
               title: 'Error',
@@ -100,9 +100,8 @@ export class PaymentPsePage {
             alert.present();
           }
           else{
-            this.bancos = response;
+            this.bancos = response.banks;
           }
-          loader.dismiss();
         }
       },
       error => {
@@ -145,75 +144,69 @@ export class PaymentPsePage {
         loader.present();
         this.enabledPayButton = false;
         this.PaymentPseService.sendPayment(dataForm, this.bankname, userData, cart).then(
-          (success:any) => {
-            console.log(success);
-            if(success.status === 200) {
-              loader.dismiss();
-              let response = JSON.parse(success._body);
-              if ( response.success ) {
-                this.storage.remove('cart').then((cart) => {
-                  let title = 'Transacción Exitosa';
-                  let message = response.message;
+          (response:any) => {
+            console.log(response);
+            loader.dismiss();
+            if ( response.success ) {
+              this.storage.remove('cart').then((cart) => {
+                let title = 'Transacción Exitosa';
+                let message = response.message;
 
-                  if ( response.order.order_state == "Pending" ) {
-                    title = 'Transacción en Proceso';
-                    message = 'Nos encontramos validando tu transacción, confirmaremos una vez culminemos el proceso.';
-                  }
+                if ( response.order.order_state == "Pending" ) {
+                  title = 'Transacción en Proceso';
+                  message = 'Nos encontramos validando tu transacción, confirmaremos una vez culminemos el proceso.';
+                }
 
-                  this.openUrl(response.pay_info.url_pay_pse);
+                this.openUrl(response.pay_info.url_pay_pse);
 
-                  let alert = this.alertCtrl.create({
-                    title: title,
-                    message: message,
-                    buttons: [
-                      {
-                        text: 'Seguir Comprando',
-                        handler: () => {
-                          this.tabsService.changeTabInContainerPage(0);
-                          this.navCtrl.setRoot(TabsPage);
-                        }
-                      },
-                      {
-                        text: 'Ver Mis Bonos',
-                        handler: () => {
-                          this.tabsService.changeTabInContainerPage(1);
-                          this.navCtrl.setRoot(TabsPage);
-                        }
-                      }
-                    ]
-                  });
-                  alert.present();
-                });
-              } else {
-                this.enabledPayButton = true;
                 let alert = this.alertCtrl.create({
-                  title: 'Error Generando Pago',
-                  subTitle: response.message,
-                  buttons: ['OK']
+                  title: title,
+                  message: message,
+                  buttons: [
+                    {
+                      text: 'Seguir Comprando',
+                      handler: () => {
+                        this.tabsService.changeTabInContainerPage(0);
+                        this.navCtrl.setRoot(TabsPage);
+                      }
+                    },
+                    {
+                      text: 'Ver Mis Bonos',
+                      handler: () => {
+                        this.tabsService.changeTabInContainerPage(1);
+                        this.navCtrl.setRoot(TabsPage);
+                      }
+                    }
+                  ]
                 });
                 alert.present();
-              }
-            }
-            else {
-              loader.dismiss();
-              this.enabledPayButton = true;
-                let alert = this.alertCtrl.create({
-                title: 'Error',
-                subTitle: 'Ha ocurrido un error con el servicio de pagos, por favor intenta nuevamente.',
-                buttons: ['OK']
               });
-              alert.present();
+            } else {
+              this.enabledPayButton = true;
+              this.showAlert('Error Generando Pago', response.message);
             }
           },
           error => {
             loader.dismiss();
-            console.log(error)
+            this.showAlert('Ha ocurrido un error:', 'Error con el servicio de pagos, por favor intenta nuevamente.');
+            console.log(error);
           }
-        ),
-        () => {
+        )
+        .catch(function () {
           loader.dismiss();
-        };
+          this.enabledPayButton = true;
+          this.showAlert('Ha ocurrido un error:', 'Error con el servicio de pagos, por favor intenta nuevamente.');
+        });
       });
     });
+  }
+  
+  showAlert(title:string, msg:string){
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: msg,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

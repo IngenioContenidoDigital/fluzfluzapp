@@ -30,12 +30,12 @@ export class HomeService {
   
   public getMapData(latitude:any, longitude:any, option:any){
     let url = WS_BASE + '/getAddressMaps';
-    let params = new HttpParams();
-      params.set('latitude', latitude);
-      params.set('longitude', longitude);
-      params.set('option', option);
+    let Params = new HttpParams();
+    Params = Params.append('latitude', latitude);
+    Params = Params.append('longitude', longitude);
+    Params = Params.append('option', option);
     return new Promise(resolve => {
-      this.http.get(url, { params: params })
+      this.http.get(url, { params: Params })
         .subscribe(
         	data => {
             this.data = data;
@@ -51,8 +51,7 @@ export class HomeService {
   
   public getNotificationBarOrders(id_customer:any){
     let url = WS_BASE + '/getNotificationBarOrders';
-    let params = new HttpParams();
-      params.set('id_customer', id_customer);
+    let params = new HttpParams().set('id_customer', ""+id_customer);
     return new Promise(resolve => {
       this.http.get(url, { params: params })
         .subscribe(

@@ -51,7 +51,7 @@ export class CheckoutPage {
   
   public creditCardSaved:any = [];
   
- constructor(
+  constructor(
     private alertCtrl: AlertController,
     private PaymentFluzService: PaymentFluzService,
     private personalInformationService: PersonalInformationService,
@@ -69,20 +69,19 @@ export class CheckoutPage {
   ionViewDidLoad() {
     this.updateDataView();
   }
-
+  
+  showAlert(title:string, msg:string){
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: msg,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  
   selectedPayment(value){
     if( value == 5 && this.cart.order_total < 300000 ){
-      let alert = this.alertCtrl.create({
-        title: "Medio de pago no disponible",
-        message: "BitPay solo está disponible en compras superiores a $300.000 COP ó $100 USD",
-        buttons: [
-          {
-            text: 'Ok',
-            role: 'cancel'
-          }
-        ]
-      });
-      alert.present();
+      this.showAlert("Medio de pago no disponible","BitPay solo está disponible en compras superiores a $300.000 COP ó $100 USD");
     }
     else{
       this.payment = value;
@@ -127,88 +126,90 @@ export class CheckoutPage {
   goTo(value) {
     switch (value){
       case "payment": {
-          if ( this.cart.order_total == 0 ) {
-                this.storage.get('userData').then((userData) => {
-                    this.storage.get('cart').then((cart) => {
-                        let loader = this.loadingController.create({
-                            content: "Pagando..."
-                        });
-                        loader.present();
-                        this.PaymentFluzService.sendPayment(userData,cart).then(
-                            (success:any) => {
-                                loader.dismiss();
-                                let response = JSON.parse(success._body);
-                                if ( response.success ) {
-                                    this.storage.remove('cart').then((cart) => {
-                                        let title = 'Transacción Exitosa';
-                                        let message = response.message;
-
-                                        let alert = this.alertCtrl.create({
-                                            title: title,
-                                            message: message,
-                                            buttons: [
-                                                {
-                                                    text: 'Seguir Comprando',
-                                                    handler: () => {
-                                                        this.tabsService.changeTabInContainerPage(0);
-                                                        this.navCtrl.setRoot(TabsPage);
-                                                    }
-                                                },
-                                                {
-                                                    text: 'Ver Mis Bonos',
-                                                    handler: () => {
-                                                        this.tabsService.changeTabInContainerPage(1);
-                                                        this.navCtrl.setRoot(TabsPage);
-                                                    }
-                                                }
-                                            ]
-                                        });
-                                        alert.present();
-                                    })
-                                  .catch(function () {
-                                    console.log("Error");
-                                  });
-                                }
-                            },
-                            error => {
-                                console.log(error)
-                            }
-                        );
-                    })
-                  .catch(function () {
-                    console.log("Error");
-                  });
-                })
-              .catch(function () {
-                console.log("Error");
+        if ( this.cart.order_total == 0 ) {
+          this.storage.get('userData').then((userData) => {
+            this.storage.get('cart').then((cart) => {
+              let loader = this.loadingController.create({
+                content: "Pagando..."
               });
-          } else {
-            switch (this.payment){
-              case 1:{
-                this.navCtrl.push(CreditCardPage,{creditCardSaved: this.creditCardSaved});
-                break            
-              }
-              case 2:{
-                this.navCtrl.push( PaymentFluzPage,{
-                  cart: this.cart
-                });
-                break            
-              }
-              case 3:{
-                this.navCtrl.push( CreditCardPage );
-                break            
-              }
-              case 4:{
-                this.navCtrl.push( PaymentPsePage );
-                break            
-              }
-              case 5:{
-                this.navCtrl.push( BitPayPage );
-                break            
-              }
+              console.log('Pagando');
+              loader.present();
+              this.PaymentFluzService.sendPayment(userData,cart).then(
+                (response:any) => {
+                  loader.dismiss();
+//                  let response = JSON.parse(success._body);
+                  if ( response.success ) {
+                    this.storage.remove('cart').then((cart) => {
+                      let title = 'Transacción Exitosa';
+                      let message = response.message;
+
+                      let alert = this.alertCtrl.create({
+                        title: title,
+                        message: message,
+                        buttons: [
+                          {
+                            text: 'Seguir Comprando',
+                            handler: () => {
+                              this.tabsService.changeTabInContainerPage(0);
+                              this.navCtrl.setRoot(TabsPage);
+                            }
+                          },
+                          {
+                            text: 'Ver Mis Bonos',
+                            handler: () => {
+                              this.tabsService.changeTabInContainerPage(1);
+                                this.navCtrl.setRoot(TabsPage);
+                            }
+                          }
+                        ]
+                      });
+                      alert.present();
+                    })
+                    .catch(function () {
+                      console.log("Error");
+                    });
+                  }
+                },
+                error => {
+                  console.log(error)
+                }
+              );
+            })
+            .catch(function () {
+              console.log("Error");
+            });
+          })
+          .catch(function () {
+            console.log("Error");
+          });
+        }
+        else {
+          switch (this.payment){
+            case 1:{
+              this.navCtrl.push(CreditCardPage,{creditCardSaved: this.creditCardSaved});
+              break            
             }
-            break;
+            case 2:{
+              this.navCtrl.push( PaymentFluzPage,{
+                cart: this.cart
+              });
+              break            
+            }
+            case 3:{
+              this.navCtrl.push( CreditCardPage );
+              break            
+            }
+            case 4:{
+              this.navCtrl.push( PaymentPsePage );
+              break            
+            }
+            case 5:{
+              this.navCtrl.push( BitPayPage );
+              break            
+            }
           }
+          break;
+        }
       }
       default: {
         this.navCtrl.pop();        
@@ -220,10 +221,10 @@ export class CheckoutPage {
   getSevedCreditCard(loader){
     this.storage.get('userData').then((userData) => {
       this.personalInformationService.getSevedCreditCard(userData.id).then(
-        (success:any) => {
+        (response:any) => {
           loader.dismiss();
-          if(success.status === 200) {
-            this.creditCardSaved = JSON.parse(success._body);
+          if(response.success) {
+            this.creditCardSaved = response.card;
           }
         },
         ()=>{

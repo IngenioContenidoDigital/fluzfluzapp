@@ -148,42 +148,42 @@ export class PaymentFluzPage {
     }
   }
 
-    pay():void {
-        this.storage.get('userData').then((userData) => {
-            this.storage.get('cart').then((cartData) => {
-                let loader = this.loadingController.create({
-                    content: "Aplicando Puntos..."
-                });
-                loader.present();
-                this.PaymentFluzService.applyPoints(userData.id,cartData,this.singleValue).then(
-                    (success:any) => {
-                        loader.dismiss();
-                        if(success.status === 200) {
-                            this.storage.set('cart', JSON.parse(success._body)).then((cartData) => {
-                                this.sendNotification("Fluz aplicados");
-                                this.navCtrl.pop();
-                            })
-                            .catch(error =>{
-                              console.log(error);
-                            });
-                        } else {
-                            this.sendNotification("Error aplicando fluz.");
-                        }
-                    },
-                    error => {
-                        loader.dismiss();
-                        console.log(error)
-                    }
-                );
-            })
-            .catch(error =>{
-              console.log(error);
-            });
-        })
+  pay():void {
+    this.storage.get('userData').then((userData) => {
+      this.storage.get('cart').then((cartData) => {
+        let loader = this.loadingController.create({
+          content: "Aplicando Puntos..."
+        });
+        loader.present();
+        this.PaymentFluzService.applyPoints(userData.id,cartData,this.singleValue).then(
+          (response:any) => {
+            loader.dismiss();
+            if(response.success === true) {
+              this.storage.set('cart', response).then((cartData) => {
+                this.sendNotification("Fluz aplicados");
+                this.navCtrl.pop();
+              })
+              .catch(error =>{
+                console.log(error);
+              });
+            } else {
+              this.sendNotification("Error aplicando fluz.");
+            }
+          },
+          error => {
+            loader.dismiss();
+            console.log(error)
+          }
+        );
+      })
       .catch(error =>{
         console.log(error);
       });
-    }
+    })
+    .catch(error =>{
+      console.log(error);
+    });
+  }
     
     sendNotification(message:string):void {
         let toast = this.toastCtrl.create({

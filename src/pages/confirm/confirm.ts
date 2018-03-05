@@ -33,7 +33,6 @@ import { AnalyticsService } from '../../providers/analytics.service';
 })
 export class ConfirmPage {
 
-  tabBarElement: any;
   confirmForm: FormGroup;
   phoneForm: FormGroup;
   public nextViewConfirm:boolean = false;
@@ -66,7 +65,6 @@ export class ConfirmPage {
     public alertCtrl: AlertController,
     public analytics: AnalyticsService
   ) {
-    this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
     this.confirmForm = formBuilder.group({
       'confirmNumber': [null, Validators.compose([Validators.required, Validators.minLength(6),Validators.pattern('^[0-9]{1,6}$')])]
     });
@@ -78,18 +76,22 @@ export class ConfirmPage {
     platform.registerBackButtonAction(() => {
       let view = this.navCtrl.getActive();
       if (view.component.name == "ConfirmPage") {
-        let toast = this.toastCtrl.create({
-          message:  'Debes confirmar tu cuenta.',
-          duration: 2000,
-          position: 'middle',
-          cssClass: "toast"
-        });
-        toast.present();
+        this.showToast('Debes confirmar tu cuenta.', 2);
       }
       else {
         this.navCtrl.pop({});
       }
     });
+  }
+  
+  showToast(message:string, duration: number){
+    let toast = this.toastCtrl.create({
+      message:  message,
+      duration: duration*1000,
+      position: 'middle',
+      cssClass: "toast"
+    });
+    toast.present();
   }
   
   ionViewWillEnter(){
@@ -206,23 +208,23 @@ export class ConfirmPage {
     });
     loader.present();
     this.storage.get('userData').then((val) => {
-      let data = {
+      let confirmPhoneData:any = {
         confirmNumber: valor.confirmNumber,
         id_customer: val.id
       }      
-      this.confirmService.confirm(data).then(
-        (success:any) => {
+      this.confirmService.confirm(confirmPhoneData).then(
+        (response:any) => {
           loader.dismiss();
-          if (success.status === 200){
+          if(response.error == 0){
             this.storage.set('userConfirm', true);
             this.navCtrl.push( ConfirmatedPage );
           }
           else {
-            this.showConfirm();
-          }          
+            this.showAlert("Ha ocurrido un error:", response.message);
+          }
         },
         //Si hay algun error en el servidor.
-        error =>{ 
+        error =>{
           console.log(error)
         }
       );
@@ -237,26 +239,44 @@ export class ConfirmPage {
     this.enabledConfirmButton = false;  
 	}
   
+  // Genera una alerta
+  showAlert(title:string, message:string){
+    let alert = this.alertCtrl.create({
+      title: title,
+      message: message,
+      buttons: [
+        {
+          text: 'Aceptar'
+        }
+      ]
+    });
+    alert.present();
+  }
+  
   getPhone(){
     let loader = this.loadingController.create({
       content: "Cargando..."
     });
     loader.present();
-    this.storage.get('userData').then((val) => {
-      this.confirmService.getPhone(val.id).then( (data:any)=> {
-        loader.dismiss();
-        if( data.phone == null || data.phone == undefined || data.phone == 0 || data.phone == '0' ) {
-          this.showFormPhone = true;
-        }
-        else{
-          this.phoneNumber = data.formatPhone;
-          this.showFormPhone = false;
-        }
-      })
-      .catch(function () {
-        console.log("Error");
-      });
-    })
+    this.storage.get('userData').then(
+      (userData:any) => {
+        this.confirmService.getPhone(userData.id).then(
+          (phoneData:any)=> {
+            loader.dismiss();
+            if( phoneData.phone == null || phoneData.phone == undefined || phoneData.phone == 0 || phoneData.phone == '0' ) {
+              this.showFormPhone = true;
+            }
+            else{
+              this.phoneNumber = phoneData.formatPhone;
+              this.showFormPhone = false;
+            }
+          }
+        )
+        .catch(function () {
+          console.log("Error");
+        });
+      }
+    )
     .catch(function () {
       console.log("Error");
     });

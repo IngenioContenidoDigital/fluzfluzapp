@@ -117,12 +117,17 @@ export class ProfileModalPage {
       content: "Cargando..."
     });
     loader.present();
-    this.myAccount.getActivityNetworkProfile( this.data.id ).then(
-      (data:any)=>{
-        loader.dismiss();
-        this.activity = JSON.parse(data);
-      }
-    )
+    this.storage.get('userData').then((val) => {
+      this.myAccount.getActivityNetworkProfile( val.id, this.data.id ).then(
+        (data:any)=>{
+          loader.dismiss();
+          this.activity = JSON.parse(data);
+        }
+      )
+      .catch(error =>{
+        console.log(error);
+      });
+    })
     .catch(error =>{
       console.log(error);
     });

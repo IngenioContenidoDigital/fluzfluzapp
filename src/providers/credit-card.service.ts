@@ -23,10 +23,7 @@ export class CreditCardService {
 
     let dataPayment = JSON.stringify( this.dataPayment );
     return new Promise((resolve, reject) => {
-      this.http.post(this._url, {
-        headers: this.headers,
-        params: dataPayment,
-      })
+      this.http.post(this._url, dataPayment)
       .subscribe(res => {
         resolve(res);
       }, (err) => {

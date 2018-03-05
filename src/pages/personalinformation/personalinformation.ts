@@ -89,10 +89,9 @@ export class PersonalInformationPage {
     
   getPhoneProviders(){
     this.personalInformationService.getPhoneProviders().then(
-      (success:any) => {
-        if(success.status === 200) {
-          let response = JSON.parse(success._body);
-          this.phoneProviders = response;
+      (response:any) => {
+        if(response.status === true) {
+          this.phoneProviders = response.phonesProviders;
         }
       },
       error => {
@@ -104,10 +103,9 @@ export class PersonalInformationPage {
 
   getCities(){
     this.personalInformationService.getCities().then(
-      (success:any) => {
-        if(success.status === 200) {
-          let response = JSON.parse(success._body);
-          this.cities = response;
+      (response:any) => {
+        if(response.success === true) {
+          this.cities = response.cities;
         }
       },
       error => {
@@ -124,9 +122,9 @@ export class PersonalInformationPage {
     loader.present();
     this.storage.get('userData').then((userData) => {
       this.personalInformationService.getPersonalInformation(userData.id).then(
-        (success:any) => {
-          if(success.status === 200) {
-            let response = JSON.parse(success._body);
+        (data:any) => {
+          if(data.success === true) {
+            let response = data.personalinformation;
             this.personalInformationForm.get('id_gender').setValue(response.id_gender);
             this.personalInformationForm.get('firstname').setValue(response.firstname);
             this.personalInformationForm.get('lastname').setValue(response.lastname);
@@ -233,26 +231,23 @@ export class PersonalInformationPage {
       loader.present();
       this.enabledSaveButton = false;
       this.personalInformationService.save(userData.id, dataForm).then(
-        (success:any) => {
-          if(success.status === 200) {
-            loader.dismiss();
-            let response = JSON.parse(success._body);
-            if ( response.success ) {
-              let alert = this.alertCtrl.create({
-                title: 'Actualización Exitosa',
-                subTitle: "Información Personal Almacenada.",
-                buttons: ['OK']
-              });
-              alert.present();
-            } else {
-              this.enabledSaveButton = true;
-              let alert = this.alertCtrl.create({
-                title: 'Error Almacenando Información',
-                subTitle: response.error,
-                buttons: ['OK']
-              });
-              alert.present();
-            }
+        (response:any) => {
+          loader.dismiss();
+          if ( response.success ) {
+            let alert = this.alertCtrl.create({
+              title: 'Actualización Exitosa',
+              subTitle: "Información Personal Almacenada.",
+              buttons: ['OK']
+            });
+            alert.present();
+          } else {
+            this.enabledSaveButton = true;
+            let alert = this.alertCtrl.create({
+              title: 'Error Almacenando Información',
+              subTitle: response.error,
+              buttons: ['OK']
+            });
+            alert.present();
           }
         }
       );

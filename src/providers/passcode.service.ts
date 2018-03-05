@@ -14,9 +14,8 @@ export class PasscodeService {
   
   public getPasscode(id_customer:any) {
     return new Promise(resolve => {
-      let params = new HttpParams();
-      params.set('id_customer', id_customer);
-      this.http.get(this._url, { params: params }).subscribe((data:any) => {
+      let Params = new HttpParams().set('id_customer', id_customer);
+      this.http.get(this._url, { params: Params }).subscribe((data:any) => {
         this.data = data.result;
         resolve(data);
       }, err => {
@@ -28,10 +27,10 @@ export class PasscodeService {
   
   public setPasscode( id_customer:any,  passcode:any ) {
     return new Promise(resolve => {
-      let params = new HttpParams();
-      params.set('id_customer', id_customer);
-      params.set('passcode', passcode);
-      this.http.get(WS_BASE + '/setPasscode', { params: params }).subscribe((data:any) => {
+      let Params = new HttpParams();
+      Params = Params.append('id_customer', id_customer);
+      Params = Params.append('passcode', passcode);
+      this.http.get(WS_BASE + '/setPasscode', { params: Params }).subscribe((data:any) => {
         this.data = JSON.stringify(data.result);
         resolve(data);
       }, err => {
@@ -44,9 +43,7 @@ export class PasscodeService {
   public validatePasscode(variables) {
     let passcodeInfo = JSON.stringify(variables);
     return new Promise((resolve, reject) => {
-      this.http.post(WS_BASE+'validatePasscode', {
-        params: passcodeInfo,
-      })
+      this.http.post(WS_BASE+'validatePasscode', passcodeInfo)
       .subscribe(res => {
         resolve(res);
       }, (err) => {
@@ -58,9 +55,7 @@ export class PasscodeService {
   public updatePasscode(variables) {
     let passcodeInfo = JSON.stringify(variables);
     return new Promise((resolve, reject) => {
-      this.http.post(WS_BASE+'validatePasscode', {
-        params: passcodeInfo,
-      })
+      this.http.post(WS_BASE+'validatePasscode', passcodeInfo)
       .subscribe(res => {
         resolve(res);
       }, (err) => {
