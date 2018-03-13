@@ -120,6 +120,7 @@ export class ProductChildPage {
           (response:any) => {
             loader.dismiss();
             if(response.success == true) {
+              this.analytics.trackView('ProductAddToCartPage');
               this.storage.set('cart', response);
               this.updateCountCartEmit();
             }

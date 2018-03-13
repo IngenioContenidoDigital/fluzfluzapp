@@ -142,7 +142,7 @@ export class CheckoutPage {
                     this.storage.remove('cart').then((cart) => {
                       let title = 'Transacción Exitosa';
                       let message = response.message;
-
+                      this.analytics.trackView('ConfirmPayPage');
                       let alert = this.alertCtrl.create({
                         title: title,
                         message: message,

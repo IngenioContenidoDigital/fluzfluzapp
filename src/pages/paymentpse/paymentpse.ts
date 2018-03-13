@@ -158,7 +158,7 @@ export class PaymentPsePage {
                 }
 
                 this.openUrl(response.pay_info.url_pay_pse);
-
+                this.analytics.trackView('ConfirmPayPage');
                 let alert = this.alertCtrl.create({
                   title: title,
                   message: message,

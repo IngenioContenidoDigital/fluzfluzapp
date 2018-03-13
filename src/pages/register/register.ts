@@ -183,6 +183,7 @@ export class RegisterPage {
         loader.dismiss();
         if(response.success === true) {
           this.enabledSaveButton = true;
+          this.analytics.trackView('RegisterCompletePage');
           let alert = this.alertCtrl.create({
             title: 'Registro completo',
             subTitle: 'Hemos enviado un correo de verificación de tu cuenta.',

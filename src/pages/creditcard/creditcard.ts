@@ -113,6 +113,7 @@ export class CreditCardPage {
                   message = 'Nos encontramos validando tu transacción, confirmaremos una vez culminemos el proceso.';
                 }
 
+                this.analytics.trackView('ConfirmPayPage');
                 let alert = this.alertCtrl.create({
                   title: title,
                   message: message,
