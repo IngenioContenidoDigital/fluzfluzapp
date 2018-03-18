@@ -28,4 +28,8 @@ page-register {
       line-height: 43px;
     }
   }
+  .error-passwords{
+    @extend .text-primary;
+    margin-left: 20px !important;
+  }
 }

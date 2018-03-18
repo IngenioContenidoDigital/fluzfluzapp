@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform, ToastController, LoadingController, ModalController } from 'ionic-angular';
+import { ViewController, NavController, NavParams, AlertController, Platform, ToastController, LoadingController, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmService } from '../../providers/confirm.service';
 import { Storage } from '@ionic/storage';
@@ -57,6 +57,7 @@ export class LoginPage {
     public platform: Platform,
     public analytics: AnalyticsService,
     private loginService:LoginService,
+    public viewCtrl: ViewController,
     private browserTab: BrowserTab,
     private iab: InAppBrowser,
     private fb: Facebook,
@@ -79,6 +80,7 @@ export class LoginPage {
 
         platform.registerBackButtonAction(() => {
             // get current active page
+          setTimeout(()=>{ 
             let view = this.navCtrl.getActive();
             if (view.component.name == "LoginPage") {
                 //Double check to exit app
@@ -98,6 +100,7 @@ export class LoginPage {
             else {
               this.navCtrl.pop({});
             }
+          },500);
         });
     })
     .catch(function () {
@@ -108,10 +111,23 @@ export class LoginPage {
   ionViewWillEnter(){
     this.analytics.trackView('LoginPage');
     this.tabsService.hide();
+    this.validateLogin();
   }
 
   ionViewWillLeave(){
     this.tabsService.show();
+  }
+  
+  validateLogin(){
+    this.storage.get('userData').then((userData:any | null) => {
+      if(userData !== null && userData !== undefined && userData !== false){
+        this.storage.get('userId').then((userId:number | null) => {
+            this.storage.get('userConfirm').then((userConfirm:boolean | null) => {
+              if(!userConfirm  || (userData.id != userId)){this.goTo("confirmPage");}
+            });
+        });
+      }
+    });
   }
   
   //Según lo que recibe, manda a alguna página.
@@ -172,7 +188,9 @@ export class LoginPage {
     this.loginService.postLogin(valor).then(
       (response:any)=>{
         loader.dismiss();
-        if(response.active == 1 || response.active == "1"){
+        console.log('response');
+        console.log(response);
+        if( response.active != 0 && response.kick_out != 1 ){
           this.userData = response;
           this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
           
@@ -250,9 +268,13 @@ export class LoginPage {
   
   openRegister(){
     let registerModal = this.modalCtrl.create( RegisterPage );
-    registerModal.onDidDismiss(data => {
-    
-    });
+    registerModal.onDidDismiss(
+      (data:any) => {
+        if(data !== undefined && data !== null){
+          if(data.flagPop == true){this.viewCtrl.dismiss();}
+        }
+      }
+    );
     registerModal.present();
   }
   

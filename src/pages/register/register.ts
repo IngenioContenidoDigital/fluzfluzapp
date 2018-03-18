@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
+import { ViewController, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PersonalInformationService } from '../../providers/personalinformation.service';
 import { LoginService } from '../../providers/login-service';
@@ -7,6 +7,8 @@ import { AlertController } from 'ionic-angular';
 import { AnalyticsService } from '../../providers/analytics.service';
 import { CountryModalPage } from '../country-modal/country-modal'; 
 import { ConfirmService } from '../../providers/confirm.service';
+import { ConfirmPage } from '../confirm/confirm';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-register',
@@ -40,31 +42,68 @@ export class RegisterPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
+    public storage: Storage,
+    public viewCtrl: ViewController,
     public analytics: AnalyticsService
   ){
     setTimeout(()=>{ 
       this.data = navParams.get('data');
     }, 100);
     this.registerForm = formBuilder.group({
-      'firts_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,100}$/i)])],
+      'firts_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,100}$/i)])],
       'user_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{5,100}$/i)])],
-      'last_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,100}$/i)])],
+      'last_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,100}$/i)])],
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
       'address' : [null,  Validators.compose([Validators.required])],
       'city' : [null,  Validators.compose([Validators.required])],
       'type_identification' : [null,  Validators.compose([Validators.required])],
       'number_identification' : [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{5,15}$/i)])],
       'cod_refer' : [null, Validators.compose([Validators.pattern(/^[a-zA-Z0-9\s]{5,50}$/i)])],
-      'phoneNumber': [null, Validators.compose([Validators.required, Validators.minLength(6),Validators.pattern('^[0-9]{1,15}$')])]
-    });
+      'phoneNumber': [null, Validators.compose([Validators.required, Validators.minLength(6),Validators.pattern('^[0-9]{1,15}$')])],
+      'password' : [null,  Validators.compose([Validators.required])],
+      'password_confirm' : [null,  Validators.compose([Validators.required])]
+    }, {validator: this.matchingPasswords('password', 'password_confirm')});
   }
+  
+  matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
+    // TODO maybe use this https://github.com/yuyang041060120/ng2-validation#notequalto-1
+    return (group: FormGroup): {[key: string]: any} => {
+      let password = group.controls[passwordKey];
+      let confirmPassword = group.controls[confirmPasswordKey];
 
+      if (password.value !== confirmPassword.value) {
+        return {
+          mismatchedPasswords: true
+        };
+      }
+    }
+  }
+  
   ionViewWillEnter() {
+    this.storage.get('userData').then(
+      (userData:any)=>{
+        if(userData !== null && userData !== undefined && userData !== false){
+          this.storage.get('userConfirm').then(
+            (userConfirm: boolean | any)=>{
+              if(userData.active == 1 && userConfirm == true){
+                this.dismiss(true);
+              }
+            }
+          );
+        }
+      }
+    );
     this.analytics.trackView('RegisterPage');
     this.getCities();
     if(this.data.email != '' || this.data.email != 'undefined' || this.data.email){
       this.setValues();
     }
+  }
+  
+  dismiss(value:boolean) {
+    this.viewCtrl.dismiss({
+      flagPop: value
+    });
   }
   
   setValues(){
@@ -85,9 +124,16 @@ export class RegisterPage {
       this.registerForm.controls['type_identification'].valid &&
       this.registerForm.controls['number_identification'].valid &&
       this.registerForm.controls['cod_refer'].valid &&
-      this.registerForm.controls['phoneNumber'].valid
+      this.registerForm.controls['phoneNumber'].valid &&
+      this.registerForm.controls['password'].valid &&
+      this.registerForm.controls['password_confirm'].valid 
     ) {
-      this.enabledSaveButton = true;
+      if(this.registerForm.controls['password'].value == this.registerForm.controls['password_confirm'].value ){
+        this.enabledSaveButton = true;
+      }
+      else {
+        this.enabledSaveButton = false;
+      }
     } 
     else {
       this.enabledSaveButton = false;
@@ -119,8 +165,6 @@ export class RegisterPage {
   sendRandom(valor){
     this.confirmService.sendSMSRandom(this.countries.callingCodes+valor.phoneNumber).then(
       (response:any)=>{
-        console.log('response');
-        console.log(response);
         if(response.success){
           if(response.error == 0){
             this.showRandomConfirm(response.numberConfirm);
@@ -186,11 +230,11 @@ export class RegisterPage {
           this.analytics.trackView('RegisterCompletePage');
           let alert = this.alertCtrl.create({
             title: 'Registro completo',
-            subTitle: 'Hemos enviado un correo de verificación de tu cuenta.',
+            subTitle: 'Hemos enviado un correo con un link de verificación a tu cuenta de correo, por favor ábrelo con Fluz Fluz App.',
             buttons: [{
               text: 'Ok',
               handler: () => {
-                setTimeout(()=>{ this.navCtrl.pop() }, 500);
+                setTimeout(()=>{ this.goToConfrimPage(response.customer); }, 500);
               }
             }]
           });
@@ -210,6 +254,16 @@ export class RegisterPage {
       loader.dismiss();
       console.log('error');
     });
+  }
+  
+  public goToConfrimPage(customer:any){
+    this.analytics.trackEvent('RegisterPage', 'Registro', 'El usuario se ha registrado');
+    this.storage.set('userData', customer).then(()=>{
+      this.navCtrl.push( ConfirmPage );
+    });
+    this.storage.set('cart', '');
+    this.storage.set('userConfirm', false);
+    this.storage.set('userId', customer.id);
   }
   
   showAlert(title:string, message:string){

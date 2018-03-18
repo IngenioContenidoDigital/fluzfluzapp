@@ -5,7 +5,7 @@
  */
 
 
-export const DEV_MODE = false;
+export const DEV_MODE = true;
 
 // Produccion:
 //
@@ -90,7 +90,7 @@ export const SHOW_LASTED_FLUZ = false;
 
 
 //  Redemption Value:
-    export const REDEMPTION_MIN_VALUE = 100000;
+    export const REDEMPTION_MIN_VALUE = 50000;
 
 // Login
     export const URL_RECOVER_PASSWORD = URL_BASE+'es/recuperacion-contrasena';

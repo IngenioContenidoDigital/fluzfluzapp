@@ -52,7 +52,7 @@ export class CreditCardPage {
     public analytics: AnalyticsService
   ) {
 
-    let creditCardSaved = navParams.get("creditCardSaved");        
+    let creditCardSaved = navParams.get("creditCardSaved");
     if ( !creditCardSaved ) {
       creditCardSaved = {
         nameOwner : null,

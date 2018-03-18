@@ -39,7 +39,8 @@
   </div>
   <div *ngIf="!showFormPhone">
     <form class="ctn-float">
-      <ion-label text-center margin-bottom class="text-dark left">{{textInfo}}</ion-label>
+      <!--<ion-label text-center margin-bottom class="text-dark left">{{textInfo}}</ion-label>-->
+      <ion-label text-center margin-bottom class="text-dark left" [innerHTML] = "'<p>' + textInfo + '</p>'"></ion-label>
       <div text-center *ngIf="nextViewConfirm!==true" class="row text-dark">
         <h1 class="width-100">{{phoneNumber}}</h1>
       </div>
@@ -61,7 +62,7 @@
   </div>
   
 
-<ion-footer *ngIf="!showFormPhone" [@slideIn]>
+<ion-footer *ngIf="!showFormPhone" [@slideIn] (click)="optionFooter()">
   <ion-toolbar color="primary">
     <ion-title>{{textFooter}}</ion-title>
   </ion-toolbar>

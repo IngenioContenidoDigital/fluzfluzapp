@@ -1,4 +1,9 @@
 page-confirm {
+  .email-new-user{
+    @extend .font-small;
+    @extend .text-primary;
+  }
+  
   .text-dark {
     @include word-wrap;
   }

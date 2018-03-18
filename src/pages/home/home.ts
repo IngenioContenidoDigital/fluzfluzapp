@@ -1,5 +1,5 @@
 import { Component, ViewChild, trigger, style, animate, state, transition } from '@angular/core';
-import { NavController, Slides, LoadingController, ModalController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, Slides, LoadingController, ModalController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { ConfirmPage } from '../confirm/confirm';
 import { ConfirmService } from '../../providers/confirm.service';
@@ -25,6 +25,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { ProductFatherPage } from '../product-father/product-father';
 import { BrowserTab } from '@ionic-native/browser-tab';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Deeplinks } from '@ionic-native/deeplinks';
 
 @Component({
   selector: 'page-home',
@@ -37,6 +38,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     CategoryService,
     SearchService,
     StatusBar,
+    Deeplinks,
     AnalyticsService
   ],
   animations: [
@@ -70,6 +72,12 @@ export class HomePage {
   public lastedFluz:any = SHOW_LASTED_FLUZ;
   public notificationBar:any = [];
   public profileBar:any = true;
+  public paramsGet: any=[
+    {
+      id_customer: null,
+      sendSMS: null
+    }
+  ];
   
   @ViewChild(Slides) slides: Slides;
   
@@ -89,6 +97,8 @@ export class HomePage {
     private browserTab: BrowserTab,
     private iab: InAppBrowser,
     private loginService:LoginService,
+    public navParams: NavParams,
+    private deeplinks: Deeplinks,
     public analytics: AnalyticsService
     
     ) {
@@ -130,6 +140,8 @@ export class HomePage {
   }
   
   ionViewDidLoad() {
+    this.deeplinkStart();
+//    this.showAlert('paramsGet', JSON.stringify(this.paramsGet));
     this.getUserData();
     this.getBannerData();
     this.getCategoryWithFatherData();
@@ -137,74 +149,14 @@ export class HomePage {
   }
   
   ionViewWillEnter(){
-    this.storage.set('userConfirm', true);
     this.notificationBar.alert = 2;
     this.analytics.trackView('HomePage');
     this.notificationBar.setVisible = false;
     this.storage.get('tutorial').then((tutorial)=> {
       if(tutorial || tutorial == 'true'){
-        this.storage.get('userData').then((userData) => {
-          this.storage.get('userConfirm').then((userConfirm)=> {
-            if (userData === null || userData === undefined || userData === false){
-              this.goTo("LoginPage");
-            }
-            else if( userConfirm !== true ){
-              this.goTo("ConfirmPage");            
-            }
-            if (userData === null || userData === undefined || userData == false){
-              this.updateShowDataUser(false);
-            }
-            else {
-
-              this.updateShowDataUser(true);          
-              this.analytics.setUserId(userData.id);
-              setTimeout(()=>{
-                this.home.getNotificationBarOrders(userData.id).then((data:any)=>{
-                  let notificationData = data.result;
-                  this.notificationBar = data.result;
-                  if(this.notificationBar.profile_complete<100){
-                    this.profileBar = true;
-                  }
-                  switch (notificationData.alert){
-                    case 4: {
-                      this.notificationBar.setVisible = true;
-                      this.notificationBar.text = "¡Tu cuenta ha sido desactivada temporalmente!";
-                      break;
-                    }
-                    case 3: {
-                      this.notificationBar.setVisible = true;
-                      this.notificationBar.text = "Has hecho "+notificationData.orden+" de "+notificationData.quantity_max+" compras y te estas pasando de la fecha de vencimiento. Si no haces "+notificationData.quantity+" compras más hasta el ("+notificationData.dateCancel+") tu cuenta será cancelada!";
-                      break;
-                    }
-                    case 2: {
-                      this.notificationBar.setVisible = true;
-                      this.notificationBar.text = "Increíble! Tu compra mensual mínima se ha cumplido.";
-                      break;
-                    }
-                    case 1: {
-                      this.notificationBar.setVisible = true;
-                      this.notificationBar.text = "Has hecho "+notificationData.orden+" de "+notificationData.total+" compras. Necesitaras hacer "+notificationData.quantity+" compras más hasta el ("+notificationData.date+") para cubrir tu requisito mensual";
-                      break;
-                    }
-                    default: {
-                      this.notificationBar.setVisible = false;
-                      break;
-                    }
-                  }
-                })
-                .catch(function () {
-                  console.log("Error");
-                });
-              }, 500 );
-            }
-          })
-          .catch(function () {
-            console.log("Error");
-          });
-        })
-        .catch(function () {
-          console.log("Error");
-        });
+        setTimeout(()=>{
+          this.validateLogin();
+        }, 500);
       }
       else{
         this.goTo("TutorialPage");
@@ -214,6 +166,97 @@ export class HomePage {
       console.log("Error");
     });
   }
+  
+  deeplinkStart() {
+    this.deeplinks.routeWithNavController(this.navCtrl, {
+      '/': "asdfasdf"
+    }).subscribe((match) => {
+      this.paramsGet = match.$args;
+      this.navCtrl.push( ConfirmPage, {paramsGet: this.paramsGet} );
+    }, (nomatch) => {
+    });
+  }
+  
+  validateLogin(){
+    this.storage.get('userData').then((userData) => {
+      if (userData === null || userData === undefined || userData === false){
+        this.goTo("LoginPage");
+        this.updateShowDataUser(false);
+      }
+      else{
+        this.storage.get('userConfirm').then((userConfirm)=> {
+          if( userData.Active == 0 && userData.kickout == 1 ){
+            this.showAlert("Alerta:", "Tu cuenta se encuentra temporalmente suspendida, si crees que se trata de un error, por favor comunicate con soporte.");
+            this.storage.set('userData', null).then(()=>{
+              this.goTo("LoginPage");
+            });
+          }
+          else if( userData.active == 0 && userData.kick_out == 0 ){
+            this.storage.set('userConfirm', false);
+            this.deeplinkStart();
+            setTimeout(()=>{
+              if(this.paramsGet.id_customer == null && this.paramsGet.sendSMS == null){
+                this.navCtrl.push( ConfirmPage, {paramsGet: this.paramsGet} );
+              }
+            },1000);
+          }
+          else if( userConfirm !== true ){
+            this.goTo("ConfirmPage");
+          }
+          else {
+            this.updateShowDataUser(true);
+            this.analytics.setUserId(userData.id);
+            setTimeout(()=>{
+              this.home.getNotificationBarOrders(userData.id).then((data:any)=>{
+                let notificationData = data.result;
+                this.notificationBar = data.result;
+                if(this.notificationBar.profile_complete<100){
+                  this.profileBar = true;
+                }
+                switch (notificationData.alert){
+                  case 4: {
+                    this.notificationBar.setVisible = true;
+                    this.notificationBar.text = "¡Tu cuenta ha sido desactivada temporalmente!";
+                    break;
+                  }
+                  case 3: {
+                    this.notificationBar.setVisible = true;
+                    this.notificationBar.text = "Has hecho "+notificationData.orden+" de "+notificationData.quantity_max+" compras y te estas pasando de la fecha de vencimiento. Si no haces "+notificationData.quantity+" compras más hasta el ("+notificationData.dateCancel+") tu cuenta será cancelada!";
+                    break;
+                  }
+                  case 2: {
+                    this.notificationBar.setVisible = true;
+                    this.notificationBar.text = "Increíble! Tu compra mensual mínima se ha cumplido.";
+                    break;
+                  }
+                  case 1: {
+                    this.notificationBar.setVisible = true;
+                    this.notificationBar.text = "Has hecho "+notificationData.orden+" de "+notificationData.total+" compras. Necesitaras hacer "+notificationData.quantity+" compras más hasta el ("+notificationData.date+") para cubrir tu requisito mensual";
+                    break;
+                  }
+                  default: {
+                    this.notificationBar.setVisible = false;
+                    break;
+                  }
+                }
+              })
+              .catch(function () {
+                console.log("Error");
+              });
+            }, 500 );
+          }
+
+        })
+        .catch(function () {
+          console.log("Error");
+        });
+      }
+    })
+    .catch(function () {
+      console.log("Error");
+    });
+  }
+  
   
   openBanner(banner:any){
     // type_route:

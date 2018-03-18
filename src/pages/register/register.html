@@ -103,6 +103,20 @@
           <ion-input type="number" (keyup)="validateInput($event)" [formControl]="registerForm.controls['phoneNumber']"></ion-input>
         </ion-item>
       </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Contraseña (Necesario)</ion-label>
+          <ion-input type="password" (keyup)="validateInput($event)" [formControl]="registerForm.controls['password']"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <ion-label stacked>Confirma tu Contraseña (Necesario)</ion-label>
+          <ion-input type="password" (keyup)="validateInput($event)" [formControl]="registerForm.controls['password_confirm']"></ion-input>
+        </ion-item>
+          <ion-label stacked class="error-passwords" *ngIf="registerForm.controls.password_confirm.touched && registerForm.hasError('mismatchedPasswords') && registerForm.controls.password.valid">Contraseñas no coinciden</ion-label>
+        
+      </ion-row>
     </ion-grid>
   </div>
     
@@ -115,7 +129,7 @@
 
 
 <ion-footer>
-  <ion-toolbar color="primary" *ngIf="enabledSaveButton" (click)="sendRandom(registerForm.value)">
+  <ion-toolbar color="primary" *ngIf="enabledSaveButton" (click)="send(registerForm.value)">
     <ion-title>ENVIAR</ion-title>
   </ion-toolbar>
 </ion-footer>

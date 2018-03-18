@@ -1,19 +1,22 @@
 import { Component, trigger, style, animate, state, transition } from '@angular/core';
-import { LoadingController, NavController, NavParams, AlertController, Platform, ToastController, ModalController } from 'ionic-angular';
+import { ViewController, LoadingController, NavController, NavParams, AlertController, Platform, ToastController, ModalController } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmService } from '../../providers/confirm.service';
 import { ConfirmatedPage } from '../confirmated/confirmated';
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs';
+import { LoginPage } from '../login/login';
 import { CountryModalPage } from '../country-modal/country-modal'; 
 import { AnalyticsService } from '../../providers/analytics.service';
-
+import { Deeplinks } from '@ionic-native/deeplinks';
+ 
 @Component({
   selector: 'page-confirm',
   templateUrl: 'confirm.html',
   providers: [
     ConfirmService,
+    Deeplinks,
     AnalyticsService
   ],
   animations: [
@@ -50,9 +53,12 @@ export class ConfirmPage {
   };
   public phoneNumber:any;
   public showSendAgain:any = false;
-  
+  public paramsGet:any = [
+    {id_customer: null, sendSMS: null}
+  ];
   constructor(
     public loadingController: LoadingController,
+    public viewCtrl: ViewController,
     public modalCtrl: ModalController,
     public platform: Platform,
     public toastCtrl: ToastController,
@@ -62,9 +68,12 @@ export class ConfirmPage {
     public formBuilder: FormBuilder,
     private confirmService: ConfirmService,
     public storage: Storage,
+    private deeplinks: Deeplinks,
     public alertCtrl: AlertController,
     public analytics: AnalyticsService
   ) {
+    this.paramsGet = (navParams.get("paramsGet") != undefined) ? navParams.get("paramsGet"): this.paramsGet;
+//    console.log(navParams.get("paramsGet"));
     this.confirmForm = formBuilder.group({
       'confirmNumber': [null, Validators.compose([Validators.required, Validators.minLength(6),Validators.pattern('^[0-9]{1,6}$')])]
     });
@@ -72,16 +81,16 @@ export class ConfirmPage {
     this.phoneForm = formBuilder.group({
       'phoneNumber': [null, Validators.compose([Validators.required, Validators.minLength(6),Validators.pattern('^[0-9]{1,15}$')])]
     });
-        
-    platform.registerBackButtonAction(() => {
-      let view = this.navCtrl.getActive();
-      if (view.component.name == "ConfirmPage") {
-        this.showToast('Debes confirmar tu cuenta.', 2);
-      }
-      else {
-        this.navCtrl.pop({});
-      }
-    });
+      platform.registerBackButtonAction(() => {
+        setTimeout(()=>{ 
+          let view = this.navCtrl.getActive();
+          console.log('view');
+          console.log(view);
+          if (view.component.name == "ConfirmPage") {
+            this.showToast('Debes confirmar tu cuenta.', 2);
+          }
+        }, 500);
+      });
   }
   
   showToast(message:string, duration: number){
@@ -94,10 +103,89 @@ export class ConfirmPage {
     toast.present();
   }
   
+  validateNewUser(){
+    this.storage.get('userData').then((userData:any) => {
+      this.textInfo = 'Estas a un paso de ser un Fluzzer, solo debes abrir el enlace de confirmación que enviamos a tu correo <b class="email-new-user">'+userData.email+'</b> y luego ingresar el código de verificación que te llegará a través de sms.';
+      this.textButton = "CONFIRMAR";
+      this.textFooter = "¿No eres tu?";
+    });
+    if (this.paramsGet.id_customer != null && this.paramsGet.sendSMS == 1){
+      this.storage.get('userData').then((userData) => {
+        if(userData.id == this.paramsGet.id_customer){
+          let loader = this.loadingController.create({
+            content: "Enviando sms 1..."
+          });
+          loader.present();
+          this.confirmService.sendSMS(userData.id).then((response:any)=>{
+            loader.dismissAll();
+            if(response == '"Se ha enviado el sms."'){
+              this.nextViewConfirm = true;
+            }
+            else{
+              this.showAlert("Error:","No se ha enviado el código de verificación, por favor intenta nuevamente.");
+            }
+          });
+        }
+        else {
+          this.showAlert("Error","El link suministrado no correponde a la activación de esta cuenta.");
+        }
+      });
+    }
+  }
+  
+  dismiss(value:boolean) {
+    this.viewCtrl.dismiss({
+      flagPop: value
+    });
+  }
+  
   ionViewWillEnter(){
+    this.storage.get('userData').then((userData:any) => {
+      this.storage.get('userConfirm').then((userConfirm:any) => {
+        if( userData.active == 0 && userData.kick_out == 0 ){
+          this.validateNewUser();
+          this.nextViewConfirm = true;
+        }
+        else if(userData.active == 1 && userData.kick_out == 0 && userConfirm == true){
+          this.dismiss(true);
+        }
+        else{
+          this.getPhone();
+        }
+      });
+    });
     this.analytics.trackView('ConfirmPage');
     this.tabsService.hide();
-    this.getPhone();
+  }
+  
+  optionFooter(){
+     this.storage.get('userData').then((userData:any) => {
+      if( userData.active == 0 && userData.kick_out == 0 ){
+        this.storage.get('userData').then((userData:any) => {
+          let alert = this.alertCtrl.create({
+            title: "¿No eres tu?",
+            message: "Estas intentando ingresar con el usuario "+userData.email+", ¿Deseas ingresar con otro usuario?",
+            buttons: [
+              {
+                text: 'Cancelar',
+                role: 'cancel'
+              },
+              {
+                text: 'Aceptar',
+                handler: () => {
+                  this.storage.set('newUser', false);
+                  this.storage.set('userData', null);
+                  this.storage.set('userId', null);
+                  this.storage.set('userConfirm', false);
+                  this.navCtrl.push(LoginPage);
+                }
+              }
+            ]
+          });
+          alert.present();
+        });
+      }
+    });
   }
 
   ionViewWillLeave(){
@@ -181,9 +269,9 @@ export class ConfirmPage {
     loader.present();
     this.storage.get('userData').then((val) => {
       this.confirmService.setPhone( val.id, this.countries.callingCodes + this.phoneForm.value.phoneNumber ).then( 
-        data =>{
+        (data:any) =>{
           loader.dismiss();
-          if(data == true){
+          if(data.result == true){
             setTimeout(()=>{ this.getPhone(); }, 500);
           }
         }
@@ -218,6 +306,8 @@ export class ConfirmPage {
           if(response.error == 0){
             this.storage.set('userConfirm', true);
             this.navCtrl.push( ConfirmatedPage );
+            val.active = 1;
+            this.storage.set("userData", val);
           }
           else {
             this.showAlert("Ha ocurrido un error:", response.message);
@@ -225,11 +315,13 @@ export class ConfirmPage {
         },
         //Si hay algun error en el servidor.
         error =>{
+          loader.dismiss();
           console.log(error)
         }
       );
     })
     .catch(function () {
+      loader.dismissAll();
       console.log("Error");
     });
   }
