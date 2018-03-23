@@ -224,6 +224,8 @@ export class RegisterPage {
     this.enabledSaveButton = false;
     this.loginService.register(valor).then(
       (response:any) => {
+        console.log('response');
+        console.log(response);
         loader.dismiss();
         if(response.success === true) {
           this.enabledSaveButton = true;

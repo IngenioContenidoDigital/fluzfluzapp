@@ -64,44 +64,28 @@ export class LoginPage {
     private googlePlus: GooglePlus,
     public statusBar: StatusBar,
   ) {
-    setTimeout(()=>{
-      this.statusBar.backgroundColorByHexString('#E1493A');
-    }, 500 );
-    this.tabBarElement = document.querySelector('.tabbar .show-tabbar');
-  	this.loginForm = formBuilder.group({
+    this.loginForm = formBuilder.group({
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
       'pwd': [null, Validators.required]
     });
     platform.ready().then(() => {
-        //back button handle
-        //Registration of push in Android and Windows Phone
-        var lastTimeBackPress = 0;
-        var timePeriodToExit  = 2000;
+      var lastTimeBackPress = 0;
+      var timePeriodToExit  = 2000;
 
-        platform.registerBackButtonAction(() => {
-            // get current active page
-          setTimeout(()=>{ 
-            let view = this.navCtrl.getActive();
-            if (view.component.name == "LoginPage") {
-                //Double check to exit app
-                if (new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
-                    this.platform.exitApp(); //Exit from app
-                } else {
-                    let toast = this.toastCtrl.create({
-                        message:  'Oprime de nuevo para salir de FluzFluz',
-                        duration: 3000,
-                        position: 'middle',
-                        cssClass: "toast"
-                    });
-                    toast.present();
-                    lastTimeBackPress = new Date().getTime();
-                }
+      platform.registerBackButtonAction(() => {
+        setTimeout(()=>{ 
+          let view = this.navCtrl.getActive();
+          if (view.component.name == "LoginPage") {
+            if (new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
+              this.platform.exitApp();
             }
             else {
-              this.navCtrl.pop({});
+              this.showToast('Oprime de nuevo para salir de FluzFluz', 3);
+              lastTimeBackPress = new Date().getTime();
             }
-          },500);
-        });
+          }
+        },500);
+      });
     })
     .catch(function () {
       console.log("Error");
@@ -109,7 +93,7 @@ export class LoginPage {
   }
   
   ionViewWillEnter(){
-    this.analytics.trackView('LoginPage');
+    this.analytics.trackView('LoginPage'); 
     this.tabsService.hide();
     this.validateLogin();
   }
@@ -122,9 +106,11 @@ export class LoginPage {
     this.storage.get('userData').then((userData:any | null) => {
       if(userData !== null && userData !== undefined && userData !== false){
         this.storage.get('userId').then((userId:number | null) => {
-            this.storage.get('userConfirm').then((userConfirm:boolean | null) => {
-              if(!userConfirm  || (userData.id != userId)){this.goTo("confirmPage");}
-            });
+          this.storage.get('userConfirm').then((userConfirm:boolean | null) => {
+            if( ( userData.id != userId ) || !userConfirm ){
+              this.goTo('confirmPage');
+            }
+          });
         });
       }
     });
@@ -135,23 +121,15 @@ export class LoginPage {
     if ( valor == 'confirmPage' ){
       this.confirmService.getRequestSMS().then((data:any)=>{
         if(data.requestSMS){
-          this.navCtrl.push( ConfirmPage ); 
+          this.navCtrl.setRoot( ConfirmPage );
         }
         else {
-          setTimeout(()=>{ this.navCtrl.setRoot(TabsPage); }, 100);
+          this.navCtrl.setRoot(TabsPage);
         }
       });
     }
     else {
-      this.storage.get('userData').then((val) => {
-        if (val === null || val === undefined ){
-          this.storage.set('userData', false);
-        }
-      })
-      .catch(function () {
-        console.log("Error");
-      });
-      setTimeout(()=>{ this.navCtrl.setRoot(TabsPage); }, 100);
+      this.navCtrl.setRoot(TabsPage);
     }
   }
     
@@ -179,6 +157,16 @@ export class LoginPage {
     alert.present();
   }
   
+  showToast(message:string, duration:number, position:string | null = 'middle', cssClass:string | null = 'toast'){
+    let toast = this.toastCtrl.create({
+      message:  message,
+      duration: duration*1000,
+      position: position,
+      cssClass: cssClass
+    });
+    toast.present();
+  }
+  
   //Hace el login en la aplicación
   login(valor:any):void {
     let loader = this.loadingController.create({
@@ -188,9 +176,16 @@ export class LoginPage {
     this.loginService.postLogin(valor).then(
       (response:any)=>{
         loader.dismiss();
-        console.log('response');
-        console.log(response);
-        if( response.active != 0 && response.kick_out != 1 ){
+        if(response.active == 0 && response.kick_out == 1){
+          this.storage.set('userData', null).then(() => {
+            this.showAlert("Alerta:", "Tu cuenta se encuentra temporalmente suspendida, si crees que se trata de un error, por favor comunicate con soporte.");
+          });
+        }
+        else if( response.active == 0 && response.kick_out == 0 ){
+          this.storage.set('userConfirm', false);
+          this.navCtrl.setRoot(ConfirmPage);
+        }
+        else if( response.active = 1 && response.kick_out == 0 ){
           this.userData = response;
           this.analytics.trackEvent('LoginPage', 'Login', 'El usuario se ha logueado');
           
@@ -219,8 +214,8 @@ export class LoginPage {
         }
         else {
           let error:any = [];
-          error.title = 'Usuario inactivo';
-          error.message = 'Tus datos están siendo validados, por favor contáctanos';
+          error.title = 'Error de autenticación';
+          error.message = 'La dirección de correo electrónico y la contraseña que has introducido no coinciden.';
           this.showAlert(error.title, error.message);
         }
       }
@@ -233,22 +228,6 @@ export class LoginPage {
     this.storage.set('userId', this.userData.id );
     this.analytics.setUserId(this.userData.id);
   }
-    
-  showConfirm() {
-    let confirm = this.alertCtrl.create({
-      title: 'Error de autenticación',
-      message: 'La dirección de correo electrónico y la contraseña que has introducido no coinciden.',
-      buttons: [
-        {
-          text: 'Volver a intentar',
-          handler: () => {
-            console.log('Disagree clicked');
-          }
-        }
-      ]
-    });
-    confirm.present();
-	}
   
   openUrl(){
     let url = 'http://fluzfluz.com/solicitud-de-invitacion/';
@@ -378,8 +357,8 @@ export class LoginPage {
           }
           else {
             let error:any = [];
-            error.title = 'Usuario inactivo';
-            error.message = 'Tus datos están siendo validados, por favor contáctanos';
+            error.title = 'Alerta:';
+            error.message = 'Tu cuenta se encuentra temporalmente suspendida, si crees que se trata de un error, por favor comunicate con soporte.';
             this.showAlert(error.title, error.message);
           }
         }

@@ -27,48 +27,49 @@
     "@ionic-native/app-availability": "^4.3.0",
     "@ionic-native/badge": "^4.5.2",
     "@ionic-native/browser-tab": "^3.13.1",
-    "@ionic-native/camera": "^4.2.1",
+    "@ionic-native/camera": "^4.5.3",
     "@ionic-native/clipboard": "^4.1.0",
     "@ionic-native/core": "^4.3.2",
+    "@ionic-native/deeplinks": "^4.5.3",
     "@ionic-native/device": "^3.12.1",
     "@ionic-native/facebook": "^4.3.2",
-    "@ionic-native/fcm": "^4.5.2",
+    "@ionic-native/fcm": "^4.6.0",
     "@ionic-native/file": "^4.2.1",
     "@ionic-native/file-path": "^4.2.1",
     "@ionic-native/file-transfer": "^4.2.1",
-    "@ionic-native/firebase": "^4.2.1",
+    "@ionic-native/firebase": "^4.5.3",
     "@ionic-native/firebase-analytics": "^4.2.1",
     "@ionic-native/geolocation": "^4.1.0",
     "@ionic-native/google-analytics": "^4.2.1",
-    "@ionic-native/google-maps": "^4.5.2",
+    "@ionic-native/google-maps": "^4.6.0",
     "@ionic-native/google-plus": "^4.5.2",
     "@ionic-native/in-app-browser": "^3.13.1",
     "@ionic-native/keyboard": "^3.12.1",
     "@ionic-native/network": "^4.0.1",
     "@ionic-native/push": "^4.5.2",
     "@ionic-native/splash-screen": "^4.3.2",
-    "@ionic-native/status-bar": "^4.3.2",
+    "@ionic-native/status-bar": "^4.5.3",
     "@ionic/storage": "2.1.3",
     "angular": "^1.6.5",
     "cordova-android": "6.3.0",
-    "cordova-clipboard": "^1.0.0",
+    "cordova-clipboard": "^1.1.1",
     "cordova-google-api-version": "0.0.1",
-    "cordova-ios": "^4.5.4",
-    "cordova-plugin-appavailability": "^0.4.2",
-    "cordova-plugin-badge": "^0.8.6",
+    "cordova-plugin-browsertab": "^0.2.0",
     "cordova-plugin-cache": "git+https://github.com/tiltshiftfocus/cordova-plugin-cache.git",
-    "cordova-plugin-camera": "^2.4.1",
-    "cordova-plugin-crosswalk-webview": "~2.3.0",
-    "cordova-plugin-device": "1.1.4",
+    "cordova-plugin-camera": "^4.0.2",
+    "cordova-plugin-compat": "^1.2.0",
+    "cordova-plugin-crosswalk-webview": "^2.4.0",
+    "cordova-plugin-device": "^2.0.1",
     "cordova-plugin-facebook4": "^1.9.1",
-    "cordova-plugin-file-transfer": "^1.6.3",
-    "cordova-plugin-filepath": "^1.0.2",
+    "cordova-plugin-file": "^6.0.1",
+    "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-firebase-analytics": "^0.11.0",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-google-analytics": "^1.8.3",
-    "cordova-plugin-googlemaps": "^2.1.1",
+    "cordova-plugin-googlemaps": "git+https://github.com/Motoralfa/cordova-plugin-googlemaps.git#multiple_maps",
     "cordova-plugin-googlemaps-sdk": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps-sdk.git",
-    "cordova-plugin-network-information": "^1.3.3",
+    "cordova-plugin-googleplus": "^5.2.1",
+    "cordova-plugin-inappbrowser": "^2.0.2",
     "cordova-plugin-splashscreen": "~4.0.3",
     "cordova-plugin-statusbar": "2.2.1",
     "cordova-plugin-whitelist": "^1.3.3",
@@ -77,9 +78,9 @@
     "file-exists": "^4.0.0",
     "ionic-angular": "^3.7.0",
     "ionic-native": "^2.9.0",
+    "ionic-plugin-deeplinks": "^1.0.15",
     "ionicons": "3.0.0",
     "ng2-validation": "^4.2.0",
-    "org.apache.cordova.plugin.cache": "https://github.com/tiltshiftfocus/cordova-plugin-cache.git",
     "process-nextick-args": "^1.0.7",
     "reflect-metadata": "^0.1.10",
     "rxjs": "^5.5.6",
@@ -91,8 +92,8 @@
     "@ionic/cli-plugin-ionic-angular": "1.3.1",
     "@ngtools/webpack": "^1.9.8",
     "@types/d3": "4.10.0",
-    "ionic": "3.19.1",
-    "typescript": "^2.7.1"
+    "ionic": "^3.19.0",
+    "typescript": "^2.4.0"
   },
   "cordovaPlugins": [
     "cordova-plugin-whitelist",
@@ -106,36 +107,59 @@
   "description": "fluzfluz: An Ionic project",
   "cordova": {
     "plugins": {
-      "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-statusbar": {},
       "cordova-sqlite-storage": {},
-      "cordova-plugin-network-information": {},
-      "cordova-clipboard": {},
-      "cordova-plugin-crosswalk-webview": {},
-      "cordova-plugin-camera": {
-        "CAMERA_USAGE_DESCRIPTION": " ",
-        "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.709389446483-6at869k84krbneu3fotto68evpq2dm72"
       },
-      "cordova-plugin-file-transfer": {},
-      "cordova-plugin-filepath": {},
-      "org.apache.cordova.plugin.cache": {},
-      "cordova-plugin-appavailability": {},
-      "cordova-google-api-version": {
-        "GOOGLE_API_VERSION": "11.0.1"
-      },
-      "cordova-plugin-googlemaps": {
-        "API_KEY_FOR_ANDROID": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8",
-        "API_KEY_FOR_IOS": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8"
-      },
-      "cordova-plugin-badge": {},
       "cordova-plugin-facebook4": {
         "APP_ID": "154186758658913",
         "APP_NAME": "Fluz Fluz App"
       },
+      "cordova-clipboard": {},
+      "cordova-plugin-browsertab": {},
+      "cordova-plugin-camera": {},
+      "cordova-plugin-crosswalk-webview": {
+        "XWALK_VERSION": "23+",
+        "XWALK_LITEVERSION": "xwalk_core_library_canary:17+",
+        "XWALK_COMMANDLINE": "--disable-pull-to-refresh-effect",
+        "XWALK_MODE": "embedded",
+        "XWALK_MULTIPLEAPK": "true"
+      },
+      "cordova-plugin-device": {},
+      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
+      },
       "cordova-plugin-google-analytics": {},
+      "cordova-plugin-inappbrowser": {},
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-geolocation": {}
+      "ionic-plugin-deeplinks": {
+        "URL_SCHEME": "com.ionicframework.fluzfluz141172",
+        "DEEPLINK_SCHEME": "https",
+        "DEEPLINK_HOST": "fluzfluz.co",
+        "ANDROID_PATH_PREFIX": "/",
+        "ANDROID_2_PATH_PREFIX": "/",
+        "ANDROID_3_PATH_PREFIX": "/",
+        "ANDROID_4_PATH_PREFIX": "/",
+        "ANDROID_5_PATH_PREFIX": "/",
+        "DEEPLINK_2_SCHEME": " ",
+        "DEEPLINK_2_HOST": " ",
+        "DEEPLINK_3_SCHEME": " ",
+        "DEEPLINK_3_HOST": " ",
+        "DEEPLINK_4_SCHEME": " ",
+        "DEEPLINK_4_HOST": " ",
+        "DEEPLINK_5_SCHEME": " ",
+        "DEEPLINK_5_HOST": " "
+      },
+      "cordova-google-api-version": {
+        "GOOGLE_API_VERSION": "11.+"
+      },
+      "cordova-plugin-googlemaps": {
+        "API_KEY_FOR_ANDROID": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8",
+        "API_KEY_FOR_IOS": "AIzaSyByKrKqlAPTWg4v1b2GiTLYrq4tJ3uqyck"
+      }
     },
     "dependencies": {
       "@angular/animations": "^4.2.3",
@@ -204,7 +228,6 @@
       ]
     },
     "platforms": [
-      "ios",
       "android"
     ]
   }

@@ -13,6 +13,8 @@ import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { FCM } from '@ionic-native/fcm';
 import { Badge } from '@ionic-native/badge';
+import { Deeplinks } from 'ionic-native';
+//import { Firebase } from '@ionic-native/firebase';
 //import { FirebaseAnalytics } from '@ionic-native/firebase-analytics';
 
 import { FileTransfer } from '@ionic-native/file-transfer';
@@ -236,6 +238,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     Facebook,
     GooglePlus,
     FCM,
+    Deeplinks,
+//    Firebase,
     Badge,
     Camera,
     File,

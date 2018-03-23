@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { TabsService } from '../../providers/tabs.service';
 import { Storage } from '@ionic/storage';
+import { TabsPage } from '../tabs/tabs';
 import { MyAccountService } from '../../providers/myAccount.service';
 import { SHOW_SAVINGS } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
@@ -42,8 +43,8 @@ export class ConfirmatedPage {
   }
   
   public goTo(){
-    this.tabsService.changeTabInContainerPage(0);
-    this.navCtrl.popToRoot();
+//    this.tabsService.changeTabInContainerPage(0);
+    this.navCtrl.setRoot(TabsPage);
   }
   
   getUserData() {

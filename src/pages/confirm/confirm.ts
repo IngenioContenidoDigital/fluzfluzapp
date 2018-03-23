@@ -73,7 +73,6 @@ export class ConfirmPage {
     public analytics: AnalyticsService
   ) {
     this.paramsGet = (navParams.get("paramsGet") != undefined) ? navParams.get("paramsGet"): this.paramsGet;
-//    console.log(navParams.get("paramsGet"));
     this.confirmForm = formBuilder.group({
       'confirmNumber': [null, Validators.compose([Validators.required, Validators.minLength(6),Validators.pattern('^[0-9]{1,6}$')])]
     });
@@ -81,16 +80,16 @@ export class ConfirmPage {
     this.phoneForm = formBuilder.group({
       'phoneNumber': [null, Validators.compose([Validators.required, Validators.minLength(6),Validators.pattern('^[0-9]{1,15}$')])]
     });
-      platform.registerBackButtonAction(() => {
-        setTimeout(()=>{ 
-          let view = this.navCtrl.getActive();
-          console.log('view');
-          console.log(view);
-          if (view.component.name == "ConfirmPage") {
-            this.showToast('Debes confirmar tu cuenta.', 2);
-          }
-        }, 500);
-      });
+    platform.registerBackButtonAction(() => {
+      setTimeout(()=>{ 
+        let view = this.navCtrl.getActive();
+        console.log('view');
+        console.log(view);
+        if (view.component.name == "ConfirmPage") {
+          this.showToast('Debes confirmar tu cuenta.', 2);
+        }
+      }, 500);
+    });
   }
   
   showToast(message:string, duration: number){
@@ -103,36 +102,6 @@ export class ConfirmPage {
     toast.present();
   }
   
-  validateNewUser(){
-    this.storage.get('userData').then((userData:any) => {
-      this.textInfo = 'Estas a un paso de ser un Fluzzer, solo debes abrir el enlace de confirmación que enviamos a tu correo <b class="email-new-user">'+userData.email+'</b> y luego ingresar el código de verificación que te llegará a través de sms.';
-      this.textButton = "CONFIRMAR";
-      this.textFooter = "¿No eres tu?";
-    });
-    if (this.paramsGet.id_customer != null && this.paramsGet.sendSMS == 1){
-      this.storage.get('userData').then((userData) => {
-        if(userData.id == this.paramsGet.id_customer){
-          let loader = this.loadingController.create({
-            content: "Enviando sms 1..."
-          });
-          loader.present();
-          this.confirmService.sendSMS(userData.id).then((response:any)=>{
-            loader.dismissAll();
-            if(response == '"Se ha enviado el sms."'){
-              this.nextViewConfirm = true;
-            }
-            else{
-              this.showAlert("Error:","No se ha enviado el código de verificación, por favor intenta nuevamente.");
-            }
-          });
-        }
-        else {
-          this.showAlert("Error","El link suministrado no correponde a la activación de esta cuenta.");
-        }
-      });
-    }
-  }
-  
   dismiss(value:boolean) {
     this.viewCtrl.dismiss({
       flagPop: value
@@ -143,7 +112,9 @@ export class ConfirmPage {
     this.storage.get('userData').then((userData:any) => {
       this.storage.get('userConfirm').then((userConfirm:any) => {
         if( userData.active == 0 && userData.kick_out == 0 ){
-          this.validateNewUser();
+          this.textInfo = 'Estas a un paso de ser un Fluzzer, solo debes abrir el enlace de confirmación que enviamos a tu correo <b class="email-new-user">'+userData.email+'</b> y luego ingresar el código de verificación que te llegará a través de sms.';
+          this.textButton = "CONFIRMAR";
+          this.textFooter = "¿No eres tu?";
           this.nextViewConfirm = true;
         }
         else if(userData.active == 1 && userData.kick_out == 0 && userConfirm == true){
@@ -177,7 +148,7 @@ export class ConfirmPage {
                   this.storage.set('userData', null);
                   this.storage.set('userId', null);
                   this.storage.set('userConfirm', false);
-                  this.navCtrl.push(LoginPage);
+                  setTimeout(()=>{this.navCtrl.setRoot(LoginPage);},500);
                 }
               }
             ]
@@ -290,7 +261,7 @@ export class ConfirmPage {
     this.textFooter = "¿De dónde viene este número?";
   }
   
-  confirm (valor:any) {
+  confirm(valor:any) {
     let loader = this.loadingController.create({
       content: "Validando..."
     });

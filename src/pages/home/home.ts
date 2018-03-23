@@ -1,5 +1,5 @@
 import { Component, ViewChild, trigger, style, animate, state, transition } from '@angular/core';
-import { NavController, NavParams, Slides, LoadingController, ModalController, AlertController } from 'ionic-angular';
+import { NavController, Slides, LoadingController, ModalController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { ConfirmPage } from '../confirm/confirm';
 import { ConfirmService } from '../../providers/confirm.service';
@@ -15,6 +15,7 @@ import { CategoryService } from '../../providers/category.service';
 import { TabsService } from '../../providers/tabs.service';
 import { ProductChildPage } from '../product-child/product-child';
 import { TutorialPage } from '../tutorial/tutorial';
+import { TabsPage } from '../tabs/tabs';
 import { ReactiveAccountPage } from '../reactive-account/reactive-account';
 import { SHOW_HOME_CATEGORY } from '../../providers/config';
 import { SHOW_LASTED_FLUZ } from '../../providers/config';
@@ -97,18 +98,17 @@ export class HomePage {
     private browserTab: BrowserTab,
     private iab: InAppBrowser,
     private loginService:LoginService,
-    public navParams: NavParams,
     private deeplinks: Deeplinks,
     public analytics: AnalyticsService
     
-    ) {
-      this.notificationBar.alert = 2;
-      setTimeout(()=>{
-        this.statusBar.backgroundColorByHexString('#E1493A');
-      }, 500 );
-      this.countbannerData = 0;
-      this.tabsService.show();
-    }
+  ) {
+    this.notificationBar.alert = 2;
+    setTimeout(()=>{
+      this.statusBar.backgroundColorByHexString('#E1493A');
+    }, 500 );
+    this.countbannerData = 0;
+    this.tabsService.show();
+  }
   
   goTo(value:any) {
     switch (value){
@@ -140,8 +140,8 @@ export class HomePage {
   }
   
   ionViewDidLoad() {
+    this.tabsService.show();
     this.deeplinkStart();
-//    this.showAlert('paramsGet', JSON.stringify(this.paramsGet));
     this.getUserData();
     this.getBannerData();
     this.getCategoryWithFatherData();
