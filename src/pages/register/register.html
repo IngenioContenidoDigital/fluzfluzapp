@@ -59,10 +59,28 @@
       </ion-row>
       <ion-row>
         <ion-item>
+          <ion-label stacked>Pais (Necesario)</ion-label>
+          <ion-select okText="OK" cancelText="Cancelar" (ionChange)="validateInputCountry()" [formControl]="registerForm.controls['country']">
+            <ion-option *ngFor="let country of countriesDir" [value] = "country.id_country">{{country.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-row>
+      <ion-row *ngIf="registerForm.value['country']">
+        <ion-item>
+          <ion-label stacked>Estado (Necesario)</ion-label>
+          <ion-select okText="OK" cancelText="Cancelar" (ionChange)="validateInputDepartament()" [formControl]="registerForm.controls['dpto']" *ngIf="registerForm.value['country'] == 69">
+            <ion-option *ngFor="let departament of departament" [value] = "departament.name">{{departament.name}}</ion-option>
+          </ion-select>
+          <ion-input *ngIf="registerForm.value['country'] != 69" [formControl]="registerForm.controls['dpto']"></ion-input>
+        </ion-item>
+      </ion-row>
+      <ion-row  *ngIf="registerForm.value['dpto']">
+        <ion-item>
           <ion-label stacked>Ciudad (Necesario)</ion-label>
-          <ion-select okText="OK" cancelText="Cancelar" (ionChange)="validateInput($event)" [formControl]="registerForm.controls['city']">
+          <ion-select okText="OK" cancelText="Cancelar" (ionChange)="validateInput($event)" [formControl]="registerForm.controls['city']" *ngIf="registerForm.value['country'] == 69">
             <ion-option *ngFor="let city of cities" [value] = "city.name">{{city.name}}</ion-option>
           </ion-select>
+          <ion-input *ngIf="registerForm.value['country'] != 69" [formControl]="registerForm.controls['city']"></ion-input>
         </ion-item>
       </ion-row>
       <ion-row>

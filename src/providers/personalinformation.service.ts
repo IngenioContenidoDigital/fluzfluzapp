@@ -22,6 +22,44 @@ export class PersonalInformationService {
     });
   }
     
+  public getCountries() {
+    let _url = WS_BASE+'getCountries';
+    return new Promise((resolve, reject) => {
+      this.http.post(_url, '')
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+    });
+  }
+  
+  public getDepartament() {
+    let _url = WS_BASE+'getDepartament';
+    return new Promise((resolve, reject) => {
+      this.http.post(_url, '')
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+    });
+  }
+  
+  public getCitiesByDepartment(dpto) {
+    let _url = WS_BASE+'getCitiesByDepartment';
+    this.data["dpto"] = dpto;
+    let data = JSON.stringify( this.data );
+    return new Promise((resolve, reject) => {
+      this.http.post(_url, data)
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+    });
+  }
+  
   public getCities() {
     let _url = WS_BASE+'cities';
     return new Promise((resolve, reject) => {

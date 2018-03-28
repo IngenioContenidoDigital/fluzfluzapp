@@ -24,6 +24,8 @@ export class RegisterPage {
 
   registerForm: FormGroup;
   public enabledSaveButton = false;
+  public countriesDir:any;
+  public departament:any;
   public cities:any;
   public data:any = {email: ''};
   public countries:any = {
@@ -55,12 +57,14 @@ export class RegisterPage {
       'last_name' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,100}$/i)])],
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
       'address' : [null,  Validators.compose([Validators.required])],
+      'country' : [null,  Validators.compose([Validators.required])],
+      'dpto' : [null,  Validators.compose([Validators.required])],
       'city' : [null,  Validators.compose([Validators.required])],
       'type_identification' : [null,  Validators.compose([Validators.required])],
       'number_identification' : [null, Validators.compose([Validators.required, Validators.pattern(/^[0-9]{5,15}$/i)])],
       'cod_refer' : [null, Validators.compose([Validators.pattern(/^[a-zA-Z0-9\s]{5,50}$/i)])],
       'phoneNumber': [null, Validators.compose([Validators.required, Validators.minLength(6),Validators.pattern('^[0-9]{1,15}$')])],
-      'password' : [null,  Validators.compose([Validators.required])],
+      'password' : [null,  Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{6,16}$/i)])],
       'password_confirm' : [null,  Validators.compose([Validators.required])]
     }, {validator: this.matchingPasswords('password', 'password_confirm')});
   }
@@ -94,7 +98,8 @@ export class RegisterPage {
       }
     );
     this.analytics.trackView('RegisterPage');
-    this.getCities();
+    this.getCountries();
+    this.getDepartament();
     if(this.data.email != '' || this.data.email != 'undefined' || this.data.email){
       this.setValues();
     }
@@ -120,6 +125,8 @@ export class RegisterPage {
       this.registerForm.controls['user_name'].valid &&
       this.registerForm.controls['email'].valid &&
       this.registerForm.controls['address'].valid &&
+      this.registerForm.controls['country'].valid &&
+      this.registerForm.controls['dpto'].valid &&
       this.registerForm.controls['city'].valid &&
       this.registerForm.controls['type_identification'].valid &&
       this.registerForm.controls['number_identification'].valid &&
@@ -139,27 +146,76 @@ export class RegisterPage {
       this.enabledSaveButton = false;
     }
   }
-
-
-  getCities(){
-    this.personalInformationService.getCities().then(
+  
+  validateInputCountry(){
+    this.registerForm.get('dpto').setValue(null);
+    this.registerForm.get('city').setValue(null);
+    this.validateInput('');
+  }
+  
+  validateInputDepartament(){
+    if(this.registerForm.controls['country'].value == 69){
+      this.getCities(this.registerForm.controls['dpto'].value);
+    }
+  }
+  
+  getCountries(){
+    this.personalInformationService.getCountries().then(
       (response:any) => {
+        if(response.success === true) {
+          this.countriesDir = response.countries;
+        }
+        else {
+          this.showAlert('Ha ocurrido un error:', 'No se han podido obtener los países. Por favor intenta de nuevo.');
+        }
+      },
+      error => {
+        this.showAlert('Ha ocurrido un error:', 'No se han podido obtener los países. Por favor intenta de nuevo.');
+        this.navCtrl.pop();
+      }
+    );
+  }
+  
+  getDepartament(){
+    this.personalInformationService.getDepartament().then(
+      (response:any) => {
+        if(response.success === true) {
+          this.departament = response.departament;
+        }
+        else {
+          this.showAlert('Ha ocurrido un error:', 'No se han podido obtener los departamentos. Por favor intenta de nuevo.');
+        }
+      },
+      error => {
+        this.showAlert('Ha ocurrido un error:', 'No se han podido obtener los departamentos. Por favor intenta de nuevo.');
+        this.navCtrl.pop();
+      }
+    );
+  }
+
+  getCities(dpto){
+    let loader = this.loadingController.create({
+      content: "Cargando ciudades..."
+    });
+    loader.present();
+    this.personalInformationService.getCitiesByDepartment(dpto).then(
+      (response:any) => {
+        loader.dismiss();
         if(response.success === true) {
           this.cities = response.cities;
         }
         else {
-          let alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: 'No se han podido obtener las ciudades. Por favor intenta de nuevo.',
-            buttons: ['OK']
-          });
-          alert.present();
+          this.showAlert('Ha ocurrido un error:', 'No se han podido obtener las ciudades. Por favor intenta de nuevo.');
         }
       },
       error => {
+        loader.dismiss();
+        this.showAlert('Ha ocurrido un error:', 'No se han podido obtener las ciudades. Por favor intenta de nuevo.');
         this.navCtrl.pop();
       }
-    );
+    ).catch(()=>{
+      loader.dismiss();
+    });
   }
   
   sendRandom(valor){
