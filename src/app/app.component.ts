@@ -63,7 +63,7 @@ export class MyApp {
     this.statusBar.backgroundColorByHexString('#E1493A');
     
     platform.ready().then(() => {
-//      this.fcmStart();
+      this.fcmStart();
       this.badge.clear();
       this.analytics.analytictsStart();
       setTimeout(()=>{

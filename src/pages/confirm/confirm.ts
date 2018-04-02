@@ -242,8 +242,16 @@ export class ConfirmPage {
       this.confirmService.setPhone( val.id, this.countries.callingCodes + this.phoneForm.value.phoneNumber ).then( 
         (data:any) =>{
           loader.dismiss();
-          if(data.result == true){
-            setTimeout(()=>{ this.getPhone(); }, 500);
+          if(data.success == true){
+            if(data.error.error == 0){
+              setTimeout(()=>{ this.getPhone(); }, 500);
+            }
+            else {
+              this.showAlert('Ha ocurrido un error:', data.error.msg);
+            }
+          }
+          else {
+            this.showAlert('Ha ocurrido un error:','Ha ocurrido un error en el servidor, por favor intenta nuevamente.')
           }
         }
       )

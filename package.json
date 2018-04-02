@@ -61,6 +61,7 @@
     "cordova-plugin-crosswalk-webview": "^2.4.0",
     "cordova-plugin-device": "^2.0.1",
     "cordova-plugin-facebook4": "^1.9.1",
+    "cordova-plugin-fcm": "^2.1.2",
     "cordova-plugin-file": "^6.0.1",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-firebase-analytics": "^0.11.0",
@@ -159,7 +160,8 @@
       "cordova-plugin-googlemaps": {
         "API_KEY_FOR_ANDROID": "AIzaSyDWG4JixRFpGazzOV4gdLTDeAzx27ptUp8",
         "API_KEY_FOR_IOS": "AIzaSyByKrKqlAPTWg4v1b2GiTLYrq4tJ3uqyck"
-      }
+      },
+      "cordova-plugin-fcm": {}
     },
     "dependencies": {
       "@angular/animations": "^4.2.3",

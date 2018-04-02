@@ -59,6 +59,9 @@ export class NetworkPage {
   public showRefine:any = SHOW_REFINE_BUTTONS;
   public lastedFluz:any = SHOW_LASTED_FLUZ;
   invitationForm: FormGroup;
+  // Busqueda Fluzzers
+  public searchTermFluzzer:any = '' ;
+  public filterFluzzers:any = null;
   
   //Graphic Start
   @ViewChild('myCanvas') canvasRef: ElementRef;
@@ -419,6 +422,25 @@ export class NetworkPage {
     messageModal.present();
   }
   
+  // Busqueda en la Red
+  filterItems(searchTerm){
+    return this.networkG.filter((item) => {
+      return item.username.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });
+  }
+  
+  setFilteredItems() {
+    if(this.searchTermFluzzer !== ''){
+      this.filterFluzzers = this.filterItems(this.searchTermFluzzer);
+      this.filterFluzzers = (this.filterFluzzers.length == 0) ? false : this.filterFluzzers;
+    }
+    else {
+      this.filterFluzzers = null;
+    }
+//    this.filterFluzzers = (this.searchTermFluzzer !== '')?this.filterItems(this.searchTermFluzzer): null;
+  }
+ 
+ 
   
   // Graphic Start
   getNetworkGUsers(){
