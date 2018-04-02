@@ -20,6 +20,9 @@ import { TabsService } from '../../providers/tabs.service';
 })
 export class MapPage {
   public map: GoogleMap;
+  public searchTerm:string = '';
+  public originalMarkers:any;
+  public myPosition:any;
   
   constructor( 
     public platform: Platform,
@@ -38,7 +41,6 @@ export class MapPage {
 
   ionViewWillEnter(){
     this.analytics.trackView('MapPage');
-//    this.tabsService.show();
   }
   
   ionViewDidLoad() {
@@ -46,6 +48,38 @@ export class MapPage {
        this.getPosition();
      }, 500);
   } 
+  
+  setFilteredItems() {
+    let myPosition: LatLng = new LatLng(this.myPosition.coords.latitude,this.myPosition.coords.longitude);
+      if(this.searchTerm !== ''){
+        this.map.clear().then(()=>{
+          this.map.animateCamera({'target': myPosition, 'zoom': 13, 'duration': 500});
+          this.showFilterMarkers(this.filterItems(this.searchTerm));
+        });
+      }
+      else {
+        if(this.map.getCameraZoom() != 15 ){
+          this.map.animateCamera({'target': myPosition, 'zoom': 15, 'duration': 500});
+          this.showFilterMarkers(this.originalMarkers);
+        }
+      }
+  }
+  
+  showFilterMarkers(points){
+    for(let pos of points){
+      let position: LatLng = new LatLng(pos.latitude,pos.longitude);
+      // Genera un marcador en el mapa.
+      let title = (pos.size != 1) ? '¿Que hay aquí?':pos.name;
+      this.setMarker(position, title);
+    }
+  }
+  
+  // Busqueda en la Red
+  filterItems(searchTerm){
+    return this.originalMarkers.filter((item) => {
+      return item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });
+  }
     
   getPosition():any {
     let loader = this.loadingController.create({
@@ -56,6 +90,7 @@ export class MapPage {
       this.platform.ready().then(() => {
         setTimeout(()=>{
           loader.dismiss();
+          this.myPosition = response;
           this.loadMap(response);
         }, 1000);
       })
@@ -131,10 +166,12 @@ export class MapPage {
   
   getLocations(latitude:any, longitud:any ){
     this.maps.getMapData(latitude, longitud, 1).then((data:any)=>{
+      this.originalMarkers = data.result;
       for(let pos of data.result){
         let position: LatLng = new LatLng(pos.latitude,pos.longitude);
         // Genera un marcador en el mapa.
-        this.setMarker(position);
+        let title = (pos.size != 1) ? '¿Que hay aquí?':pos.name;
+        this.setMarker(position, title);
       }
     })
     .catch(error =>{
@@ -142,7 +179,7 @@ export class MapPage {
     });
   }
 
-  setMarker(position:any){
+  setMarker(position:any, title:any){
     // create new marker
     let icon: MarkerIcon = {
       url: 'https://s3.amazonaws.com/imagenes-fluzfluz/app/marker.png',
@@ -153,7 +190,7 @@ export class MapPage {
     }
     let markerOptions: MarkerOptions = {
       position: position,
-      title: '¿Que hay aquí?'
+      title: title
     };
     this.map.addMarker(markerOptions).then((marker: Marker)=>{
       marker.setIcon(icon);

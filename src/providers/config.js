@@ -77,7 +77,6 @@ export const SHOW_LASTED_FLUZ = false;
 // 
 //  Ubicación de desarrollo:
     export const DEV_UBICATION = DEV_MODE ? true : false;
-//    export const DEV_UBICATION = true;
     
 //  
 //  

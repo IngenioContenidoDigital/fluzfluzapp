@@ -5,7 +5,8 @@
         <i class='fluz-fluz-fluz'></i>
       </button>
     </ion-buttons>
-    <ion-title text-center>CERCA DE TI<button ion-button clear class="invisibleButton"></button></ion-title>
+    <ion-searchbar type="text" autocomplete="true" animated="true" [(ngModel)]="searchTerm" (ionInput)="setFilteredItems()" placeholder="Buscar Comercio" debounce="700"></ion-searchbar>
+    <!--<ion-title text-center>CERCA DE TI<button ion-button clear class="invisibleButton"></button></ion-title>-->
   </ion-navbar>
 </ion-header>
 
