@@ -110,15 +110,15 @@ export class ResetPasscodePage {
           (userData:any) => {
             let validateData = {'id_customer': userData.id, 'passcode': this.passcodeActual };
             this.passcodeService.validatePasscode(validateData).then(
-              (success:any) => {
+              (response:any) => {
                 loader.dismiss();
                 setTimeout(()=>{ this.passcode = '' }, 100 );
                 this.enableKeyboard = true;
-                if( success.status === 200 ){
+                if( response.error === 0 ){
                   this.validPasscode = true;
                   this.resetPasscode();
                 }
-                else if( success.status === 204 ){
+                else if( response.error === 1 ){
                   this.validPasscode = false;
                   this.showAlert("Error al verificar la contraseña", "La contraseña que ingresaste no corresponde a la actual registrada, por favor verifica e intenta de nuevo.");
                 }
@@ -161,11 +161,11 @@ export class ResetPasscodePage {
                       let validateData = {'id_customer': userData.id, 'passcode': this.passcodeChange };
                       this.passcodeService.updatePasscode(validateData).then(
                         (success:any) => {
-                          if( success.status === 200 ){
+                          if( success.success === true ){
                             this.showAlert("Actualización Exitosa!", "Se actualizó la contraseña de la bóveda de códigos correctamente.");
                             this.navCtrl.pop();
                           }
-                          else if( success.status === 204 ){
+                          else if( success.success === false ){
                             this.showAlert("Error al actualizar la contraseña", "No se pudo actualizar la contraseña, por que esta debe ser diferente a la actual. Por favor intenta de nuevo.");
                             this.resetPasscode();
                           }

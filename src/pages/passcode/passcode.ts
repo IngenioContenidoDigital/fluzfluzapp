@@ -160,24 +160,24 @@ export class PasscodePage {
         content: "Confirmando..."
       });
       loader.present();
-      this.storage.get('userData').then((val) => {
-        let valor = {'id_customer': val.id, 'passcode': this.passcode };
+      this.storage.get('userData').then((userData) => {
+        let valor = {'id_customer': userData.id, 'passcode': this.passcode };
         this.passcodeService.validatePasscode(valor).then(
           (response:any) => {
-            if (response.success === true){
+            if (response.error === 0){
               loader.dismiss();
               this.goTo("VaultPage");
             }
             else {
               loader.dismiss();
-              if (response.success === false){
+              if (response.error === 1){
                 this.showErrorValidate();
               }
             }
           },
-          //Si hay algun error en el servidor.
-          error =>{ 
-            console.log(error)
+          () =>{
+            loader.dismiss();
+            this.showAlert("Error al verificar la contraseña", "Ha ocurrido un error. Por favor comprueba tu conexión, e intenta de nuevo.");
           }
         );
       })

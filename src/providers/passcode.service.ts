@@ -55,7 +55,7 @@ export class PasscodeService {
   public updatePasscode(variables) {
     let passcodeInfo = JSON.stringify(variables);
     return new Promise((resolve, reject) => {
-      this.http.post(WS_BASE+'validatePasscode', passcodeInfo)
+      this.http.post(WS_BASE+'updatePasscode', passcodeInfo)
       .subscribe(res => {
         resolve(res);
       }, (err) => {
