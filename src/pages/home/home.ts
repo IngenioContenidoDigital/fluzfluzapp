@@ -26,7 +26,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { ProductFatherPage } from '../product-father/product-father';
 import { BrowserTab } from '@ionic-native/browser-tab';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { Deeplinks } from '@ionic-native/deeplinks';
 
 @Component({
   selector: 'page-home',
@@ -39,7 +38,6 @@ import { Deeplinks } from '@ionic-native/deeplinks';
     CategoryService,
     SearchService,
     StatusBar,
-    Deeplinks,
     AnalyticsService
   ],
   animations: [
@@ -98,7 +96,6 @@ export class HomePage {
     private browserTab: BrowserTab,
     private iab: InAppBrowser,
     private loginService:LoginService,
-    private deeplinks: Deeplinks,
     public analytics: AnalyticsService
     
   ) {
@@ -141,7 +138,6 @@ export class HomePage {
   
   ionViewDidLoad() {
     this.tabsService.show();
-    this.deeplinkStart();
     this.getUserData();
     this.getBannerData();
     this.getCategoryWithFatherData();
@@ -167,16 +163,6 @@ export class HomePage {
     });
   }
   
-  deeplinkStart() {
-    this.deeplinks.routeWithNavController(this.navCtrl, {
-      '/': "asdfasdf"
-    }).subscribe((match) => {
-      this.paramsGet = match.$args;
-      this.navCtrl.push( ConfirmPage, {paramsGet: this.paramsGet} );
-    }, (nomatch) => {
-    });
-  }
-  
   validateLogin(){
     this.storage.get('userData').then((userData) => {
       if (userData === null || userData === undefined || userData === false){
@@ -193,7 +179,6 @@ export class HomePage {
           }
           else if( userData.active == 0 && userData.kick_out == 0 ){
             this.storage.set('userConfirm', false);
-            this.deeplinkStart();
             setTimeout(()=>{
               if(this.paramsGet.id_customer == null && this.paramsGet.sendSMS == null){
                 this.navCtrl.push( ConfirmPage, {paramsGet: this.paramsGet} );

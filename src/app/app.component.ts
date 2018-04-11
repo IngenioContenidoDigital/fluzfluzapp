@@ -1,6 +1,6 @@
 // Native
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { Platform, Nav, NavParams, LoadingController, AlertController } from 'ionic-angular';
 
 // Plugins
 import { Deeplinks } from 'ionic-native';
@@ -15,13 +15,18 @@ import { Badge } from '@ionic-native/badge';
 import { AnalyticsService } from '../providers/analytics.service';
 import { LoginService } from '../providers/login-service';
 import { MessagesService } from '../providers/messages.service';
+import { CategoryService } from '../providers/category.service';
 import { ConfirmService } from '../providers/confirm.service';
+import { SearchService } from '../providers/search.service';
 
 //Navigation
 import { TabsPage } from '../pages/tabs/tabs';
 //import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { ConfirmPage } from '../pages/confirm/confirm';
+import { CategoryPage } from '../pages/category/category';
+import { ProductChildPage } from '../pages/product-child/product-child';
+import { ProductFatherPage } from '../pages/product-father/product-father';
 
 @Component({
   templateUrl: 'app.html',
@@ -30,17 +35,20 @@ import { ConfirmPage } from '../pages/confirm/confirm';
     AnalyticsService,
     LoginService,
     MessagesService,
+    CategoryService,
+    SearchService,
     ConfirmService
   ]
 })
 export class MyApp {
-  @ViewChild(NavController) navCtrl:NavController;
+  @ViewChild(Nav) navCtrl:Nav;
   
   public rootPage:any;
   public rootPageParams:any;
 
   constructor(
     // Native
+//    public navCtrl: NavController,
     public platform: Platform,
     public loadingController: LoadingController,
     private alertCtrl: AlertController,
@@ -52,11 +60,12 @@ export class MyApp {
     public storage: Storage,
     public fcm: FCM,
     private badge: Badge,
-    
     // Services
     private analytics: AnalyticsService,
     private loginService: LoginService,
     private messagesService: MessagesService,
+    public categoryService: CategoryService,
+    public searchService: SearchService,
     private confirmService: ConfirmService
   ) {
 //    this.firebaseStart();
@@ -68,7 +77,7 @@ export class MyApp {
       this.analytics.analytictsStart();
       setTimeout(()=>{
         this.splashScreen.hide();
-        this.validateViewToRoot();
+//        this.validateViewToRoot();
       },1000);
       this.deeplinkStart();
     })
@@ -167,14 +176,98 @@ export class MyApp {
               }
             );
           }
+          else {
+            this.showAlert("Relax papu 1:","Que no hay parametros.");
+          }
         }
         else {
+          console.log('match');
+          console.log('match.$route');
+          console.log(match);
+          this.showAlert("Relax papu 2:","Que no hay parametros.");
           this.validateViewToRoot();
         }
       }, (nomatch) => {
-        console.log(nomatch);
-        this.validateViewToRoot();
+        let path:string = nomatch.$link.path;
+        let deeplink = path.split("/");
+        console.log('deeplink');
+        console.log(deeplink);
+        console.log(deeplink.length);
+        
+        if(deeplink.length == 3){
+          let category = deeplink[2].split("-");
+          if(Number(category[0])){
+            this.openCategoryById(category[0]);
+          }
+        }
+        else if(deeplink.length == 4){
+          let product = deeplink[3].split("-");
+          if(Number(product[0])){
+            //id product padre
+            console.log('product[0]');
+            console.log(product[0]);
+            this.openProduct(product[0]);
+          }
+        }
+//        if(deeplink[2] == "mi-cuenta"){
+//          // Mandar a mi cuenta
+//        }
+//        var a : [];
+//        else{
+//          if(deeplink[2]){
+//            
+//          }
+//        }
+//        this.validateViewToRoot();
       });
+    });
+  }
+  
+  openProduct(product:any){
+    this.searchService.openDeeplink(1,product).then((response:any)=>{
+      console.log('product');
+      console.log(product);
+      console.log('response');
+      console.log(response);
+      this.searchService.search( response.m_id, '2' ).then((data:any) => {
+        console.log('data');
+        console.log(data);
+        if(data.total == 1){
+          let productFather:any = data.result['0'];
+          console.log("\n\n\n\n\n llego hasta aqui papu....!!!! \n\n");
+//          this.rootPage = TabsPage;
+          this.navCtrl.push(ProductChildPage,{
+            manufacturer: response,
+            productFather: productFather
+          });
+        }
+        else {
+          this.navCtrl.push(ProductFatherPage,{
+            manufacturer: response
+          });        
+        }
+      })
+      .catch(error =>{
+        console.log(error);
+      });
+      
+    })
+    .catch(error =>{
+      console.log(error);
+    });
+  }
+  
+  openCategoryById( id_category:any ){
+    this.categoryService.getCategory( 3, id_category ).then(
+      (data:any) => {
+        this.navCtrl.push( CategoryPage, {
+          category: data,
+          products: data.products
+        });
+      }  
+    )
+    .catch(function () {
+      console.log("Error");
     });
   }
   

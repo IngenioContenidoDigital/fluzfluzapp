@@ -57,5 +57,25 @@ export class SearchService {
     });
   }
   
+  openDeeplink(option, params){
+    let Params = new HttpParams();
+    Params = Params.append('option', option);
+    Params = Params.append('params', params);
+    let url = WS_BASE + '/openDeeplink';
+    return new Promise(resolve => {
+      this.http.get(url, { params: Params })
+        .subscribe(
+        	data => {
+            this.data = data;
+            resolve(this.data);
+          },
+          (err) => {
+            this.data = '{"Error": "Error al traer las tiendas"}';
+            resolve(this.data);
+          }
+        );
+    });
+  }
+  
   
 }
