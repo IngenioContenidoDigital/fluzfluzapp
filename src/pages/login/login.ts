@@ -16,6 +16,11 @@ import { URL_RECOVER_PASSWORD } from '../../providers/config';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { StatusBar } from '@ionic-native/status-bar';
+import { SearchService } from '../../providers/search.service';
+import { ProductChildPage } from '../../pages/product-child/product-child';
+import { ProductFatherPage } from '../../pages/product-father/product-father';
+import { CategoryService } from '../../providers/category.service';
+import { CategoryPage } from '../../pages/category/category';
 
 @Component({
   selector: 'page-login',
@@ -24,6 +29,8 @@ import { StatusBar } from '@ionic-native/status-bar';
     LoginService,
     ConfirmService,
     PasscodeService,
+    SearchService,
+    CategoryService,
     StatusBar,
     AnalyticsService
   ]
@@ -41,6 +48,7 @@ export class LoginPage {
   @Output()
   public updateShowDataUser: EventEmitter<boolean> = new EventEmitter<boolean>();
   public showDataUser = true;
+  public deeplink:any = false;
   
   constructor( 
     public modalCtrl: ModalController,
@@ -62,8 +70,11 @@ export class LoginPage {
     private iab: InAppBrowser,
     private fb: Facebook,
     private googlePlus: GooglePlus,
+    public searchService: SearchService,
+    public categoryService: CategoryService,
     public statusBar: StatusBar,
   ) {
+    this.deeplink = (navParams.get("deeplink") != undefined) ? navParams.get("deeplink"): this.deeplink;
     this.loginForm = formBuilder.group({
       'email' : [null, Validators.compose([Validators.required, Validators.pattern(/^[a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&\'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+(?:[.]?[_a-z\p{L}0-9-])*\.[a-z\p{L}0-9]+$/i)])],
       'pwd': [null, Validators.required]
@@ -121,15 +132,33 @@ export class LoginPage {
     if ( valor == 'confirmPage' ){
       this.confirmService.getRequestSMS().then((data:any)=>{
         if(data.requestSMS){
-          this.navCtrl.setRoot( ConfirmPage );
+          this.navCtrl.setRoot( ConfirmPage, { "deeplink": this.deeplink } );
         }
         else {
-          this.navCtrl.setRoot(TabsPage);
+          this.navCtrl.setRoot(TabsPage).then(()=>{
+            setTimeout(()=>{
+              if(this.deeplink != false){
+                this.openDeeplink(this.deeplink);
+              }
+              else {
+                this.tabsService.changeTabInContainerPage(0);
+              }
+            },500);
+          });
         }
       });
     }
     else {
-      this.navCtrl.setRoot(TabsPage);
+      this.navCtrl.setRoot(TabsPage).then(()=>{
+        setTimeout(()=>{
+          if(this.deeplink != false){
+            this.openDeeplink(this.deeplink);
+          }
+          else {
+            this.tabsService.changeTabInContainerPage(0);
+          }
+        },500);
+      });
     }
   }
     
@@ -182,8 +211,10 @@ export class LoginPage {
           });
         }
         else if( response.active == 0 && response.kick_out == 0 ){
-          this.storage.set('userConfirm', false);
-          this.navCtrl.setRoot(ConfirmPage);
+          this.storage.set('userData', response).then(()=>{
+            this.storage.set('userConfirm', false);
+            this.navCtrl.setRoot( ConfirmPage, { "deeplink": this.deeplink } );
+          });
         }
         else if( response.active = 1 && response.kick_out == 0 ){
           this.userData = response;
@@ -410,5 +441,76 @@ export class LoginPage {
       ]
     });
     confirm.present();
+  }
+  
+  openDeeplink(path:any){
+    let deeplink = path.split("/");
+    if(deeplink.length == 3){
+      if(deeplink[2] == "mi-cuenta"){
+        this.navCtrl.setRoot(TabsPage).then(()=>{
+          setTimeout(()=>{
+            this.tabsService.changeTabInContainerPage(4);
+          },500);
+        });
+      }
+      else{
+        let category = deeplink[2].split("-");
+        if(Number(category[0])){
+          this.openCategoryById(category[0]);
+        }
+      }
+    }
+    else if(deeplink.length == 4){
+      let product = deeplink[3].split("-");
+      if(Number(product[0])){
+        this.openProduct(product[0]);
+      }
+    }
+  }
+  
+  openProduct(product:any){
+    this.searchService.openDeeplink(1,product).then((response:any)=>{
+      this.searchService.search( response.m_id, '2' ).then((data:any) => {
+        if(data.total == 1){
+          let productFather:any = data.result['0'];
+          this.navCtrl.push(ProductChildPage,{
+            manufacturer: response,
+            productFather: productFather
+          });
+        }
+        else {
+          this.navCtrl.push(ProductFatherPage,{
+            manufacturer: response
+          });        
+        }
+      })
+      .catch(error =>{
+        console.log(error);
+      });
+    })
+    .catch(error =>{
+      console.log(error);
+    });
+  }
+  
+  openCategoryById( id_category:any ){
+    this.searchService.openDeeplink(2,id_category).then((category:any)=>{
+      if(category != null){
+        this.categoryService.getCategory( 3, id_category ).then(
+          (data:any) => {
+            if(data != null){
+              this.navCtrl.push( CategoryPage, {
+                category: category,
+                products: data.products
+              });
+              
+            }
+          }  
+        )
+        .catch(function () {
+          console.log("Error");
+        });
+      }
+    });
   }
 }

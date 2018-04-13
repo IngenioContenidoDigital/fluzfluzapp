@@ -4,16 +4,11 @@ import { ModalController, ViewController, LoadingController } from 'ionic-angula
 import { SearchModalPage } from '../search-modal/search-modal';
 import { CartPage } from '../cart/cart';
 import { SearchService } from '../../providers/search.service';
-//import { TabsPage } from '../tabs/tabs';
+import { TabsPage } from '../tabs/tabs';
 import { Storage } from '@ionic/storage';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
+import { TabsService } from '../../providers/tabs.service';
 
-/**
- * Generated class for the Header page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-header',
   templateUrl: 'header.html',
@@ -42,7 +37,18 @@ export class HeaderPage {
   
   public countCart:any = 0;
   
-  constructor( public loadingController: LoadingController, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private searchService: SearchService, public viewCtrl: ViewController, public storage: Storage, private renderer: Renderer, private elementRef: ElementRef) {
+  constructor(
+    public loadingController: LoadingController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public modalCtrl: ModalController,
+    private searchService: SearchService,
+    public viewCtrl: ViewController,
+    public storage: Storage,
+    public tabsService: TabsService,
+    private renderer: Renderer,
+    private elementRef: ElementRef
+  ) {
     this.modalShow = navParams.get('modalShow') ? navParams.get('modalShow') : this.modalShow;
     this.backButtonShow = this.backButtonShow ? this.backButtonShow : false;
     this.productChildPageBtn = this.productChildPageBtn ? this.productChildPageBtn : false;
@@ -98,6 +104,13 @@ export class HeaderPage {
     else if ( value === "Back"){
       this.navCtrl.pop();
       this.viewCtrl.dismiss();
+    }
+    else if (value == "Home"){
+      this.navCtrl.setRoot(TabsPage).then(()=>{
+        setTimeout(()=>{
+          this.tabsService.changeTabInContainerPage(0);
+        },500);
+      });
     }
     else {
       this.viewCtrl.dismiss();

@@ -9,14 +9,12 @@ import { TabsPage } from '../tabs/tabs';
 import { LoginPage } from '../login/login';
 import { CountryModalPage } from '../country-modal/country-modal'; 
 import { AnalyticsService } from '../../providers/analytics.service';
-import { Deeplinks } from '@ionic-native/deeplinks';
  
 @Component({
   selector: 'page-confirm',
   templateUrl: 'confirm.html',
   providers: [
     ConfirmService,
-    Deeplinks,
     AnalyticsService
   ],
   animations: [
@@ -53,6 +51,7 @@ export class ConfirmPage {
   };
   public phoneNumber:any;
   public showSendAgain:any = false;
+  public deeplink:any = false;
   public paramsGet:any = [
     {id_customer: null, sendSMS: null}
   ];
@@ -68,11 +67,11 @@ export class ConfirmPage {
     public formBuilder: FormBuilder,
     private confirmService: ConfirmService,
     public storage: Storage,
-    private deeplinks: Deeplinks,
     public alertCtrl: AlertController,
     public analytics: AnalyticsService
   ) {
     this.paramsGet = (navParams.get("paramsGet") != undefined) ? navParams.get("paramsGet"): this.paramsGet;
+    this.deeplink = (navParams.get("deeplink") != undefined) ? navParams.get("deeplink"): this.deeplink;
     this.confirmForm = formBuilder.group({
       'confirmNumber': [null, Validators.compose([Validators.required, Validators.minLength(6),Validators.pattern('^[0-9]{1,6}$')])]
     });
@@ -284,7 +283,7 @@ export class ConfirmPage {
           loader.dismiss();
           if(response.error == 0){
             this.storage.set('userConfirm', true);
-            this.navCtrl.push( ConfirmatedPage );
+            this.navCtrl.push( ConfirmatedPage, { "deeplink": this.deeplink } );
             val.active = 1;
             this.storage.set("userData", val);
           }

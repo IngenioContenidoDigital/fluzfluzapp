@@ -1,6 +1,6 @@
 // Native
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { Platform, Nav, NavParams, LoadingController, AlertController, ToastController } from 'ionic-angular';
 
 // Plugins
 import { Deeplinks } from 'ionic-native';
@@ -17,6 +17,7 @@ import { LoginService } from '../providers/login-service';
 import { MessagesService } from '../providers/messages.service';
 import { CategoryService } from '../providers/category.service';
 import { ConfirmService } from '../providers/confirm.service';
+import { TabsService } from '../providers/tabs.service';
 import { SearchService } from '../providers/search.service';
 
 //Navigation
@@ -45,10 +46,10 @@ export class MyApp {
   
   public rootPage:any;
   public rootPageParams:any;
+  public link:any = false;
 
   constructor(
     // Native
-//    public navCtrl: NavController,
     public platform: Platform,
     public loadingController: LoadingController,
     private alertCtrl: AlertController,
@@ -60,12 +61,15 @@ export class MyApp {
     public storage: Storage,
     public fcm: FCM,
     private badge: Badge,
+    
     // Services
     private analytics: AnalyticsService,
     private loginService: LoginService,
     private messagesService: MessagesService,
     public categoryService: CategoryService,
     public searchService: SearchService,
+    public tabsService: TabsService,
+    public toastCtrl: ToastController,
     private confirmService: ConfirmService
   ) {
 //    this.firebaseStart();
@@ -78,7 +82,7 @@ export class MyApp {
       setTimeout(()=>{
         this.splashScreen.hide();
 //        this.validateViewToRoot();
-      },1000);
+      },2000);
       this.deeplinkStart();
     })
     .catch(error =>{
@@ -86,29 +90,46 @@ export class MyApp {
     });
   }
   
-  validateViewToRoot(){
+  validateViewToRoot(deeplink:any = false){
     this.storage.get('userData').then(
       (userData:any)=>{
         if (userData === null || userData === undefined || userData === false){
-          this.rootPage = LoginPage;
+          this.navCtrl.setRoot(LoginPage,{
+            "deeplink": deeplink
+          });;
         }
         else if (userData.Active == 0 && userData.kickout == 1) {
           this.storage.set('userData', null).then(() => {
             this.showAlert("Alerta:", "Tu cuenta se encuentra temporalmente suspendida, si crees que se trata de un error, por favor comunicate con soporte.");
-            this.rootPage = LoginPage;
+            this.navCtrl.setRoot(LoginPage,{
+              "deeplink": deeplink
+            });
           });
         }
         else if (userData.active == 0 && userData.kick_out == 0) {
           this.storage.set('userConfirm', false);
-          this.rootPage = ConfirmPage;
+          this.navCtrl.setRoot(ConfirmPage,{
+            "deeplink": deeplink
+          });
         }
         else {
           this.storage.get('userConfirm').then((userConfirm) => {
             if (userConfirm !== true) {
-              this.rootPage = ConfirmPage;
+              this.navCtrl.setRoot(ConfirmPage,{
+                "deeplink": deeplink
+              });
             }
             else {
-              this.rootPage = TabsPage;
+              this.navCtrl.setRoot(TabsPage).then(()=>{
+                setTimeout(()=>{
+                  if(deeplink != false){
+                    this.openDeeplink(deeplink);
+                  }
+                  else {
+                    this.tabsService.changeTabInContainerPage(0);
+                  }
+                },500);
+              });
             }
           })
           .catch(function () {
@@ -128,114 +149,158 @@ export class MyApp {
       
   deeplinkStart() { 
     this.platform.ready().then(() => {
-      Deeplinks.route({
-        '/': "asdfasdf"
-      }).subscribe((match) => {
-        let paramsGet = match.$args;
-        if(paramsGet != null && paramsGet != '' && paramsGet != undefined && paramsGet != 'undefined' && paramsGet != 'null'){
-          if(paramsGet.id_customer != null && paramsGet.id_customer != '' && paramsGet.id_customer != undefined && paramsGet.id_customer != 'undefined' && paramsGet.id_customer != 'null'){
-            this.storage.get('userData').then(
-              (userData:any)=>{
-                if (userData !== null || userData !== undefined || userData !== false){
-                  if(userData.Active == 0 && userData.kickout == 1){
-                    this.showAlert("Alerta:", "Tu cuenta se encuentra temporalmente suspendida, si crees que se trata de un error, por favor comunicate con soporte.");
-                    this.rootPage = LoginPage;
+      try {
+        Deeplinks.route({
+          '/': "asdfasdf"
+        }).subscribe((match) => {
+          let paramsGet = match.$args;
+          if(paramsGet != null && paramsGet != '' && paramsGet != undefined && paramsGet != 'undefined' && paramsGet != 'null'){
+            if(paramsGet.id_customer != null && paramsGet.id_customer != '' && paramsGet.id_customer != undefined && paramsGet.id_customer != 'undefined' && paramsGet.id_customer != 'null'){
+              this.storage.get('userData').then(
+                (userData:any)=>{
+                  if (userData !== null || userData !== undefined || userData !== false){
+                    if(userData.Active == 0 && userData.kickout == 1){
+                      this.showAlert("Alerta:", "Tu cuenta se encuentra temporalmente suspendida, si crees que se trata de un error, por favor comunicate con soporte.");
+                      this.rootPage = LoginPage;
+                    }
+                    else if (userData.active == 0 && userData.kick_out == 0) {
+                      if(paramsGet.id_customer == userData.id){
+                        this.storage.set('userConfirm', false);
+                        let loader = this.loadingController.create({
+                          content: "Enviando sms..."
+                        });
+                        loader.present();
+                        this.confirmService.sendSMS(paramsGet.id_customer).then((response:any)=>{
+                          loader.dismiss();
+                          if(response == '"Se ha enviado el sms."'){
+                            this.rootPage = ConfirmPage;
+                          }
+                          else{
+                            this.showAlert("Error:","No se ha enviado el código de verificación, por favor intenta nuevamente.");
+                          }
+                        }).catch(function () {
+                          loader.dismiss();
+                          this.showAlert("Error:", "Ha ocurrido un error al intentar enviar el código de verificación, por favor reinicia FluzFluz.");
+                        });
+                      }
+                      else {
+                        this.showAlert("Error:","Este link de activación de cuenta no corresponde a este usuario.");
+                      }
+                    }
+                    else if(userData.active == 1 && userData.kick_out == 0){
+                      this.showAlert("Felicitaciones:", "Tu cuenta ya se encuentra activa, No es necesario activarla de nuevo.");
+                    } 
                   }
-                  else if (userData.active == 0 && userData.kick_out == 0) {
-                    if(paramsGet.id_customer == userData.id){
-                      this.storage.set('userConfirm', false);
-                      let loader = this.loadingController.create({
-                        content: "Enviando sms..."
-                      });
-                      loader.present();
-                      this.confirmService.sendSMS(paramsGet.id_customer).then((response:any)=>{
-                        loader.dismiss();
-                        if(response == '"Se ha enviado el sms."'){
-                          this.rootPage = ConfirmPage;
-                        }
-                        else{
-                          this.showAlert("Error:","No se ha enviado el código de verificación, por favor intenta nuevamente.");
-                        }
-                      }).catch(function () {
-                        loader.dismiss();
-                        this.showAlert("Error:", "Ha ocurrido un error al intentar enviar el código de verificación, por favor reinicia FluzFluz.");
+                  else {
+                    this.showAlert("Error:","No se ha creado ningun Fluzzer en este dispositivo.");
+                  }
+
+                }
+              );
+            }
+            else {
+              this.showAlert("Relax papu 1:","Que no hay parametros.");
+            }
+          }
+          else {
+            this.showAlert("Relax papu 2:","Que no hay parametros.");
+            this.validateViewToRoot();
+          }
+        }, (nomatch) => {
+          this.link = nomatch.$link.path;
+//          this.link = "/es/mi-cuenta";
+          console.log('link');
+          console.log(this.link);
+  //        let link = "/es/inicio/261-bono-popsy.html";
+          this.storage.get('userData').then(
+            (userData:any)=>{
+              if (userData != null && userData != undefined && userData != false){
+                if(userData.Active == 0 && userData.kickout == 1){
+                  this.showAlert("Alerta:", "Tu cuenta se encuentra temporalmente suspendida, si crees que se trata de un error, por favor comunicate con soporte.");
+                  this.navCtrl.setRoot(LoginPage,{
+                    "deeplink": this.link
+                  });
+                }
+                else if ( userData.active == 0 && userData.kick_out == 0 ) {
+                  this.storage.set('userConfirm', false);
+                  console.log("kjasgdkasjdhsjadsakldnaskjdbaskj");
+                  this.navCtrl.setRoot(ConfirmPage,{
+                    "deeplink": this.link
+                  });
+                }
+                else if(userData.active == 1 && userData.kick_out == 0){
+                  this.storage.get('userConfirm').then((userConfirm) => {
+                    if (userConfirm !== true) {
+                      this.navCtrl.setRoot(ConfirmPage,{
+                        "deeplink": this.link
                       });
                     }
                     else {
-                      this.showAlert("Error:","Este link de activación de cuenta no corresponde a este usuario.");
+                      this.openDeeplink(this.link);
                     }
-                  }
-                  else if(userData.active == 1 && userData.kick_out == 0){
-                    this.showAlert("Felicitaciones:", "Tu cuenta ya se encuentra activa, No es necesario activarla de nuevo.");
-                  } 
+                  })
+                  .catch(() => {
+                    this.storage.set('userConfirm', false);
+                      this.navCtrl.setRoot(ConfirmPage,{
+                        "deeplink": this.link
+                      });
+                  });
                 }
                 else {
-                  this.showAlert("Error:","No se ha creado ningun Fluzzer en este dispositivo.");
+                  this.validateViewToRoot(this.link);
                 }
-
               }
-            );
-          }
-          else {
-            this.showAlert("Relax papu 1:","Que no hay parametros.");
-          }
+              else {
+                this.validateViewToRoot(this.link);
+              }
+            }
+          );
+        });
+      } catch (e) {
+        console.log("error cvatgvasd: ");
+        console.log(e);
+      } finally {
+        console.log("finalmente... papu");
+        if(this.link == false){
+          console.log("link false");
+          setTimeout(()=>{
+            this.validateViewToRoot(this.link);
+          },1500);
         }
-        else {
-          console.log('match');
-          console.log('match.$route');
-          console.log(match);
-          this.showAlert("Relax papu 2:","Que no hay parametros.");
-          this.validateViewToRoot();
-        }
-      }, (nomatch) => {
-        let path:string = nomatch.$link.path;
-        let deeplink = path.split("/");
-        console.log('deeplink');
-        console.log(deeplink);
-        console.log(deeplink.length);
-        
-        if(deeplink.length == 3){
-          let category = deeplink[2].split("-");
-          if(Number(category[0])){
-            this.openCategoryById(category[0]);
-          }
-        }
-        else if(deeplink.length == 4){
-          let product = deeplink[3].split("-");
-          if(Number(product[0])){
-            //id product padre
-            console.log('product[0]');
-            console.log(product[0]);
-            this.openProduct(product[0]);
-          }
-        }
-//        if(deeplink[2] == "mi-cuenta"){
-//          // Mandar a mi cuenta
-//        }
-//        var a : [];
-//        else{
-//          if(deeplink[2]){
-//            
-//          }
-//        }
-//        this.validateViewToRoot();
-      });
+      }
     });
+  }
+  
+  openDeeplink(path:any){
+    let deeplink = path.split("/");
+    if(deeplink.length == 3){
+      if(deeplink[2] == "mi-cuenta"){
+        this.navCtrl.setRoot(TabsPage).then(()=>{
+          setTimeout(()=>{
+            this.tabsService.changeTabInContainerPage(4);
+          },1500);
+        });
+      }
+      else{
+        let category = deeplink[2].split("-");
+        if(Number(category[0])){
+          this.openCategoryById(category[0]);
+        }
+      }
+    }
+    else if(deeplink.length == 4){
+      let product = deeplink[3].split("-");
+      if(Number(product[0])){
+        this.openProduct(product[0]);
+      }
+    }
   }
   
   openProduct(product:any){
     this.searchService.openDeeplink(1,product).then((response:any)=>{
-      console.log('product');
-      console.log(product);
-      console.log('response');
-      console.log(response);
       this.searchService.search( response.m_id, '2' ).then((data:any) => {
-        console.log('data');
-        console.log(data);
         if(data.total == 1){
           let productFather:any = data.result['0'];
-          console.log("\n\n\n\n\n llego hasta aqui papu....!!!! \n\n");
-//          this.rootPage = TabsPage;
           this.navCtrl.push(ProductChildPage,{
             manufacturer: response,
             productFather: productFather
@@ -250,7 +315,6 @@ export class MyApp {
       .catch(error =>{
         console.log(error);
       });
-      
     })
     .catch(error =>{
       console.log(error);
@@ -258,18 +322,36 @@ export class MyApp {
   }
   
   openCategoryById( id_category:any ){
-    this.categoryService.getCategory( 3, id_category ).then(
-      (data:any) => {
-        this.navCtrl.push( CategoryPage, {
-          category: data,
-          products: data.products
+    this.searchService.openDeeplink(2,id_category).then((category:any)=>{
+      if(category != null){
+        this.categoryService.getCategory( 3, id_category ).then(
+          (data:any) => {
+            if(data != null){
+              this.navCtrl.push( CategoryPage, {
+                category: category,
+                products: data.products
+              });
+              
+            }
+          }  
+        )
+        .catch(function () {
+          console.log("Error");
         });
-      }  
-    )
-    .catch(function () {
-      console.log("Error");
+      }
     });
   }
+  
+  showToast(msg:string, duration:number){
+    let toast = this.toastCtrl.create({
+        message:  msg,
+        duration: duration*1000,
+        position: 'middle',
+        cssClass: "toast"
+    });
+    toast.present();
+  }
+  
   
 //  firebaseStart(){
 //    this.platform.ready().then(() => {

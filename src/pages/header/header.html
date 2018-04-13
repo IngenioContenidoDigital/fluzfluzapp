@@ -25,7 +25,7 @@
         <i class='fluz-tienda'></i>
       </button>
     </div>
-    <button ion-button icon-only navPop *ngIf="productChildPageBtn">
+    <button ion-button icon-only (click)="goTo('Home')" *ngIf="productChildPageBtn">
       <i class='fluz-left-arrow'></i>
     </button>
   </ion-buttons>
