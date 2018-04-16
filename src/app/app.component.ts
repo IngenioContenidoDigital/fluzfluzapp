@@ -147,7 +147,7 @@ export class MyApp {
   ngAfterViewInit() {
   }
       
-  deeplinkStart() { 
+  deeplinkStart() {
     this.platform.ready().then(() => {
       try {
         Deeplinks.route({
@@ -208,10 +208,8 @@ export class MyApp {
           }
         }, (nomatch) => {
           this.link = nomatch.$link.path;
-//          this.link = "/es/mi-cuenta";
-          console.log('link');
-          console.log(this.link);
-  //        let link = "/es/inicio/261-bono-popsy.html";
+//        this.link = "/es/mi-cuenta";
+//        let link = "/es/inicio/261-bono-popsy.html";
           this.storage.get('userData').then(
             (userData:any)=>{
               if (userData != null && userData != undefined && userData != false){
@@ -223,7 +221,6 @@ export class MyApp {
                 }
                 else if ( userData.active == 0 && userData.kick_out == 0 ) {
                   this.storage.set('userConfirm', false);
-                  console.log("kjasgdkasjdhsjadsakldnaskjdbaskj");
                   this.navCtrl.setRoot(ConfirmPage,{
                     "deeplink": this.link
                   });
@@ -257,12 +254,8 @@ export class MyApp {
           );
         });
       } catch (e) {
-        console.log("error cvatgvasd: ");
-        console.log(e);
       } finally {
-        console.log("finalmente... papu");
         if(this.link == false){
-          console.log("link false");
           setTimeout(()=>{
             this.validateViewToRoot(this.link);
           },1500);
