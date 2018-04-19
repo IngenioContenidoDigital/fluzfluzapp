@@ -40,7 +40,7 @@ export class InvitationThirdModalPage {
   public enabledLoginButton:boolean;
   public customer:any = [];
   public countMy:any;
-  public phoneWhatsapp:any;
+  public phoneWhatsapp:any = "";
   public enabledInvitationButton:any = false;
   public showInvitationForm:any = false;
   public countries:any = {
@@ -170,7 +170,9 @@ export class InvitationThirdModalPage {
             this.showInvitation(false);
           }
           if(d.error == '0'){
-            this.openUrl(d.url);
+            if(d.url != "No hay whatsapp"){
+              this.openUrl(d.url);
+            }
             errorMessage = 'Invitación enviada correctamente.';
           }
           else {
