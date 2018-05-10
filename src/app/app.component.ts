@@ -153,12 +153,14 @@ export class MyApp {
         Deeplinks.route({
           '/': "asdfasdf"
         }).subscribe((match) => {
+        console.log('match');
+        console.log(match);
           let paramsGet = match.$args;
           if(paramsGet != null && paramsGet != '' && paramsGet != undefined && paramsGet != 'undefined' && paramsGet != 'null'){
             if(paramsGet.id_customer != null && paramsGet.id_customer != '' && paramsGet.id_customer != undefined && paramsGet.id_customer != 'undefined' && paramsGet.id_customer != 'null'){
               this.storage.get('userData').then(
                 (userData:any)=>{
-                  if (userData !== null || userData !== undefined || userData !== false){
+                  if (userData !== null && userData !== undefined && userData !== false){
                     if(userData.Active == 0 && userData.kickout == 1){
                       this.showAlert("Alerta:", "Tu cuenta se encuentra temporalmente suspendida, si crees que se trata de un error, por favor comunicate con soporte.");
                       this.rootPage = LoginPage;
@@ -199,60 +201,120 @@ export class MyApp {
               );
             }
             else {
-              this.showAlert("Relax papu 1:","Que no hay parametros.");
+              this.validateViewToRoot();
             }
           }
           else {
-            this.showAlert("Relax papu 2:","Que no hay parametros.");
             this.validateViewToRoot();
           }
-        }, (nomatch) => {
+        }
+        ,(nomatch) => {
+          console.log('nomatch');
+          console.log(nomatch);
           this.link = nomatch.$link.path;
 //        this.link = "/es/mi-cuenta";
 //        let link = "/es/inicio/261-bono-popsy.html";
-          this.storage.get('userData').then(
-            (userData:any)=>{
-              if (userData != null && userData != undefined && userData != false){
-                if(userData.Active == 0 && userData.kickout == 1){
-                  this.showAlert("Alerta:", "Tu cuenta se encuentra temporalmente suspendida, si crees que se trata de un error, por favor comunicate con soporte.");
-                  this.navCtrl.setRoot(LoginPage,{
-                    "deeplink": this.link
-                  });
-                }
-                else if ( userData.active == 0 && userData.kick_out == 0 ) {
-                  this.storage.set('userConfirm', false);
-                  this.navCtrl.setRoot(ConfirmPage,{
-                    "deeplink": this.link
-                  });
-                }
-                else if(userData.active == 1 && userData.kick_out == 0){
-                  this.storage.get('userConfirm').then((userConfirm) => {
-                    if (userConfirm !== true) {
-                      this.navCtrl.setRoot(ConfirmPage,{
-                        "deeplink": this.link
-                      });
+          let GET_params = nomatch.$link.queryString;
+          let params = GET_params.split("=");
+          console.log('params');
+          console.log(params);
+          if(params[0] == "id_customer"){
+            let id_customer = params[1];
+            if(!isNaN(Number(id_customer))){
+              console.log("Entro...");
+              this.storage.get('userData').then(
+                (userData:any)=>{
+                  console.log('userData');
+                  console.log(userData);
+                  if (userData !== null && userData !== undefined && userData !== false){
+                    if(userData.Active == 0 && userData.kickout == 1){
+                      this.showAlert("Alerta:", "Tu cuenta se encuentra temporalmente suspendida, si crees que se trata de un error, por favor comunicate con soporte.");
+                      this.rootPage = LoginPage;
                     }
-                    else {
-                      this.openDeeplink(this.link);
+                    else if (userData.active == 0 && userData.kick_out == 0) {
+                      if(id_customer == userData.id){
+                        this.storage.set('userConfirm', false);
+                        let loader = this.loadingController.create({
+                          content: "Enviando sms..."
+                        });
+                        loader.present();
+                        this.confirmService.sendSMS(id_customer).then((response:any)=>{
+                          loader.dismiss();
+                          if(response == '"Se ha enviado el sms."'){
+                            this.rootPage = ConfirmPage;
+                          }
+                          else{
+                            this.showAlert("Error:","No se ha enviado el código de verificación, por favor intenta nuevamente.");
+                          }
+                        }).catch(function () {
+                          loader.dismiss();
+                          this.showAlert("Error:", "Ha ocurrido un error al intentar enviar el código de verificación, por favor reinicia FluzFluz.");
+                        });
+                      }
+                      else {
+                        this.showAlert("Error:","Este link de activación de cuenta no corresponde a este usuario.");
+                      }
                     }
-                  })
-                  .catch(() => {
+                    else if(userData.active == 1 && userData.kick_out == 0){
+                      this.showAlert("Felicitaciones:", "Tu cuenta ya se encuentra activa, No es necesario activarla de nuevo.");
+                    } 
+                  }
+                  else {
+                    console.log('deberia mostrar una alerta');
+                    setTimeout(()=>{
+                      this.showAlert("Error:","No se ha creado ningun Fluzzer en este dispositivo.");
+                    },500);
+                  }
+                }
+              );
+            }
+          }
+          else {
+            this.storage.get('userData').then(
+              (userData:any)=>{
+                if (userData != null && userData != undefined && userData != false){
+                  if(userData.Active == 0 && userData.kickout == 1){
+                    this.showAlert("Alerta:", "Tu cuenta se encuentra temporalmente suspendida, si crees que se trata de un error, por favor comunicate con soporte.");
+                    this.navCtrl.setRoot(LoginPage,{
+                      "deeplink": this.link
+                    });
+                  }
+                  else if ( userData.active == 0 && userData.kick_out == 0 ) {
                     this.storage.set('userConfirm', false);
-                      this.navCtrl.setRoot(ConfirmPage,{
-                        "deeplink": this.link
-                      });
-                  });
+                    this.navCtrl.setRoot(ConfirmPage,{
+                      "deeplink": this.link
+                    });
+                  }
+                  else if(userData.active == 1 && userData.kick_out == 0){
+                    this.storage.get('userConfirm').then((userConfirm) => {
+                      if (userConfirm !== true) {
+                        this.navCtrl.setRoot(ConfirmPage,{
+                          "deeplink": this.link
+                        });
+                      }
+                      else {
+                        this.openDeeplink(this.link);
+                      }
+                    })
+                    .catch(() => {
+                      this.storage.set('userConfirm', false);
+                        this.navCtrl.setRoot(ConfirmPage,{
+                          "deeplink": this.link
+                        });
+                    });
+                  }
+                  else {
+                    this.validateViewToRoot(this.link);
+                  }
                 }
                 else {
                   this.validateViewToRoot(this.link);
                 }
               }
-              else {
-                this.validateViewToRoot(this.link);
-              }
-            }
-          );
-        });
+            );
+          }
+        }
+        );
       } catch (e) {
       } finally {
         if(this.link == false){

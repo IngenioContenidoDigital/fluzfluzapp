@@ -55,7 +55,7 @@
   "cordova-plugin-browsertab": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-browsertab"
+      "id": "cordova-plugin-browsertab@^0.2.0"
     },
     "is_top_level": true,
     "variables": {}
@@ -63,7 +63,7 @@
   "cordova-plugin-compat": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-compat@^1.0.0"
+      "id": "cordova-plugin-compat@^1.1.0"
     },
     "is_top_level": false,
     "variables": {}
@@ -82,7 +82,13 @@
       "id": "cordova-plugin-crosswalk-webview@2.4.0"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "XWALK_VERSION": "23+",
+      "XWALK_LITEVERSION": "xwalk_core_library_canary:17+",
+      "XWALK_COMMANDLINE": "--disable-pull-to-refresh-effect",
+      "XWALK_MODE": "embedded",
+      "XWALK_MULTIPLEAPK": "true"
+    }
   },
   "cordova-plugin-device": {
     "source": {
@@ -129,7 +135,7 @@
   "cordova-plugin-inappbrowser": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-inappbrowser@2.0.2"
+      "id": "cordova-plugin-inappbrowser@^2.0.2"
     },
     "is_top_level": true,
     "variables": {}
@@ -145,14 +151,26 @@
   "ionic-plugin-deeplinks": {
     "source": {
       "type": "registry",
-      "id": "ionic-plugin-deeplinks"
+      "id": "ionic-plugin-deeplinks@^1.0.15"
     },
     "is_top_level": true,
     "variables": {
       "URL_SCHEME": "com.ionicframework.fluzfluz141172",
       "DEEPLINK_SCHEME": "https",
       "DEEPLINK_HOST": "fluzfluz.co",
-      "ANDROID_PATH_PREFIX": "/"
+      "ANDROID_PATH_PREFIX": "/",
+      "ANDROID_2_PATH_PREFIX": "/",
+      "ANDROID_3_PATH_PREFIX": "/",
+      "ANDROID_4_PATH_PREFIX": "/",
+      "ANDROID_5_PATH_PREFIX": "/",
+      "DEEPLINK_2_SCHEME": " ",
+      "DEEPLINK_2_HOST": " ",
+      "DEEPLINK_3_SCHEME": " ",
+      "DEEPLINK_3_HOST": " ",
+      "DEEPLINK_4_SCHEME": " ",
+      "DEEPLINK_4_HOST": " ",
+      "DEEPLINK_5_SCHEME": " ",
+      "DEEPLINK_5_HOST": " "
     }
   },
   "cordova-google-api-version": {
@@ -187,7 +205,7 @@
   "cordova-plugin-badge": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-badge"
+      "id": "cordova-plugin-badge@^0.8.7"
     },
     "is_top_level": true,
     "variables": {}
