@@ -129,6 +129,7 @@
         "XWALK_MODE": "embedded",
         "XWALK_MULTIPLEAPK": "true"
       },
+      
       "cordova-plugin-device": {},
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-geolocation": {
