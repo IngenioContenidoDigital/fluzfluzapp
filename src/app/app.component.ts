@@ -474,7 +474,7 @@ export class MyApp {
          * */
         this.fcm.onTokenRefresh().subscribe(
           (token:string)=>{
-            console.log("Nuevo token",token),
+            console.log("Nuevo token: ",token),
             this.storage.get('userData').then(
               (val) => {
                 this.storage.set('tokenFCM', token).then(()=>{
@@ -501,12 +501,17 @@ export class MyApp {
          * */
         this.fcm.onNotification().subscribe(
           (data:any)=>{
+            console.log("data FCM Notification");
+            console.log(data);
             this.badge.increase(1);
             if(data.wasTapped){
               //ocurre cuando nuestra app está en segundo plano y hacemos tap en la notificación que se muestra en el dispositivo
               this.badge.clear();
             }else{
               this.badge.clear();
+              let title = "Fluz Fluz";
+              title = ("title" in data)? data.title : title;
+              this.showAlert(data.title, data.text);
               //ocurre cuando nuestra aplicación se encuentra en primer plano,
               //puedes mostrar una alerta o un modal con los datos del mensaje
             }
