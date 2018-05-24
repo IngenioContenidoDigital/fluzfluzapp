@@ -82,8 +82,6 @@ export class ConfirmPage {
     platform.registerBackButtonAction(() => {
       setTimeout(()=>{ 
         let view = this.navCtrl.getActive();
-        console.log('view');
-        console.log(view);
         if (view.component.name == "ConfirmPage") {
           this.showToast('Debes confirmar tu cuenta.', 2);
         }

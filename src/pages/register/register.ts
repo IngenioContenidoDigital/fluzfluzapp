@@ -70,7 +70,6 @@ export class RegisterPage {
   }
   
   matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
-    // TODO maybe use this https://github.com/yuyang041060120/ng2-validation#notequalto-1
     return (group: FormGroup): {[key: string]: any} => {
       let password = group.controls[passwordKey];
       let confirmPassword = group.controls[confirmPasswordKey];
@@ -280,8 +279,6 @@ export class RegisterPage {
     this.enabledSaveButton = false;
     this.loginService.register(valor).then(
       (response:any) => {
-        console.log('response');
-        console.log(response);
         loader.dismiss();
         if(response.success === true) {
           this.enabledSaveButton = true;

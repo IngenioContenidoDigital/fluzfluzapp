@@ -181,7 +181,11 @@ export class HomePage {
             this.storage.set('userConfirm', false);
             setTimeout(()=>{
               if(this.paramsGet.id_customer == null && this.paramsGet.sendSMS == null){
-                this.navCtrl.push( ConfirmPage, {paramsGet: this.paramsGet} );
+                this.confirmService.getRequestSMS().then((data:any)=>{
+                  if(data.requestSMS){
+                    this.navCtrl.push( ConfirmPage, {paramsGet: this.paramsGet} );
+                  }
+                });
               }
             },1000);
           }

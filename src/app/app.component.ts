@@ -108,15 +108,29 @@ export class MyApp {
         }
         else if (userData.active == 0 && userData.kick_out == 0) {
           this.storage.set('userConfirm', false);
-          this.navCtrl.setRoot(ConfirmPage,{
-            "deeplink": deeplink
+          this.confirmService.getRequestSMS().then((data:any)=>{
+            if(data.requestSMS){
+              this.navCtrl.setRoot(ConfirmPage,{
+                "deeplink": deeplink
+              });
+            }
+            else{
+              this.navCtrl.push( TabsPage ); 
+            }
           });
         }
         else {
           this.storage.get('userConfirm').then((userConfirm) => {
             if (userConfirm !== true) {
-              this.navCtrl.setRoot(ConfirmPage,{
-                "deeplink": deeplink
+              this.confirmService.getRequestSMS().then((data:any)=>{
+                if(data.requestSMS){
+                  this.navCtrl.setRoot(ConfirmPage,{
+                    "deeplink": deeplink
+                  });
+                }
+                else{
+                  this.navCtrl.push( TabsPage ); 
+                }
               });
             }
             else {
@@ -172,17 +186,24 @@ export class MyApp {
                           content: "Enviando sms..."
                         });
                         loader.present();
-                        this.confirmService.sendSMS(paramsGet.id_customer).then((response:any)=>{
-                          loader.dismiss();
-                          if(response == '"Se ha enviado el sms."'){
-                            this.rootPage = ConfirmPage;
+                        this.confirmService.getRequestSMS().then((data:any)=>{
+                          if(data.requestSMS){
+                            this.confirmService.sendSMS(paramsGet.id_customer).then((response:any)=>{
+                              loader.dismiss();
+                              if(response == '"Se ha enviado el sms."'){
+                                this.rootPage = ConfirmPage;
+                              }
+                              else{
+                                this.showAlert("Error:","No se ha enviado el código de verificación, por favor intenta nuevamente.");
+                              }
+                            }).catch(function () {
+                              loader.dismiss();
+                              this.showAlert("Error:", "Ha ocurrido un error al intentar enviar el código de verificación, por favor reinicia FluzFluz.");
+                            });
                           }
                           else{
-                            this.showAlert("Error:","No se ha enviado el código de verificación, por favor intenta nuevamente.");
+                            this.navCtrl.push( TabsPage ); 
                           }
-                        }).catch(function () {
-                          loader.dismiss();
-                          this.showAlert("Error:", "Ha ocurrido un error al intentar enviar el código de verificación, por favor reinicia FluzFluz.");
                         });
                       }
                       else {
@@ -238,17 +259,24 @@ export class MyApp {
                           content: "Enviando sms..."
                         });
                         loader.present();
-                        this.confirmService.sendSMS(id_customer).then((response:any)=>{
-                          loader.dismiss();
-                          if(response == '"Se ha enviado el sms."'){
-                            this.rootPage = ConfirmPage;
+                        this.confirmService.getRequestSMS().then((data:any)=>{
+                          if(data.requestSMS){
+                            this.confirmService.sendSMS(id_customer).then((response:any)=>{
+                              loader.dismiss();
+                              if(response == '"Se ha enviado el sms."'){
+                                this.rootPage = ConfirmPage;
+                              }
+                              else{
+                                this.showAlert("Error:","No se ha enviado el código de verificación, por favor intenta nuevamente.");
+                              }
+                            }).catch(function () {
+                              loader.dismiss();
+                              this.showAlert("Error:", "Ha ocurrido un error al intentar enviar el código de verificación, por favor reinicia FluzFluz.");
+                            });
                           }
                           else{
-                            this.showAlert("Error:","No se ha enviado el código de verificación, por favor intenta nuevamente.");
+                            this.navCtrl.push( TabsPage ); 
                           }
-                        }).catch(function () {
-                          loader.dismiss();
-                          this.showAlert("Error:", "Ha ocurrido un error al intentar enviar el código de verificación, por favor reinicia FluzFluz.");
                         });
                       }
                       else {
@@ -281,15 +309,29 @@ export class MyApp {
                   }
                   else if ( userData.active == 0 && userData.kick_out == 0 ) {
                     this.storage.set('userConfirm', false);
-                    this.navCtrl.setRoot(ConfirmPage,{
-                      "deeplink": this.link
+                    this.confirmService.getRequestSMS().then((data:any)=>{
+                      if(data.requestSMS){
+                        this.navCtrl.setRoot(ConfirmPage,{
+                          "deeplink": this.link
+                        });
+                      }
+                      else{
+                        this.navCtrl.push( TabsPage ); 
+                      }
                     });
                   }
                   else if(userData.active == 1 && userData.kick_out == 0){
                     this.storage.get('userConfirm').then((userConfirm) => {
                       if (userConfirm !== true) {
-                        this.navCtrl.setRoot(ConfirmPage,{
-                          "deeplink": this.link
+                        this.confirmService.getRequestSMS().then((data:any)=>{
+                          if(data.requestSMS){
+                            this.navCtrl.setRoot(ConfirmPage,{
+                              "deeplink": this.link
+                            });
+                          }
+                          else{
+                            this.navCtrl.push( TabsPage ); 
+                          }
                         });
                       }
                       else {
@@ -298,8 +340,15 @@ export class MyApp {
                     })
                     .catch(() => {
                       this.storage.set('userConfirm', false);
-                        this.navCtrl.setRoot(ConfirmPage,{
-                          "deeplink": this.link
+                        this.confirmService.getRequestSMS().then((data:any)=>{
+                          if(data.requestSMS){
+                            this.navCtrl.setRoot(ConfirmPage,{
+                              "deeplink": this.link
+                            });
+                          }
+                          else{
+                            this.navCtrl.push( TabsPage ); 
+                          }
                         });
                     });
                   }
